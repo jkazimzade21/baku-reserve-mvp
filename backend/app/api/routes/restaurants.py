@@ -6,7 +6,7 @@ from fastapi import APIRouter, HTTPException, Request
 
 from ...availability import availability_for_day
 from ...contracts import Restaurant, RestaurantListItem, Review
-from ...serializers import get_attr, restaurant_to_detail, restaurant_to_list_item
+from ...serializers import restaurant_to_detail, restaurant_to_list_item
 from ...storage import DB
 from ..types import DateQuery, RestaurantSearch
 

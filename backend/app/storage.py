@@ -13,7 +13,7 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 from fastapi import HTTPException
 from sqlalchemy import func, select
 
-from .contracts import Reservation, ReservationCreate, Review
+from .contracts import Reservation, ReservationCreate
 from .db.core import ensure_db_initialized, get_session
 from .db.models import ReservationRecord, RestaurantRecord, ReviewRecord
 from .settings import settings

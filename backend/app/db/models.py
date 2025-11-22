@@ -12,6 +12,7 @@ from sqlalchemy import (
     func,
     text,
 )
+from sqlalchemy.types import JSON
 
 from ..settings import settings
 from .core import Base
