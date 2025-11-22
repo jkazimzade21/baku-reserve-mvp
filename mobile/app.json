@@ -1,0 +1,53 @@
+{
+  "expo": {
+    "name": "baku-reserve-mobile",
+    "slug": "baku-reserve-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "scheme": "bakureserve",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.baku-reserve-mobile",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-dev-client",
+      "expo-font",
+      [
+        "sentry-expo",
+        {
+          "organization": "jamil-kazimzade",
+          "project": "baku-reserve-mobile"
+        }
+      ]
+    ],
+    "extra": {
+      "apiUrl": null,
+      "auth0Domain": null,
+      "auth0ClientId": null,
+      "auth0Audience": null,
+      "auth0Realm": null
+    }
+  }
+}

@@ -1,0 +1,31 @@
+## Summary
+
+I've created a **comprehensive 10-phase forensic code review plan** for the Baku Reserve repository. This multi-day, read-only audit is designed to systematically uncover every stability issue before production launch.
+
+### Key Highlights:
+
+**Phase Structure** (5-day execution):
+1. **Inventory & Mapping** - Dependency graph + critical flow tracing
+2. **Static Correctness** - Type safety, logic bugs, timezone issues
+3. **Data Integrity** - TOCTOU races, lock contention, corruption scenarios
+4. **API Integrations** - GoMap/Auth0 failure modes, circuit breakers
+5. **Concurrency** - Async/await misuse, race conditions, idempotency gaps
+6. **Error Handling** - Logging, metrics, observability coverage
+7. **Performance** - Load testing, memory leaks, cache effectiveness
+8. **Test Coverage** - Gap analysis, priority ranking
+9. **Mobile-Specific** - State persistence, navigation, offline behavior
+10. **Domain Logic** - Business rule validation (reservation rules, availability)
+
+**Grounded in Reality**:
+- All paths reference actual repo structure (`backend/app/storage.py:210`, `mobile/src/screens/SeatPicker.tsx:368`)
+- Builds on existing findings (FORENSIC_CODE_REVIEW_REPORT.md, CRITICAL_ISSUES_REPORT.md)
+- Includes concrete bash commands for evidence gathering
+- Links to existing test files and known issues
+
+**Actionable Deliverables**:
+- Risk register with S0-S3 severity + L-High/Med/Low likelihood
+- Coverage mapping showing untested critical paths
+- Concurrency hazard catalog with mitigation strategies
+- Deferred hardening list for post-launch work
+
+The plan emphasizes **evidence-driven review** - every finding requires file:line reference, reproduction steps, and test gap identification. This ensures the subsequent implementation phase has clear, prioritized work items.

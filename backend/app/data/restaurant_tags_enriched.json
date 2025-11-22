@@ -1,0 +1,4288 @@
+{
+  "sahil": {
+    "name": "Sahil Bar & Restaurant",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "local_cuisine",
+        "seafood",
+        "restaurant",
+        "bar",
+        "mid_range_price",
+        "azerbaijani_cuisine_concept",
+        "bar_concept",
+        "concept_sahil"
+      ],
+      "ambiance_vibe": [
+        "romantic",
+        "sea_view",
+        "outdoor_terrace",
+        "cozy_interior",
+        "lively_atmosphere",
+        "ambiance_boulevard_strolls",
+        "ambiance_caspian_breeze",
+        "ambiance_waterfront_stride",
+        "anniversary_spot"
+      ],
+      "experiences_amenities": [
+        "live_music",
+        "full_bar",
+        "shisha_available",
+        "late_night",
+        "free_wifi",
+        "smoking_area",
+        "after_hours",
+        "cocktail_service",
+        "free_wifi_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast_brunch",
+        "business_lunch",
+        "dinner",
+        "weekend_vibes",
+        "sunset_dining",
+        "breakfast_brunch_service",
+        "business_lunch_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_options",
+        "gluten_free_options",
+        "halal_meat",
+        "nut_free_options",
+        "gf_menu"
+      ],
+      "cultural_local_specific": [
+        "local_jazz_music",
+        "armudu_tea_service",
+        "dominoes_available",
+        "novruz_specials",
+        "azerbaijani_decor",
+        "armudu_tea_service_heritage",
+        "azerbaijani_decor_heritage"
+      ]
+    }
+  },
+  "sumakh": {
+    "name": "Sumakh Restaurant",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "fine_dining",
+        "restaurant",
+        "spices_theme",
+        "mid_to_upper_price",
+        "azerbaijani_cuisine_concept",
+        "concept_sumakh",
+        "cuisine_azerbaijani",
+        "cuisine_azerbaijani_heritage"
+      ],
+      "ambiance_vibe": [
+        "traditional_decor",
+        "warm_cozy",
+        "cultural_elegance",
+        "quiet_intimate",
+        "family_friendly",
+        "cultural_elegance_vibe",
+        "family_friendly_vibe",
+        "family_tables",
+        "kids_welcome"
+      ],
+      "experiences_amenities": [
+        "tea_service",
+        "wine_service",
+        "valet_parking",
+        "live_mugham_music",
+        "open_kitchen",
+        "heritage_music",
+        "live_mugham_music_amenity",
+        "mugham_sets",
+        "open_kitchen_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "weekend_brunch",
+        "business_dinner",
+        "business_dinner_service",
+        "dinner_service",
+        "lunch_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_options",
+        "halal",
+        "gluten_free_options",
+        "gf_menu",
+        "gluten_conscious"
+      ],
+      "cultural_local_specific": [
+        "sumakh_spice_theme",
+        "authentic_recipes",
+        "novruz_dishes",
+        "armudu_glasses",
+        "carpet_wall_art",
+        "armudu_glasses_heritage",
+        "authentic_recipes_heritage"
+      ]
+    }
+  },
+  "chinar": {
+    "name": "Chinar Dining",
+    "tag_groups": {
+      "core_identity": [
+        "pan_asian_cuisine",
+        "lounge_restaurant",
+        "bar",
+        "upscale_price",
+        "international_brand",
+        "bar_concept",
+        "concept_chinar",
+        "cuisine_cocktail_lounge",
+        "cuisine_cocktail_lounge_heritage"
+      ],
+      "ambiance_vibe": [
+        "trendy_modern",
+        "fashionable",
+        "indoor_outdoor",
+        "scenic_view",
+        "vibrant_energy",
+        "fashionable_vibe",
+        "indoor_outdoor_vibe",
+        "scenic_view_vibe",
+        "trendy_modern_vibe"
+      ],
+      "experiences_amenities": [
+        "cocktail_bar",
+        "dj_nights",
+        "shisha_lounge",
+        "valet_parking",
+        "sommelier_service",
+        "club_energy",
+        "cocktail_bar_amenity",
+        "dj_nights_amenity",
+        "dj_sets"
+      ],
+      "temporal_contextual": [
+        "dinner",
+        "late_night",
+        "business_lunch",
+        "weekend_brunch",
+        "evening_lounge",
+        "after_hours",
+        "business_lunch_service"
+      ],
+      "dietary": [
+        "vegetarian_options",
+        "vegan_options",
+        "gluten_free_options",
+        "not_halal",
+        "nut_allergy_friendly",
+        "gf_menu"
+      ],
+      "cultural_local_specific": [
+        "tea_ceremony",
+        "asian_fusion_trends",
+        "expat_hotspot",
+        "historic_location",
+        "innovative_decor",
+        "asian_fusion_trends_heritage",
+        "cultural_performances"
+      ]
+    }
+  },
+  "shirvanshah": {
+    "name": "Shirvanshah Museum Restaurant",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "museum_restaurant",
+        "fine_dining",
+        "upper_mid_price",
+        "cultural_theme",
+        "azerbaijani_cuisine_concept",
+        "concept_shirvanshah",
+        "cuisine_azerbaijani",
+        "cuisine_azerbaijani_heritage"
+      ],
+      "ambiance_vibe": [
+        "historical_decor",
+        "immersive_cultural",
+        "enchanting",
+        "spacious_halls",
+        "touristic",
+        "enchanting_vibe",
+        "historical_decor_vibe",
+        "immersive_cultural_vibe",
+        "spacious_halls_vibe"
+      ],
+      "experiences_amenities": [
+        "live_mugham_music",
+        "guided_tours",
+        "private_dining_rooms",
+        "photogenic_spots",
+        "parking_available",
+        "guided_tours_amenity",
+        "heritage_music",
+        "live_mugham_music_amenity",
+        "mugham_sets"
+      ],
+      "temporal_contextual": [
+        "dinner",
+        "lunch",
+        "cultural_event_meals",
+        "holiday_feasts",
+        "cultural_event_meals_service",
+        "dinner_service",
+        "holiday_feasts_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_options",
+        "halal",
+        "gluten_free_options",
+        "allergy_accommodating",
+        "allergy_accommodating_friendly"
+      ],
+      "cultural_local_specific": [
+        "live_mugham",
+        "traditional_costumes",
+        "novruz_specials",
+        "carpet_displays",
+        "antique_collection",
+        "antique_collection_heritage",
+        "carpet_displays_heritage"
+      ]
+    }
+  },
+  "dolma": {
+    "name": "Dolma Restaurant",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "middle_eastern_cuisine",
+        "european_cuisine",
+        "restaurant",
+        "budget_mid_price",
+        "azerbaijani_cuisine_concept",
+        "budget_mid_price_concept",
+        "concept_dolma",
+        "cuisine_azerbaijani"
+      ],
+      "ambiance_vibe": [
+        "underground_cozy",
+        "traditional_oriental",
+        "intimate",
+        "hidden_gem",
+        "casual_warm",
+        "casual_warm_vibe",
+        "hidden_gem_vibe",
+        "intimate_vibe",
+        "traditional_oriental_vibe"
+      ],
+      "experiences_amenities": [
+        "full_bar",
+        "fast_service",
+        "family_style",
+        "quiet_space",
+        "cash_and_cards",
+        "cash_and_cards_amenity",
+        "cocktail_service",
+        "family_style_amenity",
+        "fast_service_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "late_night_snack",
+        "rainy_day_cozy",
+        "dinner_service",
+        "late_night_snack_service",
+        "lunch_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_options",
+        "halal",
+        "gluten_free_options",
+        "nut_free_options",
+        "gf_menu"
+      ],
+      "cultural_local_specific": [
+        "traditional_music_background",
+        "oriental_atmosphere",
+        "tourist_favorite",
+        "carpet_decor",
+        "dushbere_special",
+        "carpet_decor_heritage",
+        "dushbere_special_heritage"
+      ]
+    }
+  },
+  "firuze": {
+    "name": "Firuze Restaurant",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "restaurant",
+        "mid_range_price",
+        "tourist_hotspot",
+        "heritage_focus",
+        "azerbaijani_cuisine_concept",
+        "concept_firuze",
+        "cuisine_azerbaijani",
+        "cuisine_azerbaijani_heritage"
+      ],
+      "ambiance_vibe": [
+        "traditional_folk_decor",
+        "underground_cellar",
+        "lively_bustling",
+        "welcoming",
+        "family_friendly",
+        "family_friendly_vibe",
+        "family_tables",
+        "kids_welcome",
+        "lively_bustling_vibe"
+      ],
+      "experiences_amenities": [
+        "multi_language_menu",
+        "accepts_multiple_currencies",
+        "full_bar",
+        "fast_service",
+        "reservation_recommended",
+        "accepts_multiple_currencies_amenity",
+        "cocktail_service",
+        "fast_service_amenity",
+        "full_bar_amenity"
+      ],
+      "temporal_contextual": [
+        "dinner",
+        "lunch",
+        "late_night",
+        "holiday_meals",
+        "after_hours",
+        "dinner_service",
+        "holiday_meals_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_options",
+        "halal",
+        "gluten_free_options",
+        "allergy_sensitive",
+        "allergy_sensitive_friendly"
+      ],
+      "cultural_local_specific": [
+        "traditional_music_background",
+        "decorative_artifacts",
+        "tour_group_favorite",
+        "fountain_square_vibe",
+        "novruz_menu",
+        "decorative_artifacts_heritage",
+        "fountain_square_vibe_heritage"
+      ]
+    }
+  },
+  "nergiz": {
+    "name": "Nergiz Restaurant",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "restaurant",
+        "mid_range_price",
+        "established_favorite",
+        "family_owned_feel",
+        "azerbaijani_cuisine_concept",
+        "concept_nergiz",
+        "cuisine_azerbaijani",
+        "cuisine_azerbaijani_heritage"
+      ],
+      "ambiance_vibe": [
+        "cavernous_cozy",
+        "original_decoration",
+        "intimate_setting",
+        "romantic",
+        "quiet_ambience",
+        "anniversary_spot",
+        "cavernous_cozy_vibe",
+        "date_night_ready",
+        "intimate_setting_vibe"
+      ],
+      "experiences_amenities": [
+        "attentive_service",
+        "english_speaking_staff",
+        "full_bar",
+        "highchairs_available",
+        "card_payments",
+        "attentive_service_amenity",
+        "card_payments_amenity",
+        "cocktail_service",
+        "english_speaking_staff_amenity"
+      ],
+      "temporal_contextual": [
+        "dinner",
+        "lunch",
+        "late_night_dining",
+        "business_meal",
+        "business_meal_service",
+        "dinner_service",
+        "late_night_dining_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_options",
+        "halal",
+        "gluten_free_options",
+        "dairy_free_options",
+        "dairy_free_options_friendly"
+      ],
+      "cultural_local_specific": [
+        "authentic_cuisine_experience",
+        "caravanserai_feel",
+        "traditional_music_bg",
+        "local_wine_list",
+        "heritage_vibe",
+        "authentic_cuisine_experience_heritage",
+        "caravanserai_feel_heritage"
+      ]
+    }
+  },
+  "shah": {
+    "name": "Shah Restaurant & Gallery",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "restaurant_gallery",
+        "fine_dining",
+        "upper_mid_price",
+        "art_theme",
+        "art_theme_concept",
+        "azerbaijani_cuisine_concept",
+        "concept_shah",
+        "cuisine_azerbaijani"
+      ],
+      "ambiance_vibe": [
+        "artistic_elegance",
+        "modern_chic",
+        "spacious",
+        "quiet_refined",
+        "upscale_comfort",
+        "artistic_elegance_vibe",
+        "modern_chic_vibe",
+        "quiet_refined_vibe",
+        "spacious_vibe"
+      ],
+      "experiences_amenities": [
+        "private_dining",
+        "parking_available",
+        "free_wifi",
+        "full_bar",
+        "gallery_exhibits",
+        "cocktail_service",
+        "free_wifi_amenity",
+        "full_bar_amenity",
+        "gallery_exhibits_amenity"
+      ],
+      "temporal_contextual": [
+        "business_lunch",
+        "dinner",
+        "corporate_events",
+        "gallery_openings",
+        "business_lunch_service",
+        "corporate_events_service",
+        "dinner_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_options",
+        "halal_options",
+        "gluten_free_options",
+        "diabetic_friendly",
+        "diabetic_friendly_friendly"
+      ],
+      "cultural_local_specific": [
+        "local_art_display",
+        "crafts_decor",
+        "cultural_fusion_presentation",
+        "regal_theme",
+        "live_piano",
+        "crafts_decor_heritage",
+        "cultural_fusion_presentation_heritage"
+      ]
+    }
+  },
+  "qaladivari": {
+    "name": "Qala Divari",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "eastern_european_cuisine",
+        "middle_eastern_cuisine",
+        "family_restaurant",
+        "mid_range_price",
+        "azerbaijani_cuisine_concept",
+        "concept_qaladivari",
+        "cuisine_azerbaijani",
+        "cuisine_azerbaijani_heritage"
+      ],
+      "ambiance_vibe": [
+        "charming_cozy",
+        "historic_setting",
+        "family_friendly",
+        "casual_relaxed",
+        "authentic_local",
+        "ambiance_old_city_walls",
+        "authentic_local_vibe",
+        "casual_relaxed_vibe",
+        "charming_cozy_vibe"
+      ],
+      "experiences_amenities": [
+        "outdoor_seating",
+        "breakfast_specials",
+        "free_wifi",
+        "friendly_service",
+        "long_hours",
+        "breakfast_specials_amenity",
+        "free_wifi_amenity",
+        "friendly_service_amenity",
+        "hookah_lounge_program"
+      ],
+      "temporal_contextual": [
+        "breakfast",
+        "brunch",
+        "lunch",
+        "dinner",
+        "open_late",
+        "breakfast_service",
+        "brunch_service"
+      ],
+      "dietary": [
+        "vegetarian_options",
+        "vegan_options",
+        "halal",
+        "gluten_free_options",
+        "healthy_choices",
+        "gf_menu"
+      ],
+      "cultural_local_specific": [
+        "old_city_charm",
+        "shisha_corner",
+        "traditional_breakfast",
+        "family_recipes",
+        "castle_wall_view",
+        "castle_wall_view_heritage",
+        "family_recipes_heritage"
+      ]
+    }
+  },
+  "qaynana": {
+    "name": "Qaynana Restaurant",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "restaurant",
+        "mid_range_price",
+        "authentic_home_cooking",
+        "old_city_restaurant",
+        "authentic_home_cooking_concept",
+        "azerbaijani_cuisine_concept",
+        "concept_qaynana",
+        "cuisine_azerbaijani"
+      ],
+      "ambiance_vibe": [
+        "homey_traditional",
+        "rustic_decor",
+        "warm_festive",
+        "aromatic",
+        "casual_comfortable",
+        "ambiance_old_city_walls",
+        "aromatic_vibe",
+        "casual_comfortable_vibe",
+        "historic_ambiance"
+      ],
+      "experiences_amenities": [
+        "tandir_bread_service",
+        "open_tandoor",
+        "open_kitchen",
+        "tourist_favorite",
+        "byo_wine",
+        "byo_wine_amenity",
+        "open_kitchen_amenity",
+        "open_tandoor_amenity",
+        "tandir_bread_service_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night",
+        "holiday_feasts",
+        "after_hours",
+        "breakfast_service"
+      ],
+      "dietary": [
+        "vegetarian_options",
+        "vegan_options",
+        "halal",
+        "gluten_free",
+        "organic_ingredients",
+        "gluten_free_friendly"
+      ],
+      "cultural_local_specific": [
+        "tandir_oven",
+        "traditional_baking",
+        "novruz_decor",
+        "hospitality_customs",
+        "old_city_experience",
+        "hospitality_customs_heritage",
+        "novruz_decor_heritage"
+      ]
+    }
+  },
+  "artclub": {
+    "name": "Art Club Restaurant",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "restaurant",
+        "art_gallery_theme",
+        "fine_dining",
+        "mid_high_price",
+        "art_gallery_theme_concept",
+        "azerbaijani_cuisine_concept",
+        "concept_artclub",
+        "cuisine_artisanal"
+      ],
+      "ambiance_vibe": [
+        "romantic_artsy",
+        "intimate",
+        "cultured_elegance",
+        "quiet_background",
+        "boutique_hotel_setting",
+        "ambiance_old_city_walls",
+        "boutique_hotel_setting_vibe",
+        "cultured_elegance_vibe",
+        "historic_ambiance"
+      ],
+      "experiences_amenities": [
+        "art_exhibits",
+        "welcome_drink",
+        "live_piano",
+        "sommelier_advice",
+        "free_wifi",
+        "art_exhibits_amenity",
+        "free_wifi_amenity",
+        "live_piano_amenity",
+        "remote_work_friendly"
+      ],
+      "temporal_contextual": [
+        "dinner",
+        "lunch",
+        "late_evening",
+        "private_events",
+        "dinner_service",
+        "late_evening_service",
+        "lunch_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_options",
+        "halal_meat_available",
+        "gluten_free_options",
+        "allergen_notice",
+        "allergen_notice_friendly"
+      ],
+      "cultural_local_specific": [
+        "artisanal_presentation",
+        "local_artist_support",
+        "traditional_instruments_display",
+        "carpet_art",
+        "culinary_classes",
+        "artisanal_presentation_heritage",
+        "carpet_art_heritage"
+      ]
+    }
+  },
+  "mugam": {
+    "name": "Mugam Club Restaurant",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "restaurant",
+        "historic_caravanserai",
+        "fine_dining_traditional",
+        "high_end_price",
+        "azerbaijani_cuisine_concept",
+        "concept_mugam",
+        "cuisine_azerbaijani",
+        "cuisine_azerbaijani_heritage"
+      ],
+      "ambiance_vibe": [
+        "medieval_authentic",
+        "open_courtyard",
+        "posh_traditional",
+        "live_music_atmosphere",
+        "romantic",
+        "ambiance_old_city_walls",
+        "anniversary_spot",
+        "date_night_ready",
+        "historic_ambiance"
+      ],
+      "experiences_amenities": [
+        "live_mugham_music",
+        "courtyard_shisha",
+        "folk_dance_shows",
+        "full_bar",
+        "guided_history",
+        "cocktail_service",
+        "courtyard_shisha_amenity",
+        "folk_dance_shows_amenity",
+        "full_bar_amenity"
+      ],
+      "temporal_contextual": [
+        "dinner",
+        "lunch",
+        "summer_nights",
+        "cultural_events",
+        "cultural_events_service",
+        "dinner_service",
+        "lunch_service"
+      ],
+      "dietary": [
+        "vegetarian_options",
+        "vegan_options",
+        "halal",
+        "gluten_free",
+        "kosher_style",
+        "gluten_free_friendly"
+      ],
+      "cultural_local_specific": [
+        "live_mugham",
+        "traditional_instrument_decor",
+        "caravanserai_setting",
+        "mugham_festival_spot",
+        "historic_restoration",
+        "caravanserai_setting_heritage",
+        "cultural_performances"
+      ]
+    }
+  },
+  "marivanna": {
+    "name": "Mari Vanna Baku",
+    "tag_groups": {
+      "core_identity": [
+        "russian_cuisine",
+        "azerbaijani_cuisine",
+        "restaurant",
+        "themed_chain",
+        "mid_to_high_price",
+        "azerbaijani_cuisine_concept",
+        "concept_marivanna",
+        "cuisine_eastern_european",
+        "cuisine_eastern_european_heritage"
+      ],
+      "ambiance_vibe": [
+        "nostalgic_homey",
+        "vintage_decor",
+        "cozy_intimate",
+        "family_welcoming",
+        "quirky_charm",
+        "cozy_intimate_vibe",
+        "family_welcoming_vibe",
+        "nostalgic_homey_vibe",
+        "quirky_charm_vibe"
+      ],
+      "experiences_amenities": [
+        "table_side_vodka",
+        "board_games",
+        "full_bar",
+        "pet_friendly",
+        "instagrammable",
+        "board_games_amenity",
+        "cocktail_service",
+        "full_bar_amenity",
+        "instagrammable_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "afternoon_tea",
+        "family_dinner",
+        "holiday_feasts",
+        "afternoon_tea_service",
+        "dinner_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_options",
+        "halal_options",
+        "gluten_free_options",
+        "dairy_free_options",
+        "dairy_free_options_friendly"
+      ],
+      "cultural_local_specific": [
+        "soviet_theme",
+        "russian_music",
+        "samovar_service",
+        "carpet_slippers",
+        "baku_twist",
+        "baku_twist_heritage",
+        "carpet_slippers_heritage"
+      ]
+    }
+  },
+  "mangal": {
+    "name": "Mangal Steak House",
+    "tag_groups": {
+      "core_identity": [
+        "steakhouse",
+        "grill_house",
+        "meat_specialty",
+        "upper_price_range",
+        "restaurant",
+        "concept_mangal",
+        "cuisine_steakhouse",
+        "cuisine_steakhouse_heritage",
+        "cuisine_turkish"
+      ],
+      "ambiance_vibe": [
+        "rustic_elegant",
+        "masculine_cozy",
+        "lively",
+        "family_friendly",
+        "business_appropriate",
+        "business_appropriate_vibe",
+        "family_friendly_vibe",
+        "family_tables",
+        "kids_welcome"
+      ],
+      "experiences_amenities": [
+        "open_kitchen_grill",
+        "wine_cellar_display",
+        "cigar_menu",
+        "valet_parking",
+        "private_room",
+        "cigar_menu_amenity",
+        "hookah_lounge_program",
+        "open_kitchen_grill_amenity",
+        "private_room_amenity"
+      ],
+      "temporal_contextual": [
+        "dinner_focus",
+        "business_lunch",
+        "celebratory_dinners",
+        "late_night",
+        "after_hours",
+        "business_lunch_service",
+        "celebratory_dinners_service"
+      ],
+      "dietary": [
+        "carnivore_heaven",
+        "vegetarian_options",
+        "halal_beef_available",
+        "gluten_free",
+        "low_carb_keto",
+        "carnivore_heaven_friendly"
+      ],
+      "cultural_local_specific": [
+        "azerbaijani_kebab_influence",
+        "mangal_tradition",
+        "local_beef",
+        "baklava_dessert",
+        "shisha_corner",
+        "azerbaijani_kebab_influence_heritage",
+        "baklava_dessert_heritage"
+      ]
+    }
+  },
+  "paulaner": {
+    "name": "Paulaner Bräuhaus Baku",
+    "tag_groups": {
+      "core_identity": [
+        "brew_pub",
+        "german_cuisine",
+        "beer_house",
+        "pub",
+        "mid_range_price",
+        "beer_house_concept",
+        "brew_pub_concept",
+        "concept_paulaner",
+        "cuisine_brewpub"
+      ],
+      "ambiance_vibe": [
+        "lively_beerhall",
+        "casual_relaxed",
+        "rustic_bavarian",
+        "family_friendly",
+        "sports_bar",
+        "casual_relaxed_vibe",
+        "family_friendly_vibe",
+        "family_tables",
+        "kids_welcome"
+      ],
+      "experiences_amenities": [
+        "on_site_brewery",
+        "live_music",
+        "oktoberfest_events",
+        "outdoor_beer_garden",
+        "reservations_recommended",
+        "live_music_amenity",
+        "live_performances",
+        "music_evenings",
+        "oktoberfest_events_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "late_night",
+        "game_day",
+        "happy_hour",
+        "after_hours",
+        "dinner_service"
+      ],
+      "dietary": [
+        "vegetarian_options",
+        "not_halal",
+        "gluten_free_options",
+        "limited_vegan",
+        "hearty_portions",
+        "gf_menu"
+      ],
+      "cultural_local_specific": [
+        "bavarian_hospitality",
+        "local_crowd_mix",
+        "beer_varieties",
+        "sunday_brunch",
+        "german_music",
+        "bavarian_hospitality_heritage",
+        "beer_varieties_heritage"
+      ]
+    }
+  },
+  "zafferano": {
+    "name": "Zafferano – Four Seasons Baku",
+    "tag_groups": {
+      "core_identity": [
+        "italian_cuisine",
+        "mediterranean_cuisine",
+        "fine_dining",
+        "hotel_restaurant",
+        "expensive_price",
+        "concept_zafferano",
+        "cuisine_fine_dining",
+        "cuisine_fine_dining_heritage",
+        "cuisine_italian"
+      ],
+      "ambiance_vibe": [
+        "luxurious",
+        "quiet_elegance",
+        "romantic",
+        "panoramic_views",
+        "sophisticated",
+        "anniversary_spot",
+        "date_night_ready",
+        "luxurious_vibe",
+        "panoramic_views_vibe"
+      ],
+      "experiences_amenities": [
+        "gourmet_breakfast",
+        "sommelier_service",
+        "private_salon",
+        "outdoor_terrace",
+        "impeccable_service",
+        "gourmet_breakfast_amenity",
+        "impeccable_service_amenity",
+        "open_air_terrace",
+        "outdoor_terrace_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast",
+        "business_lunch",
+        "dinner",
+        "afternoon_tea",
+        "holiday_feasts",
+        "afternoon_tea_service",
+        "breakfast_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_options",
+        "gluten_free",
+        "halal_options",
+        "allergy_awareness",
+        "allergy_awareness_friendly"
+      ],
+      "cultural_local_specific": [
+        "italian_theme_with_local_twist",
+        "business_elite_spot",
+        "wine_pairings",
+        "live_piano",
+        "chef_table",
+        "business_elite_spot_heritage",
+        "chef_table_heritage"
+      ]
+    }
+  },
+  "oronero": {
+    "name": "OroNero Bar & Ristorante",
+    "tag_groups": {
+      "core_identity": [
+        "italian_cuisine",
+        "restaurant_bar",
+        "hotel_restaurant",
+        "fine_cocktails",
+        "upper_price",
+        "concept_oronero",
+        "cuisine_italian",
+        "cuisine_italian_heritage",
+        "cuisine_modern"
+      ],
+      "ambiance_vibe": [
+        "glamorous_modern",
+        "trendy_upscale",
+        "buzzing_evenings",
+        "business_friendly",
+        "romantic",
+        "anniversary_spot",
+        "business_friendly_vibe",
+        "buzzing_evenings_vibe",
+        "date_night_ready"
+      ],
+      "experiences_amenities": [
+        "open_kitchen",
+        "mixologist_bar",
+        "dj_nights",
+        "happy_hour_deals",
+        "outdoor_patio",
+        "club_energy",
+        "dj_nights_amenity",
+        "dj_sets",
+        "happy_hour_deals_amenity"
+      ],
+      "temporal_contextual": [
+        "business_lunch",
+        "after_work",
+        "dinner",
+        "late_night",
+        "weekend_social",
+        "after_hours",
+        "after_work_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_options",
+        "gluten_free",
+        "halal_options",
+        "contains_pork",
+        "contains_pork_friendly"
+      ],
+      "cultural_local_specific": [
+        "baku_oil_theme",
+        "expat_hub",
+        "italian_wine_events",
+        "culinary_masterclasses",
+        "live_jazz",
+        "baku_oil_theme_heritage",
+        "culinary_masterclasses_heritage"
+      ]
+    }
+  },
+  "360bar": {
+    "name": "360 Bar",
+    "tag_groups": {
+      "core_identity": [
+        "sky_bar",
+        "cocktail_bar",
+        "hotel_bar",
+        "rooftop_lounge",
+        "expensive",
+        "cocktail_bar_concept",
+        "concept_360bar",
+        "cuisine_cocktail_lounge",
+        "cuisine_cocktail_lounge_heritage"
+      ],
+      "ambiance_vibe": [
+        "panoramic_view",
+        "trendy",
+        "romantic",
+        "modern_chic",
+        "relaxed_elegance",
+        "anniversary_spot",
+        "date_night_ready",
+        "modern_chic_vibe",
+        "panoramic_view_vibe"
+      ],
+      "experiences_amenities": [
+        "revolving_floor",
+        "live_dj",
+        "shisha_available",
+        "signature_cocktails",
+        "table_service",
+        "hookah_lounge_program",
+        "hookah_service",
+        "live_dj_amenity",
+        "nargile_program"
+      ],
+      "temporal_contextual": [
+        "sunset_hour",
+        "evening_cocktails",
+        "late_night",
+        "private_events",
+        "post_dinner",
+        "after_hours",
+        "evening_cocktails_service"
+      ],
+      "dietary": [
+        "light_bar_menu",
+        "vegetarian_snacks",
+        "light_bar_menu_friendly",
+        "vegetarian_snacks_friendly"
+      ],
+      "cultural_local_specific": [
+        "baku_cityscape",
+        "flame_tower_view",
+        "local_flavor_cocktails",
+        "smart_dress_code",
+        "celebrity_spotting",
+        "baku_cityscape_heritage",
+        "celebrity_spotting_heritage"
+      ]
+    }
+  },
+  "skygrill": {
+    "name": "Sky Grill",
+    "tag_groups": {
+      "core_identity": [
+        "grill_restaurant",
+        "international_cuisine",
+        "hotel_restaurant",
+        "fine_dining",
+        "rooftop_restaurant",
+        "concept_skygrill",
+        "cuisine_grill",
+        "cuisine_grill_heritage",
+        "cuisine_mediterranean"
+      ],
+      "ambiance_vibe": [
+        "romantic_view",
+        "elegant_modern",
+        "quiet_classy",
+        "open_air",
+        "scenic_relaxed",
+        "elegant_modern_vibe",
+        "open_air_vibe",
+        "quiet_classy_vibe",
+        "romantic_view_vibe"
+      ],
+      "experiences_amenities": [
+        "open_kitchen",
+        "terrace_heaters",
+        "private_cabana_seating",
+        "wine_pairing",
+        "flame_towers_view",
+        "flame_towers_view_amenity",
+        "hookah_lounge_program",
+        "open_kitchen_amenity",
+        "private_cabana_seating_amenity"
+      ],
+      "temporal_contextual": [
+        "dinner",
+        "sunset_dining",
+        "business_dinner",
+        "date_night",
+        "summer_nights",
+        "business_dinner_service",
+        "date_night_service"
+      ],
+      "dietary": [
+        "halal_meat_available",
+        "vegetarian_options",
+        "pescatarian_friendly",
+        "gluten_free",
+        "nut_free",
+        "gluten_free_friendly"
+      ],
+      "cultural_local_specific": [
+        "local_fish_grill",
+        "shisha_corner",
+        "azeri_marinated_kebabs",
+        "tea_service_end",
+        "hospitality_excellence",
+        "azeri_marinated_kebabs_heritage",
+        "hospitality_excellence_heritage"
+      ]
+    }
+  },
+  "riviera": {
+    "name": "Riviera Restaurant",
+    "tag_groups": {
+      "core_identity": [
+        "seafood_restaurant",
+        "international_cuisine",
+        "local_cuisine",
+        "restaurant",
+        "mid_to_high_price",
+        "concept_riviera",
+        "cuisine_mediterranean",
+        "cuisine_mediterranean_heritage",
+        "cuisine_seafood"
+      ],
+      "ambiance_vibe": [
+        "waterfront_relaxation",
+        "romantic",
+        "bright_airy",
+        "nautical_charm",
+        "family_appropriate",
+        "anniversary_spot",
+        "bright_airy_vibe",
+        "date_night_ready",
+        "family_appropriate_vibe"
+      ],
+      "experiences_amenities": [
+        "outdoor_terrace",
+        "private_cabins",
+        "live_music",
+        "valet_parking",
+        "wheelchair_accessible",
+        "live_music_amenity",
+        "live_performances",
+        "music_evenings",
+        "open_air_terrace"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "sunset_cocktails",
+        "summer_evenings",
+        "off_season_cozy",
+        "dinner_service",
+        "lunch_service"
+      ],
+      "dietary": [
+        "pescatarian_friendly",
+        "vegetarian_options",
+        "halal_meat",
+        "gluten_free_options",
+        "kids_menu",
+        "gf_menu"
+      ],
+      "cultural_local_specific": [
+        "caspian_fish",
+        "azerbaijani_favorites",
+        "tea_with_jam",
+        "seaside_atmosphere",
+        "novruz_special",
+        "azerbaijani_favorites_heritage",
+        "caspian_fish_heritage"
+      ]
+    }
+  },
+  "novikov": {
+    "name": "Novikov Café Baku",
+    "tag_groups": {
+      "core_identity": [
+        "fusion_cuisine",
+        "cafe_restaurant",
+        "international_brand",
+        "upscale_casual",
+        "mid_high_price",
+        "cafe_restaurant_concept",
+        "concept_novikov",
+        "cuisine_cafe",
+        "cuisine_cafe_heritage"
+      ],
+      "ambiance_vibe": [
+        "trendy_upmarket",
+        "vibrant",
+        "chic_modern",
+        "casual_luxe",
+        "social_scene",
+        "casual_luxe_vibe",
+        "chic_modern_vibe",
+        "social_scene_vibe",
+        "trendy_upmarket_vibe"
+      ],
+      "experiences_amenities": [
+        "open_kitchen_sushi_bar",
+        "cocktail_barista",
+        "outdoor_seating",
+        "free_wifi",
+        "shisha_corner",
+        "cocktail_barista_amenity",
+        "free_wifi_amenity",
+        "hookah_lounge_program",
+        "open_kitchen_sushi_bar_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "afternoon_coffee",
+        "weekend_brunch",
+        "late_open",
+        "afternoon_coffee_service",
+        "dinner_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_options",
+        "halal_friendly",
+        "gluten_free_options",
+        "health_conscious",
+        "gf_menu"
+      ],
+      "cultural_local_specific": [
+        "moscow_style",
+        "expat_crowd",
+        "fusion_experiments",
+        "high_tea",
+        "mall_convenience",
+        "expat_crowd_heritage",
+        "fusion_experiments_heritage"
+      ]
+    }
+  },
+  "nakhchivan-restaurant": {
+    "name": "Nakhchivan Restaurant",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "regional_specialty_restaurant",
+        "mid_range_price",
+        "cultural_theme",
+        "family_restaurant",
+        "azerbaijani_cuisine_concept",
+        "concept_nakhchivan-restaurant",
+        "cuisine_azerbaijani",
+        "cuisine_azerbaijani_heritage"
+      ],
+      "ambiance_vibe": [
+        "traditional_ethnic",
+        "warm_hospitable",
+        "casual",
+        "spacious",
+        "folksy_charm",
+        "casual_vibe",
+        "folksy_charm_vibe",
+        "spacious_vibe",
+        "traditional_ethnic_vibe"
+      ],
+      "experiences_amenities": [
+        "clay_pot_cooking",
+        "bread_oven",
+        "live_music",
+        "private_rooms",
+        "kids_play_area",
+        "bread_oven_amenity",
+        "clay_pot_cooking_amenity",
+        "kids_play_area_amenity",
+        "live_music_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "holiday_events",
+        "weekend_family_lunch",
+        "dinner_service",
+        "holiday_events_service",
+        "lunch_service"
+      ],
+      "dietary": [
+        "halal",
+        "vegetarian_options",
+        "vegan_options",
+        "gluten_free",
+        "organic_local",
+        "gluten_free_friendly"
+      ],
+      "cultural_local_specific": [
+        "nakhchivan_dishes",
+        "saraili_kebab",
+        "regional_music",
+        "cultural_decor",
+        "hospitality_tradition",
+        "cultural_decor_heritage",
+        "cultural_performances"
+      ]
+    }
+  },
+  "syrovarnya": {
+    "name": "Syrovarnya Baku",
+    "tag_groups": {
+      "core_identity": [
+        "italian_cuisine",
+        "cheese_specialty",
+        "restaurant_chain",
+        "mid_range_price",
+        "casual_dining",
+        "contemporary_european_cuisine",
+        "cheese_centric",
+        "upscale_family_dining",
+        "brunch_destination"
+      ],
+      "ambiance_vibe": [
+        "warm_rustic",
+        "family_friendly",
+        "bustling_comfortable",
+        "cheese_factory_decor",
+        "informal",
+        "classy_and_comfortable",
+        "airy_space",
+        "cheese_display",
+        "kid_welcoming"
+      ],
+      "experiences_amenities": [
+        "open_pizza_oven",
+        "cheese_tasting",
+        "kids_workshops",
+        "takeaway_deli",
+        "outdoor_seating",
+        "onsite_cheese_making",
+        "open_kitchen",
+        "kids_menu_customization",
+        "weekend_brunch"
+      ],
+      "temporal_contextual": [
+        "breakfast_brunch",
+        "lunch",
+        "dinner",
+        "weekend_brunch",
+        "afternoon_tea",
+        "breakfast",
+        "afternoon_coffee"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "ovo_lacto_vegetarian",
+        "vegan_options_limited",
+        "gluten_free_options",
+        "nut_free_friendly",
+        "vegetarian_heavy_menu"
+      ],
+      "cultural_local_specific": [
+        "azerbaijani_twists",
+        "wine_pairing",
+        "russian_influences",
+        "caucasian_cheeses",
+        "cheese_making_show",
+        "savalan_wine_pairings",
+        "sea_breeze_view"
+      ]
+    }
+  },
+  "vapiano": {
+    "name": "Vapiano Baku",
+    "tag_groups": {
+      "core_identity": [
+        "italian_cuisine",
+        "fast_casual_chain",
+        "self_service_restaurant",
+        "mid_price",
+        "international_brand",
+        "concept_vapiano",
+        "cuisine_casual",
+        "cuisine_casual_heritage",
+        "cuisine_italian"
+      ],
+      "ambiance_vibe": [
+        "modern_bright",
+        "casual_social",
+        "youthful",
+        "international_feel",
+        "comfortable",
+        "casual_social_vibe",
+        "comfortable_vibe",
+        "international_feel_vibe",
+        "modern_bright_vibe"
+      ],
+      "experiences_amenities": [
+        "open_kitchen_stations",
+        "herb_garden_decor",
+        "rfid_ordering_cards",
+        "takeaway",
+        "free_wifi",
+        "free_wifi_amenity",
+        "herb_garden_decor_amenity",
+        "open_kitchen_stations_amenity",
+        "remote_work_friendly"
+      ],
+      "temporal_contextual": [
+        "lunch_rush",
+        "dinner",
+        "quick_bite",
+        "group_friendly",
+        "weekday_popular",
+        "dinner_service",
+        "group_friendly_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_options",
+        "halal_options",
+        "gluten_free_pasta",
+        "calorie_display",
+        "calorie_display_friendly"
+      ],
+      "cultural_local_specific": [
+        "global_chain_experience",
+        "language_friendly",
+        "no_tipping",
+        "student_discount",
+        "local_menu_tweak",
+        "global_chain_experience_heritage",
+        "language_friendly_heritage"
+      ]
+    }
+  },
+  "passage145": {
+    "name": "Passage 145",
+    "tag_groups": {
+      "core_identity": [
+        "international_cuisine",
+        "cafe_restaurant",
+        "local_chain",
+        "mid_range_price",
+        "casual_dining",
+        "cafe_restaurant_concept",
+        "casual_dining_concept",
+        "concept_passage145",
+        "cuisine_all_day"
+      ],
+      "ambiance_vibe": [
+        "eclectic_trendy",
+        "casual_lively",
+        "youthful_vibe",
+        "spacious_seating",
+        "music_on",
+        "casual_lively_vibe",
+        "eclectic_trendy_vibe",
+        "music_on_vibe",
+        "spacious_seating_vibe"
+      ],
+      "experiences_amenities": [
+        "shisha_corner",
+        "dessert_display",
+        "full_bar",
+        "game_nights",
+        "projector_screen",
+        "cocktail_service",
+        "dessert_display_amenity",
+        "full_bar_amenity",
+        "game_nights_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night",
+        "weekend_hangout",
+        "after_hours",
+        "breakfast_service"
+      ],
+      "dietary": [
+        "vegetarian_options",
+        "vegan_options",
+        "halal",
+        "gluten_free",
+        "dessert_heavy",
+        "dessert_heavy_friendly"
+      ],
+      "cultural_local_specific": [
+        "local_hangout",
+        "tag_145_identity",
+        "tea_service",
+        "board_games",
+        "open_24_7",
+        "board_games_heritage",
+        "local_hangout_heritage"
+      ]
+    }
+  },
+  "caybagi145": {
+    "name": "Çay Bağı 145",
+    "tag_groups": {
+      "core_identity": [
+        "tea_house",
+        "restaurant",
+        "hookah_lounge",
+        "international_and_azerbaijani_cuisine",
+        "mid_range_price",
+        "concept_caybagi145",
+        "cuisine_breakfast",
+        "cuisine_breakfast_heritage",
+        "cuisine_tea_house"
+      ],
+      "ambiance_vibe": [
+        "cozy_traditional",
+        "social_bustling",
+        "multi_level_space",
+        "panoramic_rooftop",
+        "casual_friendly",
+        "ambiance_old_city_walls",
+        "casual_friendly_vibe",
+        "cozy_traditional_vibe",
+        "historic_ambiance"
+      ],
+      "experiences_amenities": [
+        "open_24_7",
+        "live_music",
+        "hookah_service",
+        "board_games",
+        "free_wifi",
+        "digital_payments",
+        "board_games_amenity",
+        "digital_payments_amenity",
+        "free_wifi_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast",
+        "late_night",
+        "after_dinner_tea",
+        "rainy_day_refuge",
+        "weekend_family",
+        "after_dinner_tea_service",
+        "after_hours"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_options",
+        "halal",
+        "gluten_free_options",
+        "dietary_variety",
+        "dietary_variety_friendly"
+      ],
+      "cultural_local_specific": [
+        "tea_culture",
+        "hookah_culture",
+        "backgammon_dominoes",
+        "novruz_live_music",
+        "eastern_european_influence",
+        "backgammon_dominoes_heritage",
+        "cultural_performances"
+      ]
+    }
+  },
+  "cafecity-ganjlik": {
+    "name": "Cafecity Ganjlik",
+    "tag_groups": {
+      "core_identity": [
+        "international_cuisine",
+        "azerbaijani_cuisine",
+        "cafe_chain",
+        "mall_restaurant",
+        "mid_range_price",
+        "azerbaijani_cuisine_concept",
+        "cafe_chain_concept",
+        "concept_cafecity-ganjlik",
+        "cuisine_azerbaijani"
+      ],
+      "ambiance_vibe": [
+        "modern_casual",
+        "bright_airy",
+        "relaxed_atmosphere",
+        "family_friendly",
+        "clean_setting",
+        "ambiance_ganjlik_energy",
+        "bright_airy_vibe",
+        "clean_setting_vibe",
+        "family_friendly_vibe"
+      ],
+      "experiences_amenities": [
+        "fast_service",
+        "free_wifi",
+        "ample_seating",
+        "non_smoking_sections",
+        "wheelchair_accessible",
+        "ample_seating_amenity",
+        "fast_service_amenity",
+        "free_wifi_amenity",
+        "non_smoking_sections_amenity"
+      ],
+      "temporal_contextual": [
+        "daily_10_to_midnight",
+        "lunch_breaks",
+        "casual_dinners",
+        "afternoon_coffee",
+        "weekend_shopping_spot",
+        "afternoon_coffee_service",
+        "casual_dinners_service"
+      ],
+      "dietary": [
+        "vegetarian_options",
+        "halal_friendly",
+        "dessert_focus",
+        "coffee_program",
+        "kids_favorites",
+        "coffee_program_friendly"
+      ],
+      "cultural_local_specific": [
+        "local_tea_service",
+        "multi_lingual_staff",
+        "part_of_145_group",
+        "shopper_retreat",
+        "mall_view",
+        "ganjlik_energy",
+        "local_tea_service_heritage"
+      ]
+    }
+  },
+  "pasifico-lounge-and-dining": {
+    "name": "Pasifico Lounge and Dining",
+    "tag_groups": {
+      "core_identity": [
+        "latin_american_fusion",
+        "pan_asian_cuisine",
+        "lounge_restaurant",
+        "rooftop_club",
+        "high_end_nightlife",
+        "concept_pasifico-lounge-and-dining",
+        "cuisine_japanese",
+        "cuisine_japanese_heritage",
+        "cuisine_seafood"
+      ],
+      "ambiance_vibe": [
+        "rainforest_inspired",
+        "sophisticated_trendy",
+        "lively_nightlife",
+        "exclusive",
+        "sea_view_terrace",
+        "ambiance_boulevard_strolls",
+        "ambiance_caspian_breeze",
+        "ambiance_waterfront_stride",
+        "exclusive_vibe"
+      ],
+      "experiences_amenities": [
+        "live_dj_sets",
+        "dance_performances",
+        "signature_cocktails",
+        "outdoor_terrace_lounge",
+        "vip_tables",
+        "shisha_service",
+        "dance_performances_amenity",
+        "live_dj_sets_amenity",
+        "outdoor_terrace_lounge_amenity"
+      ],
+      "temporal_contextual": [
+        "late_afternoon_to_early_morning",
+        "dinner_and_show",
+        "weekend_party_peak",
+        "reservation_required",
+        "adults_only",
+        "adults_only_service",
+        "dinner_and_show_service"
+      ],
+      "dietary": [
+        "ceviche_focus",
+        "seafood_forward",
+        "vegetarian_options",
+        "limited_vegan",
+        "cocktail_pairings",
+        "ceviche_focus_friendly"
+      ],
+      "cultural_local_specific": [
+        "latin_fiesta_culture",
+        "cosmopolitan_crowd",
+        "bilingual_staff",
+        "boulevard_panorama",
+        "dress_code_strict",
+        "bilingual_staff_heritage",
+        "boulevard_panorama_heritage"
+      ]
+    }
+  },
+  "terrace-145": {
+    "name": "Terrace 145",
+    "tag_groups": {
+      "core_identity": [
+        "rooftop_restaurant",
+        "shisha_lounge",
+        "azerbaijani_and_international_cuisine",
+        "145_group",
+        "mid_range_price",
+        "145_group_concept",
+        "azerbaijani_and_international_cuisine_concept",
+        "concept_terrace-145",
+        "cuisine_azerbaijani"
+      ],
+      "ambiance_vibe": [
+        "panoramic_romantic",
+        "open_air_sofas",
+        "fusion_decor",
+        "chill_music",
+        "laid_back_luxury",
+        "chill_music_vibe",
+        "fusion_decor_vibe",
+        "historic_ambiance",
+        "laid_back_luxury_vibe"
+      ],
+      "experiences_amenities": [
+        "open_24_7",
+        "live_music_evenings",
+        "extensive_shisha_menu",
+        "fire_pits_blankets",
+        "indoor_backup_space",
+        "extensive_shisha_menu_amenity",
+        "fire_pits_blankets_amenity",
+        "indoor_backup_space_amenity",
+        "live_music_evenings_amenity"
+      ],
+      "temporal_contextual": [
+        "sunrise_breakfast",
+        "sunset_dinner",
+        "late_night_lounge",
+        "summer_breeze_spot",
+        "winter_indoor_retreat",
+        "late_night_lounge_service",
+        "summer_breeze_spot_service"
+      ],
+      "dietary": [
+        "local_specialties",
+        "vegetarian_options",
+        "halal_meats",
+        "dessert_selection",
+        "wine_and_cocktails",
+        "dessert_selection_friendly"
+      ],
+      "cultural_local_specific": [
+        "traditional_service_touches",
+        "novruz_meals",
+        "backgammon_groups",
+        "old_city_views",
+        "mixed_crowd",
+        "backgammon_groups_heritage",
+        "mixed_crowd_heritage"
+      ]
+    }
+  },
+  "salam-baku": {
+    "name": "Salam Baku",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "middle_eastern_cuisine",
+        "rooftop_restaurant",
+        "halal_family_spot",
+        "old_city_location",
+        "azerbaijani_cuisine_concept",
+        "concept_salam-baku",
+        "cuisine_azerbaijani",
+        "cuisine_azerbaijani_heritage"
+      ],
+      "ambiance_vibe": [
+        "scenic_and_vibrant",
+        "traditional_arabic_decor",
+        "lively_friendly",
+        "warm_lighting",
+        "casual_attire",
+        "ambiance_old_city_walls",
+        "casual_attire_vibe",
+        "historic_ambiance",
+        "lively_friendly_vibe"
+      ],
+      "experiences_amenities": [
+        "rooftop_seating",
+        "indoor_hall",
+        "live_music_nights",
+        "shisha_service",
+        "kids_corner",
+        "specialty_tea_service",
+        "indoor_hall_amenity",
+        "kids_corner_amenity",
+        "live_music_nights_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "sunset_photo_spot",
+        "ramadan_iftar",
+        "late_evening_social",
+        "dinner_service",
+        "late_evening_social_service"
+      ],
+      "dietary": [
+        "halal_certified",
+        "vegetarian_mezze",
+        "grilled_meats",
+        "fresh_juices",
+        "arabic_sweets",
+        "arabic_sweets_friendly"
+      ],
+      "cultural_local_specific": [
+        "arabic_song_sets",
+        "bilingual_staff",
+        "hookah_tradition",
+        "holiday_decor",
+        "terrace_views",
+        "arabic_song_sets_heritage",
+        "bilingual_staff_heritage"
+      ]
+    }
+  },
+  "cafe-metropol-145": {
+    "name": "Cafe Metropol 145",
+    "tag_groups": {
+      "core_identity": [
+        "cafe_restaurant",
+        "hookah_lounge",
+        "live_music_venue",
+        "145_group",
+        "open_24_7",
+        "145_group_concept",
+        "cafe_restaurant_concept",
+        "concept_cafe-metropol-145",
+        "cuisine_cafe"
+      ],
+      "ambiance_vibe": [
+        "trendy_artsy",
+        "cozy_indoor",
+        "vibrant_nightlife",
+        "outdoor_sidewalk_area",
+        "stylish_crowd",
+        "cozy_indoor_vibe",
+        "outdoor_sidewalk_area_vibe",
+        "stylish_crowd_vibe",
+        "trendy_artsy_vibe"
+      ],
+      "experiences_amenities": [
+        "non_stop_service",
+        "live_performances",
+        "dj_nights",
+        "karaoke_events",
+        "premium_shisha",
+        "sports_screens",
+        "club_energy",
+        "dj_nights_amenity",
+        "dj_sets"
+      ],
+      "temporal_contextual": [
+        "breakfast",
+        "business_lunch",
+        "dinner",
+        "late_night_party",
+        "ramadan_suhur",
+        "breakfast_service",
+        "business_lunch_service"
+      ],
+      "dietary": [
+        "extensive_menu",
+        "vegetarian_selection",
+        "halal",
+        "dessert_showcase",
+        "specialty_coffees",
+        "dessert_showcase_friendly"
+      ],
+      "cultural_local_specific": [
+        "creative_community_hub",
+        "seasonal_decor",
+        "jazz_mugham_sets",
+        "multilingual_staff",
+        "board_games_available",
+        "board_games_available_heritage",
+        "creative_community_hub_heritage"
+      ]
+    }
+  },
+  "meating-point-fountain-square": {
+    "name": "Meating Point (Fountain Square)",
+    "tag_groups": {
+      "core_identity": [
+        "burger_house",
+        "casual_steakhouse",
+        "american_grill",
+        "family_restaurant",
+        "mid_range_price",
+        "american_grill_concept",
+        "burger_house_concept",
+        "casual_steakhouse_concept",
+        "concept_meating-point-fountain-square"
+      ],
+      "ambiance_vibe": [
+        "warm_diner_style",
+        "lively_not_loud",
+        "sports_friendly",
+        "outdoor_patio",
+        "laid_back",
+        "laid_back_vibe",
+        "lively_not_loud_vibe",
+        "outdoor_patio_vibe",
+        "sports_friendly_vibe"
+      ],
+      "experiences_amenities": [
+        "open_kitchen_grill",
+        "outdoor_seating",
+        "free_wifi",
+        "kids_play_corner",
+        "takeaway_delivery",
+        "free_wifi_amenity",
+        "kids_play_corner_amenity",
+        "open_kitchen_grill_amenity",
+        "outdoor_seating_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "weekend_brunch",
+        "pre_game_meals",
+        "early_closing",
+        "dinner_service",
+        "early_closing_service"
+      ],
+      "dietary": [
+        "beef_burgers",
+        "chicken_options",
+        "vegetarian_burger",
+        "halal_beef",
+        "indulgent_desserts",
+        "beef_burgers_friendly"
+      ],
+      "cultural_local_specific": [
+        "american_theme_with_local_twist",
+        "expat_meetup_spot",
+        "friendly_staff_guides",
+        "burger_festival_participant",
+        "fountain_square_people_watching",
+        "american_theme_with_local_twist_heritage",
+        "burger_festival_participant_heritage"
+      ]
+    }
+  },
+  "imereti-georgian": {
+    "name": "İmereti Georgian Restaurant",
+    "tag_groups": {
+      "core_identity": [
+        "georgian_cuisine",
+        "traditional_tavern",
+        "independent_restaurant",
+        "mid_range_price",
+        "home_style",
+        "concept_imereti-georgian",
+        "cuisine_georgian",
+        "cuisine_georgian_heritage",
+        "district_city_center"
+      ],
+      "ambiance_vibe": [
+        "warm_and_rustic",
+        "casual_unpretentious",
+        "soft_georgian_music",
+        "cozy_lighting",
+        "aroma_of_bread",
+        "aroma_of_bread_vibe",
+        "casual_unpretentious_vibe",
+        "cozy_lighting_vibe",
+        "soft_georgian_music_vibe"
+      ],
+      "experiences_amenities": [
+        "bread_baking_view",
+        "georgian_toast_assist",
+        "georgian_wine_selection",
+        "seasonal_patio",
+        "takeaway_bakery",
+        "bread_baking_view_amenity",
+        "georgian_toast_assist_amenity",
+        "georgian_wine_selection_amenity",
+        "seasonal_patio_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "winter_popularity",
+        "weekend_family_feasts",
+        "closes_by_23",
+        "closes_by_23_service",
+        "dinner_service"
+      ],
+      "dietary": [
+        "pork_and_beef_options",
+        "vegetarian_meals",
+        "nut_heavy_dishes",
+        "dairy_rich_menu",
+        "compote_for_nondrinkers",
+        "compote_for_nondrinkers_friendly"
+      ],
+      "cultural_local_specific": [
+        "georgian_supra_culture",
+        "toasting_traditions",
+        "occasional_polyphonic_music",
+        "expat_gathering_spot",
+        "folklore_decor",
+        "expat_gathering_spot_heritage",
+        "folklore_decor_heritage"
+      ]
+    }
+  },
+  "kolorit-cafe-dining": {
+    "name": "Kolorit Café & Dining",
+    "tag_groups": {
+      "core_identity": [
+        "international_cuisine",
+        "cafe_diner",
+        "24_7_service",
+        "local_trendy_spot",
+        "youth_favorite",
+        "24_7_service_concept",
+        "cafe_diner_concept",
+        "concept_kolorit-cafe-dining",
+        "cuisine_cafe"
+      ],
+      "ambiance_vibe": [
+        "pop_art_interior",
+        "energetic_playlist",
+        "inclusive_crowd",
+        "outdoor_sidewalk",
+        "instagrammable_corners",
+        "ambiance_torqovaya_vibes",
+        "energetic_playlist_vibe",
+        "inclusive_crowd_vibe",
+        "instagrammable_corners_vibe"
+      ],
+      "experiences_amenities": [
+        "open_all_day",
+        "guest_djs",
+        "shisha_service",
+        "outdoor_heaters",
+        "free_wifi",
+        "board_games_on_request",
+        "board_games_on_request_amenity",
+        "free_wifi_amenity",
+        "guest_djs_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "late_night_bites",
+        "after_party_stop",
+        "after_party_stop_service",
+        "always_open"
+      ],
+      "dietary": [
+        "broad_menu",
+        "vegetarian_options",
+        "healthy_bowls",
+        "indulgent_dishes",
+        "creative_mocktails",
+        "broad_menu_friendly"
+      ],
+      "cultural_local_specific": [
+        "modern_tea_sets",
+        "novruz_decor",
+        "night_owl_hub",
+        "local_influencer_spot",
+        "torqovaya_views",
+        "local_influencer_spot_heritage",
+        "modern_tea_sets_heritage"
+      ]
+    }
+  },
+  "room-fine-art-wine-dine": {
+    "name": "ROOM Fine Art Wine & Dine",
+    "tag_groups": {
+      "core_identity": [
+        "wine_bar",
+        "art_cafe",
+        "boutique_bistro",
+        "cultural_lounge",
+        "mid_high_price",
+        "art_cafe_concept",
+        "boutique_bistro_concept",
+        "concept_room-fine-art-wine-dine",
+        "cuisine_european"
+      ],
+      "ambiance_vibe": [
+        "cozy_intimate",
+        "artsy_bohemian",
+        "candlelit",
+        "creative_energy",
+        "themed_decor",
+        "artsy_bohemian_vibe",
+        "candlelit_vibe",
+        "cozy_intimate_vibe",
+        "creative_energy_vibe"
+      ],
+      "experiences_amenities": [
+        "jazz_wednesdays",
+        "wine_and_cheese_thursdays",
+        "rotating_art_shows",
+        "wine_tastings",
+        "outdoor_tables",
+        "jazz_wednesdays_amenity",
+        "outdoor_tables_amenity",
+        "rotating_art_shows_amenity",
+        "signature_bar_program"
+      ],
+      "temporal_contextual": [
+        "late_afternoon_open",
+        "evening_social",
+        "weekend_dj_sets",
+        "exhibition_openings",
+        "holiday_themes",
+        "evening_social_service",
+        "exhibition_openings_service"
+      ],
+      "dietary": [
+        "gourmet_bites",
+        "vegetarian_friendly",
+        "charcuterie_options",
+        "dessert_pairings",
+        "local_wines",
+        "charcuterie_options_friendly"
+      ],
+      "cultural_local_specific": [
+        "promotes_azerbaijani_wines",
+        "multilingual_crowd",
+        "creative_meetups",
+        "seasonal_displays",
+        "community_regulars",
+        "community_regulars_heritage",
+        "creative_meetups_heritage"
+      ]
+    }
+  },
+  "naml-kebap": {
+    "name": "Namlı Kebap",
+    "tag_groups": {
+      "core_identity": [
+        "turkish_cuisine",
+        "kebab_house",
+        "mangal_grill",
+        "premium_casual",
+        "halal_restaurant",
+        "concept_naml-kebap",
+        "cuisine_kebab",
+        "cuisine_kebab_heritage",
+        "cuisine_turkish"
+      ],
+      "ambiance_vibe": [
+        "busy_and_vibrant",
+        "modern_turkish_decor",
+        "open_grill_display",
+        "family_friendly",
+        "business_lunch_ready",
+        "business_lunch_ready_vibe",
+        "busy_and_vibrant_vibe",
+        "family_friendly_vibe",
+        "family_tables"
+      ],
+      "experiences_amenities": [
+        "live_mangal",
+        "mezze_cart",
+        "smoking_section",
+        "summer_patio",
+        "valet_parking",
+        "live_mangal_amenity",
+        "mezze_cart_amenity",
+        "smoking_section_amenity",
+        "summer_patio_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "weekend_peak",
+        "ramadan_iftar",
+        "closes_by_midnight",
+        "closes_by_midnight_service",
+        "dinner_service"
+      ],
+      "dietary": [
+        "halal_meats",
+        "lamb_focus",
+        "vegetarian_mezze",
+        "dessert_kunefe",
+        "ayran_and_tea",
+        "ayran_and_tea_friendly"
+      ],
+      "cultural_local_specific": [
+        "turkish_hospitality",
+        "turkish_staff",
+        "national_day_gatherings",
+        "birthday_rituals",
+        "turkish_tv_matches",
+        "birthday_rituals_heritage",
+        "national_day_gatherings_heritage"
+      ]
+    }
+  },
+  "united-coffee-beans": {
+    "name": "United Coffee Beans",
+    "tag_groups": {
+      "core_identity": [
+        "specialty_coffee_roastery",
+        "espresso_bar",
+        "local_brand",
+        "cafe_workspace",
+        "third_wave_coffee",
+        "cafe_workspace_concept",
+        "concept_united-coffee-beans",
+        "cuisine_bakery",
+        "cuisine_bakery_heritage"
+      ],
+      "ambiance_vibe": [
+        "trendy_minimalist",
+        "aromatic_space",
+        "industrial_touch",
+        "productivity_friendly",
+        "community_living_room",
+        "aromatic_space_vibe",
+        "community_living_room_vibe",
+        "industrial_touch_vibe",
+        "productivity_friendly_vibe"
+      ],
+      "experiences_amenities": [
+        "onsite_roasting",
+        "brew_classes",
+        "pour_over_bar",
+        "latte_art_workshops",
+        "sidewalk_tables",
+        "brew_classes_amenity",
+        "latte_art_workshops_amenity",
+        "onsite_roasting_amenity",
+        "pour_over_bar_amenity"
+      ],
+      "temporal_contextual": [
+        "morning_rush",
+        "afternoon_study",
+        "evening_events",
+        "weekend_coffee_fest",
+        "closes_by_22",
+        "afternoon_study_service",
+        "closes_by_22_service"
+      ],
+      "dietary": [
+        "artisan_pastries",
+        "vegan_snacks",
+        "dairy_alternatives",
+        "sugar_free_syrups",
+        "limited_savory",
+        "artisan_pastries_friendly"
+      ],
+      "cultural_local_specific": [
+        "local_coffee_scene_leader",
+        "english_friendly_baristas",
+        "cardamom_saffron_specials",
+        "youth_meetup_spot",
+        "coffee_academy",
+        "cardamom_saffron_specials_heritage",
+        "coffee_academy_heritage"
+      ]
+    }
+  },
+  "tsinandali-georgian": {
+    "name": "Tsinandali Georgian Restaurant",
+    "tag_groups": {
+      "core_identity": [
+        "georgian_cuisine",
+        "festive_tavern",
+        "large_group_venue",
+        "mid_range_price",
+        "wine_house",
+        "concept_tsinandali-georgian",
+        "cuisine_georgian",
+        "cuisine_georgian_heritage",
+        "district_city_center"
+      ],
+      "ambiance_vibe": [
+        "welcoming_and_homey",
+        "lively_evenings",
+        "clean_spacious",
+        "folk_decor",
+        "stage_corner",
+        "clean_spacious_vibe",
+        "folk_decor_vibe",
+        "lively_evenings_vibe",
+        "stage_corner_vibe"
+      ],
+      "experiences_amenities": [
+        "live_georgian_music",
+        "occasional_dance",
+        "wine_tasting_corner",
+        "private_rooms",
+        "smoking_section_late",
+        "live_georgian_music_amenity",
+        "occasional_dance_amenity",
+        "private_rooms_amenity",
+        "smoking_section_late_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "music_nights",
+        "holiday_banquets",
+        "weekend_peak",
+        "dinner_service",
+        "holiday_banquets_service"
+      ],
+      "dietary": [
+        "pork_and_beef_meals",
+        "vegetarian_khachapuri",
+        "nut_rich_sauces",
+        "gluten_heavy",
+        "homemade_lemonade",
+        "gluten_heavy_friendly"
+      ],
+      "cultural_local_specific": [
+        "supra_toasts",
+        "staff_tamada_assist",
+        "singalong_moments",
+        "georgian_staff",
+        "borjomi_served",
+        "borjomi_served_heritage",
+        "georgian_staff_heritage"
+      ]
+    }
+  },
+  "buta-art-club": {
+    "name": "Buta Art Club",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "cultural_restaurant",
+        "art_space",
+        "heritage_venue",
+        "mid_high_price",
+        "art_space_concept",
+        "azerbaijani_cuisine_concept",
+        "concept_buta-art-club",
+        "cuisine_azerbaijani"
+      ],
+      "ambiance_vibe": [
+        "atmospheric_traditional",
+        "artistic_elegance",
+        "cozy_cushions",
+        "dimmed_warmth",
+        "multi_room_layout",
+        "artistic_elegance_vibe",
+        "atmospheric_traditional_vibe",
+        "cozy_cushions_vibe",
+        "dimmed_warmth_vibe"
+      ],
+      "experiences_amenities": [
+        "live_mugham_or_jazz",
+        "dance_performances",
+        "art_exhibits",
+        "tea_ceremony",
+        "private_events",
+        "art_exhibits_amenity",
+        "dance_performances_amenity",
+        "live_mugham_or_jazz_amenity",
+        "private_events_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "evening_shows",
+        "novruz_programs",
+        "wraps_by_23",
+        "dinner_service",
+        "evening_shows_service"
+      ],
+      "dietary": [
+        "authentic_local_menu",
+        "vegetarian_mezze",
+        "halal_meats",
+        "dessert_tray",
+        "tea_with_jam",
+        "authentic_local_menu_friendly"
+      ],
+      "cultural_local_specific": [
+        "buta_motif_everywhere",
+        "national_costumes",
+        "incense_touch",
+        "artisan_showcases",
+        "cultural_briefings",
+        "artisan_showcases_heritage",
+        "buta_motif_everywhere_heritage"
+      ]
+    }
+  },
+  "vapiano-baku-port": {
+    "name": "Vapiano Baku (Port Baku)",
+    "tag_groups": {
+      "core_identity": [
+        "italian_cuisine",
+        "fast_casual_chain",
+        "self_service",
+        "mall_location",
+        "mid_price",
+        "concept_vapiano-baku-port",
+        "cuisine_italian",
+        "cuisine_italian_heritage",
+        "district_port_baku"
+      ],
+      "ambiance_vibe": [
+        "euro_chic",
+        "communal_tables",
+        "green_accents",
+        "lively_chatter",
+        "relaxed",
+        "ambiance_port_baku_views",
+        "communal_tables_vibe",
+        "euro_chic_vibe",
+        "green_accents_vibe"
+      ],
+      "experiences_amenities": [
+        "pasta_stations",
+        "pizza_counter",
+        "salad_bar",
+        "chip_card_payment",
+        "gelato_bar",
+        "chip_card_payment_amenity",
+        "gelato_bar_amenity",
+        "pasta_stations_amenity",
+        "pizza_counter_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "weekend_family_trips",
+        "shopper_breaks",
+        "open_late",
+        "dinner_service",
+        "lunch_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_customization",
+        "halal_friendly_choices",
+        "gluten_free_pasta",
+        "dessert_options",
+        "dessert_options_friendly"
+      ],
+      "cultural_local_specific": [
+        "port_baku_scene",
+        "multilingual_team",
+        "customizable_dishes",
+        "local_loyalty",
+        "italian_pop_music",
+        "customizable_dishes_heritage",
+        "italian_pop_music_heritage"
+      ]
+    }
+  },
+  "nuxa-restoran": {
+    "name": "Nuxa Restoranı",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "sheki_specialty",
+        "cultural_dining",
+        "live_music_spot",
+        "mid_range_price",
+        "azerbaijani_cuisine_concept",
+        "concept_nuxa-restoran",
+        "cuisine_azerbaijani",
+        "cuisine_azerbaijani_heritage"
+      ],
+      "ambiance_vibe": [
+        "cozy_folkloric",
+        "wooden_accents",
+        "family_gathering_place",
+        "warm_lighting",
+        "village_house_feel",
+        "cozy_folkloric_vibe",
+        "family_gathering_place_vibe",
+        "village_house_feel_vibe",
+        "warm_lighting_vibe"
+      ],
+      "experiences_amenities": [
+        "live_ashig_music",
+        "daily_music_program",
+        "private_rooms",
+        "outdoor_patio",
+        "backgammon_tables",
+        "backgammon_corner",
+        "backgammon_tables_amenity",
+        "daily_music_program_amenity",
+        "live_ashig_music_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "weekend_family",
+        "nightly_music",
+        "breakfast_service",
+        "dinner_service"
+      ],
+      "dietary": [
+        "sheki_piti",
+        "halva_dessert",
+        "meat_heavy",
+        "vegetarian_dolma",
+        "sherbet_drinks",
+        "halva_dessert_friendly"
+      ],
+      "cultural_local_specific": [
+        "sheki_crafts_display",
+        "ashig_tradition",
+        "tandir_corner",
+        "regional_staff",
+        "cultural_showcases",
+        "ashig_tradition_heritage",
+        "cultural_showcases_heritage"
+      ]
+    }
+  },
+  "baku-cafe": {
+    "name": "Baku Cafe",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "seafood_focus",
+        "dessert_house",
+        "fine_dining",
+        "boulevard_landmark",
+        "azerbaijani_cuisine_concept",
+        "boulevard_landmark_concept",
+        "concept_baku-cafe",
+        "cuisine_azerbaijani"
+      ],
+      "ambiance_vibe": [
+        "sea_view",
+        "outdoor_terrace",
+        "family_friendly",
+        "romantic_evenings",
+        "art_deco_details",
+        "art_deco_details_vibe",
+        "caspian_view",
+        "family_friendly_vibe",
+        "family_tables"
+      ],
+      "experiences_amenities": [
+        "full_bar",
+        "dessert_showcase",
+        "armudu_tea_service",
+        "coffee_program",
+        "business_dinners",
+        "armudu_tea_service_amenity",
+        "business_dinners_amenity",
+        "cocktail_service",
+        "coffee_program_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast_service",
+        "weekend_brunch",
+        "lunch",
+        "sunset_dining",
+        "late_night",
+        "after_hours",
+        "breakfast_service_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "pescatarian_options",
+        "halal_meat",
+        "gluten_free_options",
+        "dessert_friendly",
+        "dessert_friendly_friendly"
+      ],
+      "cultural_local_specific": [
+        "seaside_boulevard_vibes",
+        "novruz_specials",
+        "local_hospitality_rituals",
+        "pear_glass_tea",
+        "azerbaijani_sweets",
+        "azerbaijani_sweets_heritage",
+        "local_hospitality_rituals_heritage"
+      ]
+    }
+  },
+  "baku-convention-center": {
+    "name": "Baku Convention Center",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "event_venue_restaurant",
+        "modern_fusion",
+        "mid_to_upper_price",
+        "business_dining",
+        "azerbaijani_cuisine_concept",
+        "business_dining_concept",
+        "concept_baku-convention-center",
+        "cuisine_azerbaijani"
+      ],
+      "ambiance_vibe": [
+        "contemporary_design",
+        "spacious_halls",
+        "art_installations",
+        "business_formal",
+        "quiet_zones",
+        "art_installations_vibe",
+        "business_formal_vibe",
+        "contemporary_design_vibe",
+        "quiet_zones_vibe"
+      ],
+      "experiences_amenities": [
+        "pre_theater_menu",
+        "sommelier_guidance",
+        "chef_table",
+        "valet_parking",
+        "tech_enabled_tables",
+        "chef_table_amenity",
+        "pre_theater_menu_amenity",
+        "sommelier_guidance_amenity",
+        "tech_enabled_tables_amenity"
+      ],
+      "temporal_contextual": [
+        "power_lunch",
+        "pre_show_dinner",
+        "conference_breaks",
+        "weekend_events",
+        "holiday_banquets",
+        "conference_breaks_service",
+        "holiday_banquets_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_options",
+        "halal_certified",
+        "gluten_free_options",
+        "allergy_friendly",
+        "allergy_friendly_friendly"
+      ],
+      "cultural_local_specific": [
+        "modern_azerbaijani_art",
+        "national_day_menus",
+        "architectural_landmark",
+        "cultural_forums",
+        "protocol_ready_service",
+        "architectural_landmark_heritage",
+        "cultural_forums_heritage"
+      ]
+    }
+  },
+  "balcon-cafe": {
+    "name": "Balcon Cafe",
+    "tag_groups": {
+      "core_identity": [
+        "cafe_bistro",
+        "mixology_spot",
+        "third_wave_coffee",
+        "casual_dining",
+        "dessert_focus",
+        "cafe_bistro_concept",
+        "casual_dining_concept",
+        "concept_balcon-cafe",
+        "cuisine_bar_and_lounge"
+      ],
+      "ambiance_vibe": [
+        "balcony_views",
+        "indoor_garden",
+        "boho_chic",
+        "social_lounge",
+        "day_to_night",
+        "balcony_views_vibe",
+        "boho_chic_vibe",
+        "day_to_night_vibe",
+        "indoor_garden_vibe"
+      ],
+      "experiences_amenities": [
+        "signature_cocktails",
+        "barista_counter",
+        "live_dj_sets",
+        "board_games",
+        "pet_friendly",
+        "barista_counter_amenity",
+        "board_games_amenity",
+        "live_dj_sets_amenity",
+        "pet_friendly_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast",
+        "all_day_brunch",
+        "coffee_breaks",
+        "afterwork_cocktails",
+        "late_night_snacks",
+        "afterwork_cocktails_service",
+        "all_day_brunch_service"
+      ],
+      "dietary": [
+        "vegetarian_options",
+        "vegan_pastries",
+        "gluten_free_cakes",
+        "lactose_free_milks",
+        "light_bites",
+        "gluten_free_cakes_friendly"
+      ],
+      "cultural_local_specific": [
+        "downtown_creative_scene",
+        "local_art_rotations",
+        "azerbaijani_roast_profiles",
+        "torqovaya_people_watching",
+        "bilingual_staff",
+        "azerbaijani_roast_profiles_heritage",
+        "bilingual_staff_heritage"
+      ]
+    }
+  },
+  "besh-gastropub": {
+    "name": "BESH Gastropub",
+    "tag_groups": {
+      "core_identity": [
+        "gastropub",
+        "all_day_dining",
+        "patisserie_counter",
+        "rooftop_grill",
+        "family_brunch_spot",
+        "all_day_dining_concept",
+        "concept_besh-gastropub",
+        "cuisine_cafe",
+        "cuisine_cafe_heritage"
+      ],
+      "ambiance_vibe": [
+        "skyline_terrace",
+        "industrial_chic",
+        "family_tables",
+        "lively_evenings",
+        "sunset_vibes",
+        "family_tables_vibe",
+        "industrial_chic_vibe",
+        "lively_evenings_vibe",
+        "skyline_terrace_vibe"
+      ],
+      "experiences_amenities": [
+        "live_music",
+        "craft_cocktails",
+        "kids_corner",
+        "dessert_bar",
+        "sports_screenings",
+        "craft_cocktails_amenity",
+        "dessert_bar_amenity",
+        "kids_corner_amenity",
+        "live_music_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast_buffet",
+        "weekend_brunch",
+        "happy_hour",
+        "dinner_service",
+        "late_night_lounge",
+        "breakfast_buffet_service",
+        "dinner_service_service"
+      ],
+      "dietary": [
+        "vegetarian_friendly",
+        "vegan_bowls",
+        "halal_meat",
+        "kids_menu",
+        "gluten_free_crusts",
+        "gluten_free_crusts_friendly"
+      ],
+      "cultural_local_specific": [
+        "nasimi_neighborhood_views",
+        "azerbaijani_comfort_food",
+        "baklava_counter",
+        "local_djs",
+        "rooftop_shisha",
+        "azerbaijani_comfort_food_heritage",
+        "baklava_counter_heritage"
+      ]
+    }
+  },
+  "black-city-lounge-terrace": {
+    "name": "Black City Lounge & Terrace",
+    "tag_groups": {
+      "core_identity": [
+        "lounge_restaurant",
+        "cocktail_bar",
+        "live_music_house",
+        "late_night_spot",
+        "modern_european_menu",
+        "cocktail_bar_concept",
+        "concept_black-city-lounge-terrace",
+        "cuisine_bar_and_lounge",
+        "cuisine_bar_and_lounge_heritage"
+      ],
+      "ambiance_vibe": [
+        "moody_lighting",
+        "artist_loft_vibe",
+        "terrace_tables",
+        "dj_booth",
+        "date_night",
+        "artist_loft_vibe_vibe",
+        "date_night_vibe",
+        "dj_booth_vibe",
+        "moody_lighting_vibe"
+      ],
+      "experiences_amenities": [
+        "live_bands",
+        "signature_cocktails",
+        "hookah_service",
+        "vip_booths",
+        "bottle_service",
+        "bottle_service_amenity",
+        "hookah_lounge_program",
+        "hookah_service_amenity",
+        "live_bands_amenity"
+      ],
+      "temporal_contextual": [
+        "evening_service",
+        "late_night_sessions",
+        "weekend_parties",
+        "sunset_aperitivo",
+        "afterparty_menu",
+        "afterparty_menu_service",
+        "evening_service_service"
+      ],
+      "dietary": [
+        "shareable_tapas",
+        "seafood_plates",
+        "vegetarian_mezze",
+        "dessert_trio",
+        "low_sugar_mocktails",
+        "dessert_trio_friendly"
+      ],
+      "cultural_local_specific": [
+        "black_city_theme",
+        "local_sax_sets",
+        "baku_nightlife_staple",
+        "fashion_crowd",
+        "city_light_views",
+        "baku_nightlife_staple_heritage",
+        "black_city_theme_heritage"
+      ]
+    }
+  },
+  "cafe-city-fountain": {
+    "name": "Cafe City Fountain",
+    "tag_groups": {
+      "core_identity": [
+        "cafe_bistro",
+        "wood_fired_pizza",
+        "dessert_parlor",
+        "family_favorite",
+        "multi_cuisine_menu",
+        "cafe_bistro_concept",
+        "concept_cafe-city-fountain",
+        "cuisine_azerbaijani",
+        "cuisine_azerbaijani_heritage"
+      ],
+      "ambiance_vibe": [
+        "fountain_square_views",
+        "bright_interior",
+        "rooftop_patio",
+        "cozy_booths",
+        "kid_friendly",
+        "bright_interior_vibe",
+        "cozy_booths_vibe",
+        "fountain_square_views_vibe",
+        "kid_friendly_vibe"
+      ],
+      "experiences_amenities": [
+        "bakery_case",
+        "pizza_oven_show",
+        "barista_station",
+        "mocktail_menu",
+        "takeaway_counter",
+        "bakery_case_amenity",
+        "barista_station_amenity",
+        "mocktail_menu_amenity",
+        "pizza_oven_show_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast",
+        "business_lunch",
+        "afternoon_tea",
+        "dinner",
+        "late_night_slice",
+        "afternoon_tea_service",
+        "breakfast_service"
+      ],
+      "dietary": [
+        "vegetarian_options",
+        "vegan_pizzas",
+        "gluten_free_crust",
+        "sugar_free_desserts",
+        "halal_options",
+        "gluten_free_crust_friendly"
+      ],
+      "cultural_local_specific": [
+        "fountain_square_energy",
+        "azerbaijani_holiday_cakes",
+        "tourist_favorite_stop",
+        "old_town_gateway",
+        "multilingual_service",
+        "azerbaijani_holiday_cakes_heritage",
+        "fountain_square_energy_heritage"
+      ]
+    }
+  },
+  "fireworks-urban-kitchen": {
+    "name": "Fireworks Urban Kitchen",
+    "tag_groups": {
+      "core_identity": [
+        "steakhouse",
+        "smokehouse_kitchen",
+        "japanese_fusion",
+        "rooftop_grill",
+        "hotel_restaurant",
+        "concept_fireworks-urban-kitchen",
+        "cuisine_japanese",
+        "cuisine_japanese_heritage",
+        "cuisine_steakhouse"
+      ],
+      "ambiance_vibe": [
+        "open_kitchen_theatre",
+        "rooftop_patio",
+        "city_light_views",
+        "lively_buzz",
+        "business_chic",
+        "business_chic_vibe",
+        "city_light_views_vibe",
+        "lively_buzz_vibe",
+        "open_kitchen_theatre_vibe"
+      ],
+      "experiences_amenities": [
+        "smoker_program",
+        "sushi_counter",
+        "live_music",
+        "cocktail_lab",
+        "chef_tastings",
+        "chef_tastings_amenity",
+        "cocktail_lab_amenity",
+        "live_music_amenity",
+        "live_performances"
+      ],
+      "temporal_contextual": [
+        "power_lunch",
+        "dinner_service",
+        "pre_show_cocktails",
+        "late_night_lounge",
+        "weekend_brunch",
+        "dinner_service_service",
+        "late_night_lounge_service"
+      ],
+      "dietary": [
+        "carnivore_heaven",
+        "pescatarian_options",
+        "gluten_free_grill",
+        "keto_friendly",
+        "sommelier_pairings",
+        "carnivore_heaven_friendly"
+      ],
+      "cultural_local_specific": [
+        "downtown_panorama",
+        "hotel_dining_scene",
+        "azerbaijani_prime_beef",
+        "festival_after_dinners",
+        "fireworks_signature",
+        "azerbaijani_prime_beef_heritage",
+        "cultural_performances"
+      ]
+    }
+  },
+  "green-house-asian-kitchen": {
+    "name": "Green House Asian Kitchen",
+    "tag_groups": {
+      "core_identity": [
+        "pan_asian_kitchen",
+        "lounge_restaurant",
+        "live_music_spot",
+        "fusion_menu",
+        "cocktail_house",
+        "cocktail_house_concept",
+        "concept_green-house-asian-kitchen",
+        "cuisine_bar_and_lounge",
+        "cuisine_bar_and_lounge_heritage"
+      ],
+      "ambiance_vibe": [
+        "greenhouse_glass",
+        "lush_palms",
+        "dimmed_neon",
+        "social_tables",
+        "late_night_energy",
+        "dimmed_neon_vibe",
+        "greenhouse_glass_vibe",
+        "late_night_energy_vibe",
+        "lush_palms_vibe"
+      ],
+      "experiences_amenities": [
+        "dj_sets",
+        "live_bands",
+        "sushi_bar",
+        "signature_cocktails",
+        "tea_service",
+        "dj_sets_amenity",
+        "live_bands_amenity",
+        "signature_cocktails_amenity",
+        "sushi_bar_amenity"
+      ],
+      "temporal_contextual": [
+        "dinner_service",
+        "evening_lounge",
+        "late_night_bites",
+        "weekend_events",
+        "weekday_lunch",
+        "dinner_service_service",
+        "evening_lounge_service"
+      ],
+      "dietary": [
+        "vegetarian_rolls",
+        "vegan_curries",
+        "gluten_free_noodles",
+        "spice_medium",
+        "seafood_focus",
+        "gluten_free_noodles_friendly"
+      ],
+      "cultural_local_specific": [
+        "asian_fusion_scene",
+        "downtown_nightlife",
+        "azerbaijani_remixes",
+        "imported_tea_program",
+        "baku_international_crowd",
+        "asian_fusion_scene_heritage",
+        "azerbaijani_remixes_heritage"
+      ]
+    }
+  },
+  "harbour-tap-and-grill": {
+    "name": "Harbour Tap and Grill",
+    "tag_groups": {
+      "core_identity": [
+        "gastropub",
+        "craft_cocktail_bar",
+        "seafood_grill",
+        "casual_dining",
+        "seaside_spot",
+        "casual_dining_concept",
+        "concept_harbour-tap-and-grill",
+        "craft_cocktail_bar_concept",
+        "cuisine_bar_and_lounge"
+      ],
+      "ambiance_vibe": [
+        "waterfront_view",
+        "nautical_details",
+        "cozy_pub",
+        "sunset_tables",
+        "lounge_seating",
+        "cozy_pub_vibe",
+        "lounge_seating_vibe",
+        "nautical_details_vibe",
+        "sunset_tables_vibe"
+      ],
+      "experiences_amenities": [
+        "tapwall",
+        "signature_cocktails",
+        "sports_screens",
+        "live_acoustic_sets",
+        "terrace_shisha",
+        "live_acoustic_sets_amenity",
+        "signature_cocktails_amenity",
+        "sports_screens_amenity",
+        "tapwall_amenity"
+      ],
+      "temporal_contextual": [
+        "happy_hour",
+        "dinner_service",
+        "weekend_brunch",
+        "game_day",
+        "late_night",
+        "after_hours",
+        "dinner_service_service"
+      ],
+      "dietary": [
+        "pescatarian_menu",
+        "vegetarian_sides",
+        "gluten_free_buns",
+        "bar_snacks",
+        "halal_options",
+        "bar_snacks_friendly"
+      ],
+      "cultural_local_specific": [
+        "caspian_marina_vibes",
+        "expat_meetup_spot",
+        "formula1_weekend_hub",
+        "seaside_walk_stop",
+        "local_djs",
+        "caspian_marina_vibes_heritage",
+        "expat_meetup_spot_heritage"
+      ]
+    }
+  },
+  "hard-rock-cafe": {
+    "name": "Hard Rock Cafe",
+    "tag_groups": {
+      "core_identity": [
+        "american_cuisine",
+        "global_chain",
+        "live_music_venue",
+        "burger_house",
+        "rock_memorabilia",
+        "american_cuisine_concept",
+        "burger_house_concept",
+        "concept_hard-rock-cafe",
+        "cuisine_bar_and_lounge"
+      ],
+      "ambiance_vibe": [
+        "rock_n_roll_decor",
+        "stage_lighting",
+        "casual_energy",
+        "family_friendly",
+        "sports_screens",
+        "casual_energy_vibe",
+        "family_friendly_vibe",
+        "family_tables",
+        "kids_welcome"
+      ],
+      "experiences_amenities": [
+        "live_bands",
+        "signature_cocktails",
+        "merch_shop",
+        "happy_hour",
+        "kids_events",
+        "happy_hour_amenity",
+        "kids_events_amenity",
+        "live_bands_amenity",
+        "merch_shop_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "late_night",
+        "event_nights",
+        "weekend_brunch",
+        "after_hours",
+        "dinner_service"
+      ],
+      "dietary": [
+        "vegetarian_burgers",
+        "gluten_free_buns",
+        "halal_beef",
+        "kid_menu",
+        "dessert_sundae",
+        "dessert_sundae_friendly"
+      ],
+      "cultural_local_specific": [
+        "global_rock_brand",
+        "memorabilia_tours",
+        "baku_music_scene",
+        "charity_events",
+        "fan_club_gatherings",
+        "baku_music_scene_heritage",
+        "charity_events_heritage"
+      ]
+    }
+  },
+  "kefli-local-wine-snacks": {
+    "name": "KEFLI Local Wine & Snacks",
+    "tag_groups": {
+      "core_identity": [
+        "wine_bar",
+        "azerbaijani_tapas",
+        "rooftop_lounge",
+        "small_plate_concept",
+        "local_brand",
+        "azerbaijani_tapas_concept",
+        "concept_kefli-local-wine-snacks",
+        "cuisine_azerbaijani",
+        "cuisine_azerbaijani_heritage"
+      ],
+      "ambiance_vibe": [
+        "skyline_view",
+        "candlelit_tables",
+        "intimate",
+        "bohemian_vibe",
+        "sunset_ready",
+        "bohemian_vibe_vibe",
+        "candlelit_tables_vibe",
+        "intimate_vibe",
+        "skyline_panorama"
+      ],
+      "experiences_amenities": [
+        "wine_tastings",
+        "charcuterie_boards",
+        "live_acoustic_music",
+        "sommelier_service",
+        "bottle_shop",
+        "bottle_shop_amenity",
+        "charcuterie_boards_amenity",
+        "live_acoustic_music_amenity",
+        "signature_bar_program"
+      ],
+      "temporal_contextual": [
+        "aperitivo_hour",
+        "dinner",
+        "late_night",
+        "weekend_sessions",
+        "private_events",
+        "after_hours",
+        "aperitivo_hour_service"
+      ],
+      "dietary": [
+        "vegetarian_tapas",
+        "pescatarian_bites",
+        "gluten_free_pairings",
+        "artisan_cheese",
+        "low_abv_cocktails",
+        "artisan_cheese_friendly"
+      ],
+      "cultural_local_specific": [
+        "azerbaijani_wine_story",
+        "local_grape_focus",
+        "indie_music_sets",
+        "creative_class_hangout",
+        "bilingual_hosts",
+        "azerbaijani_wine_story_heritage",
+        "bilingual_hosts_heritage"
+      ]
+    }
+  },
+  "la-kuku": {
+    "name": "La Kükü",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_cuisine",
+        "modern_bistro",
+        "grill_house",
+        "casual_cafe",
+        "comfort_food",
+        "azerbaijani_cuisine_concept",
+        "casual_cafe_concept",
+        "comfort_food_concept",
+        "concept_la-kuku"
+      ],
+      "ambiance_vibe": [
+        "contemporary_design",
+        "open_kitchen",
+        "family_tables",
+        "colorful_textiles",
+        "lively_daytime",
+        "colorful_textiles_vibe",
+        "contemporary_design_vibe",
+        "family_tables_vibe",
+        "lively_daytime_vibe"
+      ],
+      "experiences_amenities": [
+        "barista_bar",
+        "house_bakery",
+        "takeaway_counter",
+        "kids_corner",
+        "open_flame_grill",
+        "barista_bar_amenity",
+        "house_bakery_amenity",
+        "kids_corner_amenity",
+        "open_flame_grill_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "coffee_breaks",
+        "weekend_brunch",
+        "breakfast_service",
+        "coffee_breaks_service"
+      ],
+      "dietary": [
+        "vegetarian_options",
+        "vegan_bowls",
+        "halal_meat",
+        "gluten_free_breads",
+        "light_salads",
+        "gluten_free_breads_friendly"
+      ],
+      "cultural_local_specific": [
+        "azerbaijani_brunch",
+        "downtown_regulars",
+        "seasonal_ferments",
+        "nostalgic_recipes",
+        "local_art_panels",
+        "azerbaijani_brunch_heritage",
+        "downtown_regulars_heritage"
+      ]
+    }
+  },
+  "la-maison-patisserie-cafe": {
+    "name": "La Maison Patisserie&Cafe",
+    "tag_groups": {
+      "core_identity": [
+        "patisserie",
+        "french_inspired_cafe",
+        "dessert_lab",
+        "all_day_brunch",
+        "group_friendly",
+        "all_day_brunch_concept",
+        "concept_la-maison-patisserie-cafe",
+        "cuisine_international",
+        "cuisine_international_heritage"
+      ],
+      "ambiance_vibe": [
+        "parisian_charm",
+        "pastel_palette",
+        "sunlit_room",
+        "cozy_nooks",
+        "girl_gatherings",
+        "cozy_nooks_vibe",
+        "girl_gatherings_vibe",
+        "parisian_charm_vibe",
+        "pastel_palette_vibe"
+      ],
+      "experiences_amenities": [
+        "cake_display",
+        "afternoon_tea",
+        "barista_latte_art",
+        "custom_cakes",
+        "event_catering",
+        "afternoon_tea_amenity",
+        "barista_latte_art_amenity",
+        "cake_display_amenity",
+        "custom_cakes_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast",
+        "afternoon_tea",
+        "dessert_evenings",
+        "weekend_brunch",
+        "late_afternoon",
+        "afternoon_tea_service",
+        "breakfast_service"
+      ],
+      "dietary": [
+        "vegetarian_options",
+        "egg_free_pastries",
+        "gluten_free_tortes",
+        "sugar_free_cakes",
+        "dairy_alternatives",
+        "dairy_alternatives_friendly"
+      ],
+      "cultural_local_specific": [
+        "french_azerbaijani_fusion",
+        "wedding_cake_showroom",
+        "holiday_yule_logs",
+        "macaron_workshops",
+        "bilingual_staff",
+        "bilingual_staff_heritage",
+        "french_azerbaijani_fusion_heritage"
+      ]
+    }
+  },
+  "latitude-longitude-bar-lounge": {
+    "name": "Latitude & Longitude Bar Lounge",
+    "tag_groups": {
+      "core_identity": [
+        "hotel_bar",
+        "dessert_lounge",
+        "cocktail_lab",
+        "live_music_venue",
+        "rooftop_lounge",
+        "cocktail_lab_concept",
+        "concept_latitude-longitude-bar-lounge",
+        "cuisine_azerbaijani",
+        "cuisine_azerbaijani_heritage"
+      ],
+      "ambiance_vibe": [
+        "panoramic_windows",
+        "clubby_seating",
+        "piano_corner",
+        "romantic",
+        "evening_glow",
+        "anniversary_spot",
+        "clubby_seating_vibe",
+        "date_night_ready",
+        "evening_glow_vibe"
+      ],
+      "experiences_amenities": [
+        "live_jazz",
+        "signature_cocktails",
+        "afternoon_tea_service",
+        "chef_dessert_pairings",
+        "mixology_classes",
+        "afternoon_tea_service_amenity",
+        "chef_dessert_pairings_amenity",
+        "live_jazz_amenity",
+        "mixology_classes_amenity"
+      ],
+      "temporal_contextual": [
+        "high_tea",
+        "sunset_cocktails",
+        "post_dinner",
+        "late_night",
+        "weekend_sessions",
+        "after_hours",
+        "high_tea_service"
+      ],
+      "dietary": [
+        "petit_four_trays",
+        "vegan_desserts",
+        "gluten_free_sweets",
+        "low_sugar_options",
+        "sparkling_pairings",
+        "gluten_free_sweets_friendly"
+      ],
+      "cultural_local_specific": [
+        "downtown_hotel_crowd",
+        "business_traveler_hub",
+        "azerbaijani_piano_sets",
+        "expat_networking",
+        "flame_viewpoints",
+        "azerbaijani_piano_sets_heritage",
+        "business_traveler_hub_heritage"
+      ]
+    }
+  },
+  "merci-baku": {
+    "name": "Merci Baku",
+    "tag_groups": {
+      "core_identity": [
+        "azerbaijani_steakhouse",
+        "cocktail_restaurant",
+        "seafood_brasserie",
+        "fine_casual",
+        "date_spot",
+        "azerbaijani_steakhouse_concept",
+        "cocktail_restaurant_concept",
+        "concept_merci-baku",
+        "cuisine_azerbaijani"
+      ],
+      "ambiance_vibe": [
+        "dimmed_glamour",
+        "art_deco_bar",
+        "open_kitchen",
+        "booth_seating",
+        "lively_evenings",
+        "art_deco_bar_vibe",
+        "booth_seating_vibe",
+        "dimmed_glamour_vibe",
+        "lively_evenings_vibe"
+      ],
+      "experiences_amenities": [
+        "signature_cocktails",
+        "prime_steaks",
+        "raw_bar",
+        "dj_sets",
+        "chef_specials",
+        "chef_specials_amenity",
+        "dj_sets_amenity",
+        "prime_steaks_amenity",
+        "raw_bar_amenity"
+      ],
+      "temporal_contextual": [
+        "business_lunch",
+        "dinner",
+        "late_night",
+        "weekend_brunch",
+        "tasting_menu_nights",
+        "after_hours",
+        "business_lunch_service"
+      ],
+      "dietary": [
+        "carnivore_heavy",
+        "pescatarian_options",
+        "vegetarian_starters",
+        "gluten_free_grill",
+        "halal_beef",
+        "carnivore_heavy_friendly"
+      ],
+      "cultural_local_specific": [
+        "downtown_trendsetters",
+        "azerbaijani_mixology",
+        "fashion_week_events",
+        "holiday_parties",
+        "instagrammable_plates",
+        "azerbaijani_mixology_heritage",
+        "downtown_trendsetters_heritage"
+      ]
+    }
+  },
+  "movida-lounge-and-dining": {
+    "name": "Movida Lounge and Dining",
+    "tag_groups": {
+      "core_identity": [
+        "mediterranean_lounge",
+        "seafood_restaurant",
+        "port_baku_icon",
+        "late_night_club",
+        "shisha_house",
+        "concept_movida-lounge-and-dining",
+        "cuisine_italian",
+        "cuisine_italian_heritage",
+        "cuisine_seafood"
+      ],
+      "ambiance_vibe": [
+        "candlelit_terrace",
+        "beach_club_energy",
+        "dj_stage",
+        "colorful_tiles",
+        "sunset_lounge",
+        "ambiance_port_baku_views",
+        "beach_club_energy_vibe",
+        "candlelit_terrace_vibe",
+        "colorful_tiles_vibe"
+      ],
+      "experiences_amenities": [
+        "signature_cocktails",
+        "live_dj",
+        "bellydance_sets",
+        "hookah_menu",
+        "vip_tables",
+        "bellydance_sets_amenity",
+        "hookah_menu_amenity",
+        "live_dj_amenity",
+        "signature_cocktails_amenity"
+      ],
+      "temporal_contextual": [
+        "sunset_dining",
+        "late_night",
+        "weekend_parties",
+        "ladies_night",
+        "ramadan_suhoor",
+        "after_hours",
+        "day_to_night"
+      ],
+      "dietary": [
+        "pescatarian_feasts",
+        "vegetarian_mezze",
+        "halal_meats",
+        "gluten_free_mezze",
+        "fresh_juices",
+        "fresh_juices_friendly"
+      ],
+      "cultural_local_specific": [
+        "port_baku_lifestyle",
+        "levantine_playlist",
+        "expat_hotspot",
+        "boardwalk_views",
+        "festival_afterparty",
+        "boardwalk_views_heritage",
+        "expat_hotspot_heritage"
+      ]
+    }
+  },
+  "nur-lounge": {
+    "name": "Nur Lounge",
+    "tag_groups": {
+      "core_identity": [
+        "sky_lounge",
+        "fine_cocktail_bar",
+        "seafood_and_sushi",
+        "hotel_lounge",
+        "dessert_parlour",
+        "concept_nur-lounge",
+        "cuisine_japanese",
+        "cuisine_japanese_heritage",
+        "cuisine_seafood"
+      ],
+      "ambiance_vibe": [
+        "flame_towers_view",
+        "glowing_ceiling",
+        "piano_stage",
+        "luxury_soft_seating",
+        "romantic",
+        "anniversary_spot",
+        "date_night_ready",
+        "flame_towers_view_vibe",
+        "glowing_ceiling_vibe"
+      ],
+      "experiences_amenities": [
+        "live_music",
+        "sushi_counter",
+        "pastry_cart",
+        "mixology_show",
+        "shisha_service",
+        "live_music_amenity",
+        "live_performances",
+        "mixology_show_amenity",
+        "music_evenings"
+      ],
+      "temporal_contextual": [
+        "high_tea",
+        "sunset_sessions",
+        "late_night",
+        "after_show",
+        "weekend_brunch",
+        "after_hours",
+        "after_show_service"
+      ],
+      "dietary": [
+        "pescatarian_menu",
+        "vegetarian_rolls",
+        "gluten_free_bites",
+        "halal_options",
+        "sweet_tooth_focus",
+        "gluten_free_bites_friendly"
+      ],
+      "cultural_local_specific": [
+        "flame_towers_icon",
+        "azerbaijani_piano_sets",
+        "formula_weekender",
+        "lux_crowd_meetups",
+        "city_light_panorama",
+        "azerbaijani_piano_sets_heritage",
+        "city_light_panorama_heritage"
+      ]
+    }
+  },
+  "paris-bistro": {
+    "name": "Paris Bistro",
+    "tag_groups": {
+      "core_identity": [
+        "cafe_bistro",
+        "french_inspired",
+        "third_wave_coffee",
+        "casual_dining",
+        "dessert_cafe",
+        "cafe_bistro_concept",
+        "casual_dining_concept",
+        "concept_paris-bistro",
+        "cuisine_cafe"
+      ],
+      "ambiance_vibe": [
+        "parisian_balcony",
+        "cozy_banquettes",
+        "bookish_corner",
+        "romantic_daytime",
+        "street_view",
+        "bookish_corner_vibe",
+        "cozy_banquettes_vibe",
+        "parisian_balcony_vibe",
+        "romantic_daytime_vibe"
+      ],
+      "experiences_amenities": [
+        "barista_bar",
+        "crepe_station",
+        "wine_by_glass",
+        "pastry_counter",
+        "board_games",
+        "barista_bar_amenity",
+        "board_games_amenity",
+        "crepe_station_amenity",
+        "pastry_counter_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast",
+        "lunch",
+        "afternoon_coffee",
+        "pre_theater",
+        "weekend_brunch",
+        "afternoon_coffee_service",
+        "breakfast_service"
+      ],
+      "dietary": [
+        "vegetarian_tartines",
+        "vegan_salads",
+        "gluten_free_pastries",
+        "low_sugar_lattes",
+        "halal_options",
+        "gluten_free_pastries_friendly"
+      ],
+      "cultural_local_specific": [
+        "french_music_playlist",
+        "downtown_reader_scene",
+        "artists_meetups",
+        "language_exchange",
+        "holiday_galettes",
+        "artists_meetups_heritage",
+        "downtown_reader_scene_heritage"
+      ]
+    }
+  },
+  "people-livebar": {
+    "name": "People Livebar",
+    "tag_groups": {
+      "core_identity": [
+        "livebar",
+        "cocktail_lounge",
+        "dj_club",
+        "cafe_bar_hybrid",
+        "streetfood_menu",
+        "cafe_bar_hybrid_concept",
+        "cocktail_lounge_concept",
+        "concept_people-livebar",
+        "cuisine_bar_and_lounge"
+      ],
+      "ambiance_vibe": [
+        "nizami_street_views",
+        "neon_art",
+        "dance_floor",
+        "social_tables",
+        "late_night",
+        "after_hours",
+        "dance_floor_vibe",
+        "late_night_vibe",
+        "neon_art_vibe"
+      ],
+      "experiences_amenities": [
+        "live_bands",
+        "dj_sets",
+        "coffee_cocktails",
+        "karaoke_nights",
+        "hookah_corner",
+        "coffee_cocktails_amenity",
+        "dj_sets_amenity",
+        "hookah_corner_amenity",
+        "karaoke_nights_amenity"
+      ],
+      "temporal_contextual": [
+        "afterwork",
+        "late_night",
+        "weekend_parties",
+        "happy_hour",
+        "pre_game",
+        "after_hours",
+        "afterwork_service"
+      ],
+      "dietary": [
+        "bar_bites",
+        "vegetarian_snacks",
+        "vegan_bowls",
+        "shareable_plates",
+        "low_abv_options",
+        "bar_bites_friendly"
+      ],
+      "cultural_local_specific": [
+        "torqovaya_partygoers",
+        "street_busker_collabs",
+        "local_djs",
+        "pop_up_markets",
+        "youth_scene",
+        "local_djs_heritage",
+        "pop_up_markets_heritage"
+      ]
+    }
+  },
+  "porterhouse-grill-wine": {
+    "name": "Porterhouse Grill & Wine",
+    "tag_groups": {
+      "core_identity": [
+        "steakhouse",
+        "wine_house",
+        "bayil_view_spot",
+        "fine_casual",
+        "grill_house",
+        "bayil_view_spot_concept",
+        "concept_porterhouse-grill-wine",
+        "cuisine_steakhouse",
+        "cuisine_steakhouse_heritage"
+      ],
+      "ambiance_vibe": [
+        "wood_panelled",
+        "wine_wall",
+        "intimate_tables",
+        "bay_view",
+        "fireplace_glow",
+        "bay_view_vibe",
+        "fireplace_glow_vibe",
+        "intimate_tables_vibe",
+        "wine_wall_vibe"
+      ],
+      "experiences_amenities": [
+        "dry_aged_display",
+        "sommelier_pairings",
+        "chef_carvings",
+        "private_dining_room",
+        "butcher_counter",
+        "butcher_counter_amenity",
+        "chef_carvings_amenity",
+        "dry_aged_display_amenity",
+        "private_dining_room_amenity"
+      ],
+      "temporal_contextual": [
+        "business_lunch",
+        "dinner",
+        "tasting_menu",
+        "weekend_date_night",
+        "holiday_feasts",
+        "business_lunch_service",
+        "dinner_service"
+      ],
+      "dietary": [
+        "halal_beef",
+        "pescatarian_alternatives",
+        "keto_friendly",
+        "gluten_free_sides",
+        "vegetarian_appetizers",
+        "gluten_free_sides_friendly"
+      ],
+      "cultural_local_specific": [
+        "bayil_boardwalk",
+        "wine_club_events",
+        "azerbaijani_prime_beef",
+        "chef_talks",
+        "cigar_pairings",
+        "azerbaijani_prime_beef_heritage",
+        "bayil_boardwalk_heritage"
+      ]
+    }
+  },
+  "prive-steak-gallery-baku": {
+    "name": "Prive Steak Gallery Baku",
+    "tag_groups": {
+      "core_identity": [
+        "boutique_steakhouse",
+        "gallery_space",
+        "breakfast_steaks",
+        "mixology_bar",
+        "fine_dining",
+        "boutique_steakhouse_concept",
+        "breakfast_steaks_concept",
+        "concept_prive-steak-gallery-baku",
+        "cuisine_bar_and_lounge"
+      ],
+      "ambiance_vibe": [
+        "art_gallery_decor",
+        "plush_banquets",
+        "open_fire_grill",
+        "romantic_lighting",
+        "business_elegance",
+        "art_gallery_decor_vibe",
+        "business_elegance_vibe",
+        "open_fire_grill_vibe",
+        "plush_banquets_vibe"
+      ],
+      "experiences_amenities": [
+        "signature_cocktails",
+        "chef_table",
+        "steak_aging_room",
+        "charcuterie_trolley",
+        "sunday_roast",
+        "charcuterie_trolley_amenity",
+        "chef_table_amenity",
+        "signature_cocktails_amenity",
+        "steak_aging_room_amenity"
+      ],
+      "temporal_contextual": [
+        "business_breakfast",
+        "power_lunch",
+        "dinner",
+        "late_night",
+        "weekend_brunch",
+        "after_hours",
+        "business_breakfast_service"
+      ],
+      "dietary": [
+        "carnivore_focus",
+        "pescatarian_courses",
+        "vegetarian_sides",
+        "gluten_free_grill",
+        "low_carb_menu",
+        "carnivore_focus_friendly"
+      ],
+      "cultural_local_specific": [
+        "downtown_art_scene",
+        "collector_events",
+        "holiday_tastings",
+        "chef_collaborations",
+        "azerbaijani_fine_dining",
+        "azerbaijani_fine_dining_heritage",
+        "chef_collaborations_heritage"
+      ]
+    }
+  },
+  "scalini": {
+    "name": "Scalini",
+    "tag_groups": {
+      "core_identity": [
+        "italian_fine_dining",
+        "azerbaijani_influences",
+        "seafood_trattoria",
+        "family_institution",
+        "wine_house",
+        "azerbaijani_influences_concept",
+        "concept_scalini",
+        "cuisine_azerbaijani",
+        "cuisine_azerbaijani_heritage"
+      ],
+      "ambiance_vibe": [
+        "villa_style",
+        "white_tablecloth",
+        "garden_patio",
+        "family_rooms",
+        "romantic_evenings",
+        "family_rooms_vibe",
+        "garden_patio_vibe",
+        "romantic_evenings_vibe",
+        "villa_style_vibe"
+      ],
+      "experiences_amenities": [
+        "wood_fired_oven",
+        "sommelier_guidance",
+        "fresh_pasta_lab",
+        "private_events",
+        "live_guitar",
+        "fresh_pasta_lab_amenity",
+        "live_guitar_amenity",
+        "private_events_amenity",
+        "sommelier_guidance_amenity"
+      ],
+      "temporal_contextual": [
+        "business_lunch",
+        "dinner",
+        "sunday_family_lunch",
+        "holiday_feasts",
+        "late_dinner",
+        "business_lunch_service",
+        "dinner_service"
+      ],
+      "dietary": [
+        "vegetarian_pasta",
+        "gluten_free_pasta",
+        "pescatarian_menu",
+        "halal_meat",
+        "kid_menu",
+        "gluten_free_pasta_friendly"
+      ],
+      "cultural_local_specific": [
+        "legacy_azerbaijani_guests",
+        "italian_family_recipes",
+        "wine_dinners",
+        "wedding_rehearsals",
+        "old_city_elite",
+        "italian_family_recipes_heritage",
+        "legacy_azerbaijani_guests_heritage"
+      ]
+    }
+  },
+  "shur": {
+    "name": "SHUR",
+    "tag_groups": {
+      "core_identity": [
+        "seafood_restaurant",
+        "live_music_club",
+        "bar_lounge",
+        "breakfast_rooftop",
+        "fusion_kitchen",
+        "bar_lounge_concept",
+        "breakfast_rooftop_concept",
+        "concept_shur",
+        "cuisine_bar_and_lounge"
+      ],
+      "ambiance_vibe": [
+        "stage_front_tables",
+        "aqua_palette",
+        "open_terrace",
+        "date_spot",
+        "nightlife_energy",
+        "aqua_palette_vibe",
+        "date_spot_vibe",
+        "nightlife_energy_vibe",
+        "open_terrace_vibe"
+      ],
+      "experiences_amenities": [
+        "live_bands",
+        "dj_sets",
+        "shisha_service",
+        "oyster_bar",
+        "mixology_program",
+        "dj_sets_amenity",
+        "live_bands_amenity",
+        "mixology_program_amenity",
+        "oyster_bar_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast",
+        "sunset_dining",
+        "late_night",
+        "weekend_brunch",
+        "afterparty_menu",
+        "after_hours",
+        "afterparty_menu_service"
+      ],
+      "dietary": [
+        "pescatarian_focus",
+        "vegetarian_mezze",
+        "gluten_free_options",
+        "halal_meat",
+        "sushi_samplers",
+        "gf_menu"
+      ],
+      "cultural_local_specific": [
+        "downtown_music_scene",
+        "local_artists",
+        "casual_fashion_events",
+        "caspian_market_fish",
+        "bilingual_hosts",
+        "bilingual_hosts_heritage",
+        "caspian_market_fish_heritage"
+      ]
+    }
+  },
+  "sushi-room-baku": {
+    "name": "SUSHI ROOM BAKU",
+    "tag_groups": {
+      "core_identity": [
+        "sushi_bar",
+        "omakase_counter",
+        "seafood_house",
+        "delivery_friendly",
+        "modern_japanese",
+        "concept_sushi-room-baku",
+        "cuisine_japanese",
+        "cuisine_japanese_heritage",
+        "cuisine_seafood"
+      ],
+      "ambiance_vibe": [
+        "minimalist_wood",
+        "chef_counter",
+        "intimate_tables",
+        "nizami_street_hideout",
+        "calm_experience",
+        "calm_experience_vibe",
+        "chef_counter_vibe",
+        "intimate_tables_vibe",
+        "minimalist_wood_vibe"
+      ],
+      "experiences_amenities": [
+        "omakase_flights",
+        "takeaway_bar",
+        "sake_pairings",
+        "chef_interaction",
+        "delivery_service",
+        "chef_interaction_amenity",
+        "delivery_service_amenity",
+        "omakase_flights_amenity",
+        "sake_pairings_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "late_night",
+        "chef_events",
+        "weekday_specials",
+        "after_hours",
+        "chef_events_service"
+      ],
+      "dietary": [
+        "gluten_free_soy",
+        "vegetarian_rolls",
+        "pescatarian_only",
+        "low_carb",
+        "allergy_conscious",
+        "allergy_conscious_friendly"
+      ],
+      "cultural_local_specific": [
+        "tokyo_meets_baku",
+        "artisan_sushi_chefs",
+        "seasonal_fish_imports",
+        "nizami_office_lunch",
+        "instagrammable_plating",
+        "artisan_sushi_chefs_heritage",
+        "instagrammable_plating_heritage"
+      ]
+    }
+  },
+  "wooga-korean-steakhouse": {
+    "name": "WOOGA Korean Steakhouse",
+    "tag_groups": {
+      "core_identity": [
+        "korean_bbq",
+        "premium_steakhouse",
+        "seafood_grill",
+        "casual_fine",
+        "downtown_hotspot",
+        "casual_fine_concept",
+        "concept_wooga-korean-steakhouse",
+        "cuisine_seafood",
+        "cuisine_seafood_heritage"
+      ],
+      "ambiance_vibe": [
+        "sleek_tableside_grills",
+        "smoke_controlled",
+        "communal_tables",
+        "neon_korean",
+        "date_friendly",
+        "communal_tables_vibe",
+        "date_friendly_vibe",
+        "neon_korean_vibe",
+        "sleek_tableside_grills_vibe"
+      ],
+      "experiences_amenities": [
+        "tableside_grilling",
+        "soju_pairings",
+        "kimchi_bar",
+        "chef_guided_cuts",
+        "private_dining_cabins",
+        "chef_guided_cuts_amenity",
+        "kimchi_bar_amenity",
+        "private_dining_cabins_amenity",
+        "soju_pairings_amenity"
+      ],
+      "temporal_contextual": [
+        "lunch",
+        "dinner",
+        "late_night",
+        "group_feasts",
+        "weekend_brunch",
+        "after_hours",
+        "dinner_service"
+      ],
+      "dietary": [
+        "halal_beef",
+        "pescatarian_banchan",
+        "gluten_free_bbq",
+        "spice_levels",
+        "vegetarian_sides",
+        "gluten_free_bbq_friendly"
+      ],
+      "cultural_local_specific": [
+        "k_wave_ambiance",
+        "bbq_masterclasses",
+        "downtown_foodies",
+        "korean_pop_playlists",
+        "fusion_desserts",
+        "bbq_masterclasses_heritage",
+        "downtown_foodies_heritage"
+      ]
+    }
+  },
+  "zest-lifestyle-cafe": {
+    "name": "Zest Lifestyle Cafe",
+    "tag_groups": {
+      "core_identity": [
+        "all_day_cafe",
+        "azerbaijani_fusion",
+        "steakhouse_twist",
+        "rooftop_lounge",
+        "lifestyle_brand",
+        "all_day_cafe_concept",
+        "azerbaijani_fusion_concept",
+        "concept_zest-lifestyle-cafe",
+        "cuisine_azerbaijani"
+      ],
+      "ambiance_vibe": [
+        "skyline_terrace",
+        "plant_filled",
+        "family_zones",
+        "lounge_couches",
+        "sunny_daytime",
+        "family_zones_vibe",
+        "lounge_couches_vibe",
+        "plant_filled_vibe",
+        "skyline_panorama"
+      ],
+      "experiences_amenities": [
+        "barista_bar",
+        "mixology_corner",
+        "live_dj_brunch",
+        "dessert_counter",
+        "co_work_tables",
+        "barista_bar_amenity",
+        "co_work_tables_amenity",
+        "dessert_counter_amenity",
+        "live_dj_brunch_amenity"
+      ],
+      "temporal_contextual": [
+        "breakfast",
+        "power_lunch",
+        "sunset_cocktails",
+        "late_night",
+        "weekend_brunch",
+        "after_hours",
+        "breakfast_service"
+      ],
+      "dietary": [
+        "vegetarian_bowls",
+        "vegan_brunch",
+        "halal_steaks",
+        "gluten_free_pancakes",
+        "kid_menu",
+        "gluten_free_pancakes_friendly"
+      ],
+      "cultural_local_specific": [
+        "lifestyle_events",
+        "yoga_brunch",
+        "local_designer_popups",
+        "rooftop_cinema",
+        "baku_influencer_scene",
+        "baku_influencer_scene_heritage",
+        "lifestyle_events_heritage"
+      ]
+    }
+  }
+}

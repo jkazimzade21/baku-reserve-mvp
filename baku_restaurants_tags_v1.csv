@@ -1,0 +1,53 @@
+name,venue_type,cuisine_primary,cuisine_secondary,area,affiliation,vibe,features,view,az_culture,open_hours_notes,status,instagram
+Sahil Bar & Restaurant,restaurant,azerbaijani,seafood,seaside_boulevard,,elegant;trendy,terrace;sea_view;wine_bar,sea_view,,,open,@sahil_baku
+Sumakh Restaurant,restaurant,azerbaijani,,khatai,,elegant;romantic,wine_bar,,traditional_interior,,open,@sumakhrestaurant
+Chinar Dining,restaurant,pan_asian,,funicular_area,,trendy,bar;terrace,city_view,,,open,@chinardining
+Shirvanshah Museum Restaurant,restaurant,azerbaijani,,fountains_square/old_city,,romantic;traditional_interior,live_music;tea_culture,,mugham_music;traditional_interior,,open,@shirvanshah
+Dolma Restaurant,restaurant,azerbaijani,,fountains_square,,cozy;family_friendly,,,traditional_interior,,open,@dolma.restaurant
+Firuze Restaurant,restaurant,azerbaijani,,fountains_square,,cozy;family_friendly,,,traditional_interior,,open,@firuzerestoran
+Nergiz Restaurant,restaurant,azerbaijani,,fountains_square,,cozy,late_night,,traditional_interior,,open,@nergizrestoran
+Shah Restaurant & Gallery,restaurant,azerbaijani,,khatai,,elegant;romantic,live_music;wine_bar,,traditional_interior,,open,@shahrestaurant
+Qala Divari,restaurant,azerbaijani,european,old_city,,cozy,terrace,,traditional_interior,,open,@qala_divari
+Qaynana Restaurant,restaurant,azerbaijani,,old_city,,cozy;family_friendly,tea_culture,,traditional_interior,,open,@qaynana_restaurant
+Art Club Restaurant,restaurant,azerbaijani,european,old_city,,romantic;traditional_interior,wine_bar,,traditional_interior,,open,@artclub.az
+Mugam Club Restaurant,restaurant,azerbaijani,,old_city,,romantic,live_music;tea_culture,,mugham_music;traditional_interior,,open,@mugamrestaurant
+Mari Vanna Baku,restaurant,russian,european,seaside_boulevard/zarifa_aliyeva,,cozy;romantic,wine_bar;tea_culture,,traditional_interior,,open,@marivannabaku
+Mangal Steak House,steakhouse,steakhouse,azerbaijani,seaside_boulevard,,lively,bar;late_night,,,,open,@mangal_steak_house
+Paulaner Bräuhaus Baku,brewery,german_bavarian,,seaside_boulevard,,casual;lively,craft_beer;microbrewery;terrace,sea_view,,,open,@paulanerbaku
+Zafferano – Four Seasons Baku,hotel_restaurant,italian,,four_seasons/old_city,four_seasons,fine_dining;romantic,terrace;wine_bar;breakfast,city_view,,,open,
+OroNero Bar & Ristorante,hotel_restaurant,italian,,jw_marriott,jw_marriott,elegant;romantic,wine_bar;private_dining,city_view,,,open,@oronerobaku
+360 Bar,rooftop_bar,international,,hilton,hilton,trendy;lively,rooftop;city_view;late_night;cocktails,city_view,,18:00–03:00,open,@360_hilton
+Sky Grill,hotel_restaurant,european,seafood,hilton,hilton,elegant;romantic,terrace;city_view,city_view,,12:00–01:00,open,@skygrill_restaurant
+Riviera Restaurant,hotel_restaurant,azerbaijani,european,seaside_boulevard,riviera_hotel,family_friendly;romantic,terrace;sea_view;breakfast,sea_view,,,open,
+Novikov Café Baku,restaurant,european,seafood,seaside_boulevard/central,,trendy,bar;wine_bar;outdoor,,,,open,
+Syrovarnya Baku,restaurant,european,cheese_focused,central/zarifa_aliyeva,,family_friendly;casual,wine_bar,,,,open,@syrovarnya.baku
+Vapiano Baku,restaurant,italian,,nizami_street;ganjlik_mall,,casual,counter_service,,,,open,@vapiano.baku
+Passage 145,restaurant;lounge;hookah_lounge,azerbaijani,european;international,fountains_square,,casual;lively;traditional_interior,24_7;breakfast;tea_culture;terrace;shisha;live_music;cocktails,city_view,tea_culture;shisha_hookah,Open 24/7,open,@passage145
+Çay Bağı 145,tea_house,azerbaijani,,old_city,,cozy;family_friendly,tea_culture;terrace;rooftop,sea_view,tea_house,09:00–04:00,open,@caybagi145
+Baku Cafe,restaurant,international,azerbaijani,central,,casual;lively,bar,,,,open,
+Baku Convention Center,hotel_restaurant,international,,khatai,,business,multiple_restaurants,,,,open,
+Balcon Cafe,cafe,cafe_bakery,,flame_towers,fairmont,elegant;romantic,tea_culture;desserts,city_view,,12:00–20:00,open,@balconcafe_fairmont
+BESH Gastropub,gastropub,international,,courtyard_baku,courtyard_baku,casual;lively,craft_beer;bar,,,06:30–24:00,open,@beshgastropub
+Black City Lounge & Terrace,lounge,international,,baku_marriott_boulevard/white_city,baku_marriott_boulevard,trendy;lively,shisha;terrace;dj;bar,sea_view,,18:00–02:00,open,@blackcitylounge
+Cafe City Fountain,cafe,international,azerbaijani,fountains_square,,casual;family_friendly,breakfast;desserts;tea_culture;outdoor,,,,open,@cafecitybaku
+Fireworks Urban Kitchen,steakhouse,steakhouse,middle_eastern,jw_marriott,jw_marriott,elegant;trendy,bar,city_view,,Business lunch 12:00–15:00,open,@fireworksbaku
+Green House Asian Kitchen,restaurant,asian,chinese,baku_marriott_boulevard,baku_marriott_boulevard,casual,bar,,,14:00–23:30,open,@greenhouseasiankitchen
+Harbour Tap and Grill,gastropub,indian,european,port_baku,,casual;lively,bar,sea_view,,,open,@harbourbaku
+Hard Rock Cafe,restaurant,american,,fountains_square,,lively,bar;live_music,,,,closed,
+KEFLI Local Wine & Snacks,bar,azerbaijani,wine_bar,central/old_city_edge,,cozy;casual,wine_bar,,azerbaijani_wine,15:00–01:00 (to 03:00 Fri/Sat),open,@kefliwinebar
+La Kükü,restaurant,azerbaijani,european,old_city,,family_friendly;cozy,tea_culture,,traditional_interior,10:00–23:30,open,@la_kuku_baku
+La Maison Patisserie&Cafe,patisserie,cafe_bakery,,crescent_mall,,casual;romantic,desserts;tea_culture,,,09:00–23:30,open,@lamaison_patisserie
+Latitude & Longitude Bar Lounge,lounge,international,,merchant_baku,merchant_baku,elegant;trendy,cocktails,,,,open,@lalobarlounge
+Merci Baku,restaurant,european,azerbaijani,old_city,,cozy,shisha;breakfast,,,,open,@merci_baku
+Movida Lounge and Dining,restaurant,middle_eastern,moroccan,seaside_boulevard,,trendy;lively,shisha;bar;lunch_menu,sea_view,,11:00–01:00,open,@movidabaku
+Nur Lounge,lounge,international,,flame_towers,fairmont,elegant;romantic,live_piano;cocktails;tea_culture,city_view,,10:00–23:00,open,
+Paris Bistro,restaurant,european,french,central/zarifa_aliyeva,,casual;romantic,wine_bar;breakfast;late_night,,,08:00–03:00,open,@parisbistrobaku
+Pasifico Lounge and Dining,lounge,latin,,seaside_boulevard,,trendy;lively,dj;late_night;cocktails,sea_view,,18:00–02:00 (Fri/Sat till 06:00),open,@pasificobaku
+People Livebar,bar,gastropub,,nizami_street,,lively,dj;bar,,,,closed,
+Porterhouse Grill & Wine,restaurant,steakhouse,,central,,elegant,wine_bar;bar,,,,open,@porterhousebaku
+Prive Steak Gallery Baku,restaurant,steakhouse,,central,,elegant,wine_bar;private_dining,,,09:00–00:00,open,@prive_steak_gallery
+Scalini,restaurant,italian,,port_baku,,cozy;family_friendly,wine_bar,,,,open,@scalini_baku
+SHUR,restaurant,azerbaijani,,central/rashid_behbudov,,lively,live_music;bar,,,12:00–00:00,open,@shur.restaurant
+SUSHI ROOM BAKU,restaurant,japanese_sushi,,multiple_locations,,casual,delivery;takeaway,,,10:00–23:00,open,@sushiroom.az
+WOOGA Korean Steakhouse,restaurant,korean_bbq,,central,,trendy,table_grill;wine_bar,,,,open,@woogakoreansteakhouse
+Zest Lifestyle Cafe,hotel_restaurant,international,mediterranean,jw_marriott,jw_marriott,casual;elegant,breakfast;brunch;business_lunch,,,,open,

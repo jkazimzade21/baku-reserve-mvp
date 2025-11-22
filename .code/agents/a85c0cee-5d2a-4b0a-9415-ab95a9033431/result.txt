@@ -1,0 +1,366 @@
+# 📋 Baku Reserve - Research & Development Plan
+
+Based on my analysis of your codebase, I've created a comprehensive plan to address the recent updates and ensure backend/mobile stability. Here's what I found and recommend:
+
+`★ Insight ─────────────────────────────────────`
+**Recent System State**: Your repository has undergone significant enhancements:
+1. GoMap.az integration transformed to production-ready with circuit breakers, retry logic, and caching
+2. Concierge AI improved from 10% to 75-85% accuracy
+3. Health monitoring system with dependency checks
+**However**: Several critical issues remain in mobile UX and validation flows
+`─────────────────────────────────────────────────`
+
+## 🎯 Strategic Development Plan (5-8 Steps)
+
+### **Step 1: GoMap Integration Validation** 
+**Priority**: HIGH | **Duration**: 2-3 hours
+
+**Files to Review**:
+- `backend/app/gomap.py:1-1572` (complete integration)
+- `backend/app/cache.py` (caching layer)
+- `backend/app/circuit_breaker.py` (resilience patterns)
+
+**Validation Tasks**:
+1. **Traffic API Integration** (`gomap.py:1438-1561`)
+   - Verify `get_traffic_conditions()` with live GoMap API
+   - Test severity parsing (0-4 scale) with real traffic data
+   - Validate cache TTL (15 min routes, 30 min geocoding)
+   - **Test file**: Create `backend/tests/test_gomap_traffic.py`
+
+2. **Search Quality Validation** (`gomap.py:471-544`)
+   - Test `search_objects_smart()` with fuzzy fallback
+   - Verify distance-aware search ordering
+   - Validate input sanitization (injection prevention)
+   - **Test file**: `backend/tests/test_gomap_enhanced.py:1-100`
+
+3. **Circuit Breaker Behavior**
+   - Trigger failures to test circuit opening
+   - Verify 5-minute cooldown (`settings.py:80`)
+   - Test graceful fallback when circuit open
+
+**Success Criteria**:
+- All GoMap APIs respond < 4s timeout
+- Circuit breaker activates after 3 failures
+- Cache hit rate > 60% for route queries
+
+---
+
+### **Step 2: Arrival Intent & Timezone Propagation**
+**Priority**: HIGH | **Duration**: 2-4 hours
+
+**Files to Review**:
+- `backend/app/llm_intent.py:1-274` (intent parser)
+- `mobile/src/hooks/useArrivalSuggestions.ts:1-139` (mobile hook)
+- `backend/app/contracts.py` (API contracts)
+
+**Research Tasks**:
+1. **Intent Hook Validation**
+   - Test `parse_intent_async()` with multilingual queries (az/en/ru)
+   - Verify circuit breaker cooldown (5 min after 3 failures)
+   - Check canonical tag mapping accuracy
+   - **Test file**: `backend/tests/test_intent.py:1-100`
+
+2. **Timezone Propagation Audit**
+   ```bash
+   # Search for timezone handling
+   grep -r "timezone\|TZ\|pytz" backend/app/
+   ```
+   - Verify `restaurant_timezone` field in availability responses
+   - Check UTC conversion in booking flow
+   - Validate mobile timezone display
+
+3. **Mobile-Backend Sync**
+   - Verify `ArrivalLocationSuggestion` contract matches backend
+   - Test debounce logic (200ms default)
+   - Validate stale data handling (`useArrivalSuggestions.ts:82-86`)
+
+**Success Criteria**:
+- Intent parser achieves 75%+ accuracy on test queries
+- Timezone propagates correctly through booking flow
+- Mobile suggestions debounce properly
+
+---
+
+### **Step 3: Health Endpoint Hardening**
+**Priority**: MEDIUM | **Duration**: 1-2 hours
+
+**Files to Review**:
+- `backend/app/health.py:1-268` (current implementation)
+- `backend/app/main.py` (endpoint registration)
+
+**Hardening Tasks**:
+1. **Dependency Check Enhancement** (`health.py:28-60`)
+   - Add Redis connectivity check (if used)
+   - Validate Auth0 JWKS endpoint accessibility
+   - Test GoMap API reachability with timeout
+   - Verify database file read/write permissions
+
+2. **Cache Behavior Validation** (`health.py:243-256`)
+   - Test 30s TTL expiration
+   - Verify cache invalidation on failures
+   - Add cache clear endpoint for testing
+
+3. **Response Format Standardization**
+   ```json
+   {
+     "status": "healthy|degraded",
+     "timestamp": 1699999999.0,
+     "checks": {
+       "database": {"status": "ok", "restaurant_count": 12},
+       "gomap": {"status": "ok", "endpoint": "..."},
+       "auth0": {"status": "bypassed"},
+       "sentry": {"status": "disabled"}
+     }
+   }
+   ```
+
+**Test Coverage**:
+- Create `backend/tests/test_health_hardening.py`
+- Test degraded state when GoMap fails
+- Verify 503 status code on critical failures
+
+**Success Criteria**:
+- All dependency checks complete < 5s
+- Proper HTTP status codes (200/503)
+- Cache reduces check overhead by 80%
+
+---
+
+### **Step 4: Quick Filter Remediation**
+**Priority**: HIGH (Critical UX Issue) | **Duration**: 3-4 hours
+
+**Files to Review**:
+- `mobile/src/screens/HomeScreen.tsx` (filter UI)
+- `backend/app/concierge_service.py` (filter logic)
+- `mobile/src/utils/availability.ts` (filter helpers)
+
+**Remediation Tasks**:
+1. **Fix "Tonight" Filter** (Critical Issue #4)
+   - Debug why "Dinner" tag returns zero results
+   - Verify time context mapping in intent parser
+   - Check restaurant availability data
+   - **File**: Trace through `HomeScreen.tsx → api.ts → concierge endpoint`
+
+2. **Fix "Live Music" Filter** (Critical Issue #5)
+   - Investigate "DJ" tag mismatch
+   - Verify canonical tag mapping (`concierge_tags.py`)
+   - Check restaurant amenity data in `backend/app/data/restaurants.json`
+
+3. **Search Filter Integration** (Critical Issue #1)
+   - Fix search bar not filtering results
+   - Verify query parameter passing
+   - Test with restaurant name/cuisine/location
+
+**Debugging Strategy**:
+```typescript
+// Add logging in HomeScreen.tsx
+console.log('Filter applied:', filterType, 'Query:', searchQuery);
+// Check API response
+console.log('API results:', response.results.length);
+```
+
+**Success Criteria**:
+- "Tonight" filter returns available restaurants
+- "Live Music" filter shows correct venues
+- Search bar filters results in real-time
+
+---
+
+### **Step 5: Backend/Mobile Contract Stability**
+**Priority**: MEDIUM | **Duration**: 2 hours
+
+**Files to Review**:
+- `backend/app/contracts.py` (TypeScript contract definitions)
+- `mobile/src/types/server.d.ts` (mobile type definitions)
+- `backend/tests/test_api_contracts.py` (contract tests)
+
+**Validation Tasks**:
+1. **Type Contract Sync**
+   - Run contract generation script: `python tools/generate_ts_contracts.py`
+   - Compare generated types with `mobile/src/types/server.d.ts`
+   - Identify any drift or breaking changes
+
+2. **API Response Validation**
+   - Test all endpoints return correct schemas
+   - Verify optional fields are nullable
+   - Check array/object nesting matches types
+
+3. **Version Compatibility**
+   - Add API version header to responses
+   - Implement graceful degradation for old clients
+   - Document breaking changes
+
+**Test Coverage**:
+```python
+# backend/tests/test_api_contracts.py
+def test_restaurant_list_schema():
+    response = client.get("/restaurants")
+    assert response.status_code == 200
+    for item in response.json():
+        RestaurantListItem.model_validate(item)  # Pydantic validation
+```
+
+**Success Criteria**:
+- Zero type mismatches between backend/mobile
+- All API responses validate against contracts
+- Contract tests pass 100%
+
+---
+
+### **Step 6: Critical Mobile UX Fixes**
+**Priority**: HIGH | **Duration**: 4-6 hours
+
+**Files to Review** (from Critical Issues Report):
+- `mobile/src/screens/BookScreen.tsx` (form validation)
+- Table selection component (confirm button)
+- Quick filter components
+
+**Fix Tasks**:
+1. **Form Validation** (Critical Issue #2)
+   - Add required field validation for name/phone
+   - Block progression until fields complete
+   - Display error messages inline
+
+2. **Reservation Confirmation** (Critical Issue #3)
+   - Debug why confirm button doesn't trigger POST
+   - Check API endpoint configuration
+   - Verify request payload structure
+
+3. **Auto-assign Feature** (Critical Issue #6)
+   - Implement table auto-assignment logic
+   - Handle capacity matching
+   - Show visual feedback on assignment
+
+**Test Strategy**:
+```typescript
+// mobile/__tests__/experience.ui.test.tsx
+test('blocks booking with missing required fields', () => {
+  // Test form validation
+  const { getByText } = render(<BookScreen />);
+  fireEvent.press(getByText('Continue'));
+  expect(getByText('Name is required')).toBeTruthy();
+});
+```
+
+**Success Criteria**:
+- Form validation blocks invalid submissions
+- Reservation confirmation API call succeeds
+- Auto-assign assigns appropriate tables
+
+---
+
+### **Step 7: Integration Test Suite**
+**Priority**: MEDIUM | **Duration**: 2-3 hours
+
+**Files to Review**:
+- `backend/tests/test_integration_api.py:1-100` (existing tests)
+- `backend/tests/test_e2e_workflows.py` (E2E scenarios)
+
+**Test Expansion**:
+1. **GoMap Integration Tests**
+   ```python
+   def test_gomap_search_with_distance():
+       # Test distance-aware search
+       results = search_objects_with_distance(
+           "restaurant", 40.4093, 49.8671, limit=10
+       )
+       assert len(results) > 0
+       assert all("distance_meters" in r for r in results)
+   ```
+
+2. **Arrival Flow E2E**
+   ```python
+   def test_arrival_intent_to_eta_confirmation():
+       # Create reservation → Trigger arrival → Confirm ETA
+       reservation = create_test_reservation()
+       intent = submit_arrival_intent(reservation.id)
+       eta = confirm_arrival_eta(intent.id)
+       assert eta.estimated_arrival_minutes > 0
+   ```
+
+3. **Concierge Accuracy Tests**
+   ```python
+   QUERIES = [
+       ("Romantic dinner near Flame Towers", ["romantic", "flame_towers"]),
+       ("Family brunch in Old City", ["family_friendly", "brunch", "old_city"]),
+   ]
+   
+   @pytest.mark.parametrize("query,expected_tags", QUERIES)
+   def test_concierge_intent_accuracy(query, expected_tags):
+       intent = parse_intent(query, lang_hint="en")
+       assert all(tag in intent.vibe_tags or tag in intent.location_tags 
+                  for tag in expected_tags)
+   ```
+
+**Success Criteria**:
+- Integration test coverage > 70%
+- All critical user flows tested E2E
+- Tests run in < 30 seconds
+
+---
+
+### **Step 8: Performance & Monitoring Validation**
+**Priority**: LOW | **Duration**: 1-2 hours
+
+**Files to Review**:
+- `backend/app/metrics.py` (observability)
+- `backend/app/logging_config.py` (structured logging)
+
+**Validation Tasks**:
+1. **Cache Performance**
+   - Measure GoMap cache hit rate
+   - Verify Redis/file cache latency
+   - Test cache invalidation strategies
+
+2. **API Response Times**
+   ```bash
+   # Benchmark critical endpoints
+   ab -n 100 -c 10 http://localhost:8000/restaurants
+   ab -n 50 -c 5 http://localhost:8000/concierge/recommendations
+   ```
+   - Target: p95 < 200ms for lists
+   - Target: p95 < 1s for AI queries
+
+3. **Error Rate Monitoring**
+   - Check Sentry integration (`settings.py:72-75`)
+   - Verify error sampling (20% traces)
+   - Test error capture on failures
+
+**Success Criteria**:
+- Cache hit rate > 60%
+- API p95 latency meets targets
+- Sentry captures critical errors
+
+---
+
+## 🔍 Research Findings Summary
+
+### **Strengths**
+✅ Production-ready GoMap integration with resilience patterns  
+✅ Advanced concierge AI (75-85% accuracy)  
+✅ Comprehensive health monitoring  
+✅ Strong type safety with Pydantic contracts  
+
+### **Critical Gaps**
+❌ Mobile UX has 7 critical issues blocking core flows  
+❌ Quick filters non-functional ("Tonight", "Live Music")  
+❌ Form validation missing in booking flow  
+❌ Reservation confirmation broken  
+
+### **Recommended Priorities**
+1. **Week 1**: Steps 1, 2, 4 (GoMap, Intent, Quick Filters)
+2. **Week 2**: Steps 6, 3 (Mobile UX Fixes, Health Hardening)
+3. **Week 3**: Steps 5, 7, 8 (Contracts, Tests, Performance)
+
+---
+
+`★ Insight ─────────────────────────────────────`
+**Key Architectural Pattern**: Your system uses a layered resilience strategy:
+- **Circuit Breakers** prevent cascade failures (GoMap, OpenAI)
+- **Caching** reduces external API load (15-30 min TTLs)
+- **Input Validation** prevents injection attacks (InputValidator class)
+
+This is production-grade defensive programming, but mobile UX issues suggest the frontend didn't receive the same rigor. Prioritizing Step 6 (Mobile UX Fixes) will have the highest user impact.
+`─────────────────────────────────────────────────`
+
+Would you like me to start with any specific step, or would you prefer to dive deeper into a particular area?

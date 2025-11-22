@@ -1,0 +1,229 @@
+Hi Mr.Jamil Kazimzade
+
+Thank you for your interest in GoMap.Az.
+
+Below I'm providing the URL and test GUID for using the GoMap.az API. 
+You can use this GUID for one month for your tests.
+
+URL: http://api.gomap.az/Main.asmx
+
+GUID:   59e651842d9c87bee26242c9481eaf70
+
+You can read the user guide here
+
+For using the map
+http://gomap.az/api/docs.html
+
+For using the functions
+
+http://gomap.az/info/api/extra_api/API_AZ.pdf
+
+I am attaching the price list for using GoMap Extra API.
+The price in the system is determined by the number of requests sent to the GoMap API during the month.
+Best regards,
+
+ 
+
+Khagani Nasibov
+
+Project Manager,
+
+SINAM Ltd.
+
+Address: 9, F.Agayev Str., AZ1141, Baku, Azerbaijan
+
+Phone: +99412 5101100 (170)
+
+Mob: +99450/70 2103442
+
+www.sinam.net
+
+E-mail: xagani.nasibov@sinam.net
+
+ 
+
+
+пн, 10 нояб. 2025 г. в 00:28, Jamil K <jkazimzade1@gmail.com>:
+
+
+======================================================================================================
+
+
+GoMap API Documentation
+Getting Started
+Initialize Map
+Getting Started
+To start using GoMap API services you must get a personal GUID. Please, contact us by e-mail - info@gomap.az
+
+Start by adding corresponding stylesheet and script to the body of your html
+
+CSS
+Copy-paste the stylesheet <link> into your <head> to load our CSS.
+
+<link rel="stylesheet" href="https://gomap.az/api/files/api.css">
+JS
+Place the following <script> into your <body> to enable them.
+
+<script src="https://gomap.az/api/files/api.js"></script>
+
+
+
+GoMap API Documentation
+Getting Started
+Initialize Map
+Initialize Map
+To initialize map pass options to the initializeMap function.
+
+Options
+guid - Your personal unique GUID
+lng - The language of the map to display : 'az', 'ru' or 'en'
+waterColor - The color of water on the map to display : hexa code of the color without '#' sign
+zoomLevel - Optional parameter. Sets the zoom level of the map. If not set then default values will be used. Default value is 8
+center - Optional parameter. Sets the center of the map. If not set then default values will be used.
+Center structure
+lat - Optional parameter. Sets the lattitude of the map. If not set then default value will be used. Default value is 40.378165
+lon - Optional parameter. Sets the longitude of the map. If not set then default value will be used. Default value is 49.82999
+extent - Optional parameter. Sets the limits of the map rendering area. If not set then no extent will be used.
+extent structure
+lat1 - Sets the minimum lattitude of the map extent.
+lon1 - Sets the minimum longitude of the map extent.
+lat2 - Sets the maximum lattitude of the map extent.
+lon2 - Sets the maximum longitude of the map extent.
+target - The container for the map, the id of the element.
+Example
+var options = {
+    guid: 'YOUR_GUID',
+	lng: 'en',
+	waterColor: 'a6cfed',
+    zoomLevel: 12,
+    center: {
+        lat: 40.4,
+        lon: 49.8
+    },
+    extent: {
+        lat1: 39.4,
+        lon1: 47.8,
+        lat2: 41.4,
+        lon2: 50.8
+    },
+    target: 'map' // Id of the <div> element. Container of the map.
+};
+GomapApi.initializeMap({options: options});
+
+======================================================================================================
+
+
+
+Main
+
+
+The following operations are supported. For a formal definition, please review the Service Description.
+
+analyzePOI
+
+checkGuid
+
+getAddressByCoords
+
+getApiMethodsStatisticByGUID
+
+getApiStatisticsByGUID
+
+getAudioByPoi_GUID
+
+getBuildingsNew
+
+getCoordsFreeWays
+
+getDescriptionByPoi_GUID
+
+getDescriptionByPoi_ID
+
+getDetailsByPoi_GUID
+
+getFreeWaysList
+
+getImageByPoi_GUID
+
+getInfoBuilding
+
+getNameByCoords
+
+getNewAddress
+
+getNewAddressByCoords
+
+getRegionsNew
+
+getRoadsNew
+
+getRoute
+
+getRouteByType
+
+getRouteCoords
+
+getRouteGeoJSON
+
+getRouteNew
+
+getRouteXml
+
+getTrafficTilesByCoord
+
+makeSearchCitySettlement
+
+makeSearchCitySettlementFuzzy
+
+makeSearchwithIgnore
+
+searchNearBy
+
+searchNearBy50
+
+searchNearByPage
+
+searchObj
+
+searchObjGoNav
+
+searchObjPage
+
+searchObjPageWithDistance
+
+searchObjWithDistance
+
+searchObjXml
+
+searchRegions
+
+This web service is using http://tempuri.org/ as its default namespace.
+Recommendation: Change the default namespace before the XML Web service is made public.
+Each XML Web service needs a unique namespace in order for client applications to distinguish it from other services on the Web. http://tempuri.org/ is available for XML Web services that are under development, but published XML Web services should use a more permanent namespace.
+
+Your XML Web service should be identified by a namespace that you control. For example, you can use your company's Internet domain name as part of the namespace. Although many XML Web service namespaces look like URLs, they need not point to actual resources on the Web. (XML Web service namespaces are URIs.)
+
+For XML Web services creating using ASP.NET, the default namespace can be changed using the WebService attribute's Namespace property. The WebService attribute is an attribute applied to the class that contains the XML Web service methods. Below is a code example that sets the namespace to "http://microsoft.com/webservices/":
+
+C#
+
+[WebService(Namespace="http://microsoft.com/webservices/")]
+public class MyWebService {
+    // implementation
+}
+Visual Basic
+
+<WebService(Namespace:="http://microsoft.com/webservices/")> Public Class MyWebService
+    ' implementation
+End Class
+C++
+
+[WebService(Namespace="http://microsoft.com/webservices/")]
+public ref class MyWebService {
+    // implementation
+};
+For more details on XML namespaces, see the W3C recommendation on Namespaces in XML.
+
+For more details on WSDL, see the WSDL Specification.
+
+For more details on URIs, see RFC 2396.

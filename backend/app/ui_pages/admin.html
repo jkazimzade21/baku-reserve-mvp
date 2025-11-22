@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Baku Reserve – Admin Console</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --page-bg: linear-gradient(140deg, #0ea5e9 0%, #818cf8 24%, #f8fafc 100%);
+      --panel-bg: rgba(255, 255, 255, 0.94);
+      --border: rgba(148, 163, 184, 0.28);
+      --accent: #0f766e;
+      --accent-strong: #0ea5e9;
+      --accent-soft: rgba(14, 165, 233, 0.1);
+      --danger: #b91c1c;
+      --danger-soft: rgba(248, 113, 113, 0.16);
+      --text: #0f172a;
+      --muted: #475569;
+      --shadow: 0 24px 48px -28px rgba(15, 23, 42, 0.55);
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--page-bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 32px;
+      background: rgba(15, 23, 42, 0.78);
+      color: #fff;
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 12px 28px -18px rgba(15, 23, 42, 0.65);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.15);
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .nav {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .nav-link {
+      position: relative;
+      padding-bottom: 4px;
+      color: rgba(255, 255, 255, 0.82);
+      transition: color 0.2s ease;
+    }
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.45);
+      border-radius: 999px;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.2s ease;
+    }
+    .nav-link:hover {
+      color: #fff;
+    }
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      transform: scaleX(1);
+    }
+    main.page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px 72px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    h1, h2 {
+      margin: 0;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    p {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+    .panel {
+      background: var(--panel-bg);
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+    .intro {
+      display: grid;
+      gap: 8px;
+    }
+    .meta {
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .controls-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .token-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: flex-end;
+    }
+    .token-controls label {
+      flex: 1 1 280px;
+    }
+    .token-controls input {
+      width: 100%;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+    .stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+    .space-between {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    label {
+      font-size: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 160px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    select, input, button {
+      font-size: 15px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-family: inherit;
+      transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+    select:focus, input:focus {
+      outline: none;
+      border-color: var(--accent-strong);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25);
+    }
+    .button {
+      cursor: pointer;
+      border: none;
+      color: #fff;
+      background: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 10px 18px;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+    }
+    .button.secondary {
+      background: #111827;
+    }
+    .button.ghost {
+      background: rgba(15, 23, 42, 0.08);
+      color: var(--text);
+    }
+    .button.ghost:hover {
+      background: rgba(15, 23, 42, 0.12);
+    }
+    .button.danger {
+      background: var(--danger);
+    }
+    .button:hover {
+      filter: brightness(1.05);
+    }
+    .micro-button {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      background: rgba(15, 23, 42, 0.05);
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .micro-button:hover {
+      background: rgba(14, 165, 233, 0.12);
+      border-color: rgba(14, 165, 233, 0.4);
+    }
+    .micro-button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .toggle {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .toggle input {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    .status {
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-weight: 500;
+      display: none;
+      border: 1px solid transparent;
+    }
+    .status.info {
+      display: block;
+      background: rgba(14, 165, 233, 0.1);
+      color: #0369a1;
+      border-color: rgba(14, 165, 233, 0.25);
+    }
+    .status.success {
+      display: block;
+      background: rgba(16, 185, 129, 0.1);
+      color: #047857;
+      border-color: rgba(16, 185, 129, 0.2);
+    }
+    .status.error {
+      display: block;
+      background: rgba(248, 113, 113, 0.12);
+      color: #b91c1c;
+      border-color: rgba(248, 113, 113, 0.28);
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+    .metric {
+      padding: 16px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      display: grid;
+      gap: 4px;
+    }
+    .metric .label {
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .metric .value {
+      font-size: 24px;
+      font-weight: 600;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.94);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      box-shadow: 0 18px 30px -28px rgba(15, 23, 42, 0.65);
+    }
+    thead {
+      background: #111827;
+      color: #fff;
+    }
+    th, td {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 14px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+    }
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+    tbody tr:hover {
+      background: rgba(14, 165, 233, 0.08);
+    }
+    td.actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 600;
+      background: rgba(14, 165, 233, 0.16);
+      color: #075985;
+    }
+    .badge.cancelled {
+      background: rgba(248, 113, 113, 0.16);
+      color: #991b1b;
+    }
+    .badge.pending {
+      background: rgba(250, 204, 21, 0.2);
+      color: #92400e;
+    }
+    .empty {
+      padding: 28px;
+      text-align: center;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.03);
+      border: 1px dashed rgba(148, 163, 184, 0.3);
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .activity-feed {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+    .activity-item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      font-size: 14px;
+    }
+    .activity-item .time {
+      font-family: "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .activity-item.meta {
+      background: rgba(14, 165, 233, 0.12);
+      color: #075985;
+    }
+    .activity-item.error {
+      background: var(--danger-soft);
+      border-color: rgba(248, 113, 113, 0.4);
+      color: #991b1b;
+    }
+    .status-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    @media (max-width: 900px) {
+      .topbar {
+        padding: 16px 20px;
+      }
+      main.page {
+        padding: 24px 16px 64px;
+      }
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      thead {
+        display: none;
+      }
+      tr {
+        margin-bottom: 12px;
+        border: 1px solid rgba(148, 163, 184, 0.3);
+        border-radius: 16px;
+        overflow: hidden;
+      }
+      td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px dashed rgba(148, 163, 184, 0.2);
+      }
+      td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        margin-right: 12px;
+        color: var(--muted);
+      }
+      td.actions {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">BR</span>
+      <span>Baku Reserve</span>
+    </div>
+    <nav class="nav">
+      <a class="nav-link" href="/book/">Book</a>
+      <a class="nav-link active" href="/admin/">Admin</a>
+      <a class="nav-link" href="/docs">API Docs</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="panel intro">
+      <div class="space-between">
+        <div>
+          <h1>Operations cockpit</h1>
+          <p>Monitor reservations, confirm guests, and keep service spotless with live sync.</p>
+        </div>
+        <div class="meta">Last refreshed · <span id="lastUpdated">Never</span></div>
+      </div>
+    </section>
+
+    <section class="panel controls-grid">
+      <div class="token-controls">
+        <label>
+          Bearer token
+          <input type="password" id="tokenInput" placeholder="Paste API bearer token" autocomplete="off" spellcheck="false" />
+        </label>
+        <button id="saveTokenBtn" type="button" class="button">Save token</button>
+        <button id="clearTokenBtn" type="button" class="button ghost">Clear</button>
+      </div>
+      <div class="controls">
+        <button id="refreshBtn" type="button" class="button secondary">Refresh reservations</button>
+        <button id="clearBtn" type="button" class="button danger">Delete all reservations</button>
+        <button id="downloadBtn" type="button" class="button ghost">Download CSV</button>
+      </div>
+      <div class="stack">
+        <label class="toggle">
+          <input type="checkbox" id="autoRefreshToggle" />
+          <span>Auto-refresh every 30&nbsp;s</span>
+        </label>
+        <label>
+          Quick filter
+          <input type="search" id="searchInput" placeholder="Search guest, phone, or table" />
+        </label>
+        <label>
+          Status
+          <select id="statusFilter">
+            <option value="all">All bookings</option>
+            <option value="booked">Booked</option>
+            <option value="pending">Pending</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <div class="status-row">
+      <div id="status" class="status info" role="status">Loading…</div>
+    </div>
+
+    <section class="panel metrics" id="snapshot">
+      <div class="empty">Metrics will appear once reservations load.</div>
+    </section>
+
+    <section class="panel">
+      <div class="space-between">
+        <h2>Reservations</h2>
+        <span class="meta" id="tableMeta">Waiting for data…</span>
+      </div>
+      <div id="tableWrapper">
+        <div class="empty">Loading reservations…</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="space-between">
+        <div>
+          <h2>Restaurant partner console</h2>
+          <p style="margin: 4px 0 0; color: var(--muted);">Live snapshot of what venues see. Arrival/location features have been disabled.</p>
+        </div>
+        <span class="meta" id="partnerMeta">Waiting for data…</span>
+      </div>
+      <div id="partnerWrapper">
+        <div class="empty">Loading partner telemetry…</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="space-between">
+        <h2>Recent actions</h2>
+        <span class="meta">Latest five updates</span>
+      </div>
+      <ul id="activityList" class="activity-feed">
+        <li class="activity-item meta"><span class="time">--:--</span><span class="message">Admin console ready.</span></li>
+      </ul>
+    </section>
+  </main>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const refreshBtn = document.getElementById('refreshBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const wrapper = document.getElementById('tableWrapper');
+    const partnerWrapper = document.getElementById('partnerWrapper');
+    const activityList = document.getElementById('activityList');
+    const lastUpdatedEl = document.getElementById('lastUpdated');
+    const snapshotEl = document.getElementById('snapshot');
+    const tableMetaEl = document.getElementById('tableMeta');
+    const partnerMetaEl = document.getElementById('partnerMeta');
+    const autoRefreshToggle = document.getElementById('autoRefreshToggle');
+    const searchInput = document.getElementById('searchInput');
+    const statusFilter = document.getElementById('statusFilter');
+    const tokenInput = document.getElementById('tokenInput');
+    const saveTokenBtn = document.getElementById('saveTokenBtn');
+    const clearTokenBtn = document.getElementById('clearTokenBtn');
+
+    let autoRefreshHandle = 0;
+    let reservations = [];
+    let filtered = [];
+    const restaurantLookup = new Map();
+    // Store tokens only for the current browser session to reduce persistence risk
+    let authToken = sessionStorage.getItem('partnerAuthToken') || '';
+    if (authToken && tokenInput) {
+      tokenInput.value = authToken;
+    }
+
+    function formatClock(dateObj) {
+      return dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function logActivity(message, tone = 'info') {
+      const li = document.createElement('li');
+      li.className = `activity-item ${tone}`;
+      const time = document.createElement('span');
+      time.className = 'time';
+      time.textContent = formatClock(new Date());
+      const msg = document.createElement('span');
+      msg.className = 'message';
+      msg.textContent = message;
+      li.appendChild(time);
+      li.appendChild(msg);
+      activityList.insertBefore(li, activityList.firstChild);
+      while (activityList.children.length > 6) {
+        activityList.removeChild(activityList.lastChild);
+      }
+    }
+
+    function setStatus(message, type = 'info') {
+      statusEl.textContent = message;
+      statusEl.className = `status ${type}`;
+      statusEl.style.display = message ? 'block' : 'none';
+    }
+
+    function hasToken() {
+      return Boolean(authToken && authToken.trim().length);
+    }
+
+    function requireToken(message = 'Add bearer token to load data.') {
+      if (hasToken()) {
+        return true;
+      }
+      setStatus(message, 'error');
+      return false;
+    }
+
+    function persistToken(nextValue) {
+      authToken = (nextValue || '').trim();
+      if (authToken) {
+        sessionStorage.setItem('partnerAuthToken', authToken);
+        if (tokenInput) {
+          tokenInput.value = authToken;
+        }
+        setStatus('Token saved. Loading data…', 'success');
+        logActivity('Bearer token stored locally', 'meta');
+        loadReservations();
+      } else {
+        sessionStorage.removeItem('partnerAuthToken');
+        if (tokenInput) {
+          tokenInput.value = '';
+        }
+        reservations = [];
+        filtered = [];
+        snapshotEl.innerHTML = '<div class="empty">Add a bearer token to load data.</div>';
+        wrapper.innerHTML = '<div class="empty">Add a bearer token to load reservations.</div>';
+        partnerWrapper.innerHTML = '<div class="empty">Arrival tracking removed.</div>';
+        tableMetaEl.textContent = 'Waiting for token';
+        partnerMetaEl.textContent = 'Disabled';
+        setStatus('Token cleared. Paste a new bearer token to resume.', 'info');
+      }
+    }
+
+    async function fetchJson(path, options = {}) {
+      if (!hasToken()) {
+        throw new Error('Missing bearer token');
+      }
+      const opts = { ...options };
+      const headers = { ...(options.headers || {}) };
+      headers.Authorization = `Bearer ${authToken}`;
+      opts.headers = headers;
+      const response = await fetch(path, opts);
+      if (!response.ok) {
+        let detail = response.statusText;
+        try {
+          const payload = await response.json();
+          if (payload && payload.detail) {
+            detail = typeof payload.detail === 'string' ? payload.detail : JSON.stringify(payload.detail);
+          }
+        } catch (err) {
+          // ignore
+        }
+        throw new Error(`${detail} (status ${response.status})`);
+      }
+      return response.json();
+    }
+
+    async function ensureRestaurants() {
+      if (!hasToken()) {
+        return;
+      }
+      if (restaurantLookup.size) {
+        return;
+      }
+      try {
+        const venues = await fetchJson('/restaurants');
+        venues.forEach((venue) => {
+          restaurantLookup.set(venue.id, venue);
+        });
+      } catch (err) {
+        logActivity(`Failed to load restaurant list: ${err.message || err}`, 'error');
+      }
+    }
+
+    function badgeFor(status) {
+      const span = document.createElement('span');
+      span.className = `badge ${status}`;
+      span.textContent = status;
+      return span;
+    }
+
+    function venueNameFor(id) {
+      const venue = restaurantLookup.get(id);
+      return venue ? venue.name : id.slice(0, 8);
+    }
+
+    function describePrep(res) {
+      if (!res.prep_status) {
+        return 'No prep request yet';
+      }
+      const parts = [];
+      if (res.prep_scope) {
+        parts.push(`${res.prep_scope} prep`);
+      }
+      parts.push(res.prep_status);
+      if (res.prep_items && res.prep_items.length) {
+        parts.push(res.prep_items.join(', '));
+      }
+      return parts.join(' · ');
+    }
+
+    function describeIntent() {
+      return 'Arrival tracking disabled';
+    }
+
+    function renderMetrics(items) {
+      snapshotEl.innerHTML = '';
+      if (!items.length) {
+        snapshotEl.innerHTML = '<div class="empty">No reservations yet.</div>';
+        return;
+      }
+      const now = new Date();
+      const metrics = {
+        total: items.length,
+        booked: items.filter((r) => r.status === 'booked').length,
+        pending: items.filter((r) => r.status === 'pending').length,
+        cancelled: items.filter((r) => r.status === 'cancelled').length,
+        upcoming: items.filter((r) => new Date(r.start) >= now).length,
+      };
+      const entries = [
+        { label: 'Total reservations', value: metrics.total },
+        { label: 'Booked', value: metrics.booked },
+        { label: 'Pending', value: metrics.pending },
+        { label: 'Cancelled', value: metrics.cancelled },
+        { label: 'Upcoming', value: metrics.upcoming },
+      ];
+      entries.forEach((metric) => {
+        const div = document.createElement('div');
+        div.className = 'metric';
+        const label = document.createElement('span');
+        label.className = 'label';
+        label.textContent = metric.label;
+        const value = document.createElement('span');
+        value.className = 'value';
+        value.textContent = metric.value;
+        div.appendChild(label);
+        div.appendChild(value);
+        snapshotEl.appendChild(div);
+      });
+    }
+
+    function renderTable(items) {
+      if (!items.length) {
+        wrapper.innerHTML = '<div class="empty">No reservations match your filters.</div>';
+        tableMetaEl.textContent = `0 of ${reservations.length} reservation${reservations.length === 1 ? '' : 's'}`;
+        return;
+      }
+      tableMetaEl.textContent = `${items.length} of ${reservations.length} reservation${reservations.length === 1 ? '' : 's'}`;
+      const table = document.createElement('table');
+      const thead = document.createElement('thead');
+      thead.innerHTML = `
+        <tr>
+          <th>Guest</th>
+          <th>Start → End</th>
+          <th>Party</th>
+          <th>Table</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      `;
+      table.appendChild(thead);
+      const tbody = document.createElement('tbody');
+      for (const res of items) {
+        const row = document.createElement('tr');
+        const guestCell = document.createElement('td');
+        guestCell.dataset.label = 'Guest';
+        guestCell.innerHTML = `
+          <div>${res.guest_name || 'Unknown guest'}</div>
+          <div class="meta">${res.guest_phone || ''}</div>
+        `;
+
+        const startCell = document.createElement('td');
+        startCell.dataset.label = 'Start → End';
+        startCell.innerHTML = `
+          <div>${(res.start || '').replace('T', ' ')}</div>
+          <div class="meta">${(res.end || '').replace('T', ' ')}</div>
+        `;
+
+        const partyCell = document.createElement('td');
+        partyCell.dataset.label = 'Party';
+        partyCell.textContent = res.party_size;
+
+        const tableCell = document.createElement('td');
+        tableCell.dataset.label = 'Table';
+        tableCell.textContent = res.table_id || 'Auto-assigned';
+
+        const statusCell = document.createElement('td');
+        statusCell.dataset.label = 'Status';
+        statusCell.appendChild(badgeFor(res.status));
+
+        const actionsCell = document.createElement('td');
+        actionsCell.dataset.label = 'Actions';
+        actionsCell.className = 'actions';
+
+        const confirmBtn = document.createElement('button');
+        confirmBtn.type = 'button';
+        confirmBtn.className = 'button secondary';
+        confirmBtn.textContent = 'Confirm';
+        confirmBtn.addEventListener('click', () => mutate(res.id, 'confirm'));
+
+        const cancelBtn = document.createElement('button');
+        cancelBtn.type = 'button';
+        cancelBtn.className = 'button ghost';
+        cancelBtn.textContent = 'Cancel';
+        cancelBtn.addEventListener('click', () => mutate(res.id, 'cancel'));
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = 'button';
+        deleteBtn.className = 'button danger';
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.addEventListener('click', () => mutate(res.id, 'delete'));
+
+        actionsCell.appendChild(confirmBtn);
+        actionsCell.appendChild(cancelBtn);
+        actionsCell.appendChild(deleteBtn);
+
+        row.appendChild(guestCell);
+        row.appendChild(startCell);
+        row.appendChild(partyCell);
+        row.appendChild(tableCell);
+        row.appendChild(statusCell);
+        row.appendChild(actionsCell);
+
+        tbody.appendChild(row);
+      }
+      table.appendChild(tbody);
+      wrapper.innerHTML = '';
+      wrapper.appendChild(table);
+    }
+
+    function renderPartnerView() {
+      if (partnerWrapper) {
+        partnerWrapper.innerHTML = '<div class="empty">Arrival tracking removed.</div>';
+      }
+      if (partnerMetaEl) {
+        partnerMetaEl.textContent = 'Disabled';
+      }
+    }
+
+    function applyFilters() {
+      const term = searchInput.value.trim().toLowerCase();
+      const status = statusFilter.value;
+      filtered = reservations.filter((res) => {
+        const matchesTerm = !term || [
+          res.guest_name || '',
+          res.guest_phone || '',
+          res.table_id || '',
+          res.status || ''
+        ].some((value) => value.toLowerCase().includes(term));
+        const matchesStatus = status === 'all' ? true : res.status === status;
+        return matchesTerm && matchesStatus;
+      });
+      renderMetrics(reservations);
+      renderTable(filtered);
+      renderPartnerView(reservations);
+    }
+
+    async function loadReservations() {
+      if (!requireToken()) {
+        wrapper.innerHTML = '<div class="empty">Add a bearer token to load reservations.</div>';
+        partnerWrapper.innerHTML = '<div class="empty">Add a bearer token to view partner feed.</div>';
+        tableMetaEl.textContent = 'Waiting for token';
+        partnerMetaEl.textContent = 'Waiting for token';
+        return;
+      }
+      try {
+        await ensureRestaurants();
+        setStatus('Loading reservations…', 'info');
+        const data = await fetchJson('/reservations');
+        data.sort((a, b) => new Date(a.start) - new Date(b.start));
+        reservations = data;
+        lastUpdatedEl.textContent = new Date().toLocaleString();
+        logActivity('Reservations refreshed', 'meta');
+        setStatus(`Loaded ${reservations.length} reservation${reservations.length === 1 ? '' : 's'}.`, 'success');
+        applyFilters();
+      } catch (err) {
+        wrapper.innerHTML = '<div class="empty">Failed to load reservations.</div>';
+        setStatus(`Error loading reservations: ${err.message || err}`, 'error');
+        logActivity(`Failed to load reservations: ${err.message || err}`, 'error');
+      }
+    }
+
+    async function mutate(id, action) {
+      if (!requireToken()) {
+        return;
+      }
+      try {
+        let url = `/reservations/${id}`;
+        let options = {};
+        if (action === 'confirm') {
+          url = `/reservations/${id}/confirm`;
+          options = { method: 'POST' };
+        } else if (action === 'cancel') {
+          url = `/reservations/${id}/cancel`;
+          options = { method: 'POST' };
+        } else if (action === 'delete') {
+          options = { method: 'DELETE' };
+        }
+        setStatus(`Updating reservation ${id.slice(0, 8)}…`, 'info');
+        logActivity(`Action ${action} on ${id.slice(0, 8)}`, 'meta');
+        await fetchJson(url, options);
+        await loadReservations();
+      } catch (err) {
+        setStatus(`Action failed: ${err.message || err}`, 'error');
+        logActivity(`Action failed: ${err.message || err}`, 'error');
+      }
+    }
+
+    async function clearAllReservations() {
+      if (!requireToken()) {
+        return;
+      }
+      if (!reservations.length) {
+        setStatus('No reservations to clear.', 'info');
+        return;
+      }
+      const confirmClear = window.confirm('Delete all current reservations? This cannot be undone.');
+      if (!confirmClear) {
+        return;
+      }
+      try {
+        setStatus('Removing all reservations…', 'info');
+        logActivity('Clearing all reservations', 'meta');
+        for (const res of reservations) {
+          await fetchJson(`/reservations/${res.id}`, { method: 'DELETE' });
+        }
+        await loadReservations();
+      } catch (err) {
+        setStatus(`Failed to clear reservations: ${err.message || err}`, 'error');
+        logActivity(`Clear failed: ${err.message || err}`, 'error');
+      }
+    }
+
+    async function updateArrivalIntent(resId, action) {
+      // Arrival tracking removed; keep hook for future reuse.
+      setStatus('Arrival tracking is disabled in this build.', 'info');
+      logActivity('Arrival feature disabled', 'meta');
+    }
+
+    function scheduleAutoRefresh() {
+      if (autoRefreshHandle) {
+        clearInterval(autoRefreshHandle);
+        autoRefreshHandle = 0;
+      }
+      if (autoRefreshToggle.checked) {
+        if (!hasToken()) {
+          setStatus('Add a bearer token to enable auto-refresh.', 'error');
+          autoRefreshToggle.checked = false;
+          return;
+        }
+        autoRefreshHandle = window.setInterval(() => {
+          if (document.visibilityState === 'visible') {
+            logActivity('Auto-refresh triggered', 'meta');
+            loadReservations();
+          }
+        }, 30000);
+      }
+    }
+
+    function downloadCsv() {
+      if (!filtered.length) {
+        setStatus('No reservations available to download.', 'error');
+        return;
+      }
+      const header = ['id', 'guest_name', 'guest_phone', 'party_size', 'start', 'end', 'table_id', 'status'];
+      const escapeCell = (value) => {
+        if (value === null || value === undefined) return '""';
+        return `"${String(value).replace(/"/g, '""')}"`;
+      };
+      const rows = filtered.map((res) => header.map((key) => escapeCell(res[key])).join(','));
+      const csv = [header.map((key) => `"${key}"`).join(','), ...rows].join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'reservations.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      logActivity('Downloaded reservation CSV', 'meta');
+      setStatus('Downloaded reservation report.', 'success');
+    }
+
+    saveTokenBtn.addEventListener('click', () => persistToken(tokenInput.value || ''));
+    clearTokenBtn.addEventListener('click', () => persistToken(''));
+    tokenInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        persistToken(tokenInput.value || '');
+      }
+    });
+
+    refreshBtn.addEventListener('click', () => {
+      logActivity('Manual refresh requested', 'meta');
+      loadReservations();
+    });
+    clearBtn.addEventListener('click', () => clearAllReservations());
+    autoRefreshToggle.addEventListener('change', () => {
+      scheduleAutoRefresh();
+      logActivity(`Auto-refresh ${autoRefreshToggle.checked ? 'enabled' : 'disabled'}`, 'meta');
+    });
+    downloadBtn.addEventListener('click', () => downloadCsv());
+    searchInput.addEventListener('input', () => applyFilters());
+    statusFilter.addEventListener('change', () => applyFilters());
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && autoRefreshToggle.checked) {
+        logActivity('Window focused; refreshing reservations', 'meta');
+        loadReservations();
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      logActivity('Bootstrapping admin console', 'meta');
+      partnerWrapper.innerHTML = '<div class="empty">Arrival tracking removed.</div>';
+      partnerMetaEl.textContent = 'Disabled';
+      if (hasToken()) {
+        loadReservations();
+      } else {
+        setStatus('Paste your bearer token to manage reservations.', 'info');
+        wrapper.innerHTML = '<div class="empty">Add a bearer token to load reservations.</div>';
+        tableMetaEl.textContent = 'Waiting for token';
+      }
+      scheduleAutoRefresh();
+    });
+  </script>
+</body>
+</html>

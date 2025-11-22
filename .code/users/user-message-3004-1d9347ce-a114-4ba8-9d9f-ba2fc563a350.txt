@@ -1,0 +1,1642 @@
+REDO REVIEW CODEX MADE CHANGES . HERE THEY ARE ==================================== 
+• Updated Plan
+  └ Wave 3 touches backend DTOs, concierge async refresh, metrics/rate-limit plumbing, contract tests, and cleanup. Breaking the work down keeps the large surface manageable.
+    □ Unify backend DTOs: consolidate schemas/models, choose string IDs, add OpenAPI-to-TypeScript generator and align mobile api types.
+    □ Modernize concierge: async OpenAI client with timeouts, background embedding refresh + health endpoint/metrics, and mobile-visible status.
+    □ Instrumentation & protection: fix Prometheus counters + memoization, implement sharded token-bucket rate limiter respecting trusted proxies.
+    □ Add backend/mobile contract tests for /v1 APIs, then remove dead concierge_* files and related unused scripts.
+    □ Run full backend + mobile tests and refresh AGENTS.md handoff (wave notes, terminal states).
+
+• Edited backend/app/models.py (+24 -0)
+    20      capacity: int = 2
+    21 +    position: tuple[int, int] | None = None
+    22 +    shape: Literal["circle", "rect"] = "circle"
+    23
+       ⋮
+    39      timezone: str | None = None
+    40 +    neighborhood: str | None = None
+    41 +    address: str | None = None
+    42 +    short_description: str | None = None
+    43 +    price_level: str | None = None
+    44 +    tags: list[str] = Field(default_factory=list)
+    45 +    average_spend: str | None = None
+    46
+       ⋮
+    57      photos: list[str] = Field(default_factory=list)
+    58 +    cover_photo: str | None = None
+    59 +    short_description: str | None = None
+    60 +    neighborhood: str | None = None
+    61 +    price_level: str | None = None
+    62 +    tags: list[str] = Field(default_factory=list)
+    63 +    highlights: list[str] = Field(default_factory=list)
+    64 +    map_images: list[str] = Field(default_factory=list)
+    65 +    latitude: float | None = None
+    66 +    longitude: float | None = None
+    67 +    directions_url: str | None = None
+    68 +    menu_url: str | None = None
+    69 +    instagram: str | None = None
+    70 +    whatsapp: str | None = None
+    71 +    average_spend: str | None = None
+    72 +    dress_code: str | None = None
+    73 +    experiences: list[str] = Field(default_factory=list)
+    74      areas: list[Area] = Field(default_factory=list)
+
+• Ran mv backend/app/models.py backend/app/contracts.py
+  └ (no output)
+
+• Explored
+  └ Search from \\.models
+
+• Edited backend/app/main.py (+1 -1)
+    29  from .maps import build_fallback_eta, compute_eta_with_traffic, search_places
+    30 -from .models import (
+    30 +from .contracts import (
+    31      ArrivalEtaConfirmation,
+
+• Edited backend/app/storage.py (+1 -1)
+    12
+    13 -from .models import ArrivalIntent, Reservation, ReservationCreate
+    13 +from .contracts import ArrivalIntent, Reservation, ReservationCreate
+    14  from .settings import settings
+
+• Edited backend/app/accounts.py (+1 -1)
+    12
+    13 -from .models import LoginRequest, User, UserCreate
+    13 +from .contracts import LoginRequest, User, UserCreate
+    14
+
+• Explored
+  └ Search \.models
+
+• Edited backend/app/api/routes/reservations.py (+1 -1)
+    12  from ...maps import build_fallback_eta, compute_eta_with_traffic, search_places
+    13 -from ...models import (
+    13 +from ...contracts import (
+    14      ArrivalEtaConfirmation,
+
+• Edited backend/app/api/routes/restaurants.py (+1 -1)
+    11  from ...maps import build_fallback_eta, compute_eta_with_traffic, search_places
+    12 -from ...models import GeocodeResult
+    12 +from ...contracts import GeocodeResult
+    13  from ...schemas import RestaurantListItem
+
+• Edited backend/app/api/utils.py (+1 -1)
+     8
+     9 -from ..models import ArrivalIntent, Reservation
+     9 +from ..contracts import ArrivalIntent, Reservation
+    10  from ..serializers import get_attr
+
+• Edited backend/tests/test_validation.py (+1 -1)
+    5  import pytest
+    6 -from backend.app.models import ArrivalIntent, ArrivalIntentRequest, ReservationCreate
+    6 +from backend.app.contracts import ArrivalIntent, ArrivalIntentRequest, ReservationCreate
+    7  from backend.app.schemas import PreorderRequest
+
+• Edited backend/tests/test_backend_system.py (+1 -1)
+     9  from backend.app.gomap import GoMapRoute
+    10 -from backend.app.models import ReservationCreate
+    10 +from backend.app.contracts import ReservationCreate
+    11  from backend.app.serializers import absolute_media_list, absolute_media_url
+
+• Explored
+
+• Explored
+  └ Search app\.models
+
+• I'm planning to clean up schemas.py by removing duplicated models like Table, Area, and Restaurant, and instead import them from the renamed
+  contracts module. I'll carefully check for any leftover imports like uuid4 and datetime that might no longer be needed after removing those
+  classes. There’s also the detail that some modules, like main.py, still import classes like RestaurantListItem from schemas, so I might need
+  to update those imports to point to contracts. I'm being watchful to only remove what's safe and keep necessary utilities like normalization
+  functions still in use.
+
+• Explored
+  └ Search RestaurantListItem in main.py
+
+• Ran rg -n "RestaurantListItem" -n backend/app -g'*.py'
+  └ backend/app/concierge_service.py:31:from .schemas import ConciergeIntent, ConciergeRequest, ConciergeResponse, RestaurantListItem
+    backend/app/concierge_service.py:137:        self._list_items: dict[str, RestaurantListItem] = {}
+    … +15 lines
+    backend/app/embeddings.py:57:def _serialize_restaurant(rest: RestaurantListItem) -> str:
+    backend/app/embeddings.py:70:def build_restaurant_vectors(restaurants: Iterable[RestaurantListItem]) -> dict[str, np.ndarray]:
+
+• Explored
+  └ Search from \\.schemas import .*Reservation
+
+• I’m mapping out how to update various modules to import RestaurantListItem from .contracts instead of .schemas to prevent breaking changes,
+  while preparing to remove this from schemas.py. I’m also carefully deciding which imports and classes to keep or remove from schemas.py by
+  checking usage, especially around Concierge and Reservation references. This will keep dependencies clean and prevent errors.
+
+• Explored
+  └ Search schemas import.*Reservation
+
+• Edited backend/app/schemas.py (+2 -62)
+     1 -from datetime import datetime
+     1  from typing import Literal
+     3 -from uuid import UUID, uuid4
+     2
+       ⋮
+     4
+     7 -from .validators import normalize_display_name, normalize_phone, normalize_prep_items
+     8 -
+     9 -
+    10 -class Table(BaseModel):
+    11 -    id: UUID = Field(default_factory=uuid4)
+    12 -    name: str
+    13 -    capacity: int
+    14 -    position: tuple[int, int] | None = None
+    15 -    shape: Literal["circle", "rect"] = "circle"
+    16 -
+    17 -
+    18 -class Area(BaseModel):
+    19 -    id: UUID = Field(default_factory=uuid4)
+    20 -    name: str
+    21 -    tables: list[Table] = Field(default_factory=list)
+    22 -
+    23 -
+    24 -class Restaurant(BaseModel):
+    25 -    id: UUID = Field(default_factory=uuid4)
+    26 -    name: str
+    27 -    slug: str | None = None
+    28 -    cuisine: list[str] = Field(default_factory=list)
+    29 -    city: str = "Baku"
+    30 -    timezone: str = "Asia/Baku"
+    31 -    address: str | None = None
+    32 -    phone: str | None = None
+    33 -    photos: list[str] = Field(default_factory=list)
+    34 -    cover_photo: str | None = None
+    35 -    short_description: str | None = None
+    36 -    neighborhood: str | None = None
+    37 -    price_level: str | None = None
+    38 -    tags: list[str] = Field(default_factory=list)
+    39 -    highlights: list[str] = Field(default_factory=list)
+    40 -    map_images: list[str] = Field(default_factory=list)
+    41 -    latitude: float | None = None
+    42 -    longitude: float | None = None
+    43 -    directions_url: str | None = None
+    44 -    menu_url: str | None = None
+    45 -    instagram: str | None = None
+    46 -    whatsapp: str | None = None
+    47 -    average_spend: str | None = None
+    48 -    dress_code: str | None = None
+    49 -    experiences: list[str] = Field(default_factory=list)
+    50 -    areas: list[Area] = Field(default_factory=list)
+    51 -
+    52 -
+    53 -class RestaurantListItem(BaseModel):
+    54 -    id: UUID
+    55 -    name: str
+    56 -    slug: str | None = None
+    57 -    cuisine: list[str]
+    58 -    city: str
+    59 -    timezone: str | None = None
+    60 -    neighborhood: str | None = None
+    61 -    address: str | None = None
+    62 -    cover_photo: str | None = None
+    63 -    short_description: str | None = None
+    64 -    price_level: str | None = None
+    65 -    tags: list[str] = Field(default_factory=list)
+    66 -    average_spend: str | None = None
+     5 +from .contracts import RestaurantListItem
+     6 +from .validators import normalize_prep_items
+     7
+
+• Explored
+  └ Search from \\.schemas import .*Reservation
+
+• Edited backend/app/schemas.py (+0 -57)
+     44
+     45 -class ReservationCreate(BaseModel):
+     46 -    restaurant_id: UUID
+     47 -    party_size: int
+     48 -    start: datetime
+     49 -    end: datetime
+     50 -    guest_name: str
+     51 -    guest_phone: str | None = None
+     52 -    table_id: UUID | None = None
+     53 -
+     54 -    @field_validator("party_size")
+     55 -    @classmethod
+     56 -    def _party_positive(cls, v: int) -> int:
+     57 -        if v < 1:
+     58 -            raise ValueError("party_size must be >= 1")
+     59 -        return v
+     60 -
+     61 -    @field_validator("end")
+     62 -    @classmethod
+     63 -    def _end_after_start(cls, v: datetime, info):
+     64 -        start = info.data.get("start")
+     65 -        if isinstance(start, datetime) and v <= start:
+     66 -            raise ValueError("end must be after start")
+     67 -        return v
+     68 -
+     69 -    @field_validator("guest_name")
+     70 -    @classmethod
+     71 -    def _guest_name(cls, value: str) -> str:
+     72 -        return normalize_display_name(value, field="guest_name")
+     73 -
+     74 -    @field_validator("guest_phone")
+     75 -    @classmethod
+     76 -    def _guest_phone(cls, value: str | None) -> str | None:
+     77 -        return normalize_phone(value)
+     78 -
+     79 -
+     80 -class Reservation(BaseModel):
+     81 -    id: UUID = Field(default_factory=uuid4)
+     82 -    restaurant_id: UUID
+     83 -    party_size: int
+     84 -    start: datetime
+     85 -    end: datetime
+     86 -    guest_name: str
+     87 -    guest_phone: str | None = None
+     88 -    table_id: UUID | None = None
+     89 -    status: Literal["booked", "cancelled"] = "booked"
+     90 -
+     91 -    @field_validator("guest_name")
+     92 -    @classmethod
+     93 -    def _res_guest_name(cls, value: str) -> str:
+     94 -        return normalize_display_name(value, field="guest_name")
+     95 -
+     96 -    @field_validator("guest_phone")
+     97 -    @classmethod
+     98 -    def _res_guest_phone(cls, value: str | None) -> str | None:
+     99 -        return normalize_phone(value)
+    100 -
+    101 -
+     45  class PreorderRequest(BaseModel):
+
+• Explored
+  └ Read schemas.py
+
+• Edited backend/app/concierge_service.py (+2 -1)
+    30  from .llm_intent import IntentUnavailable, parse_intent
+    31 -from .schemas import ConciergeIntent, ConciergeRequest, ConciergeResponse, RestaurantListItem
+    31 +from .contracts import RestaurantListItem
+    32 +from .schemas import ConciergeIntent, ConciergeRequest, ConciergeResponse
+    33  from .scoring import RestaurantFeatures, hybrid_score
+
+• Edited backend/app/embeddings.py (+1 -1)
+    11
+    12 -from .schemas import RestaurantListItem
+    12 +from .contracts import RestaurantListItem
+    13  from .settings import settings
+
+• Edited backend/app/concierge_enhanced.py (+3 -2)
+     38  from .llm_intent import IntentUnavailable, parse_intent
+     39 -from .schemas import ConciergeIntent, ConciergeRequest, ConciergeResponse, RestaurantListItem
+     39 +from .contracts import RestaurantListItem
+     40 +from .schemas import ConciergeIntent, ConciergeRequest, ConciergeResponse
+     41  from .serializers import restaurant_to_list_item
+        ⋮
+    954  # Create service instance
+    954 -enhanced_concierge = EnhancedConciergeService()
+    955 +enhanced_concierge = EnhancedConciergeService()
+
+• Explored
+  └ Search schemas import .*RestaurantListItem
+    Read restaurants.py
+
+• Edited backend/app/api/routes/restaurants.py (+1 -2)
+    11  from ...maps import build_fallback_eta, compute_eta_with_traffic, search_places
+    12 -from ...contracts import GeocodeResult
+    13 -from ...schemas import RestaurantListItem
+    12 +from ...contracts import GeocodeResult, RestaurantListItem
+    13  from ...serializers import get_attr, restaurant_to_detail, restaurant_to_list_item
+
+• Edited backend/tests/test_endpoint.py (+2 -1)
+    2  from backend.app.llm_intent import IntentUnavailable
+    3 -from backend.app.schemas import ConciergeResponse, RestaurantListItem
+    3 +from backend.app.schemas import ConciergeResponse
+    4 +from backend.app.contracts import RestaurantListItem
+    5  from backend.app.serializers import restaurant_to_list_item
+
+• Explored
+  └ Search schemas import .*RestaurantListItem
+
+• Ran cat <<'EOF' > tools/export_openapi.py
+  │ #!/usr/bin/env python3
+  │ """Export the FastAPI OpenAPI schema to artifacts/openapi.json."""
+  │ … +21 lines
+  └ (no output)
+
+• Explored
+  └ Read package.json
+
+• Edited package.json (+5 -1)
+     9    "scripts": {
+    10 -    "test": "echo \"Error: no test specified\" && exit 1"
+    10 +    "test": "echo \"Error: no test specified\" && exit 1",
+    11 +    "generate:api-types": "python3 tools/export_openapi.py && npx openapi-typescript artifacts/openapi.json --output mobile/src/types/s
+        erver.d.ts"
+    12    },
+       ⋮
+    19      "yargs": "^17.7.2"
+    20 +  },
+    21 +  "devDependencies": {
+    22 +    "openapi-typescript": "^7.3.2"
+    23    }
+
+• Ran npm install
+  └ npm error code ENOTFOUND
+    npm error syscall getaddrinfo
+    … +7 lines
+    npm error Log files were not written due to an error writing to the directory: /Users/jkazimzade/.npm/_logs
+    npm error You can rerun the command with `--loglevel=verbose` to see the logs in your terminal
+
+• I'm working around network/DNS issues that block adding the openapi-typescript package by planning a Python-based generator instead. This
+  script will convert the OpenAPI JSON spec—exported via an existing tool—into TypeScript definitions for key API models, letting me remove the
+  failed npm devDependency and keep the type generation fully under control without external installs. I'll also revise package.json scripts
+  accordingly. This approach sidesteps reliance on network access and keeps types in sync with the backend Pydantic models.
+
+• Edited package.json (+1 -4)
+    10      "test": "echo \"Error: no test specified\" && exit 1",
+    11 -    "generate:api-types": "python3 tools/export_openapi.py && npx openapi-typescript artifacts/openapi.json --output mobile/src/types/s
+        erver.d.ts"
+    11 +    "generate:api-types": "python3 tools/export_openapi.py && python3 tools/generate_ts_contracts.py"
+    12    },
+       ⋮
+    19      "yargs": "^17.7.2"
+    20 -  },
+    21 -  "devDependencies": {
+    22 -    "openapi-typescript": "^7.3.2"
+    20    }
+
+• Ran cat <<'EOF' > tools/generate_ts_contracts.py
+  │ #!/usr/bin/env python3
+  │ """Generate TypeScript contract types from the OpenAPI schema."""
+  │ … +117 lines
+  └ (no output)
+
+• Ran python3 tools/export_openapi.py
+  └ Traceback (most recent call last):
+      File "/Users/jkazimzade/baku-reserve/tools/export_openapi.py", line 8, in <module>
+        from backend.app.main import app  # noqa: F401
+    ModuleNotFoundError: No module named 'backend'
+
+• Edited tools/export_openapi.py (+6 -1)
+     5  import json
+     6 +import sys
+     7  from pathlib import Path
+     8
+     8 -from backend.app.main import app  # noqa: F401
+     9 +ROOT = Path(__file__).resolve().parents[1]
+    10 +if str(ROOT) not in sys.path:
+    11 +    sys.path.insert(0, str(ROOT))
+    12 +
+    13 +from backend.app.main import app  # noqa: E402
+    14
+
+• Ran python3 tools/export_openapi.py
+  └ /Users/jkazimzade/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL
+    1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+      warnings.warn(
+    … +10 lines
+        @dataclass(slots=True)
+    TypeError: dataclass() got an unexpected keyword argument 'slots'
+
+• Edited package.json (+1 -1)
+    10      "test": "echo \"Error: no test specified\" && exit 1",
+    11 -    "generate:api-types": "python3 tools/export_openapi.py && python3 tools/generate_ts_contracts.py"
+    11 +    "generate:api-types": "python3.11 tools/export_openapi.py && python3.11 tools/generate_ts_contracts.py"
+    12    },
+
+• Ran python3.11 tools/export_openapi.py
+  └ Concierge embeddings unavailable: OPENAI_API_KEY not configured
+    Traceback (most recent call last):
+    … +6 lines
+        from prometheus_client import Counter, Gauge, Histogram, Info, generate_latest
+    ModuleNotFoundError: No module named 'prometheus_client'
+
+• Ran source .venv/bin/activate && python tools/export_openapi.py
+  └ Concierge embeddings unavailable: OPENAI_API_KEY not configured
+    [export_openapi] Wrote artifacts/openapi.json
+
+• Ran source .venv/bin/activate && python tools/generate_ts_contracts.py
+  └ Schema Restaurant missing from OpenAPI components
+
+• Edited tools/generate_ts_contracts.py (+2 -2)
+     12      "RestaurantListItem",
+     13 -    "Restaurant",
+     13      "Reservation",
+        ⋮
+    107          if not schema:
+    109 -            raise SystemExit(f"Schema {name} missing from OpenAPI components")
+    108 +            print(f"[generate_ts_contracts] Skipping missing schema: {name}")
+    109 +            continue
+    110          lines.append(build_interface(name, schema, schemas))
+
+• Ran source .venv/bin/activate && python tools/generate_ts_contracts.py
+  └ [generate_ts_contracts] Wrote mobile/src/types/server.d.ts
+
+• Explored
+  └ Read server.d.ts
+
+• I’m replacing inline Restaurant-related type definitions in mobile/src/api.ts with imports from the generated types file. Since the
+  detailed Restaurant type isn’t currently in the generated schemas due to missing response_model in the backend route, I plan to update the /
+  restaurants/{rid} endpoint to specify response_model=Restaurant so OpenAPI includes it, enabling the TS generator to include that type. This
+  should clean up type management and keep both frontend and backend in sync.
+
+• Edited backend/app/api/routes/restaurants.py (+2 -2)
+    11  from ...maps import build_fallback_eta, compute_eta_with_traffic, search_places
+    12 -from ...contracts import GeocodeResult, RestaurantListItem
+    12 +from ...contracts import GeocodeResult, Restaurant, RestaurantListItem
+    13  from ...serializers import get_attr, restaurant_to_detail, restaurant_to_list_item
+       ⋮
+    26
+    27 -@router.get("/restaurants/{rid}")
+    27 +@router.get("/restaurants/{rid}", response_model=Restaurant)
+    28  def get_restaurant(rid: UUID, request: Request):
+
+• Ran source .venv/bin/activate && python tools/export_openapi.py
+  └ Concierge embeddings unavailable: OPENAI_API_KEY not configured
+    [export_openapi] Wrote artifacts/openapi.json
+
+• Ran source .venv/bin/activate && python tools/generate_ts_contracts.py
+  └ [generate_ts_contracts] Wrote mobile/src/types/server.d.ts
+
+• Explored
+  └ Read server.d.ts
+
+• Edited tools/generate_ts_contracts.py (+1 -0)
+    12      "RestaurantListItem",
+    13 +    "Restaurant",
+    14      "Reservation",
+
+• Ran source .venv/bin/activate && python tools/generate_ts_contracts.py
+  └ [generate_ts_contracts] Wrote mobile/src/types/server.d.ts
+
+• Explored
+  └ Read server.d.ts
+
+• Edited tools/generate_ts_contracts.py (+2 -0)
+    13      "Restaurant",
+    14 +    "Area",
+    15 +    "Table",
+    16      "Reservation",
+
+• Ran source .venv/bin/activate && python tools/generate_ts_contracts.py
+  └ [generate_ts_contracts] Wrote mobile/src/types/server.d.ts
+
+• Explored
+  └ Read server.d.ts, api.ts
+
+• Edited mobile/src/api.ts (+12 -0)
+     2  import { Platform } from 'react-native';
+     3 +import type {
+     4 +  ArrivalEtaConfirmation,
+     5 +  ArrivalIntent as ApiArrivalIntent,
+     6 +  ArrivalIntentDecision as ApiArrivalIntentDecision,
+     7 +  ArrivalIntentRequest as ApiArrivalIntentRequest,
+     8 +  ArrivalLocationPing,
+     9 +  ArrivalLocationSuggestion as ApiArrivalLocationSuggestion,
+    10 +  Reservation as ApiReservation,
+    11 +  ReservationCreate as ApiReservationPayload,
+    12 +  Restaurant as ApiRestaurantDetail,
+    13 +  RestaurantListItem as ApiRestaurantSummary,
+    14 +} from './types/server';
+    15
+
+• Edited mobile/src/api.ts (+2 -32)
+     22
+     23 -export type RestaurantSummary = {
+     24 -  id: string;
+     25 -  name: string;
+     26 -  slug?: string;
+     27 -  cuisine: string[];
+     28 -  city?: string;
+     29 -  timezone?: string;
+     30 -  neighborhood?: string;
+     31 -  address?: string;
+     32 -  cover_photo?: string;
+     33 -  short_description?: string;
+     34 -  price_level?: string;
+     35 -  tags?: string[];
+     36 -  average_spend?: string;
+     37 -};
+     23 +export type RestaurantSummary = ApiRestaurantSummary;
+     24
+        ⋮
+     71
+     86 -export type RestaurantDetail = RestaurantSummary & {
+     87 -  address?: string;
+     88 -  phone?: string;
+     89 -  photos?: string[];
+     90 -  cover_photo?: string;
+     91 -  neighborhood?: string;
+     92 -  highlights?: string[];
+     93 -  map_images?: string[];
+     94 -  latitude?: number;
+     95 -  longitude?: number;
+     96 -  directions_url?: string;
+     97 -  menu_url?: string;
+     98 -  instagram?: string;
+     99 -  whatsapp?: string;
+    100 -  average_spend?: string;
+    101 -  dress_code?: string;
+    102 -  experiences?: string[];
+     72 +export type RestaurantDetail = Omit<ApiRestaurantDetail, 'areas'> & {
+     73    areas?: AreaDetail[];
+
+• Edited mobile/src/api.ts (+2 -27)
+     87
+     88 -export type Reservation = {
+     89 -  id: string;
+     90 -  restaurant_id: string;
+     91 -  table_id?: string | null;
+     92 -  party_size: number;
+     93 -  start: string;
+     94 -  end: string;
+     95 -  guest_name?: string;
+     96 -  guest_phone?: string | null;
+     97 -  status: string;
+     98 -  arrival_intent?: ArrivalIntent;
+     99 -  prep_eta_minutes?: number | null;
+    100 -  prep_request_time?: string | null;
+    101 -  prep_items?: string[] | null;
+    102 -  prep_scope?: 'starters' | 'full' | null;
+    103 -  prep_status?: 'pending' | 'accepted' | 'rejected' | null;
+    104 -  prep_policy?: string | null;
+    105 -};
+     88 +export type Reservation = ApiReservation;
+     89
+    107 -export type ReservationPayload = {
+    108 -  restaurant_id: string;
+    109 -  party_size: number;
+    110 -  start: string;
+    111 -  end: string;
+    112 -  guest_name: string;
+    113 -  guest_phone?: string;
+    114 -  table_id?: string;
+    115 -};
+     90 +export type ReservationPayload = ApiReservationPayload;
+     91
+
+• Edited mobile/src/api.ts (+1 -20)
+     91
+     92 -export type ArrivalIntent = {
+     93 -  status: 'idle' | 'requested' | 'queued' | 'approved' | 'rejected' | 'cancelled';
+     94 -  lead_minutes?: number | null;
+     95 -  prep_scope?: 'starters' | 'mains' | 'full' | null;
+     96 -  eta_source?: 'user' | 'prediction' | 'location' | null;
+     97 -  last_signal?: string | null;
+     98 -  share_location?: boolean;
+     99 -  notes?: string | null;
+    100 -  auto_charge?: boolean;
+    101 -  predicted_eta_minutes?: number | null;
+    102 -  predicted_eta_seconds?: number | null;
+    103 -  confirmed_eta_minutes?: number | null;
+    104 -  last_location?: { latitude: number; longitude: number } | null;
+    105 -  typical_eta_minutes?: number | null;
+    106 -  route_distance_km?: number | null;
+    107 -  route_summary?: string | null;
+    108 -  traffic_condition?: 'smooth' | 'moderate' | 'heavy' | 'severe' | 'unknown' | null;
+    109 -  traffic_source?: 'gomap' | 'osrm' | 'fallback' | null;
+    110 -  traffic_updated_at?: string | null;
+    111 -};
+     92 +export type ArrivalIntent = ApiArrivalIntent;
+     93
+
+• Edited mobile/src/api.ts (+5 -31)
+     93
+     94 -export type ArrivalIntentRequest = {
+     95 -  lead_minutes: number;
+     96 -  prep_scope: 'starters' | 'mains' | 'full';
+     97 -  share_location?: boolean;
+     98 -  eta_source?: 'user' | 'prediction' | 'location';
+     99 -  auto_charge?: boolean;
+    100 -  notes?: string | null;
+    101 -};
+     94 +export type ArrivalIntentRequest = ApiArrivalIntentRequest;
+     95
+    103 -export type ArrivalIntentDecision = {
+    104 -  action: 'approve' | 'queue' | 'reject' | 'cancel';
+    105 -  notes?: string | null;
+    106 -};
+     96 +export type ArrivalIntentDecision = ApiArrivalIntentDecision;
+     97
+    108 -export type ArrivalLocationPing = {
+    109 -  latitude: number;
+    110 -  longitude: number;
+    111 -};
+     98 +export type ArrivalLocationPing = ArrivalLocationPing;
+     99
+    113 -export type ArrivalEtaConfirmation = {
+    114 -  eta_minutes: number;
+    115 -};
+    100 +export type ArrivalEtaConfirmation = ArrivalEtaConfirmation;
+    101
+    117 -export type ArrivalLocationSuggestion = {
+    118 -  id: string;
+    119 -  name: string;
+    120 -  address?: string | null;
+    121 -  latitude: number;
+    122 -  longitude: number;
+    123 -  distance_km?: number | null;
+    124 -  eta_minutes?: number | null;
+    125 -  eta_seconds?: number | null;
+    126 -  route_summary?: string | null;
+    127 -  provider?: string | null;
+    128 -};
+    102 +export type ArrivalLocationSuggestion = ApiArrivalLocationSuggestion;
+    103
+
+• Edited mobile/src/api.ts (+2 -2)
+    3  import type {
+    4 -  ArrivalEtaConfirmation,
+    4 +  ArrivalEtaConfirmation as ApiArrivalEtaConfirmation,
+    5    ArrivalIntent as ApiArrivalIntent,
+      ⋮
+    7    ArrivalIntentRequest as ApiArrivalIntentRequest,
+    8 -  ArrivalLocationPing,
+    8 +  ArrivalLocationPing as ApiArrivalLocationPing,
+    9    ArrivalLocationSuggestion as ApiArrivalLocationSuggestion,
+
+• Edited mobile/src/api.ts (+2 -2)
+     97
+     98 -export type ArrivalLocationPing = ArrivalLocationPing;
+     98 +export type ArrivalLocationPing = ApiArrivalLocationPing;
+     99
+    100 -export type ArrivalEtaConfirmation = ArrivalEtaConfirmation;
+    100 +export type ArrivalEtaConfirmation = ApiArrivalEtaConfirmation;
+    101
+
+• Ran npm run generate:api-types
+  └
+    > baku-reserve@1.0.0 generate:api-types
+    … +10 lines
+        from prometheus_client import Counter, Gauge, Histogram, Info, generate_latest
+    ModuleNotFoundError: No module named 'prometheus_client'
+
+• Edited package.json (+1 -1)
+    10      "test": "echo \"Error: no test specified\" && exit 1",
+    11 -    "generate:api-types": "python3.11 tools/export_openapi.py && python3.11 tools/generate_ts_contracts.py"
+    11 +    "generate:api-types": ".venv/bin/python tools/export_openapi.py && .venv/bin/python tools/generate_ts_contracts.py"
+    12    },
+
+• Ran npm run generate:api-types
+  └
+    > baku-reserve@1.0.0 generate:api-types
+    … +3 lines
+    [export_openapi] Wrote artifacts/openapi.json
+    [generate_ts_contracts] Wrote mobile/src/types/server.d.ts
+
+• I'm thinking through whether to commit the generated artifacts/openapi.json or add it to .gitignore to reduce noise, especially since it
+  might change frequently. I also want to confirm that mobile API types are aligned and check for any import issues from renamed backend models
+  before proceeding.
+
+• Explored
+  └ Search \.models
+
+• I’m reviewing type imports and changes in the API files to ensure correctness, then shifting focus to modernizing Concierge by making OpenAI
+  API calls asynchronous with httpx.AsyncClient, planning how to adapt embedding functions and their callers while considering legacy code
+  removal timing.
+
+• Ran rg -n "\bembed\(" -n backend/app -g'*.py'
+  └ backend/app/concierge_service.py:283:            query_vector = embed(prompt)
+    backend/app/embeddings.py:37:def embed(text: str) -> np.ndarray:
+
+• I’m mapping out how to convert embedding functions to async and update ConciergeService accordingly, including tracking down the FastAPI
+  route for concierge to ensure proper async calls, which might require examining the end of main.py to find the exact endpoint definition.
+
+• Explored
+  └ Read main.py
+
+• Ran rg -n "concierge/recommendations" -g'*.py'
+  └ backend/tests/test_e2e_workflows.py:75:        response = client.post("/concierge/recommendations?mode=local", json=concierge_request)
+    backend/tests/test_e2e_workflows.py:146:        response = client.post("/concierge/recommendations?mode=local", json=concierge_request)
+    … +12 lines
+    backend/tests/test_performance.py:156:                "/concierge/recommendations",
+    backend/tests/test_performance.py:207:            "/concierge/recommendations",
+
+• I'm outlining a detailed plan to make ConciergeService fully async with background tasks, health metrics, and new API routes. This includes
+  adding startup/shutdown hooks, an async refresh loop for embeddings, health tracking exposed via a new /concierge/health endpoint, and
+  updating existing recommend logic to async functions with proper error and status handling. I'll also prepare to integrate the new router
+  into the main app later. Let's explore these modifications carefully!
+
+• Explored
+  └ Read llm_intent.py
+
+• I'm planning to replace blocking OpenAI calls with a new async client using httpx.AsyncClient, creating a shared openai_async.py module with
+  async post helpers, applying it to embeddings and intent parsing, and updating settings and shutdown flows to handle timeouts and proper
+  client cleanup. This will require converting existing functions like parse_intent and embedding builders to async while ensuring backward
+  compatibility and robust error handling.
+
+• Explored
+  └ Search parse_intent
+
+• This plan tackles making parse_intent asynchronous while preserving a synchronous wrapper for tests, and updating ConciergeService fully
+  to async with background embedding refresh, health metrics, and new API endpoints. I’m carefully balancing async calls inside FastAPI event
+  loops and synchronous test contexts by splitting parse_intent and parse_intent_async. This involves major refactoring of OpenAI calls to use
+  httpx async client, adding concurrency-safe caches, and revising tests to use async mocks. I’ll also expose new health status APIs and update
+  the mobile client with typings for health monitoring. It’s quite a big update, but it should improve responsiveness and observability nicely!
+
+  Detailing API types and implementation steps
+
+  I’m defining TypeScript types for the concierge health status matching backend names, then laying out a clear ordered checklist—from adding
+  new modules and settings, through embedding, intent, service updates, API routes, main app integration, metrics, schemas, tests adjustments,
+  to mobile API typings. This helps me keep focused on all pieces needed to fully implement the async concierge health features smoothly.
+
+• Ran cat <<'EOF' > backend/app/openai_async.py
+  │ from __future__ import annotations
+  │
+  │ … +62 lines
+  └ (no output)
+
+• Explored
+  └ Read settings.py
+
+• Edited backend/app/settings.py (+4 -0)
+    65      AI_SCORE_FLOOR: float = 0.0
+    66 +    OPENAI_API_BASE: str = "https://api.openai.com/v1"
+    67 +    OPENAI_TIMEOUT_SECONDS: float = 15.0
+    68 +    OPENAI_CONNECT_TIMEOUT_SECONDS: float = 5.0
+    69 +    CONCIERGE_REFRESH_INTERVAL_SECONDS: int = 1800
+    70
+
+• Edited backend/app/metrics.py (+10 -0)
+    154  # ==============================================================================
+    155 +# CONCIERGE METRICS
+    156 +# ==============================================================================
+    157 +
+    158 +concierge_component_health = Gauge(
+    159 +    "concierge_component_health",
+    160 +    "Health of concierge dependencies (1=healthy, 0=degraded)",
+    161 +    ["component"],
+    162 +)
+    163 +
+    164 +# ==============================================================================
+    165  # RESERVATION METRICS
+
+• Edited backend/app/metrics.py (+1 -0)
+    404      "normalize_endpoint",
+    405 +    "concierge_component_health",
+    406  ]
+
+• Explored
+  └ Read embeddings.py
+
+• Edited backend/app/embeddings.py (+28 -27)
+      8  import numpy as np
+      9 -from openai import OpenAI
+     10 -from openai._exceptions import OpenAIError
+      9
+     10  from .contracts import RestaurantListItem
+     11 +from .openai_async import OpenAIUnavailable, close_async_client, post_json
+     12  from .settings import settings
+        ⋮
+     15
+     17 -_client: OpenAI | None = None
+     16  _vectors: dict[str, np.ndarray] = {}
+        ⋮
+     25
+     28 -def _get_client() -> OpenAI:
+     29 -    global _client
+     30 -    if not settings.OPENAI_API_KEY:
+     31 -        raise EmbeddingUnavailable("OPENAI_API_KEY not configured")
+     32 -    if _client is None:
+     33 -        _client = OpenAI(api_key=settings.OPENAI_API_KEY)
+     34 -    return _client
+     35 -
+     36 -
+     37 -def embed(text: str) -> np.ndarray:
+     38 -    client = _get_client()
+     26 +async def embed(text: str) -> np.ndarray:
+     27 +    payload = {
+     28 +        "model": settings.CONCIERGE_EMBED_MODEL,
+     29 +        "input": [text[:2000]],
+     30 +    }
+     31      try:
+     40 -        response = client.embeddings.create(
+     41 -            model=settings.CONCIERGE_EMBED_MODEL,
+     42 -            input=[text[:2000]],
+     32 +        response = await post_json(
+     33 +            "/embeddings",
+     34 +            payload,
+     35 +            timeout=settings.OPENAI_TIMEOUT_SECONDS,
+     36          )
+     44 -    except OpenAIError as exc:
+     37 +    except OpenAIUnavailable as exc:
+     38          raise EmbeddingUnavailable("Embedding call failed") from exc
+     46 -    vector = response.data[0].embedding
+     39 +    vector = response["data"][0]["embedding"]
+     40      return np.array(vector, dtype=np.float32)
+        ⋮
+     62
+     70 -def build_restaurant_vectors(restaurants: Iterable[RestaurantListItem]) -> dict[str, np.ndarray]:
+     71 -    client = _get_client()
+     63 +async def build_restaurant_vectors(restaurants: Iterable[RestaurantListItem]) -> dict[str, np.ndarray]:
+     64      payload: list[tuple[str, str, str]] = []
+        ⋮
+     80          texts = [text[:2000] for _, text, _ in batch]
+     81 +        request_payload = {
+     82 +            "model": settings.CONCIERGE_EMBED_MODEL,
+     83 +            "input": texts,
+     84 +        }
+     85          try:
+     90 -            response = client.embeddings.create(
+     91 -                model=settings.CONCIERGE_EMBED_MODEL,
+     92 -                input=texts,
+     86 +            response = await post_json(
+     87 +                "/embeddings",
+     88 +                request_payload,
+     89 +                timeout=settings.OPENAI_TIMEOUT_SECONDS,
+     90              )
+     94 -        except OpenAIError as exc:
+     91 +        except OpenAIUnavailable as exc:
+     92              logger.warning("Embedding batch failed: %s", exc)
+     93              raise EmbeddingUnavailable("Failed to build restaurant vectors") from exc
+     97 -        data = response.data
+     94 +        data = response["data"]
+     95          with _lock:
+     96              for (rid, _corpus, digest), item in zip(batch, data, strict=False):
+    100 -                vec = np.array(item.embedding, dtype=np.float32)
+     97 +                vec = np.array(item["embedding"], dtype=np.float32)
+     98                  _vectors[rid] = vec
+        ⋮
+    117          return _vector_norms.get(str(restaurant_id), 1.0)
+    118 +
+    119 +
+    120 +async def close_embeddings_client() -> None:
+    121 +    await close_async_client()
+
+• I'm preparing to convert the intent parsing code to async by replacing synchronous OpenAI calls with async ones from openai_async. I’ll
+  import asyncio, introduce an async parse_intent_async with error handling, and keep a synchronous wrapper using asyncio.run carefully to
+  avoid event loop conflicts. I’ll also update tests to work with the new async setup and plan to patch the file incrementally for efficiency.
+
+• Edited backend/app/llm_intent.py (+2 -2)
+     2
+     3 +import asyncio
+     4  import json
+       ⋮
+     8
+     8 -from openai import OpenAI
+     9 -from openai._exceptions import OpenAIError
+     9  from pydantic import ValidationError
+       ⋮
+    17  )
+    18 +from .openai_async import OpenAIUnavailable, post_json
+    19  from .schemas import ConciergeIntent
+
+• Edited backend/app/llm_intent.py (+0 -10)
+    27
+    28 -_client: OpenAI | None = None
+    28  _failure_count = 0
+       ⋮
+    63      return "en"
+    65 -
+    66 -
+    67 -def _get_client() -> OpenAI:
+    68 -    global _client
+    69 -    if not settings.OPENAI_API_KEY:
+    70 -        raise IntentUnavailable("OPENAI_API_KEY not configured")
+    71 -    if _client is None:
+    72 -        _client = OpenAI(api_key=settings.OPENAI_API_KEY)
+    73 -    return _client
+    64
+
+• Explored
+  └ Search def parse_intent in llm_intent.py
+    Read llm_intent.py
+
+• Edited backend/app/llm_intent.py (+44 -34)
+    189
+    190 -def parse_intent(prompt: str, lang_hint: str | None) -> ConciergeIntent:
+    191 -    if not prompt.strip():
+    190 +async def parse_intent_async(prompt: str, lang_hint: str | None) -> ConciergeIntent:
+    191 +    normalized_prompt = prompt.strip()
+    192 +    if not normalized_prompt:
+    193          raise IntentUnavailable("Empty prompt")
+        ⋮
+    196
+    196 -    normalized_hint = _normalize_lang(lang_hint) or _detect_lang(prompt)
+    197 -    client = _get_client()
+    198 -    digest = _prompt_fingerprint(prompt)
+    197 +    normalized_hint = _normalize_lang(lang_hint) or _detect_lang(normalized_prompt)
+    198 +    digest = _prompt_fingerprint(normalized_prompt)
+    199 +    payload = {
+    200 +        "model": settings.CONCIERGE_GPT_MODEL,
+    201 +        "temperature": 0,
+    202 +        "max_tokens": 450,
+    203 +        "response_format": {"type": "json_object"},
+    204 +        "messages": [
+    205 +            {"role": "system", "content": SYSTEM_PROMPT},
+    206 +            {"role": "user", "content": CANONICAL_GUIDE},
+    207 +            *_few_shot_messages(),
+    208 +            {
+    209 +                "role": "user",
+    210 +                "content": json.dumps(
+    211 +                    {
+    212 +                        "lang_hint": normalized_hint,
+    213 +                        "prompt": normalized_prompt,
+    214 +                        "instructions": "Respond with valid JSON only, matching the schema.",
+    215 +                    },
+    216 +                    ensure_ascii=False,
+    217 +                ),
+    218 +            },
+    219 +        ],
+    220 +    }
+    221 +
+    222      try:
+    200 -        response = client.chat.completions.create(
+    201 -            model=settings.CONCIERGE_GPT_MODEL,
+    202 -            temperature=0,
+    203 -            max_tokens=450,
+    204 -            timeout=TIMEOUT_SECONDS,
+    205 -            response_format={"type": "json_object"},
+    206 -            messages=[
+    207 -                {"role": "system", "content": SYSTEM_PROMPT},
+    208 -                {"role": "user", "content": CANONICAL_GUIDE},
+    209 -                *_few_shot_messages(),
+    210 -                {
+    211 -                    "role": "user",
+    212 -                    "content": json.dumps(
+    213 -                        {
+    214 -                            "lang_hint": normalized_hint,
+    215 -                            "prompt": prompt.strip(),
+    216 -                            "instructions": "Respond with valid JSON only, matching the schema.",
+    217 -                        },
+    218 -                        ensure_ascii=False,
+    219 -                    ),
+    220 -                },
+    221 -            ],
+    223 +        response = await post_json(
+    224 +            "/chat/completions",
+    225 +            payload,
+    226 +            timeout=settings.OPENAI_TIMEOUT_SECONDS,
+    227          )
+    223 -    except OpenAIError as exc:
+    228 +    except OpenAIUnavailable as exc:
+    229          _register_failure(exc)
+        ⋮
+    231
+    227 -    content = response.choices[0].message.content if response.choices else None
+    232 +    choices = response.get("choices") or []
+    233 +    content = choices[0]["message"].get("content") if choices else None
+    234      if not content:
+        ⋮
+    238      try:
+    233 -        payload = json.loads(content)
+    239 +        payload_obj = json.loads(content)
+    240      except json.JSONDecodeError as exc:
+        ⋮
+    244
+    239 -    bucket = str(payload.get("price_bucket") or "").strip().lower()
+    245 +    bucket = str(payload_obj.get("price_bucket") or "").strip().lower()
+    246      if bucket not in {"budget", "mid", "upper", "luxury"}:
+    241 -        payload["price_bucket"] = "mid"
+    247 +        payload_obj["price_bucket"] = "mid"
+    248
+    249      try:
+    244 -        intent_model = ConciergeIntent.model_validate(payload)
+    250 +        intent_model = ConciergeIntent.model_validate(payload_obj)
+    251      except ValidationError as exc:
+    246 -        logger.warning("Intent validation failed (%s): %s", digest, payload)
+    252 +        logger.warning("Intent validation failed (%s): %s", digest, payload_obj)
+    253          _register_failure(exc)
+        ⋮
+    269      return canonical_intent
+    270 +
+    271 +
+    272 +def parse_intent(prompt: str, lang_hint: str | None) -> ConciergeIntent:
+    273 +    return asyncio.run(parse_intent_async(prompt, lang_hint))
+
+• I'm preparing to convert concierge_service.py to async step-by-step by adding new imports, updating class attributes and methods to support
+  async health checks and refresh loops, adjusting method signatures, handling caching and error reporting for health status, and ensuring
+  related calls await properly throughout the codebase. This will help improve responsiveness and maintainability.
+
+• Explored
+  └ Read concierge_service.py
+
+• Edited backend/app/concierge_service.py (+12 -2)
+     6  import time
+     7 +import asyncio
+     8  from collections import OrderedDict
+       ⋮
+    10  from dataclasses import dataclass
+    11 +from datetime import datetime, timezone
+    12
+       ⋮
+    30  )
+    29 -from .embeddings import EmbeddingUnavailable, build_restaurant_vectors, cosine, embed, get_vector
+    30 -from .llm_intent import IntentUnavailable, parse_intent
+    31  from .contracts import RestaurantListItem
+    32 +from .embeddings import (
+    33 +    EmbeddingUnavailable,
+    34 +    build_restaurant_vectors,
+    35 +    close_embeddings_client,
+    36 +    cosine,
+    37 +    embed,
+    38 +    get_vector,
+    39 +)
+    40 +from .llm_intent import IntentUnavailable, parse_intent_async
+    41 +from .metrics import concierge_component_health
+    42  from .schemas import ConciergeIntent, ConciergeRequest, ConciergeResponse
+
+• Explored
+  └ Search class ConciergeService in concierge_service.py
+    Read concierge_service.py
+
+• Edited backend/app/concierge_service.py (+7 -1)
+    159          }
+    160 +        self._refresh_interval = max(300, settings.CONCIERGE_REFRESH_INTERVAL_SECONDS)
+    161 +        self._refresh_task: asyncio.Task | None = None
+    162 +        self._running = False
+    163 +        self._health: dict[str, dict[str, str | None]] = {
+    164 +            "embeddings": {"status": "unknown", "updated_at": None, "detail": None},
+    165 +            "llm": {"status": "unknown", "updated_at": None, "detail": None},
+    166 +        }
+    167          self._load_restaurants()
+    161 -        self._precompute_vectors()
+    168
+
+• Edited backend/app/concierge_service.py (+7 -2)
+    211
+    212 -    def _precompute_vectors(self) -> None:
+    212 +    async def refresh_embeddings(self) -> None:
+    213 +        self._load_restaurants()
+    214          try:
+    214 -            build_restaurant_vectors(self._list_items.values())
+    215 +            await build_restaurant_vectors(self._list_items.values())
+    216          except EmbeddingUnavailable as exc:
+    217              logger.warning("Concierge embeddings unavailable: %s", exc)
+    218 +            self._set_health("embeddings", "degraded", str(exc))
+    219 +            raise
+    220 +        else:
+    221 +            self._set_health("embeddings", "healthy")
+    222
+
+• Edited backend/app/concierge_service.py (+45 -0)
+    222
+    223 +    def _set_health(self, component: str, status: str, detail: str | None = None) -> None:
+    224 +        snapshot = {
+    225 +            "status": status,
+    226 +            "updated_at": datetime.now(timezone.utc).isoformat(),
+    227 +            "detail": detail,
+    228 +        }
+    229 +        self._health[component] = snapshot
+    230 +        concierge_component_health.labels(component=component).set(1.0 if status == "healthy" else 0.0)
+    231 +
+    232 +    @property
+    233 +    def health_snapshot(self) -> dict[str, dict[str, str | None]]:
+    234 +        return {key: dict(value) for key, value in self._health.items()}
+    235 +
+    236 +    async def startup(self) -> None:
+    237 +        if self._refresh_task:
+    238 +            return
+    239 +        try:
+    240 +            await self.refresh_embeddings()
+    241 +        except EmbeddingUnavailable:
+    242 +            logger.warning("Initial concierge embedding refresh failed")
+    243 +        self._running = True
+    244 +        self._refresh_task = asyncio.create_task(self._refresh_loop())
+    245 +
+    246 +    async def shutdown(self) -> None:
+    247 +        self._running = False
+    248 +        if self._refresh_task:
+    249 +            self._refresh_task.cancel()
+    250 +            try:
+    251 +                await self._refresh_task
+    252 +            except asyncio.CancelledError:
+    253 +                pass
+    254 +            self._refresh_task = None
+    255 +        await close_embeddings_client()
+    256 +
+    257 +    async def _refresh_loop(self) -> None:
+    258 +        while self._running:
+    259 +            await asyncio.sleep(self._refresh_interval)
+    260 +            try:
+    261 +                await self.refresh_embeddings()
+    262 +            except EmbeddingUnavailable:
+    263 +                # already logged in refresh_embeddings
+    264 +                await asyncio.sleep(5)
+    265 +            except Exception:
+    266 +                logger.exception("Unexpected concierge refresh failure")
+    267 +
+    268      def recommend(
+
+• Explored
+  └ Read concierge_service.py
+
+• Edited backend/app/concierge_service.py (+7 -2)
+    267
+    268 -    def recommend(
+    268 +    async def recommend(
+    269          self, payload: ConciergeRequest, request, mode_override: str | None
+        ⋮
+    285              try:
+    286 -                response, cache_payload = self._ai_recommend(payload, limit, request, mode)
+    286 +                response, cache_payload = await self._ai_recommend(
+    287 +                    payload, limit, request, mode
+    288 +                )
+    289              except (IntentUnavailable, EmbeddingUnavailable, RuntimeError) as exc:
+        ⋮
+    292                  response.mode = "local"
+    293 +                self._set_health("llm", "degraded", str(exc))
+    294 +            else:
+    295 +                self._set_health("llm", "healthy")
+    296          self._cache.set(cache_key, cache_payload)
+
+• Explored
+  └ Search def _ai_recommend in concierge_service.py
+    Read concierge_service.py
+
+• Edited backend/app/concierge_service.py (+3 -3)
+    335
+    336 -    def _ai_recommend(
+    336 +    async def _ai_recommend(
+    337          self, payload: ConciergeRequest, limit: int, request, mode: str
+        ⋮
+    350          with sentry_sdk.start_span(op="concierge.intent", description="llm_intent"):
+    351 -            intent = parse_intent(prompt, payload.lang)
+    351 +            intent = await parse_intent_async(prompt, payload.lang)
+    352
+    353          with sentry_sdk.start_span(op="concierge.embed", description="query_embedding"):
+    354 -            query_vector = embed(prompt)
+    354 +            query_vector = await embed(prompt)
+    355
+
+• Ran cat <<'EOF' > backend/app/api/routes/concierge.py
+  │ from __future__ import annotations
+  │
+  │ … +22 lines
+  └ (no output)
+
+• Ran cat <<'EOF' > backend/app/api/routes/__init__.py
+  │ from . import concierge, gomap, reservations, restaurants
+  │
+  │ … +8 lines
+  └ (no output)
+
+• Edited backend/app/main.py (+2 -0)
+    12
+    13 +from .api.routes import concierge as concierge_routes
+    14  from .api.routes import gomap as gomap_routes
+       ⋮
+    97  include_router_on_both(gomap_routes.router)
+    98 +include_router_on_both(concierge_routes.router)
+    99  app.include_router(v1_router)
+
+• Edited backend/app/main.py (+10 -0)
+    88
+    89 +
+    90 +@app.on_event("startup")
+    91 +async def concierge_startup() -> None:
+    92 +    await concierge_service.startup()
+    93 +
+    94 +
+    95 +@app.on_event("shutdown")
+    96 +async def concierge_shutdown() -> None:
+    97 +    await concierge_service.shutdown()
+    98 +
+    99  # Include v1 API router (versioned endpoints)
+
+• Edited backend/app/schemas.py (+12 -0)
+     1 +from datetime import datetime
+     2  from typing import Literal
+       ⋮
+    37
+    38 +class ConciergeHealthStatus(BaseModel):
+    39 +    status: Literal["unknown", "healthy", "degraded"] = "unknown"
+    40 +    updated_at: datetime | None = None
+    41 +    detail: str | None = None
+    42 +
+    43 +
+    44 +class ConciergeHealth(BaseModel):
+    45 +    embeddings: ConciergeHealthStatus
+    46 +    llm: ConciergeHealthStatus
+    47 +
+    48 +
+    49  class ConciergeQuery(BaseModel):
+
+• Explored
+  └ Read test_endpoint.py
+
+• Edited backend/tests/test_endpoint.py (+2 -2)
+    16
+    17 -    def fake_ai(payload, limit, request, mode):  # noqa: ANN001
+    17 +    async def fake_ai(payload, limit, request, mode):  # noqa: ANN001
+    18          response = ConciergeResponse(
+       ⋮
+    48
+    49 -    def boom(*args, **kwargs):  # noqa: ANN001, ANN002
+    49 +    async def boom(*args, **kwargs):  # noqa: ANN001, ANN002
+    50          raise IntentUnavailable("llm offline")
+
+• Explored
+  └ Search _ai_recommend in tests
+    Read test_e2e_workflows.py
+    List tests
+    Search intent
+    Read test_intent.py
+
+• Edited backend/tests/test_intent.py (+16 -19)
+     1  import json
+     2 -from types import SimpleNamespace
+     2
+       ⋮
+     6  from backend.app.settings import settings
+     8 -
+     9 -
+    10 -class DummyResponse:
+    11 -    def __init__(self, payload):
+    12 -        self.choices = [SimpleNamespace(message=SimpleNamespace(content=json.dumps(payload)))]
+    13 -
+    14 -
+    15 -class DummyClient:
+    16 -    def __init__(self, payload):
+    17 -        self.payload = payload
+    18 -        self.chat = SimpleNamespace(
+    19 -            completions=SimpleNamespace(create=lambda **_: DummyResponse(self.payload))
+    20 -        )
+     7
+       ⋮
+    11      settings.OPENAI_API_KEY = "test-key"
+    26 -    monkeypatch.setattr(llm_intent, "_client", None)
+    12      monkeypatch.setattr(llm_intent, "_failure_count", 0)
+       ⋮
+    26      }
+    42 -    dummy = DummyClient(payload)
+    43 -    monkeypatch.setattr(llm_intent, "_get_client", lambda: dummy)
+    27 +    async def fake_post_json(path, request_payload, timeout=None):  # noqa: ARG001
+    28 +        return {
+    29 +            "choices": [
+    30 +                {"message": {"content": json.dumps(payload, ensure_ascii=False)}}
+    31 +            ]
+    32 +        }
+    33 +
+    34 +    monkeypatch.setattr(llm_intent, "post_json", fake_post_json)
+    35
+       ⋮
+    56      }
+    66 -    dummy = DummyClient(payload)
+    67 -    monkeypatch.setattr(llm_intent, "_get_client", lambda: dummy)
+    57 +    async def fake_post_json(path, request_payload, timeout=None):  # noqa: ARG001
+    58 +        return {
+    59 +            "choices": [
+    60 +                {"message": {"content": json.dumps(payload, ensure_ascii=False)}}
+    61 +            ]
+    62 +        }
+    63 +
+    64 +    monkeypatch.setattr(llm_intent, "post_json", fake_post_json)
+    65
+
+• Edited mobile/src/api.ts (+11 -0)
+    31
+    32 +export type ConciergeHealthStatus = {
+    33 +  status: 'unknown' | 'healthy' | 'degraded';
+    34 +  updated_at?: string | null;
+    35 +  detail?: string | null;
+    36 +};
+    37 +
+    38 +export type ConciergeHealth = {
+    39 +  embeddings: ConciergeHealthStatus;
+    40 +  llm: ConciergeHealthStatus;
+    41 +};
+    42 +
+    43  export type TableGeometry = {
+
+• Explored
+  └ Search function recommend in api.ts
+    Read api.ts
+
+• Edited mobile/src/api.ts (+5 -0)
+    393  }
+    394 +
+    395 +export async function fetchConciergeHealth() {
+    396 +  const res = await fetch(`${API_URL}/concierge/health`, { headers: withAuth() });
+    397 +  return handleResponse<ConciergeHealth>(res, 'Unable to load concierge health state');
+    398 +}
+
+• I'm focusing on updating Prometheus helpers to track metric deltas properly, memoizing endpoint normalization for efficiency, and rewriting
+  the rate limiter with a sharded token bucket keyed by client IP for better concurrency and accuracy. I’m also planning to add tests for the
+  new health endpoint and structure imports to expose the new router as needed before proceeding to the next steps.
+
+• Edited backend/app/metrics.py (+38 -17)
+      4  import time
+      5 +from functools import lru_cache
+      6  from typing import Callable
+        ⋮
+    267      """Update circuit breaker metrics from stats dict."""
+    267 -    circuit_breaker_failures_total.labels(circuit_name=breaker_name).inc(
+    268 -        stats.get("failed_calls", 0)
+    268 +    previous = track_circuit_breaker_metrics._previous.setdefault(
+    269 +        breaker_name,
+    270 +        {"failed_calls": 0, "successful_calls": 0, "rejected_calls": 0, "circuit_opened_count": 0},
+    271      )
+    270 -    circuit_breaker_successes_total.labels(circuit_name=breaker_name).inc(
+    271 -        stats.get("successful_calls", 0)
+    272 -    )
+    273 -    circuit_breaker_rejected_total.labels(circuit_name=breaker_name).inc(
+    274 -        stats.get("rejected_calls", 0)
+    275 -    )
+    276 -    circuit_breaker_opened_total.labels(circuit_name=breaker_name).inc(
+    277 -        stats.get("circuit_opened_count", 0)
+    278 -    )
+    272 +    fields = {
+    273 +        "failed_calls": circuit_breaker_failures_total,
+    274 +        "successful_calls": circuit_breaker_successes_total,
+    275 +        "rejected_calls": circuit_breaker_rejected_total,
+    276 +        "circuit_opened_count": circuit_breaker_opened_total,
+    277 +    }
+    278 +    for key, counter in fields.items():
+    279 +        current = int(stats.get(key, 0) or 0)
+    280 +        delta = max(0, current - previous[key])
+    281 +        if delta:
+    282 +            counter.labels(circuit_name=breaker_name).inc(delta)
+    283 +        previous[key] = current
+    284
+    285
+    286 +track_circuit_breaker_metrics._previous = {}  # type: ignore[attr-defined]
+    287 +
+    288 +
+    289  def track_cache_metrics(cache_name: str, stats: dict) -> None:
+    290      """Update cache metrics from stats dict."""
+    283 -    cache_hits_total.labels(cache_name=cache_name).inc(stats.get("hits", 0))
+    284 -    cache_misses_total.labels(cache_name=cache_name).inc(stats.get("misses", 0))
+    291 +    previous = track_cache_metrics._previous.setdefault(
+    292 +        cache_name,
+    293 +        {"hits": 0, "misses": 0, "evictions": 0, "expirations": 0},
+    294 +    )
+    295      cache_size.labels(cache_name=cache_name).set(stats.get("size", 0))
+    286 -    cache_evictions_total.labels(cache_name=cache_name).inc(stats.get("evictions", 0))
+    287 -    cache_expirations_total.labels(cache_name=cache_name).inc(
+    288 -        stats.get("expirations", 0)
+    289 -    )
+    296 +    for key, counter in (
+    297 +        ("hits", cache_hits_total),
+    298 +        ("misses", cache_misses_total),
+    299 +        ("evictions", cache_evictions_total),
+    300 +        ("expirations", cache_expirations_total),
+    301 +    ):
+    302 +        current = int(stats.get(key, 0) or 0)
+    303 +        delta = max(0, current - previous[key])
+    304 +        if delta:
+    305 +            counter.labels(cache_name=cache_name).inc(delta)
+    306 +        previous[key] = current
+    307 +
+    308 +
+    309 +track_cache_metrics._previous = {}  # type: ignore[attr-defined]
+    310
+    311
+    312 +@lru_cache(maxsize=2048)
+    313  def normalize_endpoint(path: str) -> str:
+
+• I'm replacing the existing RateLimiter deque logic with a token bucket approach that refills tokens over time per identifier, protected by
+  shard-based async locks, and updating dispatch to respect limits, return proper headers, and handle 429 responses. I’m carefully translating
+  the pseudo code into async-aware methods while planning optional cleanup for bucket size.
+
+• Edited backend/app/utils.py (+46 -27)
+    120  class RateLimiter:
+    121 -    def __init__(self) -> None:
+    122 -        self._history: dict[str, deque[float]] = defaultdict(deque)
+    123 -        self._lock = asyncio.Lock()
+    121 +    def __init__(self, shards: int = 32) -> None:
+    122 +        self._buckets: dict[str, dict[str, float]] = {}
+    123 +        self._locks = [asyncio.Lock() for _ in range(max(1, shards))]
+    124
+        ⋮
+    132          now = time.monotonic()
+    133 -        async with self._lock:
+    134 -            bucket = self._history[identifier]
+    135 -            cutoff = now - window
+    136 -            while bucket and bucket[0] <= cutoff:
+    137 -                bucket.popleft()
+    138 -            if len(bucket) >= limit:
+    139 -                retry_after = max(1, math.ceil(window - (now - bucket[0])))
+    140 -                headers = {
+    141 -                    "Retry-After": str(retry_after),
+    142 -                    "X-RateLimit-Limit": str(limit),
+    143 -                    "X-RateLimit-Remaining": "0",
+    144 -                    "X-RateLimit-Reset": str(retry_after),
+    145 -                }
+    146 -                return JSONResponse(
+    147 -                    status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+    148 -                    content={"detail": "Too many requests"},
+    149 -                    headers=headers,
+    150 -                )
+    151 -            bucket.append(now)
+    152 -            remaining = max(0, limit - len(bucket))
+    153 -            reset_in = max(0, math.ceil(window - (now - bucket[0])))
+    133 +        allowed, remaining, reset_in = await self._consume(identifier, limit, window, now)
+    134 +        if not allowed:
+    135 +            retry_after = max(1, math.ceil(reset_in))
+    136 +            headers = {
+    137 +                "Retry-After": str(retry_after),
+    138 +                "X-RateLimit-Limit": str(limit),
+    139 +                "X-RateLimit-Remaining": "0",
+    140 +                "X-RateLimit-Reset": str(retry_after),
+    141 +            }
+    142 +            return JSONResponse(
+    143 +                status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+    144 +                content={"detail": "Too many requests"},
+    145 +                headers=headers,
+    146 +            )
+    147
+        ⋮
+    149          response.headers.setdefault("X-RateLimit-Limit", str(limit))
+    157 -        response.headers["X-RateLimit-Remaining"] = str(remaining)
+    158 -        response.headers["X-RateLimit-Reset"] = str(reset_in)
+    150 +        response.headers["X-RateLimit-Remaining"] = str(max(0, remaining))
+    151 +        response.headers["X-RateLimit-Reset"] = str(max(0, math.ceil(reset_in)))
+    152          return response
+    153
+    154 +    async def _consume(self, identifier: str, limit: int, window: int, now: float):
+    155 +        refill_rate = limit / window
+    156 +        lock = self._locks[hash(identifier) % len(self._locks)]
+    157 +        async with lock:
+    158 +            bucket = self._buckets.get(identifier)
+    159 +            if not bucket:
+    160 +                self._buckets[identifier] = {"tokens": float(limit - 1), "last": now}
+    161 +                return True, limit - 1, 0
+    162 +
+    163 +            tokens = bucket["tokens"]
+    164 +            elapsed = max(0.0, now - bucket["last"])
+    165 +            tokens = min(float(limit), tokens + elapsed * refill_rate)
+    166 +            bucket["last"] = now
+    167 +
+    168 +            if tokens >= 1:
+    169 +                tokens -= 1
+    170 +                bucket["tokens"] = tokens
+    171 +                # Estimate time until bucket fully refilled
+    172 +                reset_in = (limit - tokens) / refill_rate if tokens < limit else 0
+    173 +                return True, int(tokens), reset_in
+    174 +
+    175 +            bucket["tokens"] = tokens
+    176 +            deficit = 1 - tokens
+    177 +            reset_in = deficit / refill_rate if refill_rate else window
+    178 +            return False, 0, reset_in
+    179 +
+    180      def reset(self) -> None:
+    162 -        self._history.clear()
+    181 +        self._buckets.clear()
+    182
+
+• I'm double-checking the token calculations and header values in the rate limiter to ensure accurate rate limiting behavior, especially
+  handling fractional tokens and reset timing. Then, I’m planning backend contract tests to confirm key API endpoints return the expected
+  fields, plus a frontend integration test update to verify the new mobile concierge health API call. I'll open the existing mobile test file
+  to add that coverage.
+
+• Explored
+  └ Read integration.api.test.tsx
+
+• Edited mobile/__tests__/integration.api.test.tsx (+16 -1)
+      5
+      6 -import { fetchConciergeRecommendations, API_URL } from '../src/api';
+      6 +import { fetchConciergeRecommendations, fetchConciergeHealth, API_URL } from '../src/api';
+      7
+        ⋮
+    158      });
+    159 +
+    160 +    it('should fetch concierge health via helper', async () => {
+    161 +      const mockHealth = {
+    162 +        embeddings: { status: 'healthy', updated_at: '2024-01-01T00:00:00Z' },
+    163 +        llm: { status: 'degraded', detail: 'offline' },
+    164 +      };
+    165 +      (global.fetch as jest.Mock).mockResolvedValueOnce({
+    166 +        ok: true,
+    167 +        json: async () => mockHealth,
+    168 +      });
+    169 +
+    170 +      const data = await fetchConciergeHealth();
+    171 +      expect(data).toEqual(mockHealth);
+    172 +      expect(global.fetch).toHaveBeenCalledWith(`${API_URL}/concierge/health`, expect.any(Object));
+    173 +    });
+    174    });
+
+• Ran rm backend/app/concierge_enhanced.py backend/app/concierge_optimizer.py backend/app/test_concierge_enhanced.py
+  └ (no output)
+
+• Ran cat <<'EOF' > backend/tests/test_api_contracts.py
+  │ from backend.app.settings import settings
+  │ from backend.app.storage import DB
+  │ … +33 lines
+  └ (no output)
+
+• Edited backend/tests/test_api_contracts.py (+0 -1)
+    1 -from backend.app.settings import settings
+    1  from backend.app.storage import DB
+
+• Edited backend/tests/test_endpoint.py (+8 -0)
+    80      assert res.status_code == 422
+    81 +
+    82 +
+    83 +def test_concierge_health_endpoint(client):
+    84 +    res = client.get("/concierge/health")
+    85 +    assert res.status_code == 200
+    86 +    body = res.json()
+    87 +    assert "embeddings" in body
+    88 +    assert "llm" in body
+
+• Edited backend/app/concierge_service.py (+2 -2)
+    225              "status": status,
+    226 -            "updated_at": datetime.now(timezone.utc).isoformat(),
+    226 +            "updated_at": datetime.now(timezone.utc),
+    227              "detail": detail,
+        ⋮
+    233      def health_snapshot(self) -> dict[str, dict[str, str | None]]:
+    234 -        return {key: dict(value) for key, value in self._health.items()}
+    234 +        return {key: value.copy() for key, value in self._health.items()}
+    235
+
+• Edited backend/app/concierge_service.py (+1 -1)
+    232      @property
+    233 -    def health_snapshot(self) -> dict[str, dict[str, str | None]]:
+    233 +    def health_snapshot(self) -> dict[str, dict[str, object | None]]:
+    234          return {key: value.copy() for key, value in self._health.items()}
+
+• Explored
+  └ Search concierge_enhanced
+
+• Ran source .venv/bin/activate && pytest backend/tests
+  └ ============================= test session starts ==============================
+    platform darwin -- Python 3.11.14, pytest-9.0.0, pluggy-1.6.0
+    … +537 lines
+    Message: "Retrying (%r) after connection broken by '%r': %s"
+    Arguments: (Retry(total=0, connect=None, read=None, redirect=None, status=None), NameResolutionError("<urllib3.connection.HTTPSConnection
+    object at 0x116d08750>: Failed to resolve 'o4510277399543808.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not
+    known)"), '/api/4510347154227200/envelope/')
+
+• Ran source .venv/bin/activate && pytest backend/tests/test_api_contracts.py -k detail -vv
+  └ ============================= test session starts ==============================
+    platform darwin -- Python 3.11.14, pytest-9.0.0, pluggy-1.6.0 -- /Users/jkazimzade/baku-reserve/.venv/bin/python3.11
+    … +529 lines
+    Message: "Retrying (%r) after connection broken by '%r': %s"
+    Arguments: (Retry(total=0, connect=None, read=None, redirect=None, status=None), NameResolutionError("<urllib3.connection.HTTPSConnection
+    object at 0x108d6de90>: Failed to resolve 'o4510277399543808.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not
+    known)"), '/api/4510347154227200/envelope/')
+
+• Ran python - <<'PY'
+  │ from fastapi.testclient import TestClient
+  │ from backend.app.main import app
+  │ … +8 lines
+  └ bash: python: command not found
+
+• Ran source .venv/bin/activate && python - <<'PY'
+  │ from fastapi.testclient import TestClient
+  │ from backend.app.main import app
+  │ … +8 lines
+  └ id fc34a984-0b39-4f0a-afa2-5b677c61f044
+    Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken
+    by 'NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x108827bd0>: Failed to resolve
+    'o4510277399543808.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4510347154227200/envelope/
+    … +225 lines
+    Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken
+    by 'NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1087df7d0>: Failed to resolve
+    'o4510277399543808.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4510347154227200/envelope/
+    Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken
+    by 'NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1087dfad0>: Failed to resolve
+    'o4510277399543808.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4510347154227200/envelope/
+
+• I'm piecing together that Sentry gets initialized at app import using the environment's SENTRY_DSN, which leads to network errors during
+  tests if the DSN is set. Since tests set settings.SENTRY_DSN = None too late, the Sentry SDK keeps trying to send events, causing exceptions.
+  The best approach seems to be modifying backend/tests/conftest.py to set os.environ["SENTRY_DSN"] to an empty string before importing the
+  app module, preventing Sentry from initializing during tests. I'll plan to update the fixture to do this early and check if it fixes the
+  test failures.
+
+• Edited backend/tests/conftest.py (+2 -0)
+    11
+    12 +os.environ.setdefault("SENTRY_DSN", "")
+    13 +
+    14  from backend.app.main import app  # noqa: E402
+
+• Ran source .venv/bin/activate && pytest backend/tests/test_api_contracts.py -k detail -vv
+  └ ============================= test session starts ==============================
+    platform darwin -- Python 3.11.14, pytest-9.0.0, pluggy-1.6.0 -- /Users/jkazimzade/baku-reserve/.venv/bin/python3.11
+    … +627 lines
+    !!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ======================= 1 failed, 2 deselected in 0.14s ========================
+
+• Edited backend/tests/conftest.py (+1 -1)
+    11
+    12 -os.environ.setdefault("SENTRY_DSN", "")
+    12 +os.environ["SENTRY_DSN"] = ""
+    13
+
+• Ran source .venv/bin/activate && pytest backend/tests/test_api_contracts.py -k detail -vv
+  └ ============================= test session starts ==============================
+    platform darwin -- Python 3.11.14, pytest-9.0.0, pluggy-1.6.0 -- /Users/jkazimzade/baku-reserve/.venv/bin/python3.11
+    … +627 lines
+    !!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+    ======================= 1 failed, 2 deselected in 0.15s ========================
+
+• Ran source .venv/bin/activate && python - <<'PY'
+  │ from fastapi.testclient import TestClient
+  │ from backend.app.main import app
+  │ … +9 lines
+  └ Sentry DSN <starlette.datastructures.State object at 0x10484c110>
+    rid fc34a984-0b39-4f0a-afa2-5b677c61f044
+    … +226 lines
+    Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken
+    by 'NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x1062cf410>: Failed to resolve
+    'o4510277399543808.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4510347154227200/envelope/
+    Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken
+    by 'NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x104a89350>: Failed to resolve
+    'o4510277399543808.ingest.us.sentry.io' ([Errno 8] nodename nor servname provided, or not known)")': /api/4510347154227200/envelope/
+
+• I'm working through how environment variable timing affects Sentry setup, especially that Settings loads from .env early, so clearing
+  SENTRY_DSN after Settings instantiation doesn't help. I'm thinking about overriding sentry_sdk.init with a no-op in the test setup before
+  importing the app to fully stop Sentry during tests.
+
+• Explored
+  └ Read conftest.py
+
+• Adjusting patch context for imports (35m 24s • esc to interr

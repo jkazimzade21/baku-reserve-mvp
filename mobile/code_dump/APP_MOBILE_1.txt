@@ -1,0 +1,439 @@
+# App-only dump
+# Root: /Users/jkazimzade/baku-reserve/mobile
+# Generated: 2025-10-23T08:07:51
+
+===== FILE: src/api.ts =====
+export const API_URL = 'http://192.168.0.148:8000';
+
+export async function fetchRestaurants(q?: string) {
+  const url = q ? `${API_URL}/restaurants?q=${encodeURIComponent(q)}` : `${API_URL}/restaurants`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Failed to fetch restaurants');
+  return res.json();
+}
+
+export async function fetchRestaurant(id: string) {
+  const res = await fetch(`${API_URL}/restaurants/${id}`);
+  if (!res.ok) throw new Error('Restaurant not found');
+  return res.json();
+}
+
+export async function fetchAvailability(id: string, dateStr: string, partySize: number) {
+  const url = `${API_URL}/restaurants/${id}/availability?date=${encodeURIComponent(dateStr)}&party_size=${partySize}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Failed to fetch availability');
+  return res.json();
+}
+
+export async function createReservation(payload: {
+  restaurant_id: string;
+  party_size: number;
+  start: string;
+  end: string;
+  guest_name: string;
+  guest_phone?: string;
+  table_id?: string;
+}) {
+  const res = await fetch(`${API_URL}/reservations`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) {
+    const txt = await res.text();
+    throw new Error(txt || 'Failed to create reservation');
+  }
+  return res.json();
+}
+
+===== FILE: src/screens/BookScreen.tsx =====
+import React, { useEffect, useState } from 'react';
+import { View, Text, TextInput, FlatList, Pressable, ActivityIndicator, Alert, StyleSheet } from 'react-native';
+import { fetchAvailability } from '../api';
+
+function todayStr() {
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,'0');
+  const day = String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+function timeFromISO(iso: string) {
+  const d = new Date(iso);
+  return d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+}
+
+export default function BookScreen({ route, navigation }: any) {
+  const { id, name } = route.params;
+  const [dateStr, setDateStr] = useState<string>(todayStr());
+  const [partySize, setPartySize] = useState<string>('2');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [slots, setSlots] = useState<any[]>([]);
+
+  async function load() {
+    try {
+      setLoading(true);
+      const ps = parseInt(partySize || '2', 10) || 2;
+      const data = await fetchAvailability(id, dateStr, ps);
+      setSlots(data.slots || []);
+    } catch (e: any) {
+      Alert.alert('Error', e.message || 'Failed to load availability');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    navigation.setOptions({ title: `Book · ${name}` });
+    load();
+  }, []);
+
+  function openSeatPicker(slot: any) {
+    const ps = parseInt(partySize || '2', 10) || 2;
+    navigation.navigate('SeatPicker', { id, name, partySize: ps, slot });
+  }
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.filters}>
+        <View style={styles.row}>
+          <Text style={styles.label}>Date (YYYY-MM-DD)</Text>
+          <TextInput value={dateStr} onChangeText={setDateStr} style={styles.input} autoCapitalize="none" />
+        </View>
+        <View style={styles.row}>
+          <Text style={styles.label}>Party Size</Text>
+          <TextInput value={partySize} onChangeText={setPartySize} keyboardType="number-pad" style={styles.input} />
+        </View>
+        <Pressable onPress={load} style={styles.button}><Text style={styles.buttonText}>Find slots</Text></Pressable>
+      </View>
+
+      {loading ? <ActivityIndicator style={{ marginTop: 16 }} /> :
+        <FlatList
+          data={slots}
+          keyExtractor={(_, idx) => String(idx)}
+          renderItem={({ item }) => {
+            const count = item.count || 0;
+            return (
+              <View style={styles.slot}>
+                <Text style={styles.slotText}>{timeFromISO(item.start)} – {timeFromISO(item.end)}</Text>
+                <Text style={styles.count}>{count} tables</Text>
+                <Pressable
+                  onPress={() => openSeatPicker(item)}
+                  disabled={count === 0}
+                  style={[styles.bookBtn, count === 0 && { opacity: 0.4 }]}
+                >
+                  <Text style={styles.bookText}>Select table</Text>
+                </Pressable>
+              </View>
+            );
+          }}
+          ListEmptyComponent={<Text style={{ marginTop: 12, color: '#666' }}>No slots. Try another time or party size.</Text>}
+        />
+      }
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, padding: 12, backgroundColor: '#fff' },
+  filters: { gap: 8, marginBottom: 8 },
+  row: { gap: 4 },
+  label: { fontWeight: '600' },
+  input: { borderWidth: 1, borderColor: '#ddd', borderRadius: 8, padding: 10 },
+  button: { backgroundColor: '#111', padding: 12, borderRadius: 10, alignItems: 'center', marginTop: 6 },
+  buttonText: { color: '#fff', fontWeight: '600' },
+  slot: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+          borderWidth: 1, borderColor: '#eee', borderRadius: 12, padding: 12, marginBottom: 8 },
+  slotText: { fontSize: 16, fontWeight: '500' },
+  count: { color: '#666', marginRight: 12 },
+  bookBtn: { backgroundColor: '#0a7', paddingVertical: 8, paddingHorizontal: 12, borderRadius: 8 },
+  bookText: { color: 'white', fontWeight: '600' }
+});
+
+===== FILE: src/screens/SeatPicker.tsx =====
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, Pressable, Alert, StyleSheet } from 'react-native';
+import { fetchRestaurant, createReservation } from '../api';
+
+type Slot = { start: string; end: string; available_table_ids: string[]; };
+
+export default function SeatPicker({ route, navigation }: any) {
+  const { id, name, partySize, slot }:{ id:string; name:string; partySize:number; slot:Slot } = route.params;
+  const [tables, setTables] = useState<any[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    navigation.setOptions({ title: `Choose table · ${name}` });
+    (async () => {
+      const r = await fetchRestaurant(id);
+      const map: Record<string,{id:string; label:string; capacity:number}> = {};
+      for (const area of r.areas || []) {
+        for (const t of area.tables || []) {
+          map[t.id] = { id: t.id, label: t.name || `Table ${String(t.id).slice(0,6)}`, capacity: t.capacity || 2 };
+        }
+      }
+      const list = (slot.available_table_ids || []).map(
+        (tid:string) => map[tid] || {id:tid, label:`Table ${String(tid).slice(0,6)}`, capacity:2}
+      );
+      setTables(list);
+      setLoading(false);
+    })();
+  }, [id]);
+
+  async function book(tid: string) {
+    try {
+      const res = await createReservation({
+        restaurant_id: id,
+        party_size: partySize,
+        start: slot.start,
+        end: slot.end,
+        guest_name: 'Demo Guest',
+        guest_phone: '+994500000000',
+        table_id: tid
+      });
+      Alert.alert('Booked!', `Reservation ID: ${res.id}`);
+      navigation.goBack();
+    } catch (e:any) {
+      Alert.alert('Could not book', e.message || 'Unknown error');
+    }
+  }
+
+  if (loading) return <View style={{padding:16}}><Text>Loading tables…</Text></View>;
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.subtitle}>Pick a table for {new Date(slot.start).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</Text>
+      <FlatList
+        data={tables}
+        keyExtractor={(x) => x.id}
+        renderItem={({ item }) => (
+          <View style={styles.row}>
+            <Text style={styles.tlabel}>{item.label}</Text>
+            <Text style={styles.cap}>cap {item.capacity}</Text>
+            <Pressable onPress={() => book(item.id)} style={styles.btn}>
+              <Text style={styles.btntxt}>Book</Text>
+            </Pressable>
+          </View>
+        )}
+        ListEmptyComponent={<Text style={{color:'#666'}}>No tables free.</Text>}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex:1, padding:12, backgroundColor:'#fff' },
+  subtitle: { marginBottom: 8, color:'#444' },
+  row: { flexDirection:'row', alignItems:'center', justifyContent:'space-between',
+         borderWidth:1, borderColor:'#eee', borderRadius:12, padding:12, marginBottom:8 },
+  tlabel: { fontWeight:'600' },
+  cap: { color:'#666', marginRight:12 },
+  btn: { backgroundColor:'#111', paddingVertical:8, paddingHorizontal:12, borderRadius:8 },
+  btntxt: { color:'#fff', fontWeight:'600' }
+});
+
+===== FILE: src/screens/RestaurantScreen.tsx =====
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, ActivityIndicator, StyleSheet, Pressable, Alert } from 'react-native';
+import { fetchRestaurant } from '../api';
+
+export default function RestaurantScreen({ route, navigation }: any) {
+  const { id } = route.params;
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const r = await fetchRestaurant(id);
+        setData(r);
+        navigation.setOptions({ title: r.name || 'Restaurant' });
+      } catch (e:any) {
+        Alert.alert('Error', e.message || 'Failed to load');
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [id]);
+
+  if (loading) return <ActivityIndicator style={{ marginTop: 20 }} />;
+  if (!data) return <Text>Not found</Text>;
+
+  return (
+    <View style={styles.container}>
+      {data.photos?.[0] && <Image source={{ uri: data.photos[0] }} style={styles.cover} />}
+      <Text style={styles.title}>{data.name}</Text>
+      <Text style={styles.sub}>{(data.cuisine || []).join(' • ')}</Text>
+      <Text style={styles.addr}>{data.address || ''}</Text>
+      <Text style={styles.phone}>{data.phone || ''}</Text>
+
+      <Pressable
+        onPress={() => navigation.navigate('Book', { id: data.id, name: data.name })}
+        style={styles.bookBtn}
+      >
+        <Text style={styles.bookTxt}>Book a table</Text>
+      </Pressable>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, padding: 12 },
+  cover: { width: '100%', height: 180, borderRadius: 12, marginBottom: 12 },
+  title: { fontSize: 22, fontWeight: '600' },
+  sub: { marginTop: 4, color: '#555' },
+  addr: { marginTop: 8 },
+  phone: { marginTop: 4, color: '#333' },
+  bookBtn: { marginTop: 16, backgroundColor: '#111', padding: 12, borderRadius: 10, alignItems: 'center' },
+  bookTxt: { color: '#fff', fontWeight: '600' }
+});
+
+===== FILE: src/screens/HomeScreen.tsx =====
+import React, { useEffect, useState } from 'react';
+import { View, TextInput, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
+import { fetchRestaurants } from '../api';
+import RestaurantCard from '../components/RestaurantCard';
+export default function HomeScreen({ navigation }: any) {
+  const [loading, setLoading] = useState(true);
+  const [query, setQuery] = useState('');
+  const [data, setData] = useState<any[]>([]);
+  async function load(q?: string) {
+    setLoading(true);
+    const items = await fetchRestaurants(q);
+    setData(items);
+    setLoading(false);
+  }
+  useEffect(() => { load(); }, []);
+  return (
+    <View style={styles.container}>
+      <TextInput style={styles.search} placeholder="Search restaurants or cuisines…"
+                 value={query} onChangeText={setQuery} onSubmitEditing={() => load(query)} />
+      {loading ? <ActivityIndicator /> :
+        <FlatList data={data} keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <RestaurantCard item={item}
+              onPress={() => navigation.navigate('Restaurant', { id: item.id, name: item.name })} />
+          )} />}
+    </View>
+  );
+}
+const styles = StyleSheet.create({ container: { flex: 1, padding: 12 },
+  search: { borderWidth: 1, borderColor: '#ccc', borderRadius: 8, padding: 10, marginBottom: 8 } });
+
+===== FILE: src/components/RestaurantCard.tsx =====
+import React from 'react';
+import { View, Text, Image, Pressable, StyleSheet } from 'react-native';
+export default function RestaurantCard({ item, onPress }: any) {
+  return (
+    <Pressable onPress={onPress} style={styles.card}>
+      {item.cover_photo && <Image source={{ uri: item.cover_photo }} style={styles.cover} />}
+      <View style={{ flex: 1 }}>
+        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.sub}>{item.cuisine.join(' • ')}</Text>
+        <Text style={styles.city}>{item.city}</Text>
+      </View>
+    </Pressable>
+  );
+}
+const styles = StyleSheet.create({
+  card: { flexDirection: 'row', gap: 12, padding: 12, borderWidth: 1, borderColor: '#eee',
+          borderRadius: 12, marginBottom: 8, backgroundColor: 'white' },
+  cover: { width: 90, height: 70, borderRadius: 10 },
+  title: { fontSize: 16, fontWeight: '600' },
+  sub: { color: '#666', marginTop: 2 },
+  city: { color: '#999', marginTop: 2 }
+});
+
+===== FILE: App.tsx =====
+import 'react-native-gesture-handler';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from './src/screens/HomeScreen';
+import RestaurantScreen from './src/screens/RestaurantScreen';
+import BookScreen from './src/screens/BookScreen';
+import SeatPicker from './src/screens/SeatPicker';
+const Stack = createNativeStackNavigator();
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Baku Reserve' }} />
+        <Stack.Screen name="Restaurant" component={RestaurantScreen} options={{ title: 'Details' }} />
+        <Stack.Screen name="Book" component={BookScreen} options={{ title: 'Book' }} />
+      <Stack.Screen name="SeatPicker" component={SeatPicker} options={{ title: 'Choose table' }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+===== FILE: package.json =====
+{
+  "name": "baku-reserve-mobile",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@react-native-community/datetimepicker": "8.4.4",
+    "@react-navigation/native": "^7.1.18",
+    "@react-navigation/native-stack": "^7.5.0",
+    "expo": "~54.0.18",
+    "expo-constants": "~18.0.10",
+    "expo-status-bar": "~3.0.8",
+    "react": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-gesture-handler": "~2.28.0",
+    "react-native-safe-area-context": "~5.6.0",
+    "react-native-screens": "~4.16.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.1.0",
+    "typescript": "~5.9.2"
+  },
+  "private": true
+}
+
+===== FILE: app.json =====
+{
+  "expo": {
+    "name": "baku-reserve-mobile",
+    "slug": "baku-reserve-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
+
+===== FILE: tsconfig.json =====
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true
+  }
+}

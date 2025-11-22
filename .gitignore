@@ -1,0 +1,52 @@
+# macOS
+.DS_Store
+# Python (backend)
+backend/.venv/
+backend/__pycache__/
+backend/tests/__pycache__/
+backend/**/*.pyc
+backend/.pytest_cache/
+backend/.coverage
+backend/.hypothesis/
+# Local data (ephemeral)
+backend/app/data/*.json
+!backend/app/data/restaurants.json
+!backend/app/data/restaurant_tags_enriched.json
+# Node (mobile)
+mobile/node_modules/
+mobile/.expo/
+mobile/.expo-shared/
+mobile/npm-debug.log
+mobile/yarn-error.log
+mobile/.env
+mobile/app.config.local.json
+node_modules/
+# Tooling MCP deps
+tools/baku_enricher_mcp/node_modules/
+tools/baku_enricher_mcp/.mcp-deps.stamp
+# Enricher scratch outputs
+tools/baku_enricher/out/
+# General
+.env
+.env.*
+!.env.example
+!backend/.env.example
+!mobile/.env.example
+*.log
+dist/
+build/
+coverage/
+.hypothesis/
+artifacts/
+
+# Editor temp files
+*.swp
+*.swo
+
+# Virtual environments
+.venv/
+
+# Gemini CLI settings
+.gemini/
+gha-creds-*.json
+backend/app/data/concierge_v2_cache/

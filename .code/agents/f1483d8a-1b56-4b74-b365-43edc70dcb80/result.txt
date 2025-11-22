@@ -1,0 +1,194 @@
+[2025-11-13T19:17:38] OpenAI Codex v0.0.0 (research preview)
+--------
+workdir: /Users/jkazimzade/baku-reserve
+model: gpt-5-codex
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: high
+reasoning summaries: auto
+--------
+[2025-11-13T19:17:38] User instructions:
+STATE EXACTLY HOW MANY TERMINALS MUST BE RUNNING AT ANY TIME AND ALWAYS MENTION WHAT DIR AND TERMINAL 
+EVERY COMMAND TO RUN IN
+
+You are helping design a read-only forensic code review plan for the "baku-reserve" repo (FastAPI backend + Expo/React Native mobile client). Goal: execute exhaustive stability review without code changes, per instructions below.
+
+Context highlights:
+- Backend FastAPI service under `backend/app/` with SQLite store, seed data in `backend/app/data/restaurants.json`. Tests under `backend/tests/`. Scripts/tools orchestrate smoke/e2e flows.
+- Mobile Expo app in `mobile/` with screens under `src/screens/`, shared components `src/components/`, API wiring `src/api.ts`, hooks like `useArrivalSuggestions`. Tests in `mobile/__tests__/` using React Native Testing Library.
+- Recent project doc notes: GoMap arrival intent integration, timezone propagation across backend/mobile, `/health` hardening, quick filter repairs, concurrency guards, type generator updates. Need to ensure concierge GoMap latency verified once services run again.
+- Requirements: produce a comprehensive plan for a pre-release, read-only deep code review. Emphasize critical restaurant reservation flows (search, availability, reservations, notifications). Use severity model S0-S3 & likelihood L-High/Med/Low.
+- Review plan must follow phases: (1) Inventory & Map, (2) Static correctness, (3) Data/transactions, (4) APIs/integrations, (5) Concurrency/async, (6) Error handling/observability, (7) Performance/soak, (8) Tests & gaps, (9) Mobile specifics, (10) Domain checklist. Deliverables must include risk register, coverage mapping, concurrency & data integrity review, deferred hardening list.
+
+Deliverables for each agent:
+1. Outline recommended research/inspection sequence referencing concrete repo paths (e.g., `backend/app/storage.py`, `mobile/src/screens/HomeScreen.tsx`).
+2. Provide 5-8 step plan detailing how to execute the forensic review, including rationale, potential pitfalls, and validation ideas (tests or manual verification). Keep read-only focus—no code changes.
+3. Highlight tooling/commands to gather evidence (e.g., `pytest backend/tests/...`, `npm test`, scripts under `tools/`).
+
+Please ground the plan in existing repo structure and instructions. Assume shell access but read-only intent. Keep plan concise but actionable, anticipating multi-day review effort.
+
+
+[Running in read-only mode - no modifications allowed]
+[2025-11-13T19:17:39] OpenAI Codex v0.0.0 (research preview)
+--------
+workdir: /Users/jkazimzade/baku-reserve
+model: gpt-5-codex
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: high
+reasoning summaries: auto
+--------
+[2025-11-13T19:17:39] User instructions:
+STATE EXACTLY HOW MANY TERMINALS MUST BE RUNNING AT ANY TIME AND ALWAYS MENTION WHAT DIR AND TERMINAL 
+EVERY COMMAND TO RUN IN
+
+You are helping design a read-only forensic code review plan for the "baku-reserve" repo (FastAPI backend + Expo/React Native mobile client). Goal: execute exhaustive stability review without code changes, per instructions below.
+
+Context highlights:
+- Backend FastAPI service under `backend/app/` with SQLite store, seed data in `backend/app/data/restaurants.json`. Tests under `backend/tests/`. Scripts/tools orchestrate smoke/e2e flows.
+- Mobile Expo app in `mobile/` with screens under `src/screens/`, shared components `src/components/`, API wiring `src/api.ts`, hooks like `useArrivalSuggestions`. Tests in `mobile/__tests__/` using React Native Testing Library.
+- Recent project doc notes: GoMap arrival intent integration, timezone propagation across backend/mobile, `/health` hardening, quick filter repairs, concurrency guards, type generator updates. Need to ensure concierge GoMap latency verified once services run again.
+- Requirements: produce a comprehensive plan for a pre-release, read-only deep code review. Emphasize critical restaurant reservation flows (search, availability, reservations, notifications). Use severity model S0-S3 & likelihood L-High/Med/Low.
+- Review plan must follow phases: (1) Inventory & Map, (2) Static correctness, (3) Data/transactions, (4) APIs/integrations, (5) Concurrency/async, (6) Error handling/observability, (7) Performance/soak, (8) Tests & gaps, (9) Mobile specifics, (10) Domain checklist. Deliverables must include risk register, coverage mapping, concurrency & data integrity review, deferred hardening list.
+
+Deliverables for each agent:
+1. Outline recommended research/inspection sequence referencing concrete repo paths (e.g., `backend/app/storage.py`, `mobile/src/screens/HomeScreen.tsx`).
+2. Provide 5-8 step plan detailing how to execute the forensic review, including rationale, potential pitfalls, and validation ideas (tests or manual verification). Keep read-only focus—no code changes.
+3. Highlight tooling/commands to gather evidence (e.g., `pytest backend/tests/...`, `npm test`, scripts under `tools/`).
+
+Please ground the plan in existing repo structure and instructions. Assume shell access but read-only intent. Keep plan concise but actionable, anticipating multi-day review effort.
+
+
+[Running in read-only mode - no modifications allowed]
+
+[2025-11-13T19:17:49] thinking
+
+**Organizing forensic review plan**
+
+I’m putting together a structured plan that specifies exactly three terminals running at all times, each with precise directories for commands. I’ll outline a phased research and inspection sequence referencing repo paths, provide a clear 5-8 step execution plan emphasizing read-only review, and include key deliverables like a risk register with severity and likelihood, coverage mapping tying features to tests, concurrency and data integrity reviews, plus a deferred hardening list. To keep it clear, I’ll divide the final answer into sections covering terminal setup, phases, tooling/commands, and detailed risk and coverage info.
+[2025-11-13T19:17:51] codex
+
+**Terminal Requirements**  
+Exactly three terminals must be running at all times. Terminal A (repo root `/Users/jkazimzade/baku-reserve`) is reserved for backend processes, Terminal B (same root) for the Expo client, and Terminal C (same root) for Codex workflow/read-only inspection work. Any command referenced below must specify its terminal and directory before execution.
+
+---
+
+**Phase-Aligned Research & Inspection Sequence**
+
+1. **Inventory & Map (backend/app, backend/tests, mobile/src)**  
+   - Trace core reservation flow files: `backend/app/main.py`, routers under `backend/app/api/`, `backend/app/storage.py`, `backend/app/availability.py`, `backend/app/utils.py`.  
+   - Map seed + schema linkage: `backend/app/data/restaurants.json`, `backend/app/schemas.py`, `mobile/src/types/server.d.ts`.  
+   - Review mobile entry points: `mobile/src/screens/HomeScreen.tsx`, `ReservationsScreen.tsx`, `PrepNotifyScreen.tsx`, `SeatPicker.tsx`, hooks like `mobile/src/hooks/useArrivalSuggestions.ts`.  
+   - Output: system diagram linking search → availability → booking → notifications.
+
+2. **Static Correctness (Phase 2)**  
+   - Backend: inspect validation layers (`backend/app/schemas.py`, `backend/app/validators/*.py`), health logic (`backend/app/health.py`).  
+   - Mobile: prop drilling/timezone handling across `mobile/src/utils/date.ts`, `mobile/src/components/ArrivalInsightCard.tsx`.  
+   - Verify generated types align with backend contracts (`mobile/src/types/server.d.ts` vs `backend/tools/type_generator.py`). Look for drift.
+
+3. **Data & Transactions (Phase 3)**  
+   - Examine SQLite store read/write patterns in `backend/app/storage.py`, migration/setup scripts in `backend/scripts/seed_db.py`.  
+   - Check reservation conflict rules in storage + `backend/app/availability.py` plus tests `backend/tests/test_backend_system.py::TestOverbooking`.  
+   - Confirm mobile form submission sanitizes payloads (`mobile/src/api.ts`, `useReservationForm`).
+
+4. **APIs & Integrations (Phase 4)**  
+   - Map GoMap touchpoints: `backend/app/clients/gomap.py`, `/reservations/{id}/arrival_intent/suggestions` route definitions, `mobile/src/hooks/useArrivalSuggestions.ts`.  
+   - Concierge/OpenAI paths: `backend/app/concierge/*`, env gating in `backend/app/config.py`.  
+   - Verify manual arrival card UI vs payload fields.
+
+5. **Concurrency & Async (Phase 5)**  
+   - Inspect background tasks (`backend/app/tasks/*.py`, `app/main.py` startup).  
+   - Evaluate mobile polling/sync loops (`mobile/src/hooks/useSeatAvailability.ts`, `useArrivalSuggestions`).  
+   - Check locking/async guards around storage and arrival intent fetch cancellations.
+
+6. **Error Handling & Observability (Phase 6)**  
+   - Review `/health` and logging (`backend/app/observability.py`, `backend/tests/test_observability.py`).  
+   - Evaluate error surfaces in mobile notifications modals; confirm `mobile/src/utils/toast.ts`.  
+   - Ensure degraded concierge state reporting surfaces in logs/tests.
+
+7. **Performance & Soak (Phase 7)**  
+   - Profile hotspots: search filters (`backend/app/search.py`), arrival suggestions caching.  
+   - Review load scripts `backend/tools/mega_tester.py`, `tools/full_stack_e2e.sh`.  
+   - Inspect mobile list virtualization/perf improvements in `HomeScreen` or `FlatList` usage.
+
+8. **Tests & Gaps (Phase 8)**  
+   - Catalog backend pytest modules vs features: `backend/tests/test_extreme.py`, `test_validation.py`, `test_gomap.py`.  
+   - Mobile Jest/RTL suites in `mobile/__tests__/experience.ui.test.tsx`, `SeatPicker.test.tsx`.  
+   - Identify missing coverage for timezone edge cases, concierges, or cancellation flows.
+
+9. **Mobile Specifics (Phase 9)**  
+   - Audit theme usage `mobile/src/config/theme.ts`, navigation stack definitions `mobile/src/navigation/index.ts`.  
+   - Validate offline/error UX for arrival suggestions and quick filters.  
+   - Check React Query or custom caching (if present) for staleness.
+
+10. **Domain Checklist (Phase 10)**  
+    - Confirm restaurant-level timezone/reservation policies align with seeds and UI messaging.  
+    - Verify policies for terrace/live music tags, arrival intent traffic data, auto-assign fallback rules.  
+    - Ensure concierge latency verification plan references GoMap SLA.
+
+---
+
+**5–8 Step Forensic Review Plan (Read-Only)**
+
+1. **Baseline Mapping (Phase 1 focus)** – Walk repo tree, document component ownership, and capture architecture diagram; rationale: avoid missing hidden flows. Pitfall: overlooking scripts in `tools/`; validation: compare map with `project-doc` notes.  
+2. **Contract Drift Sweep** – Cross-check backend schemas vs generated TS types; rationale: prevent silent API mismatches; pitfall: outdated generated files; validation: run type generator dry-run command (see tooling list) to diff outputs without committing.  
+3. **Reservation Data Integrity Audit** – Trace reservation creation/update paths through storage + SQLite schema; rationale: detect double-bookings; pitfall: assuming tests cover all concurrency cases; validation: review `pytest` results focusing on `TestErrorRecoveryWorkflows`.  
+4. **Arrival Intent & GoMap Chain Review** – Inspect async client, caching, and mobile UI consumption; rationale: integration added recently; pitfall: missing timeout/backoff logic; validation: dry-run `pytest backend/tests/test_gomap.py`.  
+5. **Concurrency & Cancellation Path Walkthrough** – Simulate overlapping requests logically, inspect background tasks; rationale: newly added cancellation handling; pitfall: ignoring event loop edge cases; validation: reason through `useArrivalSuggestions` state machine plus backend task guards.  
+6. **Observability & Health Check Verification** – Review `/health` degradation behavior; rationale: ensures ops clarity; pitfall: env-dependent branches not exercised; validation: static read of `test_observability.py` plus log statements.  
+7. **Performance/Soak Scenario Planning** – Examine load tools, define target scenarios; rationale: upcoming release; pitfall: skipping mobile render perf; validation: plan to run `tools/full_stack_e2e.sh` once services live (read-only review).  
+8. **Test Coverage Gap Analysis** – Match features to existing tests, note missing suites; rationale: ensures release confidence; pitfall: counting shallow smoke tests as full coverage; validation: produce coverage matrix below.
+
+---
+
+**Tooling & Commands for Evidence (specify terminal + dir)**  
+- `Terminal C @ /Users/jkazimzade/baku-reserve`: `python3 -m pytest backend/tests/test_gomap.py backend/tests/test_backend_system.py backend/tests/test_validation.py` (dry-run to inspect output logs; no code changes).  
+- `Terminal C @ /Users/jkazimzade/baku-reserve`: `source .venv/bin/activate && pytest backend/tests/test_observability.py` (confirm health safeguards).  
+- `Terminal C @ /Users/jkazimzade/baku-reserve`: `cd mobile && npm test -- --watchAll=false --watchman=false` (read outputs for UI regressions).  
+- `Terminal C @ /Users/jkazimzade/baku-reserve`: `./tools/full_stack_e2e.sh --dry-run` (if supported) to review orchestration steps.  
+- `Terminal C @ /Users/jkazimzade/baku-reserve`: `python backend/tools/type_generator.py --check` (verify TS definition drift).  
+All commands are observational; capture logs/screenshots instead of modifying files.
+
+---
+
+**Risk Register (Severity S0–S3, Likelihood L-High/Med/Low)**  
+- Search filters regress to literal string match (S2, L-Med) – revisit `mobile/src/screens/HomeScreen.tsx` chip logic vs backend tags.  
+- Arrival intent latency spikes / GoMap outage (S2, L-Med) – ensure graceful degradation in `backend/app/clients/gomap.py`, mobile fallback UI.  
+- Timezone misalignment causing wrong booking slots (S3, L-Low) – cross-check seeds vs mobile formatting utilities.  
+- Concierge background loop misconfiguration (S1, L-Med) – confirm degraded health state surfaces clearly.  
+- SQLite reservation race condition under concurrent holds (S2, L-Low) – inspect locking strategies in `backend/app/storage.py`.  
+- Mobile stale-state after cancellation (S2, L-Med) – verify `useArrivalSuggestions` cancellation/state machine.
+
+---
+
+**Coverage Mapping (Feature → Files → Tests)**  
+- Quick filter/tag search → `mobile/src/screens/HomeScreen.tsx`, `backend/app/search.py` → `mobile/__tests__/experience.ui.test.tsx`.  
+- Reservation conflict prevention → `backend/app/availability.py`, `storage.py` → `backend/tests/test_backend_system.py`, `test_validation.py`.  
+- Arrival intent suggestions → `backend/app/api/arrival_intent.py`, `mobile/src/hooks/useArrivalSuggestions.ts` → `backend/tests/test_gomap.py`, UI tests in `experience.ui.test.tsx`.  
+- Health/observability → `backend/app/health.py`, `observability.py` → `backend/tests/test_observability.py`.  
+- Concierge fallback → `backend/app/concierge/*` → `backend/tests/test_e2e_workflows.py::TestErrorRecoveryWorkflows`.  
+- Timezone propagation → seeds + serializers + `mobile/src/utils/date.ts` → (gap) no explicit targeted test; flag for addition.
+
+---
+
+**Concurrency & Data Integrity Review Highlights**  
+- Backend storage uses SQLite; confirm `BEGIN IMMEDIATE` or equivalent locking before seat assignment in `storage.py`.  
+- Background concierge/GoMap refresh loops must respect event loop availability; ensure `asyncio.create_task` guarded.  
+- Mobile arrival suggestions hook now cancels stale fetches; inspect promise cleanup + `useEffect` dependencies to avoid race updates.  
+- SeatPicker authentication guard ensures user state before auto-assign; verify `mobile/src/screens/SeatPicker.tsx` gating logic.
+
+---
+
+**Deferred Hardening List**  
+- Add targeted timezone regression tests (backend + mobile snapshot) to catch formatting mismatches.  
+- Implement simulated GoMap outage scenario in tests to ensure UI fallback messaging.  
+- Introduce soak scenario for concurrent reservations via `mega_tester.py` feeding synthetic load.  
+- Extend coverage for quick filter chips toggling + backend search tags integration.  
+- Instrument concierge latency metrics surfaced via `/health` payload for dashboards.
+
+---
+
+This plan keeps the effort read-only while providing actionable sequencing, risk awareness, evidence-gathering commands, and domain-specific checkpoints for a multi-day, pre-release forensic review of the baku-reserve stack.
+[2025-11-13T19:18:21] tokens used: 17,879

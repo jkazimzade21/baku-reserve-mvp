@@ -1,0 +1,60 @@
+[2025-11-13T19:15:06] OpenAI Codex v0.0.0 (research preview)
+--------
+workdir: /Users/jkazimzade/baku-reserve
+model: gpt-5-codex-mini
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: high
+reasoning summaries: auto
+--------
+[2025-11-13T19:15:06] User instructions:
+Context: Repository: FastAPI backend, Expo mobile client. Focus areas: GoMap integration, arrival intent hooks, timezone propagation, /health hardening, quick filter remediation. Need plan for research and steps with validation.
+
+Agent: Plan research and next development steps for baku-reserve repo to address recent updates and ensure backend/mobile stability, including GoMap and arrival intent tooling validation. Outline 5-8 steps referencing concrete files/tests.
+
+Desired output: Plan + reasoning
+
+[Running in read-only mode - no modifications allowed]
+[2025-11-13T19:15:07] OpenAI Codex v0.0.0 (research preview)
+--------
+workdir: /Users/jkazimzade/baku-reserve
+model: gpt-5-codex-mini
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: high
+reasoning summaries: auto
+--------
+[2025-11-13T19:15:07] User instructions:
+Context: Repository: FastAPI backend, Expo mobile client. Focus areas: GoMap integration, arrival intent hooks, timezone propagation, /health hardening, quick filter remediation. Need plan for research and steps with validation.
+
+Agent: Plan research and next development steps for baku-reserve repo to address recent updates and ensure backend/mobile stability, including GoMap and arrival intent tooling validation. Outline 5-8 steps referencing concrete files/tests.
+
+Desired output: Plan + reasoning
+
+[Running in read-only mode - no modifications allowed]
+
+[2025-11-13T19:15:09] thinking
+
+**Planning research steps**
+[2025-11-13T19:15:09] codex
+
+**Plan**
+
+- Review current GoMap integration in backend to understand recent `/reservations/{id}/arrival_intent/suggestions` enhancements, ensuring data flows and rate limits match GoMap guidance. Focus on `backend/app/routes/reservations.py`, `backend/app/routers/arrival_intent.py` (if present), and integration helpers in `backend/app/utils.py`; check related tests `backend/tests/test_gomap.py` for coverage gaps.
+
+- Audit fintech arrival-intent tooling in mobile hooks/UI: inspect `mobile/src/hooks/useArrivalSuggestions.ts`, `mobile/src/components/ArrivalInsightCard.tsx`, and screens `mobile/src/screens/ReservationsScreen.tsx` + `PrepNotifyScreen.tsx` to verify new presets/ETA handling. Identify necessary mocking updates in `mobile/__tests__/experience.ui.test.tsx`.
+
+- Confirm timezone propagation end-to-end by tracing schema/seed changes through `backend/app/schemas.py`, `backend/app/data/restaurants.json`, serializers, and `mobile/src/types/server.d.ts`; ensure availability utilities like `backend/app/availability.py` + `mobile/src/utils/availability.ts` (or similar) use `timezone` (look for `Asia/Baku` default). Identify any scripts/tests missing timezone assertions.
+
+- Harden `/health` flow: read `backend/app/routers/health.py` (or `main.py` if inline) and `backend/tests/test_observability.py` to understand current optional dep gating (GoMap, concierge). Check for `clear_cache()` helper usage and whether health response covers missing env vars.
+
+- Validate quick filter fixes in `mobile/src/screens/HomeScreen.tsx`, ensuring `tagFilterMap`, `vibeFilters` cover new tags and tests reflect chip behavior (search for `HomeScreen` tests). Note any missing coverage and plan follow-up tests.
+
+- Outline regression testing: backend smoke via `pytest backend/tests/test_gomap.py backend/tests/test_backend_system.py backend/tests/test_validation.py`, mobile suite `cd mobile && npm test -- --watchAll=false` (or `--watchman=false` as needed). Consider runtime steps like `./scripts/dev_backend.sh` and `./scripts/dev_mobile.sh` to reproduce issues.
+
+- Check state sync requirements (GoMap caches, concierge env) in repo docs and note any manual steps (e.g., syncing `~/.baku-reserve-data/restaurants.json` and embeddings) to ensure stable dev environment.
+
+For each step include concrete files/tests and mention any validation commands to rerun.
+[2025-11-13T19:15:12] tokens used: 15,138

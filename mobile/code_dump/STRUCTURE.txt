@@ -1,0 +1,27 @@
+# Repo structure (filtered)
+# Root: /Users/jkazimzade/baku-reserve-mobile
+
+.
+  App.tsx
+  app.json
+  .gitignore
+  package-lock.json
+  package.json
+  tsconfig.json
+  index.ts
+assets
+  assets/icon.png
+  assets/favicon.png
+  assets/adaptive-icon.png
+  assets/splash-icon.png
+src
+  src/api.ts
+src/screens
+  src/screens/BookScreen.tsx
+  src/screens/SeatPicker.tsx
+  src/screens/RestaurantScreen.tsx.bak
+  src/screens/RestaurantScreen.tsx
+  src/screens/HomeScreen.tsx
+src/components
+  src/components/RestaurantCard.tsx
+code_dump

@@ -1,0 +1,1429 @@
+Command failed: 2025-11-13T20:44:06.345881Z ERROR code_core::codex: MCP client for `ref` failed to start: failed to spawn MCP server `ref` using command `mcp-ref`: No such file or directory (os error 2)
+[2025-11-13T20:44:05] OpenAI Codex v0.0.0 (research preview)
+--------
+workdir: /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+model: gpt-5-codex
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: high
+reasoning summaries: auto
+--------
+[2025-11-13T20:44:05] User instructions:
+STATE EXACTLY HOW MANY TERMINALS MUST BE RUNNING AT ANY TIME AND ALWAYS MENTION WHAT DIR AND TERMINAL 
+EVERY COMMAND TO RUN IN
+
+You are part of a 3-agent /deep_review squad for the Baku Reserve monorepo (FastAPI backend in backend/app, Expo mobile client in mobile/src, automation in tools/). Read-only investigation only. Follow deepreview.md instructions exactly: Planner/Coordinator (Claude Sonnet 4.5) drafts repo-specific plan, assigns focus areas, orchestrates Sections 0-9, and produces the final prioritized report. Static & Runtime Analyst (code-gpt-5-codex) performs high-churn + hot-path code inspection (backend availability/storage/auth, mobile SeatPicker + arrival flows), capturing concrete file:line evidence. Adversarial Explorer (Claude Opus 4.1) stress-tests concurrency, timezone, GoMap/location, token refresh, and data-integrity edge cases.
+
+Context: FastAPI service exposes reservation discovery/search, availability slotting w/ zoneinfo timezones, owner-scoped reservations, GoMap arrival intent endpoints; Expo app handles Auth0 realm login, discovery filters, booking/book/cancel, Prep Notify (On My Way) with ETA + GoMap suggestions, SeatPicker real-time sync. Seed data under backend/app/data/restaurants.json and runtime store ~/.baku-reserve-data. Tests live in backend/tests and mobile/__tests__.
+
+Deliverables per deepreview.md: (1) Top-10 blockers summary, (2) prioritized defect backlog entries with Severity/Likelihood/Confidence, evidence + repro + fix sketch + test ideas, (3) data invariants catalog, (4) concurrency/idempotency summary, (5) test gap matrix, (6) prod-later notes. Include specific repro steps and cite file:line references. No repo writes or formatters.
+
+Process: 1) Coordinator emits tailored plan + assignments referencing repo hot spots, 2) Analysts execute sections 1-9 in parallel, 3) Coordinator reconciles and outputs final structured report.
+[2025-11-13T20:44:06] OpenAI Codex v0.0.0 (research preview)
+--------
+workdir: /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+model: gpt-5-codex
+provider: openai
+approval: never
+sandbox: danger-full-access
+reasoning effort: high
+reasoning summaries: auto
+--------
+[2025-11-13T20:44:06] User instructions:
+STATE EXACTLY HOW MANY TERMINALS MUST BE RUNNING AT ANY TIME AND ALWAYS MENTION WHAT DIR AND TERMINAL 
+EVERY COMMAND TO RUN IN
+
+You are part of a 3-agent /deep_review squad for the Baku Reserve monorepo (FastAPI backend in backend/app, Expo mobile client in mobile/src, automation in tools/). Read-only investigation only. Follow deepreview.md instructions exactly: Planner/Coordinator (Claude Sonnet 4.5) drafts repo-specific plan, assigns focus areas, orchestrates Sections 0-9, and produces the final prioritized report. Static & Runtime Analyst (code-gpt-5-codex) performs high-churn + hot-path code inspection (backend availability/storage/auth, mobile SeatPicker + arrival flows), capturing concrete file:line evidence. Adversarial Explorer (Claude Opus 4.1) stress-tests concurrency, timezone, GoMap/location, token refresh, and data-integrity edge cases.
+
+Context: FastAPI service exposes reservation discovery/search, availability slotting w/ zoneinfo timezones, owner-scoped reservations, GoMap arrival intent endpoints; Expo app handles Auth0 realm login, discovery filters, booking/book/cancel, Prep Notify (On My Way) with ETA + GoMap suggestions, SeatPicker real-time sync. Seed data under backend/app/data/restaurants.json and runtime store ~/.baku-reserve-data. Tests live in backend/tests and mobile/__tests__.
+
+Deliverables per deepreview.md: (1) Top-10 blockers summary, (2) prioritized defect backlog entries with Severity/Likelihood/Confidence, evidence + repro + fix sketch + test ideas, (3) data invariants catalog, (4) concurrency/idempotency summary, (5) test gap matrix, (6) prod-later notes. Include specific repro steps and cite file:line references. No repo writes or formatters.
+
+Process: 1) Coordinator emits tailored plan + assignments referencing repo hot spots, 2) Analysts execute sections 1-9 in parallel, 3) Coordinator reconciles and outputs final structured report.
+[2025-11-13T20:44:06] ERROR: MCP client for `ref` failed to start: failed to spawn MCP server `ref` using command `mcp-ref`: No such file or directory (os error 2)
+
+[2025-11-13T20:44:20] thinking
+
+**Clarifying deepreview process and terminal usage**
+
+I’m figuring out how to follow the deepreview instructions correctly, especially about role delegation and terminal management. It looks like I have to read the deepreview.md file, use three terminals (A, B, C) as per the guidelines—mentioning which terminal and directory each command runs in—and possibly spawn the planner agent to create a plan, all while keeping track to report exact terminal usage and commands in the final summary. I’ll start by listing repo files from Terminal C in the root directory.
+[2025-11-13T20:44:22] exec bash -lc pwd in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:22] bash -lc pwd succeeded in 10ms:
+/Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:22] tokens used: 15,702
+
+[2025-11-13T20:44:23] thinking
+
+**Listing directory contents**
+[2025-11-13T20:44:24] exec bash -lc ls in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:24] bash -lc ls succeeded in 16ms:
+AGENTS.md
+backend
+CHANGELOG.md
+CI_IMPLEMENTATION_SUMMARY.md
+docs
+IGPics
+Makefile
+mlc_config.json
+mobile
+out
+package-lock.json
+package.json
+plans
+README.md
+RUN_SUMMARY.md
+runs_summary.jsonl
+scripts
+TESTING.md
+tools
+[2025-11-13T20:44:24] tokens used: 31,547
+
+[2025-11-13T20:44:25] thinking
+
+**Searching for deepreview.md file**
+[2025-11-13T20:44:26] exec bash -lc "rg --files -g 'deepreview.md'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:26] bash -lc "rg --files -g 'deepreview.md'" exited 1 in 30ms:
+ERROR
+[2025-11-13T20:44:26] tokens used: 31,818
+
+[2025-11-13T20:44:28] thinking
+
+**Searching for deepreview files**
+[2025-11-13T20:44:29] exec bash -lc "rg --files -g '*deepreview*'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:29] bash -lc "rg --files -g '*deepreview*'" exited 1 in 26ms:
+ERROR
+[2025-11-13T20:44:29] tokens used: 32,096
+
+[2025-11-13T20:44:31] thinking
+
+**Searching for deepreview documentation**
+[2025-11-13T20:44:31] exec bash -lc 'fd deepreview' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:31] bash -lc 'fd deepreview' exited 127 in 17ms:
+ERROR
+bash: fd: command not found
+[2025-11-13T20:44:31] tokens used: 32,999
+
+[2025-11-13T20:44:35] thinking
+
+**Considering alternative search tools**
+[2025-11-13T20:44:36] exec bash -lc 'rg -n "deepreview" -g "*" -S' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:36] bash -lc 'rg -n "deepreview" -g "*" -S' exited 1 in 36ms:
+ERROR
+[2025-11-13T20:44:36] tokens used: 34,050
+
+[2025-11-13T20:44:38] thinking
+
+**Searching for deepreview.md file**
+[2025-11-13T20:44:38] exec bash -lc "find .. -name 'deepreview.md'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:38] bash -lc "find .. -name 'deepreview.md'" succeeded in 32ms:
+[2025-11-13T20:44:38] tokens used: 34,225
+
+[2025-11-13T20:44:40] thinking
+
+**Searching for deep_review.md file**
+[2025-11-13T20:44:41] exec bash -lc "find .. -name '*deep*review*.md'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:41] bash -lc "find .. -name '*deep*review*.md'" succeeded in 16ms:
+[2025-11-13T20:44:41] tokens used: 34,413
+
+[2025-11-13T20:44:43] thinking
+
+**Searching for deepreview documentation**
+[2025-11-13T20:44:44] exec bash -lc 'rg -n "deep_review" -g "*"' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:44] bash -lc 'rg -n "deep_review" -g "*"' exited 1 in 20ms:
+ERROR
+[2025-11-13T20:44:44] tokens used: 34,645
+
+[2025-11-13T20:44:46] thinking
+
+**Checking docs directory**
+[2025-11-13T20:44:46] exec bash -lc 'ls docs' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:46] bash -lc 'ls docs' succeeded in 19ms:
+concierge_v2.md
+partner_portal.md
+prep_notify_mvp.md
+[2025-11-13T20:44:46] tokens used: 34,844
+
+[2025-11-13T20:44:48] thinking
+
+**Checking for hidden deepreview.md file**
+[2025-11-13T20:44:48] exec bash -lc 'ls -a' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:48] bash -lc 'ls -a' succeeded in 17ms:
+.
+..
+.env.example
+.git
+.github
+.gitignore
+.pylintrc
+.spellcheck.yml
+AGENTS.md
+backend
+CHANGELOG.md
+CI_IMPLEMENTATION_SUMMARY.md
+docs
+IGPics
+Makefile
+mlc_config.json
+mobile
+out
+package-lock.json
+package.json
+[2025-11-13T20:44:48] tokens used: 35,039
+
+[2025-11-13T20:44:50] thinking
+
+**Checking for deepreview plans**
+[2025-11-13T20:44:51] exec bash -lc 'ls plans' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:51] bash -lc 'ls plans' succeeded in 6ms:
+next_agent_prompt.md
+Screenshot 2025-10-25 at 2.50.38 PM.png
+Screenshot 2025-10-25 at 2.50.59 PM.png
+Screenshot 2025-10-25 at 2.51.04 PM.png
+Screenshot 2025-10-25 at 2.51.12 PM.png
+Screenshot 2025-10-25 at 2.51.24 PM.png
+[2025-11-13T20:44:51] tokens used: 35,332
+
+[2025-11-13T20:44:52] thinking
+
+**Searching for root AGENTS.md**
+[2025-11-13T20:44:53] exec bash -lc "sed -n '1,160p' AGENTS.md" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:53] bash -lc "sed -n '1,160p' AGENTS.md" succeeded in 19ms:
+# Repository Guidelines
+
+> **Codex Handoff Rule:** This file now holds the running context (no separate `codexinfo.md`). Skim it before changing code and append any critical hand-off notes here when you wrap up.
+
+## Project Structure & Module Organization
+- `backend/app/` holds the FastAPI service, seeded venue data, and lightweight SQLite-backed reservation store. Domain helpers live under `app/availability.py`, `storage.py`, and `utils.py`.
+- `backend/tests/` contains pytest smoke and property-based coverage; scripts in `backend/scripts/` and `backend/tools/` orchestrate smoke, stress, and e2e entrypoints.
+- `mobile/` is the Expo client. Core UI lives in `src/screens/`, shareable UI primitives in `src/components/`, and API wiring in `src/api.ts`. Unit specs reside under `mobile/__tests__/`.
+- `tools/` aggregates repo-wide automation such as `full_stack_e2e.sh` and the `mega_tester.py` orchestrator.
+
+## Build, Test, and Development Commands
+- **Bootstrap backend** (from repo root): `python3.11 -m venv .venv && source .venv/bin/activate && pip install -r backend/requirements.txt`.
+- **Run API with hot reload**: `./scripts/dev_backend.sh` (wraps `uvicorn app.main:app --app-dir backend --reload` and binds `0.0.0.0:8000`).
+- **Expo client**: `./scripts/dev_mobile.sh` (exports `EXPO_PUBLIC_API_BASE` to your LAN IP and starts Metro on port 8081).
+- **Backend smoke**: `BASE=http://127.0.0.1:8000 pytest backend/tests/test_extreme.py`.
+- **Mobile unit tests**: `cd mobile && npm test`.
+- **Full sweep**: `./tools/full_stack_e2e.sh` once both services are serving.
+
+## Coding Style & Naming Conventions
+- Python uses 4-space indentation, type hints, and CamelCase models mirroring `schemas.py`. Extend seeded data with UUID4 IDs and keep formatting via `ruff`/`black` defaults.
+[2025-11-13T20:44:53] tokens used: 35,588
+
+[2025-11-13T20:44:55] thinking
+
+**Searching for deepreview.md file**
+[2025-11-13T20:44:56] exec bash -lc "rg --files --iglob '*dee*rev*.md'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:56] bash -lc "rg --files --iglob '*dee*rev*.md'" exited 1 in 25ms:
+ERROR
+[2025-11-13T20:44:56] tokens used: 38,217
+
+[2025-11-13T20:44:57] thinking
+
+**Searching for deepreview files**
+[2025-11-13T20:44:58] exec bash -lc "find . -iname '*deep*review*' -print" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:44:58] bash -lc "find . -iname '*deep*review*' -print" succeeded in 24ms:
+[2025-11-13T20:44:58] tokens used: 38,429
+
+[2025-11-13T20:45:11] thinking
+
+**Considering missing deepreview.md instructions**
+[2025-11-13T20:45:12] exec bash -lc 'rg -n "Top-10 blockers" -g "*.md"' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:45:12] bash -lc 'rg -n "Top-10 blockers" -g "*.md"' exited 1 in 28ms:
+ERROR
+[2025-11-13T20:45:12] tokens used: 39,225
+
+[2025-11-13T20:45:42] thinking
+
+**Devising multi-agent deepreview plan**
+
+I’m figuring out how to follow missing deepreview instructions by simulating a multi-agent setup where a planner drafts a sectioned plan and I handle static analysis while delegating adversarial tests to another agent; I’ll search key repo files for backend and mobile focus areas before creating a prompt for agent.create to generate the orchestrated deepreview plan referencing deliverables and sections 0-9.
+[2025-11-13T20:45:45] tool agent
+{
+  "action": "create",
+  "create": {
+    "task": "Act as Planner/Coordinator for Baku Reserve deep review. Output Section 0 with a concrete repo-specific plan referencing backend FastAPI + mobile Expo areas, assign focus areas to: Static & Runtime Analyst (code-gpt-5-codex) and Adversarial Explorer (Claude Opus 4.1). Include schedule/checkpoints for Sections 1-9 per deepreview.md deliverables (Top-10 blockers, prioritized backlog, invariants, concurrency/idempotency, test gap matrix, prod-later notes). Ensure instructions emphasize read-only investigation and cite key files to inspect (backend/app/availability.py, storage.py, auth, mobile SeatPicker + arrival flows, GoMap arrival intent). Provide table summarizing responsibilities per section.",
+    "models": [
+      "claude-sonnet-4.5"
+    ],
+    "output": "Planner Section 0",
+    "write": false,
+    "name": "Deepreview Planner"
+  },
+  "batch_id": "ebedd16b-eb46-495d-98b8-e87fa36e5f56"
+}
+[2025-11-13T20:45:45] tool agent success
+{"batch_id":"ebedd16b-eb46-495d-98b8-e87fa36e5f56","agent_ids":["c6003204-60ff-4cfe-9cb6-eefbc9c44c16"],"status":"started","message":"Agent started successfully","next_steps":"🤖 Agent batch ebedd16b started with Deepreview Planner. Use `agent {\"action\":\"wait\",\"wait\":{\"batch_id\":\"ebedd16b-eb46-495d-98b8-e87fa36e5f56\",\"return_all\":true}}` to follow progress, or `agent {\"action\":\"result\",\"result\":{\"agent_id\":\"c6003204-60ff-4cfe-9cb6-eefbc9c44c16\"}}` when it finishes.","agent_id":"c6003204-60ff-4cfe-9cb6-eefbc9c44c16","skipped":null}
+[2025-11-13T20:45:45] tokens used: 41,873
+
+[2025-11-13T20:45:49] thinking
+
+**Pausing for next step**
+[2025-11-13T20:45:51] tool agent
+{
+  "action": "wait",
+  "wait": {
+    "batch_id": "ebedd16b-eb46-495d-98b8-e87fa36e5f56",
+    "timeout_seconds": 600,
+    "return_all": true
+  }
+}
+[2025-11-13T20:46:50] tool agent success
+{"batch_id":"ebedd16b-eb46-495d-98b8-e87fa36e5f56","completed_agents":["c6003204-60ff-4cfe-9cb6-eefbc9c44c16"],"completed_summaries":[{"agent_id":"c6003204-60ff-4cfe-9cb6-eefbc9c44c16","status":"completed","total_lines":288,"agent_result_hint":"agent {\"action\":\"result\",\"result\":{\"agent_id\":\"c6003204-60ff-4cfe-9cb6-eefbc9c44c16\",\"batch_id\":\"ebedd16b-eb46-495d-98b8-e87fa36e5f56\"}}","agent_result_params":{"action":"result","result":{"agent_id":"c6003204-60ff-4cfe-9cb6-eefbc9c44c16","batch_id":"ebedd16b-eb46-495d-98b8-e87fa36e5f56"}},"output_preview":"# Section 0: Deep Review Coordination Plan\n\n## Repository Context: Baku Reserve\n\n**Architecture**: FastAPI backend + Expo React Native mobile client  \n**Domain**: Restaurant reservation system with GoMap.az integration for customer arrival tracking  \n**Review Mode**: Read-only investigation (no code modifications)\n\n---\n\n## Review Team Assignment\n\n| Agent | Model | Primary Focus Areas |\n|-------|-------|-------------------|\n| **Static & Runtime Analyst** | code-gpt-5-codex | Code quality, architecture patterns, API contracts, database queries, test coverage analysis |\n| **Adversarial Explorer** | Claude Opus 4.1 | Edge cases, race conditions, failure modes, security vulnerabilities, data consistency issues |\n| **Planner/Coordinator** | Claude Sonnet 4.5 | Overall orchestration, synthesis, prioritization, deliverable compilation |\n\n---\n\n## Repository-Specific Investigation Areas\n\n### Backend (FastAPI)\n**Key Files to Inspect**:\n- `backend/app/availability.py` - Reservation availability logic, time slot calculations\n- `backend/app/storage.py` - Database operations, data persistence layer\n- `backend/app/auth.py` - Authentication/authorization mechanisms\n- `backend/app/routers/` - API endpoint definitions\n- `backend/app/models/` - Data models and schemas\n- `backend/app/database.py` - Database connection management\n- `backend/tests/` - Existing test coverage\n\n**Focus Areas**:\n- Concurrency handling in reservation creation/modification\n- Idempotency guarantees for booking operations\n- Data consistency across availability calculations\n- Transaction boundaries and rollback scenarios\n- GoMap.az webhook handling and arrival status updates\n\n### Mobile (Expo React Native)\n**Key Files to Inspect**:\n- `mobile/src/screens/SeatPicker*` - Seat selection UI and state management\n- `mobile/src/screens/*Arrival*` - Customer arrival flow implementation\n- `mobile/src/services/` - API integration layer\n- `mobile/src/navigation/` - Navigation flow and deep linking\n- GoMap arrival intent handling (search for gomap/arrival related code)\n\n**Focus Areas**:\n- Race conditions in seat selection flow\n- Offline/online sync handling\n- Error recovery and retry logic\n- State consistency during navigation\n- Deep link handling for arrival notifications\n\n---\n\n## Section Deliverables & Responsibility Matrix\n\n| Section | Deliverable | Primary Owner | Support | Timeline |\n|---------|------------|---------------|---------|----------|\n| **1** | Top-10 Critical Blockers | Adversarial Explorer | Static Analyst | Checkpoint 1 (Day 1) |\n| **2** | Prioritized Backlog (by effort/impact) | Static Analyst | Adversarial Explorer | Checkpoint 2 (Day 2) |\n| **3** | System Invariants Documentation | Static Analyst | Planner | Checkpoint 2 (Day 2) |\n| **4** | Concurrency & Idempotency Analysis | Adversarial Explorer | Static Analyst | Checkpoint 3 (Day 3) |\n| **5** | Test Gap Matrix | Static Analyst | Adversarial Explorer | Checkpoint 3 (Day 3) |\n| **6** | Production-Later Notes | Planner | Both Agents | Checkpoint 4 (Day 4) |\n| **7** | Security & Data Integrity Review | Adversarial Explorer | Static Analyst | Checkpoint 4 (Day 4) |\n| **8** | Performance & Scalability Concerns | Static Analyst | Adversarial Explorer | Checkpoint 5 (Day 5) |\n| **9** | Final Synthesis & Recommendations | Planner | Both Agents | Final Delivery (Day 5) |\n\n---\n\n## Detailed Agent Instructions\n\n### Static & Runtime Analyst (code-gpt-5-codex)\n\n**Mission**: Systematic architectural analysis and test coverage evaluation\n\n**Methodology**:\n1. **Architecture Mapping** (Section 2, 3):\n   - Trace data flow from mobile API calls → backend routers → storage layer\n   - Document API contracts and schema validation\n   - Identify critical business logic paths\n   - Map database schema and relationships\n\n2. **Test Coverage Analysis** (Section 5):\n   - Inventory existing tests in `backend/tests/` and `mobile/__tests__/`\n   - Create test gap matrix by feature area\n   - Identify untested edge cases in availability.py calculations\n   - Flag missing integration tests for GoMap arrival flow\n\n3. **Pattern Analysis** (Section 2, 8):\n   - Identify code duplication and refactoring opportunities\n   - Evaluate database query efficiency (N+1 queries, missing indexes)\n   - Review error handling patterns and consistency\n   - Assess API performance characteristics\n\n**Key Investigation Questions**:\n- How is seat availability calculated and cached?\n- What are the transaction boundaries for booking creation?\n- How does the system handle concurrent booking attempts?\n- What retry/backoff strategies exist for external API calls?\n- Which database operations lack proper indexing?\n\n**Output Format**: Structured findings with file references (e.g., `backend/app/availability.py:145`)\n\n---\n\n### Adversarial Explorer (Claude Opus 4.1)\n\n**Mission**: Discover failure modes, race conditions, and security vulnerabilities\n\n**Methodology**:\n1. **Threat Modeling** (Section 1, 7):\n   - Identify critical user flows and attack surfaces\n   - Enumerate failure scenarios for reservation lifecycle\n   - Test assumptions about data consistency\n   - Probe authentication/authorization boundaries\n\n2. **Race Condition Hunting** (Section 4):\n   - Analyze seat selection conflicts (multiple users, same seat/time)\n   - Double-booking scenarios in availability.py\n   - Concurrent modification of reservation status\n   - GoMap arrival webhook race conditions with app-initiated updates\n\n3. **Edge Case Enumeration** (Section 1, 4):\n   - Boundary conditions in time slot calculations\n   - Timezone handling (UTC+ devices per recent commit)\n   - Network failure during critical operations\n   - Partial state updates and orphaned records\n   - Idempotency failures (duplicate webhook delivery)\n\n4. **Data Integrity Probing** (Section 7):\n   - Orphaned reservations or seat assignments\n   - Inconsistent state between cache and database\n   - Missing validation in storage.py operations\n   - TOCTOU (Time-of-check-time-of-use) vulnerabilities\n\n**Key Investigation Questions**:\n- What happens if two users book the last seat simultaneously?\n- How does the system recover from partial writes during network failure?\n- Can arrival status be spoofed or replayed?\n- What prevents double-charging or reservation duplication?\n- How are timezone conversions validated (ref: commit e67964d)?\n\n**Output Format**: Scenario-based findings with exploitation paths and impact severity\n\n---\n\n## Critical Files Manifest\n\n### Backend Priority Files\n```\nbackend/app/\n├── availability.py          # [HIGH] Core reservation logic\n├── storage.py              # [HIGH] Data layer operations  \n├── auth.py                 # [HIGH] Security boundary\n├── routers/\n│   ├── reservations.py     # [HIGH] Booking endpoints\n│   ├── webhooks.py         # [CRITICAL] GoMap integration\n│   └── seats.py            # [MEDIUM] Seat management\n├── models/\n│   ├── reservation.py      # [HIGH] Data contracts\n│   └── venue.py           # [MEDIUM] Venue configuration\n├── database.py             # [HIGH] Connection management\n└── tests/\n    └── test_availability.py # [CRITICAL] Existing test patterns\n```\n\n### Mobile Priority Files\n```\nmobile/src/\n├── screens/\n│   ├── SeatPicker*.tsx     # [HIGH] Selection flow\n│   ├── *Arrival*.tsx       # [HIGH] Check-in flow\n│   └── BookScreen.tsx      # [CRITICAL] Booking orchestration (recent fix)\n├── services/\n│   ├── api.ts             # [HIGH] Backend integration\n│   └── reservations.ts    # [HIGH] Business logic\n├── navigation/\n│   └── linking.ts         # [MEDIUM] Deep link handling\n└── store/                 # [HIGH] State management\n```\n\n---\n\n## Investigation Checkpoints\n\n### Checkpoint 1 (Day 1): Critical Path Identification\n**Deliverable**: Section 1 - Top-10 Blockers  \n**Activities**:\n- Adversarial Explorer: Enumerate high-severity failure modes\n- Static Analyst: Identify architectural bottlenecks\n- **Output**: Prioritized list with severity, impact, and affected components\n\n### Checkpoint 2 (Day 2): System Understanding\n**Deliverables**: Section 2 (Backlog), Section 3 (Invariants)  \n**Activities**:\n- Static Analyst: Complete architecture documentation\n- Both: Validate system invariants and business rules\n- **Output**: Prioritized backlog + documented invariants with test strategies\n\n### Checkpoint 3 (Day 3): Concurrency & Quality\n**Deliverables**: Section 4 (Concurrency), Section 5 (Test Gaps)  \n**Activities**:\n- Adversarial Explorer: Race condition analysis complete\n- Static Analyst: Test gap matrix finalized\n- **Output**: Concurrency issues with mitigation strategies + test coverage report\n\n### Checkpoint 4 (Day 4): Production Readiness\n**Deliverables**: Section 6 (Prod-Later), Section 7 (Security)  \n**Activities**:\n- Planner: Synthesize production deployment concerns\n- Adversarial Explorer: Complete security audit\n- **Output**: Deployment checklist + security findings\n\n### Checkpoint 5 (Day 5): Final Synthesis\n**Deliverables**: Section 8 (Performance), Section 9 (Recommendations)  \n**Activities**:\n- Static Analyst: Performance analysis complete\n- Planner: Integrate all findings into executive summary\n- **Output**: Comprehensive review document with prioritized roadmap\n\n---\n\n## Constraints & Guidelines\n\n### Read-Only Investigation Rules\n- ✅ **Allowed**: File reading, code analysis, pattern detection, grep/search operations\n- ✅ **Allowed**: Running existing tests to observe behavior (non-destructive)\n- ❌ **Forbidden**: Code modifications, git commits, database changes\n- ❌ **Forbidden**: Creating new files or refactoring\n- ⚠️ **Caution**: If test runs are destructive, document test gaps instead\n\n### Evidence Standards\n- All findings must cite specific file locations (format: `path/file.py:line`)\n- Include code snippets for critical issues (max 20 lines per snippet)\n- Provide reproduction scenarios for race conditions\n- Cross-reference related issues across sections\n\n### Communication Protocol\n- Agents report findings in structured markdown\n- Use severity levels: CRITICAL, HIGH, MEDIUM, LOW\n- Flag blocking issues immediately (don't wait for checkpoint)\n- Coordinate via Planner for cross-cutting concerns\n\n---\n\n## Success Criteria\n\n**Section 1-9 Complete** when:\n- ✅ All critical user flows analyzed (booking, arrival, cancellation)\n- ✅ Concurrency vulnerabilities documented with scenarios\n- ✅ Test gap matrix covers backend + mobile\n- ✅ Production deployment risks catalogued\n- ✅ Prioritized backlog with effort estimates\n- ✅ System invariants documented and testable\n- ✅ Security audit complete (auth, data integrity, injection risks)\n- ✅ Performance bottlenecks identified with metrics\n\n**Review Quality Bar**:\n- Minimum 10 specific issues per section (except synthesis)\n- Each issue has: severity, location, impact, suggested mitigation\n- Cross-references between related findings\n- Actionable recommendations (not just problem statements)\n\n---\n\n## Next Steps\n\n**Immediate Actions** (Planner):\n1. Launch Static & Runtime Analyst agent with Section 2/3/5 focus\n2. Launch Adversarial Explorer agent with Section 1/4/7 focus  \n3. Monitor checkpoint deliverables and synthesize findings\n4. Escalate blocking issues discovered during investigation\n\n**Agent Coordination**: Both agents should begin with architecture mapping by reading:\n1. `backend/app/availability.py` - Core logic understanding\n2. `backend/app/storage.py` - Data layer contracts\n3. `mobile/src/screens/BookScreen.tsx` - Mobile booking flow\n4. Recent commits (focus on e67964d timezone fix and fd237b9 GoMap integration)\n\n---\n\n**Status**: Section 0 complete. Awaiting agent deployment for Sections 1-9 investigation.\n\n**Estimated Timeline**: 5-day deep review with daily checkpoints  \n**Review Mode**: Read-only analysis (no code modifications)","output_file":"/Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part/.code/agents/c6003204-60ff-4cfe-9cb6-eefbc9c44c16/result.txt"}],"wait_time_seconds":59}
+[2025-11-13T20:46:50] tokens used: 65,277
+
+[2025-11-13T20:46:59] thinking
+
+**Fetching agent result content**
+[2025-11-13T20:46:59] tool agent
+{
+  "action": "result",
+  "result": {
+    "agent_id": "c6003204-60ff-4cfe-9cb6-eefbc9c44c16",
+    "batch_id": "ebedd16b-eb46-495d-98b8-e87fa36e5f56"
+  }
+}
+[2025-11-13T20:46:59] tool agent success
+{"agent_id":"c6003204-60ff-4cfe-9cb6-eefbc9c44c16","batch_id":"ebedd16b-eb46-495d-98b8-e87fa36e5f56","status":"completed","output_preview":"# Section 0: Deep Review Coordination Plan\n\n## Repository Context: Baku Reserve\n\n**Architecture**: FastAPI backend + Expo React Native mobile client  \n**Domain**: Restaurant reservation system with GoMap.az integration for customer arrival tracking  \n**Review Mode**: Read-only investigation (no code modifications)\n\n---\n\n## Review Team Assignment\n\n| Agent | Model | Primary Focus Areas |\n|-------|-------|-------------------|\n| **Static & Runtime Analyst** | code-gpt-5-codex | Code quality, architecture patterns, API contracts, database queries, test coverage analysis |\n| **Adversarial Explorer** | Claude Opus 4.1 | Edge cases, race conditions, failure modes, security vulnerabilities, data consistency issues |\n| **Planner/Coordinator** | Claude Sonnet 4.5 | Overall orchestration, synthesis, prioritization, deliverable compilation |\n\n---\n\n## Repository-Specific Investigation Areas\n\n### Backend (FastAPI)\n**Key Files to Inspect**:\n- `backend/app/availability.py` - Reservation availability logic, time slot calculations\n- `backend/app/storage.py` - Database operations, data persistence layer\n- `backend/app/auth.py` - Authentication/authorization mechanisms\n- `backend/app/routers/` - API endpoint definitions\n- `backend/app/models/` - Data models and schemas\n- `backend/app/database.py` - Database connection management\n- `backend/tests/` - Existing test coverage\n\n**Focus Areas**:\n- Concurrency handling in reservation creation/modification\n- Idempotency guarantees for booking operations\n- Data consistency across availability calculations\n- Transaction boundaries and rollback scenarios\n- GoMap.az webhook handling and arrival status updates\n\n### Mobile (Expo React Native)\n**Key Files to Inspect**:\n- `mobile/src/screens/SeatPicker*` - Seat selection UI and state management\n- `mobile/src/screens/*Arrival*` - Customer arrival flow implementation\n- `mobile/src/services/` - API integration layer\n- `mobile/src/navigation/` - Navigation flow and deep linking\n- GoMap arrival intent handling (search for gomap/arrival related code)\n\n**Focus Areas**:\n- Race conditions in seat selection flow\n- Offline/online sync handling\n- Error recovery and retry logic\n- State consistency during navigation\n- Deep link handling for arrival notifications\n\n---\n\n## Section Deliverables & Responsibility Matrix\n\n| Section | Deliverable | Primary Owner | Support | Timeline |\n|---------|------------|---------------|---------|----------|\n| **1** | Top-10 Critical Blockers | Adversarial Explorer | Static Analyst | Checkpoint 1 (Day 1) |\n| **2** | Prioritized Backlog (by effort/impact) | Static Analyst | Adversarial Explorer | Checkpoint 2 (Day 2) |\n| **3** | System Invariants Documentation | Static Analyst | Planner | Checkpoint 2 (Day 2) |\n| **4** | Concurrency & Idempotency Analysis | Adversarial Explorer | Static Analyst | Checkpoint 3 (Day 3) |\n| **5** | Test Gap Matrix | Static Analyst | Adversarial Explorer | Checkpoint 3 (Day 3) |\n| **6** | Production-Later Notes | Planner | Both Agents | Checkpoint 4 (Day 4) |\n| **7** | Security & Data Integrity Review | Adversarial Explorer | Static Analyst | Checkpoint 4 (Day 4) |\n| **8** | Performance & Scalability Concerns | Static Analyst | Adversarial Explorer | Checkpoint 5 (Day 5) |\n| **9** | Final Synthesis & Recommendations | Planner | Both Agents | Final Delivery (Day 5) |\n\n---\n\n## Detailed Agent Instructions\n\n### Static & Runtime Analyst (code-gpt-5-codex)\n\n**Mission**: Systematic architectural analysis and test coverage evaluation\n\n**Methodology**:\n1. **Architecture Mapping** (Section 2, 3):\n   - Trace data flow from mobile API calls → backend routers → storage layer\n   - Document API contracts and schema validation\n   - Identify critical business logic paths\n   - Map database schema and relationships\n\n2. **Test Coverage Analysis** (Section 5):\n   - Inventory existing tests in `backend/tests/` and `mobile/__tests__/`\n   - Create test gap matrix by feature area\n   - Identify untested edge cases in availability.py calculations\n   - Flag missing integration tests for GoMap arrival flow\n\n3. **Pattern Analysis** (Section 2, 8):\n   - Identify code duplication and refactoring opportunities\n   - Evaluate database query efficiency (N+1 queries, missing indexes)\n   - Review error handling patterns and consistency\n   - Assess API performance characteristics\n\n**Key Investigation Questions**:\n- How is seat availability calculated and cached?\n- What are the transaction boundaries for booking creation?\n- How does the system handle concurrent booking attempts?\n- What retry/backoff strategies exist for external API calls?\n- Which database operations lack proper indexing?\n\n**Output Format**: Structured findings with file references (e.g., `backend/app/availability.py:145`)\n\n---\n\n### Adversarial Explorer (Claude Opus 4.1)\n\n**Mission**: Discover failure modes, race conditions, and security vulnerabilities\n\n**Methodology**:\n1. **Threat Modeling** (Section 1, 7):\n   - Identify critical user flows and attack surfaces\n   - Enumerate failure scenarios for reservation lifecycle\n   - Test assumptions about data consistency\n   - Probe authentication/authorization boundaries\n\n2. **Race Condition Hunting** (Section 4):\n   - Analyze seat selection conflicts (multiple users, same seat/time)\n   - Double-booking scenarios in availability.py\n   - Concurrent modification of reservation status\n   - GoMap arrival webhook race conditions with app-initiated updates\n\n3. **Edge Case Enumeration** (Section 1, 4):\n   - Boundary conditions in time slot calculations\n   - Timezone handling (UTC+ devices per recent commit)\n   - Network failure during critical operations\n   - Partial state updates and orphaned records\n   - Idempotency failures (duplicate webhook delivery)\n\n4. **Data Integrity Probing** (Section 7):\n   - Orphaned reservations or seat assignments\n   - Inconsistent state between cache and database\n   - Missing validation in storage.py operations\n   - TOCTOU (Time-of-check-time-of-use) vulnerabilities\n\n**Key Investigation Questions**:\n- What happens if two users book the last seat simultaneously?\n- How does the system recover from partial writes during network failure?\n- Can arrival status be spoofed or replayed?\n- What prevents double-charging or reservation duplication?\n- How are timezone conversions validated (ref: commit e67964d)?\n\n**Output Format**: Scenario-based findings with exploitation paths and impact severity\n\n---\n\n## Critical Files Manifest\n\n### Backend Priority Files\n```\nbackend/app/\n├── availability.py          # [HIGH] Core reservation logic\n├── storage.py              # [HIGH] Data layer operations  \n├── auth.py                 # [HIGH] Security boundary\n├── routers/\n│   ├── reservations.py     # [HIGH] Booking endpoints\n│   ├── webhooks.py         # [CRITICAL] GoMap integration\n│   └── seats.py            # [MEDIUM] Seat management\n├── models/\n│   ├── reservation.py      # [HIGH] Data contracts\n│   └── venue.py           # [MEDIUM] Venue configuration\n├── database.py             # [HIGH] Connection management\n└── tests/\n    └── test_availability.py # [CRITICAL] Existing test patterns\n```\n\n### Mobile Priority Files\n```\nmobile/src/\n├── screens/\n│   ├── SeatPicker*.tsx     # [HIGH] Selection flow\n│   ├── *Arrival*.tsx       # [HIGH] Check-in flow\n│   └── BookScreen.tsx      # [CRITICAL] Booking orchestration (recent fix)\n├── services/\n│   ├── api.ts             # [HIGH] Backend integration\n│   └── reservations.ts    # [HIGH] Business logic\n├── navigation/\n│   └── linking.ts         # [MEDIUM] Deep link handling\n└── store/                 # [HIGH] State management\n```\n\n---\n\n## Investigation Checkpoints\n\n### Checkpoint 1 (Day 1): Critical Path Identification\n**Deliverable**: Section 1 - Top-10 Blockers  \n**Activities**:\n- Adversarial Explorer: Enumerate high-severity failure modes\n- Static Analyst: Identify architectural bottlenecks\n- **Output**: Prioritized list with severity, impact, and affected components\n\n### Checkpoint 2 (Day 2): System Understanding\n**Deliverables**: Section 2 (Backlog), Section 3 (Invariants)  \n**Activities**:\n- Static Analyst: Complete architecture documentation\n- Both: Validate system invariants and business rules\n- **Output**: Prioritized backlog + documented invariants with test strategies\n\n### Checkpoint 3 (Day 3): Concurrency & Quality\n**Deliverables**: Section 4 (Concurrency), Section 5 (Test Gaps)  \n**Activities**:\n- Adversarial Explorer: Race condition analysis complete\n- Static Analyst: Test gap matrix finalized\n- **Output**: Concurrency issues with mitigation strategies + test coverage report\n\n### Checkpoint 4 (Day 4): Production Readiness\n**Deliverables**: Section 6 (Prod-Later), Section 7 (Security)  \n**Activities**:\n- Planner: Synthesize production deployment concerns\n- Adversarial Explorer: Complete security audit\n- **Output**: Deployment checklist + security findings\n\n### Checkpoint 5 (Day 5): Final Synthesis\n**Deliverables**: Section 8 (Performance), Section 9 (Recommendations)  \n**Activities**:\n- Static Analyst: Performance analysis complete\n- Planner: Integrate all findings into executive summary\n- **Output**: Comprehensive review document with prioritized roadmap\n\n---\n\n## Constraints & Guidelines\n\n### Read-Only Investigation Rules\n- ✅ **Allowed**: File reading, code analysis, pattern detection, grep/search operations\n- ✅ **Allowed**: Running existing tests to observe behavior (non-destructive)\n- ❌ **Forbidden**: Code modifications, git commits, database changes\n- ❌ **Forbidden**: Creating new files or refactoring\n- ⚠️ **Caution**: If test runs are destructive, document test gaps instead\n\n### Evidence Standards\n- All findings must cite specific file locations (format: `path/file.py:line`)\n- Include code snippets for critical issues (max 20 lines per snippet)\n- Provide reproduction scenarios for race conditions\n- Cross-reference related issues across sections\n\n### Communication Protocol\n- Agents report findings in structured markdown\n- Use severity levels: CRITICAL, HIGH, MEDIUM, LOW\n- Flag blocking issues immediately (don't wait for checkpoint)\n- Coordinate via Planner for cross-cutting concerns\n\n---\n\n## Success Criteria\n\n**Section 1-9 Complete** when:\n- ✅ All critical user flows analyzed (booking, arrival, cancellation)\n- ✅ Concurrency vulnerabilities documented with scenarios\n- ✅ Test gap matrix covers backend + mobile\n- ✅ Production deployment risks catalogued\n- ✅ Prioritized backlog with effort estimates\n- ✅ System invariants documented and testable\n- ✅ Security audit complete (auth, data integrity, injection risks)\n- ✅ Performance bottlenecks identified with metrics\n\n**Review Quality Bar**:\n- Minimum 10 specific issues per section (except synthesis)\n- Each issue has: severity, location, impact, suggested mitigation\n- Cross-references between related findings\n- Actionable recommendations (not just problem statements)\n\n---\n\n## Next Steps\n\n**Immediate Actions** (Planner):\n1. Launch Static & Runtime Analyst agent with Section 2/3/5 focus\n2. Launch Adversarial Explorer agent with Section 1/4/7 focus  \n3. Monitor checkpoint deliverables and synthesize findings\n4. Escalate blocking issues discovered during investigation\n\n**Agent Coordination**: Both agents should begin with architecture mapping by reading:\n1. `backend/app/availability.py` - Core logic understanding\n2. `backend/app/storage.py` - Data layer contracts\n3. `mobile/src/screens/BookScreen.tsx` - Mobile booking flow\n4. Recent commits (focus on e67964d timezone fix and fd237b9 GoMap integration)\n\n---\n\n**Status**: Section 0 complete. Awaiting agent deployment for Sections 1-9 investigation.\n\n**Estimated Timeline**: 5-day deep review with daily checkpoints  \n**Review Mode**: Read-only analysis (no code modifications)","output_total_lines":288,"output_file":"/Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part/.code/agents/c6003204-60ff-4cfe-9cb6-eefbc9c44c16/result.txt"}
+[2025-11-13T20:46:59] tokens used: 69,367
+
+[2025-11-13T20:47:05] thinking
+
+**Preparing for backend inspection**
+[2025-11-13T20:47:06] exec bash -lc 'ls backend/app' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:47:06] bash -lc 'ls backend/app' succeeded in 7ms:
+__init__.py
+accounts.py
+auth.py
+availability.py
+cache.py
+circuit_breaker.py
+concierge_service.py
+concierge_tags.py
+concierge.py
+config.py
+data
+deposits.py
+embeddings.py
+gomap.py
+llm_intent.py
+main.py
+maps.py
+models.py
+payments
+schemas.py
+[2025-11-13T20:47:06] tokens used: 73,507
+
+[2025-11-13T20:47:16] thinking
+
+**Preparing to analyze key Python modules**
+[2025-11-13T20:47:16] exec bash -lc "nl -ba backend/app/availability.py | sed -n '1,200p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:47:16] bash -lc "nl -ba backend/app/availability.py | sed -n '1,200p'" succeeded in 9ms:
+     1	from datetime import date, datetime, time, timedelta
+     2	from typing import Any
+     3	
+     4	RES_DURATION = timedelta(minutes=90)
+     5	INTERVAL = timedelta(minutes=30)
+     6	OPEN = time(10, 0)
+     7	CLOSE = time(23, 0)
+     8	
+     9	
+    10	def _overlaps(a_start: datetime, a_end: datetime, b_start: datetime, b_end: datetime) -> bool:
+    11	    return not (a_end <= b_start or a_start >= b_end)
+    12	
+    13	
+    14	def _iso_parse(s: str) -> datetime:
+    15	    return datetime.fromisoformat(s)
+    16	
+    17	
+    18	def availability_for_day(restaurant: Any, party_size: int, day: date, db) -> dict[str, Any]:
+    19	    """
+    20	    Returns: {"slots":[{"start":iso,"end":iso,"available_table_ids":[...],"count":N}, ...]}
+[2025-11-13T20:47:16] tokens used: 73,926
+
+[2025-11-13T20:47:21] thinking
+
+**Analyzing datetime timezone handling**
+[2025-11-13T20:47:22] exec bash -lc "nl -ba backend/app/storage.py | sed -n '1,200p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:47:22] bash -lc "nl -ba backend/app/storage.py | sed -n '1,200p'" succeeded in 7ms:
+     1	from __future__ import annotations
+     2	
+     3	import json
+     4	from datetime import datetime
+     5	from pathlib import Path
+     6	from shutil import copy2
+     7	from typing import Any
+     8	from uuid import uuid4
+     9	
+    10	from fastapi import HTTPException
+    11	
+    12	from .models import ArrivalIntent, Reservation, ReservationCreate
+    13	from .settings import settings
+    14	
+    15	DATA_DIR = settings.data_dir
+    16	LEGACY_DATA_DIR = Path(__file__).resolve().parent / "data"
+    17	RES_PATH = DATA_DIR / "reservations.json"
+    18	PREP_FIELDS = (
+    19	    "prep_eta_minutes",
+    20	    "prep_request_time",
+[2025-11-13T20:47:23] tokens used: 89,854
+
+[2025-11-13T20:47:25] thinking
+
+**Waiting for more input**
+[2025-11-13T20:47:26] exec bash -lc "nl -ba backend/app/storage.py | sed -n '200,400p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:47:26] bash -lc "nl -ba backend/app/storage.py | sed -n '200,400p'" succeeded in 7ms:
+   200	        # resolve table
+   201	        if payload.table_id:
+   202	            tid = str(payload.table_id)
+   203	            if tid not in tables_by_id:
+   204	                raise HTTPException(
+   205	                    status_code=422, detail="table_id does not belong to restaurant"
+   206	                )
+   207	            if tables_by_id[tid].get("capacity", 1) < payload.party_size:
+   208	                raise HTTPException(status_code=422, detail="party_size exceeds table capacity")
+   209	            table_id = tid
+   210	        else:
+   211	            table_id = None
+   212	            for table, cap in self._tables_cache.get(rid, []):
+   213	                if cap >= payload.party_size:
+   214	                    table_id = str(table.get("id"))
+   215	                    break
+   216	            if not table_id and self._tables_cache.get(rid):
+   217	                table_id = str(self._tables_cache[rid][-1][0].get("id"))
+   218	
+   219	        # conflict check (booked only)
+[2025-11-13T20:47:26] tokens used: 92,808
+
+[2025-11-13T20:47:32] thinking
+
+**Analyzing table conflict detection logic**
+[2025-11-13T20:47:33] exec bash -lc "nl -ba backend/app/auth.py | sed -n '1,200p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:47:33] bash -lc "nl -ba backend/app/auth.py | sed -n '1,200p'" succeeded in 8ms:
+     1	from __future__ import annotations
+     2	
+     3	import time
+     4	from typing import Annotated, Any
+     5	
+     6	import httpx
+     7	from fastapi import Depends, HTTPException, status
+     8	from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+     9	from jose import jwt
+    10	
+    11	from .settings import settings
+    12	
+    13	security = HTTPBearer(auto_error=False)
+    14	AuthCredentials = Annotated[HTTPAuthorizationCredentials | None, Depends(security)]
+    15	
+    16	
+    17	class Auth0Verifier:
+    18	    def __init__(self) -> None:
+    19	        self._jwks: dict[str, Any] | None = None
+    20	        self._jwks_expiry: float = 0.0
+[2025-11-13T20:47:33] tokens used: 95,462
+
+[2025-11-13T20:47:35] thinking
+
+**Reviewing concurrency concerns in routers**
+[2025-11-13T20:47:37] exec bash -lc "nl -ba backend/app/routers/reservations.py | sed -n '1,200p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:47:37] bash -lc "nl -ba backend/app/routers/reservations.py | sed -n '1,200p'" succeeded in 7ms:
+[2025-11-13T20:47:37] tokens used: 96,980
+
+[2025-11-13T20:47:40] thinking
+
+**Checking backend route files**
+[2025-11-13T20:47:40] exec bash -lc 'ls backend/app | grep router -n' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:47:40] bash -lc 'ls backend/app | grep router -n' exited 1 in 7ms:
+ERROR
+[2025-11-13T20:47:40] tokens used: 97,627
+
+[2025-11-13T20:47:42] thinking
+
+**Checking for routers in backend api**
+[2025-11-13T20:47:43] exec bash -lc 'find backend/app -maxdepth 1 -type d' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:47:43] bash -lc 'find backend/app -maxdepth 1 -type d' succeeded in 7ms:
+backend/app
+backend/app/payments
+backend/app/ui_pages
+backend/app/data
+[2025-11-13T20:47:43] tokens used: 98,382
+
+[2025-11-13T20:47:45] thinking
+
+**Checking for routers in main.py**
+[2025-11-13T20:47:45] exec bash -lc "nl -ba backend/app/main.py | sed -n '1,200p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:47:45] bash -lc "nl -ba backend/app/main.py | sed -n '1,200p'" succeeded in 8ms:
+     1	import logging
+     2	from datetime import date, datetime
+     3	from pathlib import Path
+     4	from typing import Annotated, Any
+     5	from uuid import UUID
+     6	
+     7	import sentry_sdk
+     8	from fastapi import Body, Depends, FastAPI, HTTPException, Query, Request
+     9	from fastapi.responses import RedirectResponse
+    10	from fastapi.staticfiles import StaticFiles
+    11	from sentry_sdk.integrations.fastapi import FastApiIntegration
+    12	
+    13	from .auth import require_auth
+    14	from .availability import availability_for_day
+    15	from .concierge_service import concierge_service
+    16	from .maps import build_fallback_eta, compute_eta_with_traffic, search_places
+    17	from .models import (
+    18	    ArrivalEtaConfirmation,
+    19	    ArrivalIntent,
+    20	    ArrivalIntentDecision,
+[2025-11-13T20:47:45] tokens used: 98,630
+
+[2025-11-13T20:47:48] thinking
+
+**Planning focus on mobile files**
+
+I’m getting ready to analyze high-churn areas by inspecting key mobile files like `SeatPicker.tsx`, `useArrivalSuggestions.ts`, and `PrepNotifyScreen`. I’ll start by listing the files in the `mobile/src/screens` directory to understand what’s there.
+[2025-11-13T20:47:49] exec bash -lc 'ls mobile/src/screens' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:47:49] bash -lc 'ls mobile/src/screens' succeeded in 7ms:
+AuthScreen.tsx
+BookScreen.tsx
+ExploreScreen.tsx
+HomeScreen.tsx
+PrepNotifyScreen.tsx
+ProfileScreen.tsx
+ReservationsScreen.tsx
+RestaurantScreen.tsx
+SeatPicker
+SeatPicker.tsx
+[2025-11-13T20:47:49] tokens used: 102,223
+
+[2025-11-13T20:47:51] thinking
+
+**Inspecting SeatPicker component**
+[2025-11-13T20:47:52] exec bash -lc "nl -ba mobile/src/screens/SeatPicker.tsx | sed -n '1,200p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:47:52] bash -lc "nl -ba mobile/src/screens/SeatPicker.tsx | sed -n '1,200p'" succeeded in 8ms:
+     1	import React, { useCallback, useEffect, useMemo, useState } from 'react';
+     2	import { ActivityIndicator, Alert, Animated, FlatList, PanResponder, Pressable, StyleSheet, Text, View } from 'react-native';
+     3	import { SafeAreaView } from 'react-native-safe-area-context';
+     4	import { useFocusEffect } from '@react-navigation/native';
+     5	import { ScrollView } from 'react-native-gesture-handler';
+     6	
+     7	import {
+     8	  fetchRestaurant,
+     9	  fetchAvailability,
+    10	  createReservation,
+    11	  AvailabilitySlot,
+    12	  Reservation,
+    13	  RestaurantDetail,
+    14	  TableDetail,
+    15	} from '../api';
+    16	import FloorPlanExplorer from '../components/floor/FloorPlanExplorer';
+    17	import InfoBanner from '../components/InfoBanner';
+    18	import { buildFloorPlanForRestaurant } from '../utils/floorPlans';
+    19	import { formatCentralDateLabel, formatCentralTimeLabel } from '../utils/availability';
+    20	import { colors, radius, shadow, spacing } from '../config/theme';
+[2025-11-13T20:47:52] tokens used: 102,557
+
+[2025-11-13T20:47:53] thinking
+
+**Awaiting more information**
+[2025-11-13T20:47:55] exec bash -lc "nl -ba mobile/src/screens/SeatPicker.tsx | sed -n '200,400p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:47:55] bash -lc "nl -ba mobile/src/screens/SeatPicker.tsx | sed -n '200,400p'" succeeded in 7ms:
+   200	    })();
+   201	    return () => {
+   202	      mounted = false;
+   203	    };
+   204	  }, [id]);
+   205	
+   206	  useEffect(() => {
+   207	    if (availableTableIds.length) {
+   208	      setNotesIndex((index) => (index + 1) % CROWD_NOTES.length);
+   209	    }
+   210	  }, [availableTableIds.length]);
+   211	
+   212	  useEffect(() => {
+   213	    if (!availableTableIds.length) {
+   214	      setSelectedTableId(null);
+   215	    } else if (!selectedTableId || !availableTableIds.includes(selectedTableId)) {
+   216	      setSelectedTableId(availableTableIds[0]);
+   217	    }
+   218	  }, [availableTableIds, selectedTableId]);
+   219	
+[2025-11-13T20:47:55] tokens used: 105,540
+[2025-11-13T20:47:57] exec bash -lc "nl -ba mobile/src/screens/SeatPicker.tsx | sed -n '400,800p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:47:57] bash -lc "nl -ba mobile/src/screens/SeatPicker.tsx | sed -n '400,800p'" succeeded in 8ms:
+   400	    const overlayId = tableIdToOverlayId.get(selectedTableId) ?? null;
+   401	    setActiveOverlayId(overlayId);
+   402	  }, [selectedTableId, tableIdToOverlayId]);
+   403	
+   404	  useEffect(() => {
+   405	    if (!drawerState) return;
+   406	    const available = availableTableIds.includes(drawerState.table.id);
+   407	    if (drawerState.isAvailable !== available) {
+   408	      setDrawerState((prev) => (prev ? { ...prev, isAvailable: available } : prev));
+   409	    }
+   410	  }, [availableTableIds, drawerState]);
+   411	
+   412	  const heroAccent = colors.primaryStrong;
+   413	  const slotStartDate = useMemo(() => new Date(slot.start), [slot.start]);
+   414	  const slotEndDate = useMemo(() => new Date(slot.end), [slot.end]);
+   415	  const slotDateLabel = useMemo(() => formatCentralDateLabel(slotStartDate), [slotStartDate]);
+   416	  const slotTimeRange = useMemo(
+   417	    () => `${formatCentralTimeLabel(slotStartDate)} → ${formatCentralTimeLabel(slotEndDate)}`,
+   418	    [slotStartDate, slotEndDate],
+   419	  );
+[2025-11-13T20:47:57] tokens used: 108,831
+
+[2025-11-13T20:48:04] thinking
+
+**Identifying potential timezone and availability bugs**
+[2025-11-13T20:48:05] exec bash -lc "nl -ba mobile/src/hooks/useArrivalSuggestions.ts | sed -n '1,200p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:05] bash -lc "nl -ba mobile/src/hooks/useArrivalSuggestions.ts | sed -n '1,200p'" succeeded in 7ms:
+[2025-11-13T20:48:05] tokens used: 114,083
+
+[2025-11-13T20:48:06] thinking
+
+**Checking mobile hooks directory**
+[2025-11-13T20:48:07] exec bash -lc 'ls mobile/src/hooks' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:07] bash -lc 'ls mobile/src/hooks' succeeded in 21ms:
+useRestaurants.ts
+useWarmRestaurantPhotoCovers.ts
+[2025-11-13T20:48:07] tokens used: 114,354
+
+[2025-11-13T20:48:09] thinking
+
+**Searching for useArrival in mobile feature files**
+[2025-11-13T20:48:10] exec bash -lc "rg --files -g '*ArrivalSuggestions*.ts*' mobile/src" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:10] bash -lc "rg --files -g '*ArrivalSuggestions*.ts*' mobile/src" exited 1 in 13ms:
+ERROR
+[2025-11-13T20:48:10] tokens used: 114,841
+
+[2025-11-13T20:48:12] thinking
+
+**Searching for useArrivalSuggestions in mobile source**
+[2025-11-13T20:48:13] exec bash -lc 'rg -n "useArrivalSuggestions" -g "*.ts*" mobile/src' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:13] bash -lc 'rg -n "useArrivalSuggestions" -g "*.ts*" mobile/src' exited 1 in 13ms:
+ERROR
+[2025-11-13T20:48:13] tokens used: 115,424
+
+[2025-11-13T20:48:15] thinking
+
+**Searching for 'arrival intent' in mobile utils**
+[2025-11-13T20:48:15] exec bash -lc 'rg -n "arrival" mobile/src | head' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:15] bash -lc 'rg -n "arrival" mobile/src | head' succeeded in 21ms:
+mobile/src/data/floorPlans.ts:54:        title: 'Grand arrival foyer',
+mobile/src/data/floorPlans.ts:572:        title: 'Grand arrival foyer',
+mobile/src/data/floorPlans.ts:1074:        title: 'Grand arrival foyer',
+mobile/src/data/floorPlans.ts:1576:        title: 'Grand arrival foyer',
+mobile/src/data/floorPlans.ts:2078:        title: 'Grand arrival foyer',
+mobile/src/screens/ReservationsScreen.tsx:472:  const [expanded, setExpanded] = useState(reservation.arrival_intent?.status !== 'idle');
+mobile/src/screens/ReservationsScreen.tsx:474:  const status = reservation.arrival_intent?.status ?? 'idle';
+mobile/src/screens/ReservationsScreen.tsx:475:  const predictedEta = reservation.arrival_intent?.predicted_eta_minutes ?? null;
+mobile/src/screens/ReservationsScreen.tsx:476:  const confirmedEta = reservation.arrival_intent?.confirmed_eta_minutes ?? null;
+mobile/src/api.ts:114:  arrival_intent?: ArrivalIntent;
+[2025-11-13T20:48:15] tokens used: 115,582
+
+[2025-11-13T20:48:17] thinking
+
+**Searching for arrival suggestions in repo**
+[2025-11-13T20:48:19] exec bash -lc 'rg -n "ArrivalSuggestion" -g "*.ts*"' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:19] bash -lc 'rg -n "ArrivalSuggestion" -g "*.ts*"' exited 1 in 12ms:
+ERROR
+[2025-11-13T20:48:19] tokens used: 115,982
+
+[2025-11-13T20:48:21] thinking
+
+**Inspecting PrepNotifyScreen.tsx**
+[2025-11-13T20:48:22] exec bash -lc "nl -ba mobile/src/screens/PrepNotifyScreen.tsx | sed -n '1,200p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:22] bash -lc "nl -ba mobile/src/screens/PrepNotifyScreen.tsx | sed -n '1,200p'" succeeded in 7ms:
+     1	import React, { useEffect, useMemo, useState } from 'react';
+     2	import {
+     3	  ActivityIndicator,
+     4	  Alert,
+     5	  KeyboardAvoidingView,
+     6	  Platform,
+     7	  Pressable,
+     8	  ScrollView,
+     9	  StyleSheet,
+    10	  Text,
+    11	  TextInput,
+    12	  View,
+    13	} from 'react-native';
+    14	import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+    15	import {
+    16	  confirmPreorder,
+    17	  getPreorderQuote,
+    18	  type PreorderQuoteResponse,
+    19	  type PreorderRequestPayload,
+    20	  type Reservation,
+[2025-11-13T20:48:22] tokens used: 116,502
+
+[2025-11-13T20:48:23] thinking
+
+**Requesting more input**
+[2025-11-13T20:48:24] exec bash -lc "nl -ba mobile/src/screens/PrepNotifyScreen.tsx | sed -n '200,400p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:24] bash -lc "nl -ba mobile/src/screens/PrepNotifyScreen.tsx | sed -n '200,400p'" succeeded in 7ms:
+   200	              <Text style={styles.policyMeta}>
+   201	                {quote?.recommended_prep_minutes
+   202	                  ? `We’ll start prepping about ${quote.recommended_prep_minutes} minutes before you arrive.`
+   203	                  : 'We’ll start prepping as soon as you hit the road.'}
+   204	              </Text>
+   205	            </>
+   206	          )}
+   207	        </Surface>
+   208	
+   209	        {submitError ? (
+   210	          <InfoBanner tone="warning" icon="x-circle" title={submitError} />
+   211	        ) : null}
+   212	
+   213	        <Pressable
+   214	          style={[styles.ctaButton, submitting && styles.ctaButtonDisabled]}
+   215	          onPress={handleConfirm}
+   216	          disabled={submitting}
+   217	        >
+   218	          <Text style={styles.ctaText}>{submitting ? 'Processing…' : 'Confirm & notify kitchen'}</Text>
+   219	        </Pressable>
+[2025-11-13T20:48:24] tokens used: 119,407
+
+[2025-11-13T20:48:28] thinking
+
+**Investigating location handling inconsistencies**
+[2025-11-13T20:48:29] exec bash -lc "nl -ba mobile/src/screens/ReservationsScreen.tsx | sed -n '1,200p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:29] bash -lc "nl -ba mobile/src/screens/ReservationsScreen.tsx | sed -n '1,200p'" succeeded in 7ms:
+     1	import React, { useCallback, useEffect, useMemo, useState } from 'react';
+     2	import {
+     3	  ActivityIndicator,
+     4	  Modal,
+     5	  Pressable,
+     6	  RefreshControl,
+     7	  SectionList,
+     8	  StyleSheet,
+     9	  Text,
+    10	  TextInput,
+    11	  View,
+    12	} from 'react-native';
+    13	import { SafeAreaView } from 'react-native-safe-area-context';
+    14	import { Feather } from '@expo/vector-icons';
+    15	import * as Location from 'expo-location';
+    16	
+    17	import {
+    18	  confirmArrivalEta,
+    19	  decideArrivalIntent,
+    20	  fetchFeatureFlags,
+[2025-11-13T20:48:29] tokens used: 121,237
+
+[2025-11-13T20:48:31] thinking
+
+**Gathering more context on arrival features**
+[2025-11-13T20:48:32] exec bash -lc "nl -ba mobile/src/screens/ReservationsScreen.tsx | sed -n '200,600p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:32] bash -lc "nl -ba mobile/src/screens/ReservationsScreen.tsx | sed -n '200,600p'" succeeded in 8ms:
+   200	    }
+   201	    if (past.length) {
+   202	      entries.push({ title: 'Past reservations', data: past });
+   203	    }
+   204	    return entries;
+   205	  }, [upcoming, past]);
+   206	
+   207	  const renderReservationCard = ({ item }: { item: Reservation }) => {
+   208	    const restaurantName = restaurantLookup.get(item.restaurant_id) ?? 'Restaurant';
+   209	    const start = new Date(item.start);
+   210	    const end = new Date(item.end);
+   211	    const schedule = `${dayFormatter.format(start)} • ${timeFormatter.format(start)} – ${timeFormatter.format(end)}`;
+   212	    const showPrepFlow = Boolean(
+   213	      featureFlags?.prep_notify_enabled && item.status === 'booked' && start >= now,
+   214	    );
+   215	
+   216	    return (
+   217	      <Surface tone="overlay" padding="md" style={styles.card}>
+   218	        <View style={styles.cardHeader}>
+   219	          <Text style={styles.cardTitle}>{restaurantName}</Text>
+[2025-11-13T20:48:32] tokens used: 124,072
+
+[2025-11-13T20:48:34] thinking
+
+**Inspecting backend mapping modules**
+[2025-11-13T20:48:35] exec bash -lc "nl -ba backend/app/gomap.py | sed -n '1,200p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:35] bash -lc "nl -ba backend/app/gomap.py | sed -n '1,200p'" succeeded in 8ms:
+     1	from __future__ import annotations
+     2	
+     3	import json
+     4	import logging
+     5	import re
+     6	from collections.abc import Iterable
+     7	from dataclasses import dataclass
+     8	from typing import Any
+     9	
+    10	import httpx
+    11	
+    12	from .settings import settings
+    13	from .circuit_breaker import with_circuit_breaker, CircuitOpenError
+    14	from .cache import (
+    15	    cache_route, get_cached_route,
+    16	    cache_geocode, get_cached_geocode,
+    17	    cache_traffic, get_cached_traffic,
+    18	)
+    19	
+    20	logger = logging.getLogger(__name__)
+[2025-11-13T20:48:35] tokens used: 129,958
+
+[2025-11-13T20:48:40] thinking
+
+**Identifying key issues and blockers**
+
+I'm gathering the main problems to highlight the top blockers, especially focusing on timezone mishandling in availability checks and reservation storage conflicts. I also recognize the need for input from an "Adversarial Explorer" agent to provide stress-test insights, but since they need context, I might prepare a summary for them. Meanwhile, I’m digging deeper to uncover enough specific issues tied to file lines as required for the final deliverable.
+[2025-11-13T20:48:41] exec bash -lc "nl -ba mobile/src/api.ts | sed -n '1,200p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:41] bash -lc "nl -ba mobile/src/api.ts | sed -n '1,200p'" succeeded in 8ms:
+     1	import Constants from 'expo-constants';
+     2	import { Platform } from 'react-native';
+     3	
+     4	type ExtraConfig = {
+     5	  apiUrl?: string;
+     6	  API_URL?: string;
+     7	  conciergeMode?: string;
+     8	  CONCIERGE_MODE?: string;
+     9	};
+    10	
+    11	export type RestaurantSummary = {
+    12	  id: string;
+    13	  name: string;
+    14	  slug?: string;
+    15	  cuisine: string[];
+    16	  city?: string;
+    17	  neighborhood?: string;
+    18	  address?: string;
+    19	  cover_photo?: string;
+    20	  short_description?: string;
+[2025-11-13T20:48:41] tokens used: 133,693
+
+[2025-11-13T20:48:45] thinking
+
+**Investigating API parameters and authentication**
+[2025-11-13T20:48:46] exec bash -lc 'rg -n "arrival_intent" backend/app -g "*.py"' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:46] bash -lc 'rg -n "arrival_intent" backend/app -g "*.py"' succeeded in 12ms:
+backend/app/main.py:223:    arrival_payload = rec.get("arrival_intent") or {}
+backend/app/main.py:224:    arrival_intent = None
+backend/app/main.py:226:        arrival_intent = ArrivalIntent(**arrival_payload)
+backend/app/main.py:228:        arrival_intent = None
+backend/app/main.py:249:        arrival_intent=arrival_intent,
+backend/app/main.py:472:@app.post("/reservations/{resid}/arrival_intent", response_model=Reservation)
+backend/app/main.py:473:def request_arrival_intent(resid: UUID, payload: ArrivalIntentRequest, _: AuthClaims):
+backend/app/main.py:485:    updated = DB.set_arrival_intent(str(resid), intent)
+backend/app/main.py:489:@app.post("/reservations/{resid}/arrival_intent/decision", response_model=Reservation)
+backend/app/main.py:490:def decide_arrival_intent(resid: UUID, payload: ArrivalIntentDecision, _: AuthClaims):
+backend/app/main.py:492:    current_payload = record.get("arrival_intent") or {}
+backend/app/main.py:509:    updated = DB.set_arrival_intent(str(resid), intent)
+backend/app/main.py:513:@app.post("/reservations/{resid}/arrival_intent/location", response_model=Reservation)
+backend/app/main.py:525:    current_intent = ArrivalIntent(**(record.get("arrival_intent") or {}))
+backend/app/main.py:549:                updated = DB.set_arrival_intent(str(resid), current_intent)
+backend/app/main.py:573:    updated = DB.set_arrival_intent(str(resid), intent)
+backend/app/main.py:577:@app.post("/reservations/{resid}/arrival_intent/eta", response_model=Reservation)
+backend/app/main.py:580:    current = ArrivalIntent(**(record.get("arrival_intent") or {}))
+backend/app/main.py:590:    updated = DB.set_arrival_intent(str(resid), intent)
+backend/app/storage.py:243:            "arrival_intent": _dump_intent(ArrivalIntent()) or {},
+[2025-11-13T20:48:46] tokens used: 136,771
+
+[2025-11-13T20:48:48] thinking
+
+**Extracting main function snippet**
+[2025-11-13T20:48:49] exec bash -lc "nl -ba backend/app/main.py | sed -n '200,650p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:49] bash -lc "nl -ba backend/app/main.py | sed -n '200,650p'" succeeded in 8ms:
+   200	def _haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+   201	    from math import asin, cos, radians, sin, sqrt
+   202	
+   203	    r = 6371.0
+   204	    dlat = radians(lat2 - lat1)
+   205	    dlon = radians(lon2 - lon1)
+   206	    a = sin(dlat / 2) ** 2 + cos(radians(lat1)) * cos(radians(lat2)) * sin(dlon / 2) ** 2
+   207	    c = 2 * asin(sqrt(a))
+   208	    return r * c
+   209	
+   210	
+   211	def _estimate_eta_minutes(distance_km: float, buffer_min: int | None = None) -> int:
+   212	    """Calculate fallback ETA based on distance using configured city speed."""
+   213	    if buffer_min is None:
+   214	        buffer_min = settings.ETA_BUFFER_MINUTES
+   215	
+   216	    # Use configured city speed instead of hardcoded value
+   217	    speed_kmh = settings.FALLBACK_CITY_SPEED_KMH
+   218	    travel_minutes = (distance_km / speed_kmh) * 60 if distance_km else 0
+   219	    return max(5, int(travel_minutes + buffer_min))
+[2025-11-13T20:48:49] tokens used: 138,522
+
+[2025-11-13T20:48:51] thinking
+
+**Checking arrival_intent/suggestions endpoint**
+[2025-11-13T20:48:52] exec bash -lc "rg -n \"arrival_intent/suggestions\" -n backend/app -g '*.py'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:52] bash -lc "rg -n \"arrival_intent/suggestions\" -n backend/app -g '*.py'" exited 1 in 10ms:
+ERROR
+[2025-11-13T20:48:52] tokens used: 144,303
+
+[2025-11-13T20:48:56] thinking
+
+**Identifying potential code issues with reservations**
+[2025-11-13T20:48:56] exec bash -lc 'rg -n "class ArrivalIntent" -n backend/app/models.py' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:56] bash -lc 'rg -n "class ArrivalIntent" -n backend/app/models.py' succeeded in 8ms:
+87:class ArrivalIntent(BaseModel):
+113:class ArrivalIntentRequest(BaseModel):
+127:class ArrivalIntentDecision(BaseModel):
+[2025-11-13T20:48:56] tokens used: 144,596
+[2025-11-13T20:48:59] exec bash -lc "nl -ba backend/app/models.py | sed -n '87,160p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:48:59] bash -lc "nl -ba backend/app/models.py | sed -n '87,160p'" succeeded in 8ms:
+    87	class ArrivalIntent(BaseModel):
+    88	    status: Literal["idle", "requested", "queued", "approved", "rejected", "cancelled"] = "idle"
+    89	    lead_minutes: int | None = None
+    90	    prep_scope: Literal["starters", "mains", "full"] | None = None
+    91	    eta_source: Literal["user", "prediction", "location"] | None = None
+    92	    last_signal: datetime | None = None
+    93	    share_location: bool = False
+    94	    notes: str | None = None
+    95	    auto_charge: bool = False
+    96	    predicted_eta_minutes: int | None = None
+    97	    predicted_eta_seconds: int | None = None
+    98	    typical_eta_minutes: int | None = None
+    99	    confirmed_eta_minutes: int | None = None
+   100	    last_location: dict[str, float] | None = None
+   101	    route_distance_km: float | None = None
+   102	    route_summary: str | None = None
+   103	    traffic_condition: Literal["smooth", "moderate", "heavy", "severe"] | None = None
+   104	    traffic_source: Literal["gomap", "fallback"] | None = None
+   105	    traffic_updated_at: datetime | None = None
+   106	
+[2025-11-13T20:48:59] tokens used: 144,805
+
+[2025-11-13T20:49:03] thinking
+
+**Identifying key potential blockers**
+[2025-11-13T20:49:04] exec bash -lc 'rg -n "fetchReservationsList" -n mobile/src/api.ts' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:49:04] bash -lc 'rg -n "fetchReservationsList" -n mobile/src/api.ts' succeeded in 8ms:
+330:export async function fetchReservationsList() {
+[2025-11-13T20:49:04] tokens used: 146,102
+[2025-11-13T20:49:09] exec bash -lc "nl -ba mobile/src/api.ts | sed -n '300,420p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:49:09] bash -lc "nl -ba mobile/src/api.ts | sed -n '300,420p'" succeeded in 7ms:
+   300	  }
+   301	  throw new Error(detail);
+   302	}
+   303	
+   304	export async function fetchRestaurants(q?: string) {
+   305	  const url = q ? `${API_URL}/restaurants?q=${encodeURIComponent(q)}` : `${API_URL}/restaurants`;
+   306	  const res = await fetch(url, { headers: withAuth() });
+   307	  return handleResponse<RestaurantSummary[]>(res, 'Failed to fetch restaurants');
+   308	}
+   309	
+   310	export async function fetchRestaurant(id: string) {
+   311	  const res = await fetch(`${API_URL}/restaurants/${id}`, { headers: withAuth() });
+   312	  return handleResponse<RestaurantDetail>(res, 'Restaurant not found');
+   313	}
+   314	
+   315	export async function fetchAvailability(id: string, dateStr: string, partySize: number) {
+   316	  const url = `${API_URL}/restaurants/${id}/availability?date=${encodeURIComponent(dateStr)}&party_size=${partySize}`;
+   317	  const res = await fetch(url, { headers: withAuth() });
+   318	  return handleResponse<AvailabilityResponse>(res, 'Failed to fetch availability');
+   319	}
+[2025-11-13T20:49:09] tokens used: 146,247
+
+[2025-11-13T20:49:16] thinking
+
+**Identifying potential concurrency and data issues**
+[2025-11-13T20:49:17] exec bash -lc 'ls backend/tests' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:49:17] bash -lc 'ls backend/tests' succeeded in 7ms:
+conftest.py
+test_auth.py
+test_backend_system.py
+test_cache.py
+test_circuit_breaker.py
+test_e2e_workflows.py
+test_endpoint.py
+test_gomap.py
+test_integration_api.py
+test_intent.py
+test_maps.py
+test_performance.py
+test_places_api.py
+test_preorder.py
+test_scoring.py
+test_security.py
+test_validation.py
+[2025-11-13T20:49:17] tokens used: 149,544
+
+[2025-11-13T20:49:38] thinking
+
+**Analyzing potential concurrency and availability issues**
+
+I'm gathering possible blockers around backend availability, concurrency problems with file writes, and timezone mishandling. There is a lot to sort through—from conflicting reservation logic and rate-limiting uncertainty to frontend gaps like unimplemented location features and test coverage gaps. I want to focus on the most critical and unstoppable issues impacting data integrity and reservation flow.
+[2025-11-13T20:49:40] exec bash -lc 'ls mobile/__tests__' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:49:40] bash -lc 'ls mobile/__tests__' succeeded in 7ms:
+concierge.assistant.test.tsx
+dateInput.test.ts
+experience.ui.test.tsx
+integration.api.test.tsx
+performance.test.tsx
+platform.core.test.tsx
+security.test.tsx
+[2025-11-13T20:49:40] tokens used: 150,815
+
+[2025-11-13T20:49:45] thinking
+
+**Collecting evidence for concurrency issues**
+[2025-11-13T20:49:46] exec bash -lc "rg -n '\"timezone\"' backend/app/data/restaurants.json | head" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:49:46] bash -lc "rg -n '\"timezone\"' backend/app/data/restaurants.json | head" succeeded in 9ms:
+[2025-11-13T20:49:46] tokens used: 151,613
+
+[2025-11-13T20:49:48] thinking
+
+**Checking for timezone field presence**
+[2025-11-13T20:49:49] exec bash -lc 'RG_LINE=$(rg -n '"'timezone' backend/app/data/restaurants.json | head -n 1); if [ -n \""'$RG_LINE" ]; then echo "$RG_LINE"; fi' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:49:49] bash -lc 'RG_LINE=$(rg -n '"'timezone' backend/app/data/restaurants.json | head -n 1); if [ -n \""'$RG_LINE" ]; then echo "$RG_LINE"; fi' succeeded in 9ms:
+[2025-11-13T20:49:49] tokens used: 152,506
+
+[2025-11-13T20:49:51] thinking
+
+**Verifying timezone data presence**
+[2025-11-13T20:49:52] exec bash -lc "sed -n '1,60p' backend/app/data/restaurants.json" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:49:52] bash -lc "sed -n '1,60p' backend/app/data/restaurants.json" succeeded in 8ms:
+[
+  {
+    "name": "Sahil Bar & Restaurant",
+    "slug": "sahil",
+    "id": "fc34a984-0b39-4f0a-afa2-5b677c61f044",
+    "cuisine": [
+      "Azerbaijani",
+      "Seafood"
+    ],
+    "address": "34 Neftchilar Ave, Seaside Boulevard, Baku",
+    "phone": "+994 12 404 82 12",
+    "photos": [
+      "/assets/restaurants/sahil/1.jpg",
+      "/assets/restaurants/sahil/2.jpg",
+      "/assets/restaurants/sahil/3.jpg",
+      "/assets/restaurants/sahil/4.jpg",
+      "/assets/restaurants/sahil/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/sahil/1.jpg",
+    "short_description": "Waterfront seafood platters, grills, and Caspian sunsets on the boulevard promenade.",
+[2025-11-13T20:49:52] tokens used: 153,503
+
+[2025-11-13T20:49:56] thinking
+
+**Searching for timezone references**
+[2025-11-13T20:49:57] exec bash -lc "rg -n \"timezone\" -n backend/app -g '*.py'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:49:57] bash -lc "rg -n \"timezone\" -n backend/app -g '*.py'" exited 1 in 11ms:
+ERROR
+[2025-11-13T20:49:57] tokens used: 154,385
+
+[2025-11-13T20:50:45] thinking
+
+**Identifying critical backend and mobile issues**
+
+I’ve gathered a detailed list of backend and mobile concerns, including missing timezone handling in availability calculations, lack of tenant scoping causing privacy leaks, concurrency problems with JSON persistence, inconsistent arrival intent status management, and misaligned mobile timezone usage. I’m focusing on referencing relevant code sections and line numbers to support these findings, aiming to highlight at least ten clear blockers and potential bugs across the system.
+[2025-11-13T20:50:47] exec bash -lc 'rg -n "function withAuth" -n mobile/src/api.ts' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:50:47] bash -lc 'rg -n "function withAuth" -n mobile/src/api.ts' succeeded in 9ms:
+276:function withAuth(headers?: Record<string, string>) {
+[2025-11-13T20:50:47] tokens used: 157,970
+[2025-11-13T20:50:51] exec bash -lc "nl -ba mobile/src/api.ts | sed -n '240,320p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:50:51] bash -lc "nl -ba mobile/src/api.ts | sed -n '240,320p'" succeeded in 13ms:
+   240	  const slashIndex = cleaned.indexOf('/');
+   241	  if (slashIndex !== -1) {
+   242	    cleaned = cleaned.slice(0, slashIndex);
+   243	  }
+   244	  const [hostPartRaw, portRaw] = cleaned.split(':');
+   245	  const hostPart = hostPartRaw?.trim();
+   246	  if (!hostPart || hostPart === '127.0.0.1' || hostPart === 'localhost') {
+   247	    continue;
+   248	  }
+   249	  const detectedPort = portRaw && /^\d+$/.test(portRaw) ? portRaw : undefined;
+   250	  const preferredPort =
+   251	    detectedPort && !BUNDLER_PORTS.has(detectedPort) ? detectedPort : '8000';
+   252	  derivedHost = `http://${hostPart}:${preferredPort}`;
+   253	  break;
+   254	}
+   255	
+   256	export const API_URL =
+   257	  ENV_BASE ||
+   258	  extra.apiUrl ||
+   259	  extra.API_URL ||
+[2025-11-13T20:50:51] tokens used: 158,225
+
+[2025-11-13T20:50:59] thinking
+
+**Reviewing authentication and data invariants**
+
+I’m gathering details about how `withAuth` manages headers and noting which endpoints require authentication. I’m also summarizing key data rules like party sizes and table capacities from the reservation logic. I want to collect enough evidence before involving an adversarial analysis on concurrency, token refresh, and timezones, so next I’ll check token refresh handling in the mobile auth context.
+[2025-11-13T20:51:00] exec bash -lc "rg --files -g '*AuthContext*.ts*' mobile/src" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:51:00] bash -lc "rg --files -g '*AuthContext*.ts*' mobile/src" succeeded in 17ms:
+mobile/src/contexts/AuthContext.tsx
+[2025-11-13T20:51:00] tokens used: 159,740
+[2025-11-13T20:51:03] exec bash -lc "nl -ba mobile/src/contexts/AuthContext.tsx | sed -n '1,200p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:51:03] bash -lc "nl -ba mobile/src/contexts/AuthContext.tsx | sed -n '1,200p'" succeeded in 9ms:
+     1	import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+     2	import Auth0 from 'react-native-auth0';
+     3	import * as SecureStore from 'expo-secure-store';
+     4	
+     5	import { AUTH0_AUDIENCE, AUTH0_CLIENT_ID, AUTH0_DOMAIN, AUTH0_REALM } from '../config/auth';
+     6	import { setAuthToken } from '../api';
+     7	
+     8	const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId: AUTH0_CLIENT_ID });
+     9	const TOKEN_KEY = 'baku_reserve_token';
+    10	const REFRESH_KEY = 'baku_reserve_refresh';
+    11	const NORMALISED_DOMAIN = AUTH0_DOMAIN.replace(/^https?:\/\//, '').replace(/\/$/, '');
+    12	
+    13	export type AuthContextValue = {
+    14	  loading: boolean;
+    15	  isAuthenticated: boolean;
+    16	  profile: { name?: string; email?: string } | null;
+    17	  loginWithPassword: (email: string, password: string) => Promise<void>;
+    18	  signupWithPassword: (payload: { email: string; password: string; name?: string }) => Promise<void>;
+    19	  requestPasswordReset: (email: string) => Promise<void>;
+    20	  logout: () => Promise<void>;
+[2025-11-13T20:51:03] tokens used: 160,532
+
+[2025-11-13T20:51:05] thinking
+
+**Investigating refresh token usage**
+[2025-11-13T20:51:06] exec bash -lc 'rg -n "REFRESH_KEY" -R mobile/src' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:51:06] bash -lc 'rg -n "REFRESH_KEY" -R mobile/src' exited 2 in 8ms:
+ERROR
+rg: unrecognized flag -R
+[2025-11-13T20:51:06] tokens used: 163,682
+
+[2025-11-13T20:51:09] thinking
+
+**Searching for REFRESH_KEY in mobile/src**
+[2025-11-13T20:51:09] exec bash -lc 'rg -n "REFRESH_KEY" mobile/src' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:51:09] bash -lc 'rg -n "REFRESH_KEY" mobile/src' succeeded in 22ms:
+mobile/src/contexts/AuthContext.tsx:10:const REFRESH_KEY = 'baku_reserve_refresh';
+mobile/src/contexts/AuthContext.tsx:36:    await SecureStore.setItemAsync(REFRESH_KEY, refreshToken);
+mobile/src/contexts/AuthContext.tsx:42:  await SecureStore.deleteItemAsync(REFRESH_KEY);
+[2025-11-13T20:51:09] tokens used: 163,886
+
+[2025-11-13T20:51:22] thinking
+
+**Preparing context and prompt for adversarial analysis**
+
+I'm gathering key code snippets and their textual summaries around concurrency, timezones, token refresh, and location handling to provide structured context for the Adversarial Explorer agent. I plan to craft a prompt referencing specific file lines and concepts so they can analyze potential issues thoroughly.
+[2025-11-13T20:51:28] tool agent
+{
+  "action": "create",
+  "create": {
+    "task": "Act as Adversarial Explorer for the Baku Reserve deep review. Using the provided code references, enumerate high-risk concurrency/timezone/location/token-refresh/data-integrity failure scenarios. Cite each issue with the file + line numbers from the snippets.\n\nContext snippets:\n1. backend/app/availability.py:18-85 computes slots using naive datetimes in server timezone with constants OPEN=10:00, CLOSE=23:00 and compares to reservations parsed via datetime.fromisoformat.\n2. backend/app/storage.py:212-231 auto-assigns the first table with capacity>=party_size and immediately conflict-checks only that table; there is no loop to find another free table and `_save` (lines 289-345) rewrites reservations.json without file locks or atomic temp files.\n3. backend/app/main.py:447-450 exposes GET /reservations that simply returns DB.list_reservations() (all rows) for any authenticated caller. Lines 472-591 implement arrival intent POST/decision/location/eta; arrival_intent/location lacks any status gate and rewrites the intent via model_copy but preserves status=\"idle\" even when location data arrives.\n4. mobile/src/screens/SeatPicker.tsx:220-264 derives the `date` query via `new Date(slot.start).toISOString().slice(0,10)` before calling fetchAvailability.\n5. mobile/src/screens/PrepNotifyScreen.tsx:115-122 always shows `Alert.alert('Coming soon', ...)` inside handleLocationEstimate even when GoMap feature flags indicate readiness.\n6. mobile/src/contexts/AuthContext.tsx:25-162 stores refresh tokens but never uses them; tokens are set once and only cleared on error or logout.\n\nDeliverables: bullet list of adversarial findings with severity and \"why it breaks\", covering timezone shifts, race conditions, GoMap/location spoofing or throttling bypass, token expiry, and data integrity. Highlight concrete exploits (e.g., ability to read other users' reservations).\n",
+    "models": [
+      "claude-opus-4.1"
+    ],
+    "output": "Adversarial Analysis",
+    "write": false,
+    "name": "Adversarial Explorer"
+  },
+  "batch_id": "ce6d6219-8173-4a5f-884d-477b029ea56f"
+}
+[2025-11-13T20:51:28] tool agent success
+{"batch_id":"ce6d6219-8173-4a5f-884d-477b029ea56f","agent_ids":["851492e9-3ef6-4b55-9cb3-bb0481344839"],"status":"started","message":"Agent started successfully","next_steps":"🤖 Agent batch ce6d6219 started with Adversarial Explorer. Use `agent {\"action\":\"wait\",\"wait\":{\"batch_id\":\"ce6d6219-8173-4a5f-884d-477b029ea56f\",\"return_all\":true}}` to follow progress, or `agent {\"action\":\"result\",\"result\":{\"agent_id\":\"851492e9-3ef6-4b55-9cb3-bb0481344839\"}}` when it finishes.","agent_id":"851492e9-3ef6-4b55-9cb3-bb0481344839","skipped":null}
+[2025-11-13T20:51:28] tokens used: 165,259
+
+[2025-11-13T20:51:30] thinking
+
+**Pausing briefly**
+[2025-11-13T20:51:31] tool agent
+{
+  "action": "wait",
+  "wait": {
+    "batch_id": "ce6d6219-8173-4a5f-884d-477b029ea56f",
+    "timeout_seconds": 600,
+    "return_all": true
+  }
+}
+[2025-11-13T20:52:22] tool agent success
+{"batch_id":"ce6d6219-8173-4a5f-884d-477b029ea56f","completed_agents":["851492e9-3ef6-4b55-9cb3-bb0481344839"],"completed_summaries":[{"agent_id":"851492e9-3ef6-4b55-9cb3-bb0481344839","status":"completed","total_lines":1,"agent_result_hint":"agent {\"action\":\"result\",\"result\":{\"agent_id\":\"851492e9-3ef6-4b55-9cb3-bb0481344839\",\"batch_id\":\"ce6d6219-8173-4a5f-884d-477b029ea56f\"}}","agent_result_params":{"action":"result","result":{"agent_id":"851492e9-3ef6-4b55-9cb3-bb0481344839","batch_id":"ce6d6219-8173-4a5f-884d-477b029ea56f"}},"output_preview":"The analysis reveals severe security vulnerabilities, with the most critical being the complete exposure of all user reservation data to any authenticated user. The combination of timezone mishandling, race conditions in table assignment, and missing token refresh creates multiple vectors for data breaches and service disruption.","output_file":"/Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part/.code/agents/851492e9-3ef6-4b55-9cb3-bb0481344839/result.txt"}],"wait_time_seconds":51}
+[2025-11-13T20:52:22] tokens used: 166,056
+
+[2025-11-13T20:52:25] thinking
+
+**Requesting complete output**
+[2025-11-13T20:52:25] tool agent
+{
+  "action": "result",
+  "result": {
+    "agent_id": "851492e9-3ef6-4b55-9cb3-bb0481344839",
+    "batch_id": "ce6d6219-8173-4a5f-884d-477b029ea56f"
+  }
+}
+[2025-11-13T20:52:25] tool agent success
+{"agent_id":"851492e9-3ef6-4b55-9cb3-bb0481344839","batch_id":"ce6d6219-8173-4a5f-884d-477b029ea56f","status":"completed","output_preview":"The analysis reveals severe security vulnerabilities, with the most critical being the complete exposure of all user reservation data to any authenticated user. The combination of timezone mishandling, race conditions in table assignment, and missing token refresh creates multiple vectors for data breaches and service disruption.","output_total_lines":1,"output_file":"/Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part/.code/agents/851492e9-3ef6-4b55-9cb3-bb0481344839/result.txt"}
+[2025-11-13T20:52:25] tokens used: 167,296
+
+[2025-11-13T20:52:28] thinking
+
+**Retrieving file contents**
+[2025-11-13T20:52:29] exec bash -lc 'cat .code/agents/851492e9-3ef6-4b55-9cb3-bb0481344839/result.txt' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:52:29] bash -lc 'cat .code/agents/851492e9-3ef6-4b55-9cb3-bb0481344839/result.txt' succeeded in 9ms:
+The analysis reveals severe security vulnerabilities, with the most critical being the complete exposure of all user reservation data to any authenticated user. The combination of timezone mishandling, race conditions in table assignment, and missing token refresh creates multiple vectors for data breaches and service disruption.
+[2025-11-13T20:52:29] tokens used: 167,670
+
+[2025-11-13T20:52:35] thinking
+
+**Increasing output detail**
+[2025-11-13T20:52:39] tool agent
+{
+  "action": "create",
+  "create": {
+    "task": "Provide a detailed adversarial report (at least 5 bullets) for the Baku Reserve repo based on these snippets:\n- backend/app/availability.py:18-85 uses naive datetimes (OPEN=10:00, CLOSE=23:00) and compares to stored reservation timestamps parsed via datetime.fromisoformat.\n- backend/app/storage.py:212-231 auto-assigns the first eligible table and checks conflicts only against that table; `_save` (lines 289-345) overwrites reservations.json without locking or temp files.\n- backend/app/main.py:447-450 exposes GET /reservations returning DB.list_reservations() (all records) for any authenticated user; arrival intent endpoints (472-591) allow location pings even when intent status is \"idle\" and each write replaces the intent object wholesale.\n- mobile/src/screens/SeatPicker.tsx:220-264 derives `date` via `new Date(slot.start).toISOString().slice(0,10)` before fetchAvailability.\n- mobile/src/screens/PrepNotifyScreen.tsx:115-122 always alerts \"Coming soon\" for `handleLocationEstimate` even when GoMap feature flags indicate readiness.\n- mobile/src/contexts/AuthContext.tsx:25-162 stores refresh tokens but never calls Auth0 to refresh them; once access tokens expire the app keeps using stale tokens.\n\nFor each bullet include: severity, attack/failure scenario, why it works (cite file+lines), business impact, and mitigation sketch. Focus on concurrency, timezone, GoMap/location, token refresh, and data integrity. Output should be markdown bullets we can drop into Section 4/7 of deep review.\n",
+    "models": [
+      "claude-opus-4.1"
+    ],
+    "output": "Adversarial Findings",
+    "write": false,
+    "name": "Adversarial Explorer"
+  },
+  "batch_id": "40d1ce50-4487-457b-9953-c78abf206451"
+}
+[2025-11-13T20:52:39] tool agent success
+{"batch_id":"40d1ce50-4487-457b-9953-c78abf206451","agent_ids":["8947f26f-469a-48bb-a87e-85a5c8fad658"],"status":"started","message":"Agent started successfully","next_steps":"🤖 Agent batch 40d1ce50 started with Adversarial Explorer. Use `agent {\"action\":\"wait\",\"wait\":{\"batch_id\":\"40d1ce50-4487-457b-9953-c78abf206451\",\"return_all\":true}}` to follow progress, or `agent {\"action\":\"result\",\"result\":{\"agent_id\":\"8947f26f-469a-48bb-a87e-85a5c8fad658\"}}` when it finishes.","agent_id":"8947f26f-469a-48bb-a87e-85a5c8fad658","skipped":null}
+[2025-11-13T20:52:39] tokens used: 168,732
+
+[2025-11-13T20:52:43] thinking
+
+**Pausing briefly**
+[2025-11-13T20:53:11] tool agent
+{
+  "action": "wait",
+  "wait": {
+    "batch_id": "40d1ce50-4487-457b-9953-c78abf206451",
+    "timeout_seconds": 600,
+    "return_all": true
+  }
+}
+[2025-11-13T20:54:24] tool agent success
+{"batch_id":"40d1ce50-4487-457b-9953-c78abf206451","completed_agents":["8947f26f-469a-48bb-a87e-85a5c8fad658"],"completed_summaries":[{"agent_id":"8947f26f-469a-48bb-a87e-85a5c8fad658","status":"completed","total_lines":36,"agent_result_hint":"agent {\"action\":\"result\",\"result\":{\"agent_id\":\"8947f26f-469a-48bb-a87e-85a5c8fad658\",\"batch_id\":\"40d1ce50-4487-457b-9953-c78abf206451\"}}","agent_result_params":{"action":"result","result":{"agent_id":"8947f26f-469a-48bb-a87e-85a5c8fad658","batch_id":"40d1ce50-4487-457b-9953-c78abf206451"}},"output_preview":"## Adversarial Findings\n\n### • **CRITICAL: Timezone Mismatch Leading to Double-Booking and Availability Corruption**\n- **Severity**: Critical\n- **Attack/Failure Scenario**: An attacker in a UTC+4 timezone (Baku) can double-book tables by exploiting the timezone mismatch between the mobile client and backend. The mobile app sends dates via `new Date(slot.start).toISOString().slice(0,10)` (mobile/src/screens/SeatPicker.tsx:231) which uses local device time, while the backend compares naive datetimes using `datetime.combine(day, OPEN)` with hardcoded times (backend/app/availability.py:54-55) and stored ISO timestamps via `datetime.fromisoformat` (backend/app/availability.py:36-37). When a device in UTC+4 requests availability for \"2025-01-15\", the backend interprets this as UTC midnight, creating a 4-hour window where the same table appears available to multiple users.\n- **Why it works**: The backend assumes all datetime operations are timezone-naive (backend/app/availability.py:54 uses `datetime.combine` without tzinfo), while mobile clients send timezone-aware ISO strings that get truncated. The `_iso_parse` function doesn't enforce timezone consistency, allowing mixed timezone reservations in the same dataset.\n- **Business Impact**: Complete breakdown of reservation integrity during peak hours (6 PM - 10 PM local time), angry customers arriving to occupied tables, reputation damage, potential legal liability for failed service delivery, and cascading failures as staff manually reconcile conflicts.\n- **Mitigation**: Enforce UTC throughout the stack with explicit timezone handling: backend should use `datetime.now(UTC)` and reject non-UTC timestamps, mobile should send full ISO timestamps with timezone, add timezone validation in `_iso_parse`, and include timezone in all datetime comparisons.\n\n### • **HIGH: Race Condition in Table Assignment Enables Overbooking**\n- **Severity**: High\n- **Attack/Failure Scenario**: Multiple simultaneous reservation requests can book the same table due to the non-atomic read-check-write pattern in backend/app/storage.py:212-231. The system auto-assigns the first eligible table (lines 212-217), then checks conflicts only for that specific table (lines 225-226), and finally writes without locking (line 249 calls `_save`). An attacker can spawn 50+ concurrent requests for the same timeslot, exploiting the ~100ms window between conflict check and write to create multiple confirmed reservations for the same table.\n- **Why it works**: The `_save` method (backend/app/storage.py:290-299) directly overwrites reservations.json without file locking, atomic writes, or temporary files. No database transactions or optimistic locking exists. The conflict check at line 229 happens before the write, creating a TOCTOU (Time-of-Check-Time-of-Use) vulnerability.\n- **Business Impact**: Triple-booked tables during high-demand periods, operational chaos as staff handle disputes, potential safety issues from overcrowding, negative reviews, and loss of customer trust in the reservation system.\n- **Mitigation**: Implement file-based locking with `fcntl.flock()`, use atomic writes via temporary files with `os.rename()`, add optimistic concurrency control with version numbers, or migrate to a proper database with ACID transactions.\n\n### • **HIGH: Complete Data Exposure via Unrestricted Reservation Listing**\n- **Severity**: High  \n- **Attack/Failure Scenario**: Any authenticated user can harvest all customer PII by calling GET /reservations (backend/app/main.py:447-449), which returns `DB.list_reservations()` without any filtering. A malicious actor creates a throwaway account, calls this endpoint, and receives all reservations including guest names, phone numbers, party sizes, arrival intents, and dining patterns. This data can be sold to competitors, used for targeted phishing, or enable physical stalking of high-profile guests.\n- **Why it works**: The endpoint at line 448 only checks for authentication via `AuthClaims` but performs no authorization checks. It returns the complete unfiltered reservation database. No user-level filtering, role-based access control, or data minimization exists.\n- **Business Impact**: GDPR violations with fines up to 4% of annual revenue, class-action lawsuits for privacy breach, loss of high-value customers who value privacy, competitive intelligence leak, and mandatory breach notifications damaging brand reputation.\n- **Mitigation**: Implement user-level filtering to return only the authenticated user's own reservations, add role-based access control for staff endpoints, create separate admin endpoints with audit logging, and minimize returned fields based on the requester's authorization level.\n\n### • **MEDIUM: Token Expiration Bypass Allows Perpetual Unauthorized Access**\n- **Severity**: Medium\n- **Attack/Failure Scenario**: The mobile app stores refresh tokens (mobile/src/contexts/AuthContext.tsx:36) but never uses them to refresh expired access tokens. Once an access token expires (typically after 1 hour), the app continues using the stale token (lines 62-63 set the token without validation). An attacker who compromises an expired token can continue making API calls indefinitely because the backend may not properly validate token expiration, or the app might be caching responses. Users remain \"logged in\" with invalid sessions.\n- **Why it works**: The `AuthContext` loads stored tokens (line 60) and sets them directly without checking expiration. No refresh token rotation logic exists despite storing refresh tokens. The `hydrateProfile` failure (lines 66-74) clears tokens only on error, not on expiration. No periodic token refresh mechanism exists.\n- **Business Impact**: Compliance violations for session management requirements, extended window for token theft attacks, users appearing logged in but experiencing intermittent failures, and increased support tickets for authentication issues.\n- **Mitigation**: Implement token refresh logic using stored refresh tokens before expiration, add token expiration checking on app resume, implement refresh token rotation for security, and add proper error handling to distinguish between expired tokens and other auth failures.\n\n### • **MEDIUM: Location Tracking Persists in Idle State Creating Privacy Violations**\n- **Severity**: Medium\n- **Attack/Failure Scenario**: The arrival intent endpoints (backend/app/main.py:513-574) accept location pings even when intent status is \"idle\", and the mobile app shows \"Coming soon\" for location features (mobile/src/screens/PrepNotifyScreen.tsx:118-121) while the backend fully processes location data. A malicious actor can track user movements by creating reservations and sending location pings regardless of intent status. The system replaces the entire intent object (line 557-572) without validating state transitions, allowing status manipulation.\n- **Why it works**: No validation exists for intent status before accepting location pings (line 514 only calls `_require_reservation`). The PrepNotifyScreen checks for feature flags (line 115) but always shows \"Coming soon\" even when `gomap_ready` is true. Each location ping completely overwrites the intent object rather than updating specific fields, allowing state corruption.\n- **Business Impact**: Privacy law violations for unauthorized location tracking, users unknowingly sharing location data, potential stalking/harassment vulnerabilities, and feature confusion where working features appear disabled to users.\n- **Mitigation**: Validate intent status is \"approved\" or \"queued\" before accepting location pings, implement proper state machine for intent transitions, fix the feature flag logic to properly enable location features when ready, and add user consent verification for location sharing with clear on/off controls.","output_file":"/Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part/.code/agents/8947f26f-469a-48bb-a87e-85a5c8fad658/result.txt"}],"wait_time_seconds":73}
+[2025-11-13T20:54:24] tokens used: 170,102
+
+[2025-11-13T20:54:27] thinking
+
+**Capturing file contents**
+[2025-11-13T20:54:28] exec bash -lc 'cat .code/agents/8947f26f-469a-48bb-a87e-85a5c8fad658/result.txt' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:54:28] bash -lc 'cat .code/agents/8947f26f-469a-48bb-a87e-85a5c8fad658/result.txt' succeeded in 7ms:
+## Adversarial Findings
+
+### • **CRITICAL: Timezone Mismatch Leading to Double-Booking and Availability Corruption**
+- **Severity**: Critical
+- **Attack/Failure Scenario**: An attacker in a UTC+4 timezone (Baku) can double-book tables by exploiting the timezone mismatch between the mobile client and backend. The mobile app sends dates via `new Date(slot.start).toISOString().slice(0,10)` (mobile/src/screens/SeatPicker.tsx:231) which uses local device time, while the backend compares naive datetimes using `datetime.combine(day, OPEN)` with hardcoded times (backend/app/availability.py:54-55) and stored ISO timestamps via `datetime.fromisoformat` (backend/app/availability.py:36-37). When a device in UTC+4 requests availability for "2025-01-15", the backend interprets this as UTC midnight, creating a 4-hour window where the same table appears available to multiple users.
+- **Why it works**: The backend assumes all datetime operations are timezone-naive (backend/app/availability.py:54 uses `datetime.combine` without tzinfo), while mobile clients send timezone-aware ISO strings that get truncated. The `_iso_parse` function doesn't enforce timezone consistency, allowing mixed timezone reservations in the same dataset.
+- **Business Impact**: Complete breakdown of reservation integrity during peak hours (6 PM - 10 PM local time), angry customers arriving to occupied tables, reputation damage, potential legal liability for failed service delivery, and cascading failures as staff manually reconcile conflicts.
+- **Mitigation**: Enforce UTC throughout the stack with explicit timezone handling: backend should use `datetime.now(UTC)` and reject non-UTC timestamps, mobile should send full ISO timestamps with timezone, add timezone validation in `_iso_parse`, and include timezone in all datetime comparisons.
+
+### • **HIGH: Race Condition in Table Assignment Enables Overbooking**
+- **Severity**: High
+- **Attack/Failure Scenario**: Multiple simultaneous reservation requests can book the same table due to the non-atomic read-check-write pattern in backend/app/storage.py:212-231. The system auto-assigns the first eligible table (lines 212-217), then checks conflicts only for that specific table (lines 225-226), and finally writes without locking (line 249 calls `_save`). An attacker can spawn 50+ concurrent requests for the same timeslot, exploiting the ~100ms window between conflict check and write to create multiple confirmed reservations for the same table.
+- **Why it works**: The `_save` method (backend/app/storage.py:290-299) directly overwrites reservations.json without file locking, atomic writes, or temporary files. No database transactions or optimistic locking exists. The conflict check at line 229 happens before the write, creating a TOCTOU (Time-of-Check-Time-of-Use) vulnerability.
+- **Business Impact**: Triple-booked tables during high-demand periods, operational chaos as staff handle disputes, potential safety issues from overcrowding, negative reviews, and loss of customer trust in the reservation system.
+- **Mitigation**: Implement file-based locking with `fcntl.flock()`, use atomic writes via temporary files with `os.rename()`, add optimistic concurrency control with version numbers, or migrate to a proper database with ACID transactions.
+
+### • **HIGH: Complete Data Exposure via Unrestricted Reservation Listing**
+- **Severity**: High  
+- **Attack/Failure Scenario**: Any authenticated user can harvest all customer PII by calling GET /reservations (backend/app/main.py:447-449), which returns `DB.list_reservations()` without any filtering. A malicious actor creates a throwaway account, calls this endpoint, and receives all reservations including guest names, phone numbers, party sizes, arrival intents, and dining patterns. This data can be sold to competitors, used for targeted phishing, or enable physical stalking of high-profile guests.
+- **Why it works**: The endpoint at line 448 only checks for authentication via `AuthClaims` but performs no authorization checks. It returns the complete unfiltered reservation database. No user-level filtering, role-based access control, or data minimization exists.
+[2025-11-13T20:54:28] tokens used: 172,172
+
+[2025-11-13T20:54:55] thinking
+
+**Compiling top-10 blockers and deliverables**
+
+I'm organizing the final deep review sections by gathering and verifying a top-10 list of blocking issues across backend and mobile code, referencing specific filenames and line ranges. I’m making sure to include critical security problems, concurrency bugs, timezone mismatches, missing features, and gaps in authorization. I’ll also cover test coverage gaps, concurrency summaries, and non-blocking improvements for comprehensive final deliverables.
+[2025-11-13T20:54:58] exec bash -lc 'rg -n "arrival_intent" -g "*suggest*" -n backend/app' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:54:58] bash -lc 'rg -n "arrival_intent" -g "*suggest*" -n backend/app' exited 1 in 24ms:
+ERROR
+[2025-11-13T20:54:58] tokens used: 175,971
+
+[2025-11-13T20:55:05] thinking
+
+**Analyzing missing endpoint and data invariants**
+
+I'm noticing the mobile app expects suggestion support that the backend lacks because no matching endpoint is implemented. I want to document this gap with references to the mobile code's static suggestion lists and clarify related data invariants from the reservation system, including party size rules and reservation statuses, while also planning to check for existing relevant tests in the backend.
+[2025-11-13T20:55:07] exec bash -lc 'rg -n "availability" backend/tests' in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:55:07] bash -lc 'rg -n "availability" backend/tests' succeeded in 25ms:
+backend/tests/test_integration_api.py:101:    def test_reservation_availability_integration(self, client):
+backend/tests/test_integration_api.py:102:        """Test checking availability"""
+backend/tests/test_integration_api.py:110:            response = client.get(f"/restaurants/{rid}/availability", params=params)
+backend/tests/test_integration_api.py:150:        # Step 3: User checks availability
+backend/tests/test_integration_api.py:152:            f"/restaurants/{rid}/availability",
+backend/tests/test_backend_system.py:8:from backend.app.availability import availability_for_day
+backend/tests/test_backend_system.py:21:        f"/restaurants/{RID}/availability",
+backend/tests/test_backend_system.py:91:def test_availability_reflects_reservation_lifecycle(client: TestClient) -> None:
+backend/tests/test_backend_system.py:109:        f"/restaurants/{RID}/availability",
+backend/tests/test_backend_system.py:120:        f"/restaurants/{RID}/availability",
+backend/tests/test_backend_system.py:260:def test_availability_helper_blocks_shared_reservations() -> None:
+backend/tests/test_backend_system.py:291:    result = availability_for_day(restaurant, 2, day, fake_db)
+backend/tests/test_e2e_workflows.py:92:    def test_user_checks_availability_and_books(self, client):
+backend/tests/test_e2e_workflows.py:93:        """Test: User checks availability and makes reservation"""
+backend/tests/test_e2e_workflows.py:104:        # Step 2: Check availability
+backend/tests/test_e2e_workflows.py:105:        availability_params = {"date": "2025-12-01", "time": "19:00", "party_size": 2}
+backend/tests/test_e2e_workflows.py:107:        availability = client.get(
+backend/tests/test_e2e_workflows.py:108:            f"/restaurants/{restaurant_id}/availability", params=availability_params
+backend/tests/test_e2e_workflows.py:110:        assert availability.status_code in [200, 404]
+[2025-11-13T20:55:07] tokens used: 176,326
+
+[2025-11-13T20:55:28] thinking
+
+**Outlining final report structure and contents**
+[2025-11-13T20:55:28] exec bash -lc "nl -ba backend/tests/test_backend_system.py | sed -n '70,160p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:55:28] bash -lc "nl -ba backend/tests/test_backend_system.py | sed -n '70,160p'" succeeded in 21ms:
+    70	    assert detail["cover_photo"].startswith("http://api.testserver")
+    71	    assert all(photo.startswith("http://api.testserver") for photo in detail["photos"])
+    72	
+    73	
+    74	def test_floorplan_payload_contains_geometry(client: TestClient) -> None:
+    75	    resp = client.get(f"/restaurants/{RID}/floorplan")
+    76	    assert resp.status_code == 200
+    77	    data = resp.json()
+    78	    assert data["canvas"] == {"width": 1000, "height": 1000}
+    79	    assert data["areas"], "Expected at least one seating area"
+    80	    first = data["areas"][0]
+    81	    assert first["tables"], "Expected tables in seating area"
+    82	    assert {"id", "position", "capacity"}.issubset(first["tables"][0].keys())
+    83	
+    84	
+    85	def test_photo_assets_are_served_via_static_mount(client: TestClient) -> None:
+    86	    resp = client.get("/assets/restaurants/sahil/1.jpg")
+    87	    assert resp.status_code == 200
+    88	    assert resp.headers["content-type"].startswith("image/")
+    89	
+[2025-11-13T20:55:28] tokens used: 178,448
+
+[2025-11-13T20:55:33] thinking
+
+**Continuing to gather more lines for location tests**
+[2025-11-13T20:56:10] exec bash -lc "nl -ba backend/tests/test_backend_system.py | sed -n '160,260p'" in /Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part
+[2025-11-13T20:56:10] bash -lc "nl -ba backend/tests/test_backend_system.py | sed -n '160,260p'" succeeded in 19ms:
+   160	    location_ping = client.post(
+   161	        f"/reservations/{reservation['id']}/arrival_intent/location",
+   162	        json={"latitude": 40.3777, "longitude": 49.892},
+   163	    )
+   164	    assert location_ping.status_code == 200
+   165	    predicted = location_ping.json()["arrival_intent"].get("predicted_eta_minutes")
+   166	    assert predicted and predicted >= 5
+   167	    confirmation = client.post(
+   168	        f"/reservations/{reservation['id']}/arrival_intent/eta",
+   169	        json={"eta_minutes": predicted},
+   170	    )
+   171	    assert confirmation.status_code == 200
+   172	    approve = client.post(
+   173	        f"/reservations/{reservation['id']}/arrival_intent/decision",
+   174	        json={"action": "approve", "notes": "Chef notified"},
+   175	    )
+   176	    assert approve.status_code == 200
+   177	    assert approve.json()["arrival_intent"]["status"] == "approved"
+   178	
+   179	    conflict = client.post("/reservations", json=payload)
+[2025-11-13T20:56:10] tokens used: 179,998
+
+[2025-11-13T20:57:08] thinking
+
+**Compiling detailed defect and test gap report**
+
+I'm organizing a comprehensive final report summarizing top-10 critical issues with code references, severity levels, test coverage gaps, concurrency problems, and command logs from multiple terminals, ensuring clear citations and structured sections for easy review.
+**Organizing prioritized defect categories and report structure**
+
+I'm outlining the final report sections, defining top-10 unique critical defects with specific code citations, backlog prioritization, data invariants, concurrency and test gaps, performance notes, and a summary of commands run to keep the presentation thorough and clear.
+[2025-11-13T20:57:25] codex
+**Organizing prioritized defect categories and report structure**
+
+I'm outlining the final report sections, defining top-10 unique critical defects with specific code citations, backlog prioritization, data invariants, concurrency and test gaps, performance notes, and a summary of commands run to keep the presentation thorough and clear.
+[2025-11-13T20:57:25] codex
+
+**Terminal Cadence & Commands**  
+- Three terminals must remain provisioned: Terminal A (`./scripts/dev_backend.sh` ready), Terminal B (`./scripts/dev_mobile.sh` ready), Terminal C (Codex workflow). All are currently idle.  
+- Commands executed this session all ran from Terminal C in `/Users/jkazimzade/.code/working/baku-reserve/branches/code-code-gpt-5-codex-you-are-part`: `pwd`, `ls`, multiple `rg`/`find`/`sed`/`nl` inspections (availability, storage, main, SeatPicker, PrepNotify, AuthContext, ReservationsScreen, tests, gomap), and agent invocations for the planner (Claude Sonnet 4.5) and adversarial explorer (Claude Opus 4.1).
+
+---
+
+**Section 1 – Top‑10 Blockers (ordered by severity/impact)**  
+1. **CRITICAL – `/reservations` exposes every customer booking**: Any authenticated caller receives all reservations (names, phones, intent data) because the handler simply returns `DB.list_reservations()` with no scoping.citebackend/app/main.py:447-450  
+2. **CRITICAL – No owner checks on reservation mutations**: `create`, `confirm`, `cancel`, `delete`, and all arrival-intent routes accept any UUID without verifying it belongs to the caller; records also lack a `user_id`, so once IDs are scraped (see #1) anyone can modify or cancel someone else’s booking.citebackend/app/main.py:362-436backend/app/main.py:472-591backend/app/storage.py:233-247  
+3. **CRITICAL – Backend availability math ignores restaurant timezones**: Slots use hard-coded `datetime.combine(day, OPEN/CLOSE)` without tzinfo, comparing against whatever offset the client stored, so mixed-offset data produces duplicate inventory or TypeErrors once timezone-aware strings land in the JSON store.citebackend/app/availability.py:18-85  
+4. **HIGH – SeatPicker requests the wrong day in non-UTC locales**: It derives the `date` query via `new Date(slot.start).toISOString().slice(0,10)`, so a 20:00 Asia/Baku slot becomes the previous day in UTC, showing stale availability and enabling double-booking when paired with bug #3.citemobile/src/screens/SeatPicker.tsx:220-244  
+5. **HIGH – Auto-assign only probes the first eligible table**: The backend picks the first capacity-fit (lines 212‑217) and immediately conflict-checks that table only, so the SeatPicker “Auto-assign” CTA often yields 409 even when other tables are free.citebackend/app/storage.py:212-231mobile/src/screens/SeatPicker.tsx:451-454  
+6. **HIGH – Oversized parties silently land on undersized tables**: If no table meets `party_size`, the code grabs the largest table without rechecking capacity, so groups bigger than the floor allows still get “confirmed” and will overflow on arrival.citebackend/app/storage.py:211-218  
+7. **HIGH – File persistence is not atomic**: `_save()` rewrites `reservations.json` with `write_text` and no locking/temporary file, so concurrent bookings can truncate or drop reservations entirely.citebackend/app/storage.py:289-299  
+8. **HIGH – Arrival location pings allowed while status `idle`**: `/reservations/{id}/arrival_intent/location` only checks that the reservation exists; it overwrites the intent even if no arrival flow started, enabling spoofed tracking for any reservation ID.citebackend/app/main.py:513-574  
+9. **MEDIUM – Prep Notify “Use my location” is permanently disabled**: The CTA always shows `Alert.alert('Coming soon', …)` even when feature flags report GoMap readiness, so the new GoMap/arrival flow can’t be exercised from mobile.citemobile/src/screens/PrepNotifyScreen.tsx:115-122  
+10. **MEDIUM – Auth tokens never refresh**: Refresh tokens are stored but never used; the app keeps injecting stale access tokens until a manual logout, which breaks long sessions and leaves stolen tokens valid indefinitely.citemobile/src/contexts/AuthContext.tsx:60-136
+
+---
+
+**Section 2 – Prioritized Defect Backlog**
+
+| # | Defect | Sev/Likelihood/Confidence | Evidence & Repro | Fix Sketch & Tests |
+|---|--------|---------------------------|------------------|--------------------|
+|1|Reservation data leak via GET `/reservations`|Critical / High / High|Call the endpoint with any bearer token; response returns the full reservation list including PII.citebackend/app/main.py:447-450|Scope data by authenticated subject (attach `user_id` at creation, filter on reads), add RBAC & auditing, and add contract tests that unauthorized callers get 403 + redacted payload.|
+|2|Ownerless reservation mutations|Critical / High / High|Use ID from #1 and call `/reservations/{id}/cancel` or arrival-intent routes; no ownership check occurs.citebackend/app/main.py:373-590|Store creator ID in records and enforce match in `_require_reservation`; integration tests should assert cross-user cancels fail with 403.|
+|3|Timezone skew enables double-booking|High / High / Medium|Book via SeatPicker in UTC+4; backend interprets same slot as previous day because both sides strip tz.citebackend/app/availability.py:18-85mobile/src/screens/SeatPicker.tsx:220-244|Normalize all timestamps to UTC, include timezone field with every slot, and add regression tests that a Baku locale device books the same slot as a UTC device without conflicts.|
+|4|Auto-assign conflicts & wrong capacities|High / Medium / High|Fire rapid `POST /reservations` without `table_id`; first request takes table A, later ones still try table A and error, and party_size larger than any table still “succeeds.”citebackend/app/storage.py:211-231|Iterate over all eligible tables and pick the first conflict-free; if none fit capacity, return 409. Unit tests should cover multi-table search + “party size > max capacity” rejection.|
+|5|Arrival intent location spoofing|High / Medium / Medium|Call `/arrival_intent/location` before requesting an intent; ETA + traffic data still record, keeping status `idle`.citebackend/app/main.py:513-574|Require non-idle status, enforce user confirmation, and add state-machine tests (idle→requested→approved only).|
+|6|Prep Notify location CTA dead|Medium / High / High|On PrepNotify screen tap “Use my location”; there’s only an alert even when `features.gomap_ready=true`.citemobile/src/screens/PrepNotifyScreen.tsx:115-122|Gate the CTA on feature flags and wire it to `sendArrivalLocation`/GoMap ETA; add RTL test verifying the button triggers API mocks when flags are true.|
+|7|Token refresh absent|Medium / High / Medium|Set token TTL to 1 h in Auth0, wait, and observe API calls still use expired token from SecureStore.citemobile/src/contexts/AuthContext.tsx:60-136|Implement refresh-token exchange before expiry, rotate refresh tokens, add Jest test that `loginWithPassword` schedules refresh and replays on resume.|
+
+---
+
+**Section 3 – Data Invariants Catalog**
+
+- **Party size constraint**: `create_reservation` rejects `party_size < 1`.citebackend/app/storage.py:187-195  
+- **Table ownership**: When `table_id` is provided it must belong to the restaurant; otherwise 422.citebackend/app/storage.py:200-208  
+- **Status domain**: Mutations only permit `booked` or `cancelled`; invalid statuses are rejected or normalized.citebackend/app/storage.py:253-259backend/app/storage.py:322-335  
+- **Reservation duration**: `end` must be after `start`; `_overlap` uses closed-open intervals.citebackend/app/storage.py:189-230  
+- **Arrival intent schema**: Stored intent snapshots follow `ArrivalIntent` model (status enum, ETA fields, last_signal).citebackend/app/storage.py:243-277backend/app/models.py:87-145  
+- **Data store bootstrap**: Seeds are normalized with UUID4 IDs and caches built per restaurant.citebackend/app/storage.py:72-147  
+
+---
+
+**Section 4 – Concurrency & Idempotency Summary**
+
+- **TOCTOU in bookings**: Conflict detection (lines 219-230) reads in-memory dicts, then `_save()` rewrites the JSON file without locking, so two requests interleaving will both pass checks and last writer wins, losing the other reservation.citebackend/app/storage.py:219-299  
+- **Auto-assign idempotency gap**: Auto-pick never retries a second table; repeated retries hammer the same `table_id`, so the operation is not idempotent nor graceful under contention.citebackend/app/storage.py:212-231  
+- **Arrival intent updates overwrite entire blobs**: Each location or decision call replaces the whole `arrival_intent` dict, so parallel updates (e.g., location ping concurrent with decision) trample each other.citebackend/app/main.py:489-590  
+- **GoMap retry blocks event loop**: `_post_with_retry` uses `time.sleep` inside FastAPI workers, stalling other requests during GoMap outages.citebackend/app/gomap.py:120-159  
+- **Mobile polling**: SeatPicker spins a 15 s interval per focus without debouncing, so multiple screens can poll concurrently; there is no idempotent ETag or diff, wasting bandwidth.citemobile/src/screens/SeatPicker.tsx:258-265  
+
+Mitigations: add process-wide locks or migrate to SQLite/Postgres with transactions; update arrival intents via patch/compare-and-swap; switch GoMap retries to async sleeps; add exponential backoff to mobile polling.
+
+---
+
+**Section 5 – Test Gap Matrix**
+
+| Feature / Risk | Existing Coverage | Gap & Impact | Proposed Tests |
+|----------------|-------------------|--------------|----------------|
+|Timezone-aware availability|`backend/tests/test_backend_system.py:91-125` exercises naive same-day slots only.|No test sets restaurant timezone or mixes UTC offsets, so regressions like bug #3 slip through.|Add parametrized tests creating reservations with tz-aware ISO strings and assert availability for Asia/Baku vs UTC devices matches.|
+|Authorization & reservation scoping|`backend/tests/test_backend_system.py:128-190` ensures lifecycle success but never asserts ownership or least-privilege.|Endpoints happily mutate any reservation ID; security regression unnoticed.|Add tests that user A cannot cancel user B’s reservation once ownership is tracked; include negative tests for GET `/reservations`.|
+|Auto-assign under contention|`backend/tests/test_backend_system.py:219-239` only verifies “smallest fitting table” in a single-threaded path.|No concurrency or fallback tests, so conflict loops and oversize party bugs remain.|Property test that multiple auto-assign calls allocate distinct tables when available and reject when capacity exceeded.|
+|Arrival intent state machine|`backend/tests/test_backend_system.py:148-178` walks the happy path only.|No assertions that idle state rejects location pings or that duplicate decisions are idempotent.|Add tests covering invalid transitions (idle→location, approved→request) expecting 409.|
+|Mobile GoMap CTA|`mobile/__tests__/experience.ui.test.tsx` focuses on Preset chips; no coverage for PrepNotify CTA or SeatPicker auto-assign.|Feature remains dead without detection.|Add RTL tests toggling `features.gomap_ready` to ensure CTA triggers mocked location call and disables when false.|
+|Token refresh|No tests in `mobile/__tests__` reference AuthContext storage.|Silent expiry undermines auth flows.|Unit-test AuthContext to confirm refresh path runs before token TTL and invalid tokens trigger logout.|
+
+---
+
+**Section 6 – Prod-Later Notes**
+
+- **Move off JSON persistence**: Upgrading to SQLite/Postgres (or at least `sqlite3` via SQLModel) would eliminate race conditions and enable real constraints; treat this as medium-term infra work once blockers above land.citebackend/app/storage.py:289-345  
+- **Async GoMap client**: Port `_post_with_retry` to `httpx.AsyncClient` with `asyncio.sleep` to keep FastAPI workers responsive during outages.citebackend/app/gomap.py:120-159  
+- **Observability for arrival flows**: Instrument `arrival_intent/*` routes with structured logs including user+reservation IDs to detect spoofing attempts once owner scoping is fixed.citebackend/app/main.py:472-590  
+
+---
+
+**Section 7 – Security & Data Integrity Focus**
+
+- **RBAC absence**: Beyond the leakage, there’s no differentiation between diner, concierge, or admin privileges; even once owner scoping is added, staff tooling needs separate scopes.citebackend/app/main.py:362-450  
+- **PII-at-rest**: Phone numbers are stored in plain JSON without encryption; once migrating to a DB, apply column-level encryption or at least file-system permissions.citebackend/app/storage.py:233-247  
+- **Location consent**: Because PrepNotify auto-displays the CTA while server accepts location pings blindly, add explicit opt-in tracking and audit logs to satisfy privacy requirements.citebackend/app/main.py:513-574mobile/src/screens/PrepNotifyScreen.tsx:115-122  
+
+---
+
+**Section 8 – Performance & Scalability**
+
+- **Availability is O(N reservations per venue)**: Every call iterates the entire in-memory reservation dict and reparses ISO strings. Caching by date/restaurant or storing precomputed occupancy would reduce latency before scale-up.citebackend/app/availability.py:29-85  
+- **GoMap blocking calls**: Synchronous retries block the worker thread up to `(retry attempts * backoff)` seconds, reducing throughput when GoMap hiccups.citebackend/app/gomap.py:120-159  
+- **Mobile polling**: SeatPicker’s fixed 15 s polling interval per focus, lacking jitter or conditional refresh, becomes N× when multiple SeatPickers are open (e.g., split-screen).citemobile/src/screens/SeatPicker.tsx:258-265  
+
+---
+
+**Section 9 – Final Synthesis & Next Steps**
+
+1. **Immediate**: Lock down `/reservations` (RBAC + owner scoping) and deploy timezone fixes; these are existential for trust and booking accuracy.  
+2. **Near-term**: Resolve auto-assign/concurrency bugs, enforce capacity checks, and make PrepNotify + arrival flows usable end-to-end (CTA + state machine).  
+3. **Follow-up**: Implement token refresh, add coverage for new behaviors, and begin planning storage migration/async GoMap work.  
+
+This completes Sections 0‑9 per deep review; Planner/Coordinator synthesized outputs from Static & Runtime analysis plus Adversarial Explorer findings.
+[2025-11-13T20:58:08] tokens used: 190,873

@@ -1,0 +1,36 @@
+{
+  "slug": "sahil-bar-restaurant",
+  "name": "SAHiL Bar & Restaurant",
+  "address": "Seaside Boulevard, 34 Neftçilər Prospekti, Bakı 1010, Azerbaijan",
+  "location": {
+    "lat": 40.3696781,
+    "lng": 49.845538
+  },
+  "google_maps_url": "https://www.google.com/maps/place/?q=place_id:ChIJnQ6rZ7J9MEARxpGbh7JcYI0",
+  "phone": "+994 50 285 00 22",
+  "website": "http://www.sahilbaku.az/",
+  "instagram": {
+    "handle": "sahil_baku",
+    "url": "https://www.instagram.com/sahil_baku/",
+    "confidence": 0.8,
+    "source": "serpapi"
+  },
+  "menu_url": {
+    "url": "https://drive.google.com/file/d/1ind2BZTbB-p1CqqqQFw6R1A563KswrzV/view?usp=sharing",
+    "confidence": 0.85,
+    "source": "website"
+  },
+  "images": {
+    "food": [],
+    "interior": []
+  },
+  "tags": [
+    "breakfast",
+    "restaurant",
+    "casual",
+    "bar",
+    "trendy"
+  ],
+  "needs_review": true,
+  "generated_at": 1762815720
+}

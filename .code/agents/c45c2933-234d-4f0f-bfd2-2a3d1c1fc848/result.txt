@@ -1,0 +1,79 @@
+Based on my comprehensive adversarial analysis as the **Adversarial Explorer**, I've identified **16 critical vulnerabilities** across concurrency, timezone handling, GoMap integration, token management, and data integrity. Here's my final report contribution:
+
+## ADVERSARIAL EXPLORER REPORT - CRITICAL EDGE CASES
+
+### TOP BLOCKERS (My Contribution)
+
+1. **CRITICAL: Race Condition in Reservation Creation** (backend/app/storage.py:184-251)
+   - No locking between availability check and reservation write
+   - Guaranteed double-booking under concurrent load
+
+2. **CRITICAL: Timezone Chaos** (mobile/src/utils/dateInput.ts:10-22, availability.ts:3-48)
+   - Mobile uses device local timezone for date parsing
+   - Hardcoded America/Chicago timezone instead of Baku (UTC+4)
+   - Users will book wrong days across timezone boundaries
+
+3. **CRITICAL: No Token Refresh Implementation** (mobile/src/contexts/AuthContext.tsx:35-37)
+   - Refresh tokens stored but never used
+   - Sessions break after 1 hour with no recovery
+
+4. **CRITICAL: Silent Data Loss on Corruption** (backend/app/storage.py:301-308)
+   - File corruption silently resets all reservations to empty
+   - No backup, logging, or atomic writes
+
+### ATTACK VECTORS & REPRODUCTION
+
+**Double-Booking Attack:**
+```bash
+# Send 10 concurrent requests for same table/time
+for i in {1..10}; do
+  curl -X POST http://localhost:8000/reservations \
+    -H "Content-Type: application/json" \
+    -d '{"restaurant_id":"r1","table_id":"t1","start":"2024-12-01T19:00:00Z","end":"2024-12-01T20:30:00Z"}' &
+done
+wait
+# Result: Multiple successful bookings for same slot
+```
+
+**Timezone Attack (from UTC+10 device):**
+```javascript
+// User selects Dec 1st on mobile app
+const date = parseDateInput('2024-12-01'); // Creates 2024-12-01T00:00:00+10:00
+// Sent to backend as 2024-11-30T14:00:00Z
+// User books Nov 30th instead!
+```
+
+### DATA INVARIANT VIOLATIONS
+
+1. **Table double-booking** possible when mixing auto-assign (table_id=null) with specific table bookings
+2. **Orphaned reservations** when restaurants deleted from restaurants.json
+3. **Timezone mismatches** between mobile (Chicago) and backend (should be Baku)
+4. **Token state inconsistency** - appears logged in but API calls fail after 1 hour
+
+### CONCURRENCY/IDEMPOTENCY GAPS
+
+- **No mutexes** on reservation creation, location pings, or token refresh
+- **No request deduplication** in GoMap retry logic
+- **No optimistic locking** in SeatPicker real-time sync
+- **Thundering herd** when traffic cache expires (all requests hit GoMap API)
+
+### TEST COVERAGE GAPS
+
+Missing tests for:
+- Concurrent reservation attempts
+- Cross-timezone date handling
+- Token expiry and refresh flows
+- File corruption recovery
+- GoMap API circuit breaker behavior
+- Partial availability slot calculations
+
+### PRODUCTION-LATER NOTES
+
+1. Add distributed locking (Redis/PostgreSQL advisory locks) for reservation creation
+2. Implement proper timezone handling with pytz/zoneinfo
+3. Add token refresh middleware with retry logic
+4. Implement write-ahead logging for reservation persistence
+5. Add request correlation IDs for debugging race conditions
+6. Consider event sourcing for reservation state management
+
+My analysis reveals the system will fail catastrophically under real-world conditions with concurrent users across timezones. The lack of proper locking, timezone handling, and token management makes this unsuitable for production deployment without immediate fixes.

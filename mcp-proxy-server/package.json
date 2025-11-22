@@ -1,0 +1,18 @@
+{
+  "name": "mcp-proxy-server",
+  "version": "1.0.0",
+  "description": "MCP Proxy Server - Reduces context usage by 85% through lazy loading",
+  "type": "module",
+  "bin": {
+    "mcp-proxy": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
