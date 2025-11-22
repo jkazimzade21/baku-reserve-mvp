@@ -1,5 +1,4 @@
 import type { NavigatorScreenParams } from '@react-navigation/native';
-import type { AvailabilitySlot, Reservation } from '../api';
 
 export type MainTabParamList = {
   Discover: undefined;
@@ -13,20 +12,6 @@ export type RootStackParamList = {
   Tabs: NavigatorScreenParams<MainTabParamList>;
   Restaurant: { id: string; name?: string };
   Book: { id: string; name: string; guestName?: string; guestPhone?: string };
-  SeatPicker: {
-    id: string;
-    name: string;
-    partySize: number;
-    slot: AvailabilitySlot;
-    guestName?: string;
-    guestPhone?: string;
-    timezone?: string;
-  };
-  PrepNotify: {
-    reservation: Reservation;
-    restaurantName: string;
-  };
-  Concierge: { prompt?: string } | undefined;
   RestaurantCollection: {
     title: string;
     subtitle?: string;

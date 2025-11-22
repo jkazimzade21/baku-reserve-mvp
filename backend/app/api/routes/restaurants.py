@@ -5,7 +5,7 @@ from uuid import UUID
 from fastapi import APIRouter, HTTPException, Request
 
 from ...availability import availability_for_day
-from ...contracts import Restaurant, RestaurantListItem
+from ...contracts import Restaurant, RestaurantListItem, Review
 from ...serializers import get_attr, restaurant_to_detail, restaurant_to_list_item
 from ...storage import DB
 from ..types import DateQuery, RestaurantSearch
@@ -27,50 +27,17 @@ def get_restaurant(rid: UUID, request: Request):
     return restaurant_to_detail(record, request)
 
 
-@router.get("/restaurants/{rid}/floorplan")
-def get_floorplan(rid: UUID):
-    record = DB.get_restaurant(str(rid))
-    if not record:
-        raise HTTPException(404, "Restaurant not found")
-    canvas = {"width": 1000, "height": 1000}
-    areas = []
-    for area in get_attr(record, "areas", []) or []:
-        tables = []
-        for table in get_attr(area, "tables", []) or []:
-            geometry = get_attr(table, "geometry") or {}
-            tables.append(
-                {
-                    "id": str(get_attr(table, "id")),
-                    "name": get_attr(table, "name"),
-                    "capacity": int(get_attr(table, "capacity", 2) or 2),
-                    "position": (
-                        get_attr(table, "position") or geometry.get("position")
-                        if isinstance(geometry, dict)
-                        else None
-                    ),
-                    "shape": get_attr(table, "shape"),
-                    "tags": list(get_attr(table, "tags", []) or []),
-                    "rotation": get_attr(table, "rotation"),
-                    "footprint": get_attr(table, "footprint")
-                    or (geometry.get("footprint") if isinstance(geometry, dict) else None),
-                    "geometry": geometry if isinstance(geometry, dict) and geometry else None,
-                }
-            )
-        areas.append(
-            {
-                "id": str(get_attr(area, "id")),
-                "name": get_attr(area, "name"),
-                "tables": tables,
-                "theme": get_attr(area, "theme"),
-                "landmarks": get_attr(area, "landmarks"),
-            }
-        )
-    return {"canvas": canvas, "areas": areas}
-
-
 @router.get("/restaurants/{rid}/availability")
 async def restaurant_availability(rid: UUID, date_: DateQuery, party_size: int = 2):
     record = DB.get_restaurant(str(rid))
     if not record:
         raise HTTPException(404, "Restaurant not found")
     return await availability_for_day(record, party_size, date_, DB)
+
+
+@router.get("/restaurants/{rid}/reviews", response_model=list[Review])
+async def list_reviews(rid: UUID, limit: int = 20, offset: int = 0):
+    record = DB.get_restaurant(str(rid))
+    if not record:
+        raise HTTPException(404, "Restaurant not found")
+    return await DB.list_reviews(str(rid), limit=limit, offset=offset)

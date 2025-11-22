@@ -1,27 +1,30 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
+  Modal,
   Pressable,
   RefreshControl,
   ScrollView,
   SectionList,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 
 import {
-  fetchFeatureFlags,
+  cancelReservation,
   fetchReservationsList,
-  type FeatureFlags,
+  markArrived,
+  markNoShow,
+  submitReview,
   type Reservation,
 } from '../api';
-import { colors, radius, spacing } from '../config/theme';
+import { colors, radius, spacing, shadow } from '../config/theme';
 import Surface from '../components/Surface';
 import SectionHeading from '../components/SectionHeading';
-import InfoBanner from '../components/InfoBanner';
 import { useAuth } from '../contexts/AuthContext';
 import { useFocusEffect } from '@react-navigation/native';
 import { useRestaurantDirectory } from '../contexts/RestaurantDirectoryContext';
@@ -53,8 +56,11 @@ export default function ReservationsScreen({ navigation }: Props) {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [featureFlags, setFeatureFlags] = useState<FeatureFlags | null>(null);
-  const [featureError, setFeatureError] = useState<string | null>(null);
+  const [reviewTarget, setReviewTarget] = useState<Reservation | null>(null);
+  const [reviewRating, setReviewRating] = useState<number>(5);
+  const [reviewComment, setReviewComment] = useState<string>('');
+  const [reviewSubmitting, setReviewSubmitting] = useState<boolean>(false);
+  const [reviewError, setReviewError] = useState<string | null>(null);
 
   const load = useCallback(async (opts?: { refreshing?: boolean }) => {
     try {
@@ -74,6 +80,42 @@ export default function ReservationsScreen({ navigation }: Props) {
     }
   }, []);
 
+  const handleCancel = useCallback(
+    async (reservationId: string) => {
+      try {
+        await cancelReservation(reservationId);
+        await load();
+      } catch (err: any) {
+        setError(err?.message || 'Unable to cancel reservation');
+      }
+    },
+    [load],
+  );
+
+  const handleMarkArrived = useCallback(
+    async (reservationId: string) => {
+      try {
+        await markArrived(reservationId);
+        await load();
+      } catch (err: any) {
+        setError(err?.message || 'Unable to update reservation');
+      }
+    },
+    [load],
+  );
+
+  const handleMarkNoShow = useCallback(
+    async (reservationId: string) => {
+      try {
+        await markNoShow(reservationId);
+        await load();
+      } catch (err: any) {
+        setError(err?.message || 'Unable to update reservation');
+      }
+    },
+    [load],
+  );
+
   const restaurantLookup = useMemo(() => {
     const map = new Map<string, string>();
     restaurants.forEach((restaurant) => {
@@ -82,25 +124,36 @@ export default function ReservationsScreen({ navigation }: Props) {
     return map;
   }, [restaurants]);
 
-  useEffect(() => {
-    let active = true;
-    async function hydrateFeatures() {
-      try {
-        const flags = await fetchFeatureFlags();
-        if (!active) return;
-        setFeatureFlags(flags);
-        setFeatureError(null);
-      } catch (err: any) {
-        if (!active) return;
-        setFeatureFlags(null);
-        setFeatureError(err?.message || 'Feature flags unavailable');
-      }
+  const openReviewModal = (reservation: Reservation) => {
+    setReviewTarget(reservation);
+    setReviewRating(5);
+    setReviewComment('');
+    setReviewError(null);
+  };
+
+  const closeReviewModal = () => {
+    setReviewTarget(null);
+    setReviewSubmitting(false);
+    setReviewError(null);
+  };
+
+  const submitReviewNow = useCallback(async () => {
+    if (!reviewTarget) return;
+    setReviewSubmitting(true);
+    setReviewError(null);
+    try {
+      await submitReview(reviewTarget.id, {
+        rating: reviewRating,
+        comment: reviewComment.trim() || undefined,
+      });
+      closeReviewModal();
+      await load();
+    } catch (err: any) {
+      setReviewError(err?.message || 'Unable to submit review');
+    } finally {
+      setReviewSubmitting(false);
     }
-    hydrateFeatures().catch(() => null);
-    return () => {
-      active = false;
-    };
-  }, []);
+  }, [reviewTarget, reviewRating, reviewComment, load]);
 
   useFocusEffect(
     useCallback(() => {
@@ -143,36 +196,18 @@ export default function ReservationsScreen({ navigation }: Props) {
     const start = new Date(item.start);
     const end = new Date(item.end);
     const schedule = `${dayFormatter.format(start)} • ${timeFormatter.format(start)} – ${timeFormatter.format(end)}`;
-    const showPrepFlow = Boolean(
-      featureFlags?.prep_notify_enabled && item.status === 'booked' && start >= now,
-    );
-
     return (
       <Surface tone="overlay" padding="md" style={styles.card}>
         <View style={styles.cardHeader}>
           <Text style={styles.cardTitle}>{restaurantName}</Text>
           <View style={styles.cardHeaderBadges}>
             <StatusPill status={item.status} />
-            {item.prep_status ? <PrepStatusBadge status={item.prep_status} /> : null}
           </View>
         </View>
         <Text style={styles.cardMeta}>{schedule}</Text>
         <Text style={styles.cardMeta}>Party of {item.party_size}</Text>
         {item.guest_name ? (
           <Text style={styles.cardGuest}>Booked under {item.guest_name}</Text>
-        ) : null}
-        {showPrepFlow ? (
-          <Pressable
-            style={styles.prepCtaButton}
-            onPress={() =>
-              navigation.navigate('PrepNotify', {
-                reservation: item,
-                restaurantName,
-              })
-            }
-          >
-            <Text style={styles.prepCtaText}>On My Way (Prep Food)</Text>
-          </Pressable>
         ) : null}
         <View style={styles.cardActions}>
           <Pressable
@@ -196,6 +231,30 @@ export default function ReservationsScreen({ navigation }: Props) {
             <Feather name="info" size={14} color={colors.primaryStrong} />
             <Text style={styles.cardButtonText}>Details</Text>
           </Pressable>
+          {item.status === 'arrived' ? (
+            <Pressable style={styles.cardButton} onPress={() => openReviewModal(item)}>
+              <Feather name="star" size={14} color={colors.primaryStrong} />
+              <Text style={styles.cardButtonText}>Leave review</Text>
+            </Pressable>
+          ) : null}
+          {item.status === 'booked' && start > now ? (
+            <Pressable style={styles.cardButton} onPress={() => handleCancel(item.id)}>
+              <Feather name="x-circle" size={14} color={colors.primaryStrong} />
+              <Text style={styles.cardButtonText}>Cancel</Text>
+            </Pressable>
+          ) : null}
+          {item.status === 'booked' && start <= now ? (
+            <Pressable style={styles.cardButton} onPress={() => handleMarkArrived(item.id)}>
+              <Feather name="check-circle" size={14} color={colors.primaryStrong} />
+              <Text style={styles.cardButtonText}>Mark arrived</Text>
+            </Pressable>
+          ) : null}
+          {item.status === 'booked' && start < now ? (
+            <Pressable style={styles.cardButton} onPress={() => handleMarkNoShow(item.id)}>
+              <Feather name="slash" size={14} color={colors.primaryStrong} />
+              <Text style={styles.cardButtonText}>No-show</Text>
+            </Pressable>
+          ) : null}
         </View>
       </Surface>
     );
@@ -253,22 +312,7 @@ export default function ReservationsScreen({ navigation }: Props) {
               title="Your reservations"
               subtitle="Manage upcoming tables and relive past nights out."
             />
-            {error ? (
-              <InfoBanner
-                tone="warning"
-                icon="alert-triangle"
-                title="We couldn’t refresh reservations"
-                message={error}
-              />
-            ) : null}
-            {featureError ? (
-              <InfoBanner
-                tone="warning"
-                icon="alert-triangle"
-                title="Feature flags unavailable"
-                message={featureError}
-              />
-            ) : null}
+            {error ? <Text style={styles.errorText}>{error}</Text> : null}
           </View>
         }
         ListEmptyComponent={
@@ -288,6 +332,62 @@ export default function ReservationsScreen({ navigation }: Props) {
           </View>
         }
       />
+
+      {reviewTarget ? (
+        <Modal transparent visible animationType="fade" onRequestClose={closeReviewModal}>
+          <View style={styles.modalBackdrop}>
+            <View style={styles.modalCard}>
+              <View style={styles.modalHeader}>
+                <Text style={styles.modalTitle}>Rate your visit</Text>
+                <Pressable onPress={closeReviewModal} style={styles.modalClose}>
+                  <Feather name="x" size={18} color={colors.primaryStrong} />
+                </Pressable>
+              </View>
+              <Text style={styles.modalSubtitle}>
+                {restaurantLookup.get(reviewTarget.restaurant_id) ?? 'Restaurant'}
+              </Text>
+              <View style={styles.ratingRow}>
+                {[1, 2, 3, 4, 5].map((score) => (
+                  <Pressable
+                    key={score}
+                    onPress={() => setReviewRating(score)}
+                    style={[
+                      styles.ratingStar,
+                      reviewRating >= score && styles.ratingStarActive,
+                    ]}
+                  >
+                    <Feather
+                      name={reviewRating >= score ? 'star' : 'star'}
+                      size={20}
+                      color={reviewRating >= score ? '#f59e0b' : colors.muted}
+                    />
+                  </Pressable>
+                ))}
+              </View>
+              <TextInput
+                style={styles.reviewInput}
+                placeholder="What stood out? (optional)"
+                value={reviewComment}
+                onChangeText={setReviewComment}
+                multiline
+              />
+              {reviewError ? <Text style={styles.errorText}>{reviewError}</Text> : null}
+              <View style={styles.modalActions}>
+                <Pressable style={styles.secondaryButton} onPress={closeReviewModal} disabled={reviewSubmitting}>
+                  <Text style={styles.secondaryButtonText}>Cancel</Text>
+                </Pressable>
+                <Pressable
+                  style={[styles.sendButton, reviewSubmitting && styles.sendButtonDisabled]}
+                  onPress={submitReviewNow}
+                  disabled={reviewSubmitting}
+                >
+                  <Text style={styles.sendButtonText}>{reviewSubmitting ? 'Sending…' : 'Submit'}</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      ) : null}
     </SafeAreaView>
   );
 }
@@ -297,42 +397,27 @@ type StatusProps = {
 };
 
 function StatusPill({ status }: StatusProps) {
-  const label = status.charAt(0).toUpperCase() + status.slice(1);
-  const background =
-    status === 'booked'
-      ? 'rgba(34,197,94,0.12)'
-      : status === 'cancelled'
-      ? 'rgba(239,68,68,0.12)'
-      : 'rgba(231, 169, 119, 0.18)';
-  const color =
-    status === 'booked'
-      ? '#16a34a'
-      : status === 'cancelled'
-      ? '#dc2626'
-      : colors.primary;
+  const pretty = status.replace('_', ' ');
+  const label = pretty.charAt(0).toUpperCase() + pretty.slice(1);
+  const backgroundMap: Record<Reservation['status'], string> = {
+    booked: 'rgba(34,197,94,0.12)',
+    pending: 'rgba(234,179,8,0.16)',
+    cancelled: 'rgba(239,68,68,0.12)',
+    arrived: 'rgba(37,99,235,0.12)',
+    no_show: 'rgba(107,114,128,0.16)',
+  };
+  const colorMap: Record<Reservation['status'], string> = {
+    booked: '#16a34a',
+    pending: '#b45309',
+    cancelled: '#dc2626',
+    arrived: '#2563eb',
+    no_show: '#6b7280',
+  };
+  const background = backgroundMap[status] ?? colors.overlay;
+  const color = colorMap[status] ?? colors.text;
   return (
     <View style={[styles.statusPill, { backgroundColor: background }]}>
       <Text style={[styles.statusText, { color }]}>{label}</Text>
-    </View>
-  );
-}
-
-function PrepStatusBadge({ status }: { status: Reservation['prep_status'] }) {
-  if (!status) return null;
-  const statusLabel = status.charAt(0).toUpperCase() + status.slice(1);
-  const colorMap: Record<NonNullable<Reservation['prep_status']>, string> = {
-    pending: '#b45309',
-    accepted: '#15803d',
-    rejected: '#b91c1c',
-  };
-  const backgroundMap: Record<NonNullable<Reservation['prep_status']>, string> = {
-    pending: 'rgba(234,179,8,0.18)',
-    accepted: 'rgba(34,197,94,0.15)',
-    rejected: 'rgba(239,68,68,0.15)',
-  };
-  return (
-    <View style={[styles.prepBadge, { backgroundColor: backgroundMap[status] }]}>
-      <Text style={[styles.prepBadgeText, { color: colorMap[status] }]}>Prep {statusLabel}</Text>
     </View>
   );
 }
@@ -383,114 +468,6 @@ const styles = StyleSheet.create({
   cardGuest: {
     color: colors.muted,
     fontSize: 12,
-  },
-  prepCtaButton: {
-    marginTop: spacing.xs,
-    paddingVertical: spacing.sm,
-    borderRadius: radius.lg,
-    backgroundColor: colors.primaryStrong,
-    alignItems: 'center',
-  },
-  prepCtaText: {
-    color: '#fff',
-    fontWeight: '600',
-  },
-  prepBadge: {
-    paddingHorizontal: spacing.sm,
-    paddingVertical: spacing.xxs,
-    borderRadius: radius.lg,
-  },
-  prepBadgeText: {
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  prepContainer: {
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: radius.md,
-    padding: spacing.sm,
-    gap: spacing.xs,
-    marginTop: spacing.xs,
-  },
-  prepTitle: {
-    fontWeight: '600',
-    color: colors.text,
-  },
-  prepSubtitle: {
-    color: colors.muted,
-    fontSize: 12,
-  },
-  prepRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: spacing.xs,
-  },
-  chip: {
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 6,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  chipSelected: {
-    backgroundColor: colors.primaryStrong,
-    borderColor: colors.primaryStrong,
-  },
-  chipText: {
-    color: colors.text,
-    fontWeight: '600',
-  },
-  chipTextSelected: {
-    color: '#fff',
-  },
-  scopeChip: {
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 6,
-    borderRadius: radius.md,
-    borderWidth: 1,
-    borderColor: colors.border,
-    flexGrow: 1,
-  },
-  scopeChipSelected: {
-    backgroundColor: `${colors.primaryStrong}11`,
-    borderColor: colors.primaryStrong,
-  },
-  scopeChipText: {
-    textAlign: 'center',
-    color: colors.text,
-    fontWeight: '500',
-  },
-  scopeChipTextSelected: {
-    color: colors.primaryStrong,
-  },
-  prepStatus: {
-    alignSelf: 'flex-start',
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 2,
-    borderRadius: radius.md,
-    backgroundColor: colors.overlay,
-    fontSize: 12,
-    fontWeight: '600',
-    color: colors.text,
-  },
-  prepError: {
-    color: colors.danger,
-    fontSize: 12,
-  },
-  prepSummary: {
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: radius.md,
-    padding: spacing.sm,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    marginTop: spacing.xs,
-  },
-  prepButtonRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: spacing.xs,
   },
   secondaryButton: {
     flexGrow: 1,
@@ -621,5 +598,69 @@ const styles = StyleSheet.create({
     color: colors.muted,
     textAlign: 'center',
     paddingHorizontal: spacing.lg,
+  },
+  modalBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(21, 25, 32, 0.4)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: spacing.lg,
+  },
+  modalCard: {
+    width: '100%',
+    maxWidth: 380,
+    backgroundColor: colors.card,
+    borderRadius: radius.lg,
+    padding: spacing.lg,
+    gap: spacing.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    ...shadow.card,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: colors.text,
+  },
+  modalClose: {
+    padding: spacing.xs,
+    borderRadius: radius.md,
+  },
+  modalSubtitle: {
+    color: colors.muted,
+  },
+  ratingRow: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+  },
+  ratingStar: {
+    padding: spacing.xs,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  ratingStarActive: {
+    backgroundColor: `${colors.primaryStrong}14`,
+    borderColor: colors.primaryStrong,
+  },
+  reviewInput: {
+    minHeight: 80,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: spacing.md,
+    backgroundColor: colors.surface,
+    color: colors.text,
+    textAlignVertical: 'top',
+  },
+  modalActions: {
+    flexDirection: 'row',
+    gap: spacing.sm,
+    justifyContent: 'flex-end',
   },
 });

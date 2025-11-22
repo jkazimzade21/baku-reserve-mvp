@@ -5,7 +5,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator
 
-from .validators import normalize_display_name, normalize_phone, normalize_prep_items
+from .validators import normalize_display_name, normalize_phone
 
 
 # --- Tables & floorplan (string IDs so our demo IDs work) ---
@@ -39,6 +39,8 @@ class RestaurantListItem(BaseModel):
     tags: list[str] = Field(default_factory=list)
     tag_groups: dict[str, list[str]] | None = None
     average_spend: str | None = None
+    rating: float | None = None
+    reviews_count: int = 0
 
 
 class Restaurant(BaseModel):
@@ -69,6 +71,8 @@ class Restaurant(BaseModel):
     dress_code: str | None = None
     experiences: list[str] = Field(default_factory=list)
     areas: list[Area] = Field(default_factory=list)
+    rating: float | None = None
+    reviews_count: int = 0
 
 
 # --- Reservations ---
@@ -139,13 +143,7 @@ class Reservation(BaseModel):
     guest_name: str
     guest_phone: str | None = None
     table_id: str | None = None
-    status: Literal["booked", "cancelled"] = "booked"
-    prep_eta_minutes: int | None = None
-    prep_request_time: datetime | None = None
-    prep_items: list[str] | None = None
-    prep_scope: Literal["starters", "full"] | None = None
-    prep_status: Literal["pending", "accepted", "rejected"] | None = None
-    prep_policy: str | None = None
+    status: Literal["pending", "booked", "cancelled", "arrived", "no_show"] = "booked"
 
     @field_validator("guest_name")
     @classmethod
@@ -157,7 +155,12 @@ class Reservation(BaseModel):
     def _res_guest_phone(cls, value: str | None) -> str | None:
         return normalize_phone(value)
 
-    @field_validator("prep_items", mode="before")
-    @classmethod
-    def _prep_items(cls, value):  # type: ignore[override]
-        return normalize_prep_items(value)
+
+class Review(BaseModel):
+    id: str
+    reservation_id: str
+    restaurant_id: str
+    rating: int = Field(ge=1, le=5)
+    comment: str | None = None
+    guest_name: str | None = None
+    created_at: datetime

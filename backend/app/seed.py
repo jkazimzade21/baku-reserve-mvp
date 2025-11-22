@@ -1,4 +1,4 @@
-from .schemas import Area, Restaurant, Table
+from .contracts import Area, Restaurant, Table
 from .storage import DB
 
 

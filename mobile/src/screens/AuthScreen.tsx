@@ -52,7 +52,7 @@ export default function AuthScreen() {
       <View style={styles.container}>
         <Text style={styles.title}>Sign in to Baku Reserve</Text>
         <Text style={styles.subtitle}>
-          Securely access your reservations, notifications, and concierge perks.
+          Securely access your reservations and notifications.
         </Text>
 
         <View style={styles.modeSwitch}>

@@ -1,29 +1,22 @@
 from __future__ import annotations
 
-from datetime import UTC, datetime
 from typing import Any
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
+from pydantic import BaseModel, Field
 
 from ...auth import require_auth
-from ...contracts import (
-    Reservation,
-    ReservationCreate,
-)
-from ...schemas import PreorderConfirmRequest, PreorderQuoteResponse, PreorderRequest
+from ...contracts import Reservation, ReservationCreate, Review
 from ...storage import DB
-from ..utils import (
-    build_prep_plan,
-    ensure_prep_feature_enabled,
-    ensure_reservation_owner,
-    notify_restaurant,
-    rec_to_reservation,
-    require_active_reservation,
-    sanitize_items,
-)
+from ..utils import ensure_reservation_owner, rec_to_reservation
 
 router = APIRouter(tags=["reservations"])
+
+
+class ReviewCreate(BaseModel):
+    rating: int = Field(ge=1, le=5)
+    comment: str | None = Field(default=None, max_length=1000)
 
 
 def _scope_tokens(claims: dict[str, Any]) -> set[str]:
@@ -106,42 +99,50 @@ async def hard_delete_reservation(resid: UUID, claims: dict[str, Any] = Depends(
     return rec_to_reservation(record)
 
 
-@router.post("/reservations/{resid}/preorder/quote", response_model=PreorderQuoteResponse)
-async def preorder_quote(
-    resid: UUID, payload: PreorderRequest, claims: dict[str, Any] = Depends(require_auth)
-):
-    ensure_prep_feature_enabled()
+@router.post("/reservations/{resid}/arrive", response_model=Reservation)
+async def mark_arrived(resid: UUID, claims: dict[str, Any] = Depends(require_auth)):
     is_admin = _is_reservations_admin(claims)
     owner_id = _owner_id_from_claims(claims)
-    record = await require_active_reservation(str(resid), owner_id=owner_id, allow_admin=is_admin)
-    recommended, policy = build_prep_plan(record, payload.scope, payload.minutes_away)
-    return PreorderQuoteResponse(policy=policy, recommended_prep_minutes=recommended)
-
-
-@router.post("/reservations/{resid}/preorder/confirm", response_model=Reservation)
-async def preorder_confirm(
-    resid: UUID, payload: PreorderConfirmRequest, claims: dict[str, Any] = Depends(require_auth)
-):
-    ensure_prep_feature_enabled()
-    is_admin = _is_reservations_admin(claims)
-    owner_id = _owner_id_from_claims(claims)
-    record = await require_active_reservation(str(resid), owner_id=owner_id, allow_admin=is_admin)
-    _, policy = build_prep_plan(record, payload.scope, payload.minutes_away)
-    items = sanitize_items(payload.normalized_items)
-    now = datetime.now(UTC)
-    updated = await DB.update_reservation(
-        str(resid),
-        prep_eta_minutes=payload.minutes_away,
-        prep_scope=payload.scope,
-        prep_request_time=now,
-        prep_items=items,
-        prep_status="accepted",
-        prep_policy=policy,
-    )
-    if not updated:
+    ensure_reservation_owner(await DB.get_reservation(str(resid)), owner_id, is_admin)
+    record = await DB.set_status(str(resid), "arrived")
+    if not record:
         raise HTTPException(404, "Reservation not found")
-    notify_restaurant(
-        updated,
-        {"minutes_away": payload.minutes_away, "scope": payload.scope, "items": items or []},
-    )
-    return rec_to_reservation(updated)
+    return rec_to_reservation(record)
+
+
+@router.post("/reservations/{resid}/no-show", response_model=Reservation)
+async def mark_no_show(resid: UUID, claims: dict[str, Any] = Depends(require_auth)):
+    is_admin = _is_reservations_admin(claims)
+    owner_id = _owner_id_from_claims(claims)
+    ensure_reservation_owner(await DB.get_reservation(str(resid)), owner_id, is_admin)
+    record = await DB.set_status(str(resid), "no_show")
+    if not record:
+        raise HTTPException(404, "Reservation not found")
+    return rec_to_reservation(record)
+
+
+@router.get("/reservations/{resid}/review", response_model=Review)
+async def get_review(resid: UUID, claims: dict[str, Any] = Depends(require_auth)):
+    is_admin = _is_reservations_admin(claims)
+    owner_id = _owner_id_from_claims(claims)
+    ensure_reservation_owner(await DB.get_reservation(str(resid)), owner_id, is_admin)
+    review = await DB.get_review_for_reservation(str(resid))
+    if not review:
+        raise HTTPException(404, "Review not found")
+    return review
+
+
+@router.post("/reservations/{resid}/review", response_model=Review, status_code=201)
+async def submit_review(
+    resid: UUID, payload: ReviewCreate, claims: dict[str, Any] = Depends(require_auth)
+):
+    is_admin = _is_reservations_admin(claims)
+    owner_id = _owner_id_from_claims(claims)
+    ensure_reservation_owner(await DB.get_reservation(str(resid)), owner_id, is_admin)
+    try:
+        review = await DB.create_review(
+            str(resid), owner_id=owner_id if not is_admin else None, rating=payload.rating, comment=payload.comment
+        )
+    except HTTPException:
+        raise
+    return review

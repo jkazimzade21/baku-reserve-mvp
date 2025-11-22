@@ -15,10 +15,7 @@ import ReservationsScreen from './src/screens/ReservationsScreen';
 import ProfileScreen from './src/screens/ProfileScreen';
 import RestaurantScreen from './src/screens/RestaurantScreen';
 import BookScreen from './src/screens/BookScreen';
-import SeatPicker from './src/screens/SeatPicker';
-import PrepNotifyScreen from './src/screens/PrepNotifyScreen';
 import AuthScreen from './src/screens/AuthScreen';
-import ConciergeScreen from './src/screens/ConciergeScreen';
 import RestaurantCollectionScreen from './src/screens/RestaurantCollectionScreen';
 import { colors } from './src/config/theme';
 import { MainTabParamList, RootStackParamList } from './src/types/navigation';
@@ -35,16 +32,15 @@ const resolvedSentryDsn =
   process.env.EXPO_PUBLIC_SENTRY_DSN ||
   DEFAULT_SENTRY_DSN;
 
-if (resolvedSentryDsn) {
-  Sentry.init({
-    dsn: resolvedSentryDsn,
-    enableInExpoDevelopment: true,
-    debug: false,
-    tracesSampleRate: 1.0,
-  });
+  if (resolvedSentryDsn) {
+    Sentry.init({
+      dsn: resolvedSentryDsn,
+      enableInExpoDevelopment: true,
+      debug: false,
+      tracesSampleRate: 1.0,
+    });
 
   if (Sentry.Native?.setTag) {
-    Sentry.Native.setTag('concierge.mode', process.env.EXPO_PUBLIC_CONCIERGE_MODE ?? 'ai');
     Sentry.Native.setTag('runtime', 'expo-dev');
   }
 }
@@ -123,9 +119,6 @@ function RootNavigator() {
         <Stack.Screen name="Restaurant" component={RestaurantScreen} options={{ title: 'Restaurant' }} />
         <Stack.Screen name="RestaurantCollection" component={RestaurantCollectionScreen} options={{ title: 'Collections' }} />
         <Stack.Screen name="Book" component={BookScreen} options={{ title: 'Book a Table' }} />
-        <Stack.Screen name="SeatPicker" component={SeatPicker} options={{ title: 'Choose Table' }} />
-        <Stack.Screen name="PrepNotify" component={PrepNotifyScreen} options={{ title: 'On My Way' }} />
-        <Stack.Screen name="Concierge" component={ConciergeScreen} options={{ title: 'Concierge' }} />
         <Stack.Screen
           name="Auth"
           component={AuthScreen}

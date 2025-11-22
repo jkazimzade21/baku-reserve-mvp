@@ -2,7 +2,7 @@
   "name": "baku-reserve",
   "version": "1.0.0",
   "description": "This workspace contains the FastAPI backend, Expo/React Native mobile client, and support tooling (scripts + photo processors) that power the Baku Reserve demo.",
-  "main": "index.js",
+  "main": "mobile/index.ts",
   "directories": {
     "doc": "docs"
   },
@@ -15,10 +15,15 @@
   "license": "ISC",
   "dependencies": {
     "dayjs": "^1.11.13",
+    "expo": "^54.0.25",
     "puppeteer": "^24.29.1",
+    "react-dom": "19.1.0",
+    "react-native-web": "^0.21.0",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "js-yaml": "4.1.1"
+    "@types/react": "~19.1.10",
+    "js-yaml": "4.1.1",
+    "typescript": "~5.9.2"
   }
 }

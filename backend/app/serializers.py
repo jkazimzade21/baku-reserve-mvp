@@ -50,6 +50,8 @@ def restaurant_to_list_item(r: Any, request: Request | None = None) -> dict[str,
         "tags": list(get_attr(r, "tags", []) or []),
         "tag_groups": get_attr(r, "tag_groups") or {},
         "average_spend": get_attr(r, "average_spend"),
+        "rating": float(get_attr(r, "rating", 0.0) or 0.0),
+        "reviews_count": int(get_attr(r, "reviews_count", 0) or 0),
     }
 
 
@@ -132,6 +134,8 @@ def restaurant_to_detail(r: Any, request: Request | None = None) -> dict[str, An
         "average_spend": get_attr(r, "average_spend"),
         "dress_code": get_attr(r, "dress_code"),
         "experiences": list(get_attr(r, "experiences", []) or []),
+        "rating": float(get_attr(r, "rating", 0.0) or 0.0),
+        "reviews_count": int(get_attr(r, "reviews_count", 0) or 0),
         "areas": areas,
     }
     photos = payload.get("photos") or []

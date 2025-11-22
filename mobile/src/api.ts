@@ -10,31 +10,9 @@ import type {
 type ExtraConfig = {
   apiUrl?: string;
   API_URL?: string;
-  conciergeMode?: string;
-  CONCIERGE_MODE?: string;
 };
 
 export type RestaurantSummary = ApiRestaurantSummary;
-
-export type ConciergeMode = 'local' | 'ai' | 'ab';
-
-export type ConciergeResponse = {
-  results: RestaurantSummary[];
-  match_reason: Record<string, string[]>;
-  explanations?: Record<string, string>;
-  mode?: ConciergeMode;
-};
-
-export type ConciergeHealthStatus = {
-  status: 'unknown' | 'healthy' | 'degraded';
-  updated_at?: string | null;
-  detail?: string | null;
-};
-
-export type ConciergeHealth = {
-  embeddings: ConciergeHealthStatus;
-  llm: ConciergeHealthStatus;
-};
 
 export type TableGeometry = {
   position?: [number, number];
@@ -96,31 +74,14 @@ export type Reservation = ApiReservation;
 
 export type ReservationPayload = ApiReservationPayload;
 
-export type FeatureFlags = {
-  prep_notify_enabled: boolean;
-  availabilitySignals?: boolean;
-  concierge_home_link?: boolean;
-  payments_mode: 'mock' | 'live' | string;
-  payment_provider: 'mock' | 'paymentwall' | 'azericard' | string;
-  currency: string;
-  ui?: {
-    homeConciergeLink?: boolean;
-    availabilitySignals?: boolean;
-  };
-  experiments?: {
-    homeHeroSwap?: boolean;
-  };
-};
-
-export type PreorderRequestPayload = {
-  minutes_away: number;
-  scope: 'starters' | 'full';
-  items?: string[];
-};
-
-export type PreorderQuoteResponse = {
-  policy: string;
-  recommended_prep_minutes: number;
+export type Review = {
+  id: string;
+  reservation_id: string;
+  restaurant_id: string;
+  rating: number;
+  comment?: string | null;
+  guest_name?: string | null;
+  created_at?: string | null;
 };
 
 export type AccountProfile = {
@@ -255,12 +216,6 @@ const buildApiUrl = (path: string) => {
 
 export const API_URL = resolveApiBaseUrl();
 
-const rawConciergeMode = (extra.conciergeMode || extra.CONCIERGE_MODE || '').toLowerCase();
-export const CONCIERGE_MODE: ConciergeMode =
-  rawConciergeMode === 'local' || rawConciergeMode === 'ab' || rawConciergeMode === 'ai'
-    ? (rawConciergeMode as ConciergeMode)
-    : 'ai';
-
 let authToken: string | null = null;
 
 export function setAuthToken(token: string | null) {
@@ -327,63 +282,41 @@ export async function fetchReservationsList() {
   return handleResponse<Reservation[]>(res, 'Failed to fetch reservations');
 }
 
-export async function fetchFeatureFlags() {
-  const res = await fetch(buildApiUrl('/config/features'), { headers: withAuth() });
-  return handleResponse<FeatureFlags>(res, 'Failed to load feature configuration');
+export async function cancelReservation(reservationId: string) {
+  const res = await fetch(buildApiUrl(`/reservations/${reservationId}/cancel`), {
+    method: 'POST',
+    headers: withAuth(),
+  });
+  return handleResponse<Reservation>(res, 'Unable to cancel reservation');
 }
 
-export async function getPreorderQuote(reservationId: string, payload: PreorderRequestPayload) {
-  const res = await fetch(buildApiUrl(`/reservations/${reservationId}/preorder/quote`), {
+export async function markArrived(reservationId: string) {
+  const res = await fetch(buildApiUrl(`/reservations/${reservationId}/arrive`), {
+    method: 'POST',
+    headers: withAuth(),
+  });
+  return handleResponse<Reservation>(res, 'Unable to mark arrival');
+}
+
+export async function markNoShow(reservationId: string) {
+  const res = await fetch(buildApiUrl(`/reservations/${reservationId}/no-show`), {
+    method: 'POST',
+    headers: withAuth(),
+  });
+  return handleResponse<Reservation>(res, 'Unable to mark no-show');
+}
+
+export async function submitReview(reservationId: string, payload: { rating: number; comment?: string }) {
+  const res = await fetch(buildApiUrl(`/reservations/${reservationId}/review`), {
     method: 'POST',
     headers: withAuth({ 'Content-Type': 'application/json' }),
     body: JSON.stringify(payload),
   });
-  return handleResponse<PreorderQuoteResponse>(res, 'Feature currently unavailable.');
+  return handleResponse<Review>(res, 'Unable to submit review');
 }
 
-export async function confirmPreorder(reservationId: string, payload: PreorderRequestPayload) {
-  const res = await fetch(buildApiUrl(`/reservations/${reservationId}/preorder/confirm`), {
-    method: 'POST',
-    headers: withAuth({ 'Content-Type': 'application/json' }),
-    body: JSON.stringify(payload),
-  });
-  return handleResponse<Reservation>(res, 'Unable to notify the kitchen. Please try again.');
-}
-
-type ConciergeRequestOptions = {
-  limit?: number;
-  mode?: ConciergeMode;
-  lang?: 'en' | 'az' | 'ru';
-};
-
-export async function fetchConciergeRecommendations(
-  prompt: string,
-  options?: ConciergeRequestOptions,
-) {
-  const payload: { prompt: string; limit: number; lang?: 'en' | 'az' | 'ru' } = {
-    prompt,
-    limit: Math.min(12, Math.max(1, options?.limit ?? 4)),
-  };
-  if (options?.lang) {
-    payload.lang = options.lang;
-  }
-  const params = new URLSearchParams();
-  if (options?.mode) {
-    params.set('mode', options.mode);
-  }
-  const endpoint =
-    params.toString().length > 0
-      ? `${buildApiUrl('/concierge/recommendations')}?${params.toString()}`
-      : buildApiUrl('/concierge/recommendations');
-  const res = await fetch(endpoint, {
-    method: 'POST',
-    headers: withAuth({ 'Content-Type': 'application/json' }),
-    body: JSON.stringify(payload),
-  });
-  return handleResponse<ConciergeResponse>(res, 'Concierge is momentarily unavailable.');
-}
-
-export async function fetchConciergeHealth() {
-  const res = await fetch(buildApiUrl('/concierge/health'), { headers: withAuth() });
-  return handleResponse<ConciergeHealth>(res, 'Unable to load concierge health state');
+export async function fetchReviews(restaurantId: string, limit = 20) {
+  const url = `${buildApiUrl(`/restaurants/${restaurantId}/reviews`)}?limit=${limit}`;
+  const res = await fetch(url, { headers: withAuth() });
+  return handleResponse<Review[]>(res, 'Failed to load reviews');
 }

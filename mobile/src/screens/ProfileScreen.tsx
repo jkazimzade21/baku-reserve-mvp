@@ -51,14 +51,14 @@ export default function ProfileScreen() {
               <Text style={styles.heroName}>{displayName}</Text>
               <Text style={styles.heroMeta}>{displayEmail}</Text>
               <Text style={styles.heroSubtitle}>
-                Manage preferences, notifications, and concierge access for faster bookings.
+                Manage preferences, notifications, and your booking details in one place.
               </Text>
             </View>
           </View>
           <View style={styles.heroActions}>
             <Pressable style={styles.heroActionButton} onPress={contactSupport}>
               <Feather name="headphones" size={16} color={colors.primaryStrong} />
-              <Text style={styles.heroActionText}>Message concierge</Text>
+              <Text style={styles.heroActionText}>Contact support</Text>
             </Pressable>
             <Pressable style={styles.heroActionButton} onPress={() => setAutoAddCalendar(true)}>
               <Feather name="calendar" size={16} color={colors.primaryStrong} />
@@ -106,7 +106,7 @@ export default function ProfileScreen() {
           <View style={styles.row}>
             <View style={styles.rowCopy}>
               <Text style={styles.rowTitle}>Push updates</Text>
-              <Text style={styles.rowSubtitle}>Seat releases, reminders, and concierge messages.</Text>
+              <Text style={styles.rowSubtitle}>Seat releases, reminders, and booking updates.</Text>
             </View>
             <Switch
               value={pushNotifications}
@@ -131,20 +131,13 @@ export default function ProfileScreen() {
 
 
         <Surface tone="overlay" padding="lg" style={styles.section}>
-          <Text style={styles.sectionTitle}>Concierge & support</Text>
+          <Text style={styles.sectionTitle}>Support</Text>
           <View style={styles.row}>
             <View style={styles.rowCopy}>
-              <Text style={styles.rowTitle}>Priority concierge</Text>
+              <Text style={styles.rowTitle}>Need help?</Text>
               <Text style={styles.rowSubtitle}>
-                Need a rare table? Reply to any confirmation email and our team will call within 10 minutes.
+                Reply to any confirmation email or tap below and our team will follow up quickly.
               </Text>
-            </View>
-            <Feather name="message-circle" size={18} color={colors.primaryStrong} />
-          </View>
-          <View style={styles.row}>
-            <View style={styles.rowCopy}>
-              <Text style={styles.rowTitle}>Chat with support</Text>
-              <Text style={styles.rowSubtitle}>We answer daily from 10:00 – 02:00 (including weekends).</Text>
             </View>
             <Feather name="mail" size={18} color={colors.primaryStrong} onPress={contactSupport} />
           </View>

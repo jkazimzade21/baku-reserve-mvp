@@ -81,27 +81,6 @@ pull the same curated imagery.
 - Live ETA, GPS/location sharing, and external routing providers have been removed.
   The Prep Notify flow now operates without any map integrations.
 
-### Concierge AI
-
-- The `/v1/concierge/recommendations` endpoint now runs a full retrieval +
-  generation pipeline. Set the following in `.env` to enable true AI mode:
-  ```env
-  OPENAI_API_KEY=sk-...
-  CONCIERGE_MODE=ai
-  CONCIERGE_GPT_MODEL=gpt-4o-mini
-  CONCIERGE_EMBED_MODEL=text-embedding-3-small
-  CONCIERGE_SUMMARY_MODEL=gpt-4o-mini
-  ```
-- Restaurant features are embedded once at startup; every query is embedded,
-  filtered, and scored before the LLM writes a short explanation per match.
-  Responses now include both `match_reason` (structured chips) and
-  `explanations` (1–2 sentence rationales).
-- If the OpenAI key is missing or the API fails, FastAPI automatically falls back
-  to the on-device semantic recommender and the mobile UI clearly labels the card
-  as “Concierge fallback” instead of “Friendly AI”.
-- You can still force legacy behaviour by setting `CONCIERGE_MODE=local` in `.env`
-  and `EXPO_PUBLIC_CONCIERGE_MODE=local` before launching the Expo client.
-
 ### Mobile (Expo / React Native)
 
 ```bash
@@ -125,23 +104,6 @@ falls back to API-provided URLs.
   (Context → Search → single hero → optional bookings/events), while Explore starts with the
   Concierge card, Trending carousel, Events (when data exists), and a compact “Browse by vibe”
   grid. “See all” routes use the `RestaurantCollection` stack screen.
-- Ethical urgency (“Almost full”) appears only when the backend sets
-  `features.availabilitySignals` and the live availability API reports <20% capacity.
-- Feature toggles: `ui.homeConciergeLink` (optional concierge link on Home),
-  `experiments.homeHeroSwap` (swap hero row order). Keep these documented in
-  `mobile/README_CHANGES.md` when proposing changes.
-- Restaurant data now hydrates once via `RestaurantDirectoryProvider`, so all tabs share a single
-  fetch and hero rows sample 10–15 real venues (no placeholder cards).
-
-### Pre-arrival food prep (On My Way)
-
-- Copy `.env.example` to `.env` and set `PREP_NOTIFY_ENABLED=true` to surface the new
-  preorder quote/confirm endpoints. Leave it `false` to keep the feature hidden.
-- Payments default to the mock provider (`PAYMENTS_MODE=mock`, `PAYMENT_PROVIDER=mock`).
-  Swap `PAYMENT_PROVIDER` to `paymentwall` or `azericard` once those integrations are
-  implemented; no deposits are charged in the current build.
-- Prep notifications now rely solely on manual lead time; live location/ETA sharing has been
-  removed.
 
 ### Curated Instagram Photo Pipeline
 

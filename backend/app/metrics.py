@@ -179,16 +179,6 @@ cache_expirations_total = Counter(
 )
 
 # ==============================================================================
-# CONCIERGE METRICS
-# ==============================================================================
-
-concierge_component_health = Gauge(
-    "concierge_component_health",
-    "Health of concierge dependencies (1=healthy, 0=degraded)",
-    ["component"],
-)
-
-# ==============================================================================
 # RESERVATION METRICS
 # ==============================================================================
 
@@ -260,28 +250,6 @@ db_operation_duration_seconds = Histogram(
     "Database operation duration in seconds",
     ["operation"],
     buckets=(0.001, 0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1.0),
-)
-
-# ==============================================================================
-# BUSINESS METRICS
-# ==============================================================================
-
-prep_notify_requests_total = Counter(
-    "prep_notify_requests_total",
-    "Total prep notify requests",
-    ["scope", "status"],
-)
-
-arrival_intent_requests_total = Counter(
-    "arrival_intent_requests_total",
-    "Total arrival intent requests",
-    ["action"],
-)
-
-location_pings_total = Counter(
-    "location_pings_total",
-    "Total location ping requests",
-    ["throttled"],
 )
 
 # ==============================================================================
@@ -437,5 +405,4 @@ __all__ = [
     "track_circuit_breaker_metrics",
     "track_cache_metrics",
     "normalize_endpoint",
-    "concierge_component_health",
 ]

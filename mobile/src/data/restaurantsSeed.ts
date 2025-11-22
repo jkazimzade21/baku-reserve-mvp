@@ -5,19 +5,25 @@ import type { RestaurantSummary } from '../api';
 export const RESTAURANT_SEED: RestaurantSummary[] =
 [
   {
-    "id": "fc34a984-0b39-4f0a-afa2-5b677c61f044",
     "name": "Sahil Bar & Restaurant",
+    "slug": "sahil",
+    "id": "fc34a984-0b39-4f0a-afa2-5b677c61f044",
     "cuisine": [
       "Azerbaijani",
       "Seafood"
     ],
-    "city": "Baku",
-    "slug": "sahil",
-    "cover_photo": "/assets/restaurants/sahil/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Seaside Boulevard",
     "address": "34 Neftchilar Ave, Seaside Boulevard, Baku",
+    "phone": "+994 12 404 82 12",
+    "photos": [
+      "/assets/restaurants/sahil/1.jpg",
+      "/assets/restaurants/sahil/2.jpg",
+      "/assets/restaurants/sahil/3.jpg",
+      "/assets/restaurants/sahil/4.jpg",
+      "/assets/restaurants/sahil/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/sahil/1.jpg",
     "short_description": "Waterfront seafood platters, grills, and Caspian sunsets on the boulevard promenade.",
+    "neighborhood": "Seaside Boulevard",
     "price_level": "AZN 3/4",
     "tags": [
       "elegant",
@@ -33,23 +39,408 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "trendy",
       "waterfront"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.369683,
+    "longitude": 49.845642,
+    "menu_url": "https://sahil.az/menu",
+    "instagram": "https://www.instagram.com/sahilrestaurantbaku/",
+    "whatsapp": "+994515001122",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-sahil-main",
+        "name": "Main Hall",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(224, 174, 120, 0.18)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "lm-kitchen",
+            "label": "Show Kitchen",
+            "type": "kitchen",
+            "position": [
+              82,
+              18
+            ],
+            "footprint": [
+              [
+                76,
+                14
+              ],
+              [
+                90,
+                14
+              ],
+              [
+                90,
+                26
+              ],
+              [
+                76,
+                26
+              ]
+            ]
+          },
+          {
+            "id": "lm-bar",
+            "label": "Champagne Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "e5c360cf-31df-4276-841e-8cd720b5942c",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "featured": true,
+            "rotation": 12,
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "cc67ebfe-9fad-427f-87c1-d591304fcce5",
+            "name": "T2",
+            "capacity": 2,
+            "position": [
+              38,
+              30
+            ],
+            "shape": "circle",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "rotation": -4,
+            "footprint": [
+              [
+                36,
+                28
+              ],
+              [
+                40,
+                28
+              ],
+              [
+                40,
+                32
+              ],
+              [
+                36,
+                32
+              ]
+            ]
+          },
+          {
+            "id": "40ec9ced-a11f-4009-899c-7b2d4216dea3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              58,
+              34
+            ],
+            "shape": "booth",
+            "tags": [
+              "window",
+              "accessible"
+            ],
+            "noise_level": "medium",
+            "rotation": 8,
+            "footprint": [
+              [
+                54,
+                30
+              ],
+              [
+                62,
+                30
+              ],
+              [
+                62,
+                38
+              ],
+              [
+                54,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "b79563ac-0f21-4b3a-9b50-c2b6ba2a3b18",
+            "name": "T4",
+            "capacity": 4,
+            "position": [
+              36,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                32,
+                56
+              ],
+              [
+                40,
+                56
+              ],
+              [
+                40,
+                64
+              ],
+              [
+                32,
+                64
+              ]
+            ]
+          },
+          {
+            "id": "9e5f3998-67d7-4a81-a816-109aec7bdeec",
+            "name": "T5",
+            "capacity": 6,
+            "position": [
+              60,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "featured": true,
+            "footprint": [
+              [
+                54,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                54,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-sahil-terrace",
+        "name": "Caspian Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(255, 210, 155, 0.24)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "lm-fire",
+            "label": "Fire Pit",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "sahil-ter-1",
+            "name": "Terrace 1",
+            "capacity": 4,
+            "position": [
+              22,
+              38
+            ],
+            "shape": "rect",
+            "tags": [
+              "sunset",
+              "accessible"
+            ],
+            "noise_level": "low",
+            "rotation": -6,
+            "footprint": [
+              [
+                18,
+                34
+              ],
+              [
+                26,
+                34
+              ],
+              [
+                26,
+                42
+              ],
+              [
+                18,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "sahil-ter-2",
+            "name": "Terrace 2",
+            "capacity": 6,
+            "position": [
+              52,
+              42
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                46,
+                36
+              ],
+              [
+                58,
+                36
+              ],
+              [
+                58,
+                48
+              ],
+              [
+                46,
+                48
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3657,49.837",
+    "call_url": "tel:+994124048212",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "azerbaijani",
+        "seafood"
+      ],
+      "vibe": [
+        "elegant",
+        "trendy"
+      ],
+      "features": [
+        "terrace",
+        "sea_view",
+        "wine_bar"
+      ],
+      "view": [
+        "sea_view"
+      ],
+      "area": [
+        "seaside_boulevard"
+      ]
+    }
   },
   {
-    "id": "a20bb41e-4dad-513b-afb0-9eadc54e02a4",
     "name": "Sumakh Restaurant",
+    "slug": "sumakh",
     "cuisine": [
       "Azerbaijani",
       "Contemporary"
     ],
-    "city": "Baku",
-    "slug": "sumakh",
-    "cover_photo": "/assets/restaurants/sumakh/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Khatai",
     "address": "20/22 Khojali Ave, Khatai, Baku",
+    "phone": "+994 12 310 02 20",
+    "photos": [
+      "/assets/restaurants/sumakh/1.jpg",
+      "/assets/restaurants/sumakh/2.jpg",
+      "/assets/restaurants/sumakh/3.jpg",
+      "/assets/restaurants/sumakh/4.jpg",
+      "/assets/restaurants/sumakh/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/sumakh/1.jpg",
     "short_description": "Refined Azerbaijani classics with fire-roasted meats and pomegranate accents.",
+    "neighborhood": "Khatai",
     "price_level": "AZN 3/4",
     "tags": [
       "azerbaijani",
@@ -63,23 +454,285 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "wine_bar",
       "book_early"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 65–115 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.381974,
+    "longitude": 49.868534,
+    "menu_url": "https://sumakh.az/menu",
+    "instagram": "https://www.instagram.com/sumakhrestaurant/",
+    "average_spend": "AZN 65–115 per guest",
+    "dress_code": "Smart elegant",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "sumakh-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#D9B99B"
+        },
+        "landmarks": [
+          {
+            "id": "sumakh-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "sumakh-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "sumakh-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "sumakh-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "sumakh-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "sumakh-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "sumakh-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#D9B99B"
+        },
+        "landmarks": [
+          {
+            "id": "sumakh-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "sumakh-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "sumakh-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "sumakh-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "sumakh-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "sumakh-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "a20bb41e-4dad-513b-afb0-9eadc54e02a4",
+    "directions_url": "https://maps.google.com/?q=40.3707,49.8559",
+    "call_url": "tel:+994123100220",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "azerbaijani"
+      ],
+      "vibe": [
+        "elegant",
+        "romantic"
+      ],
+      "features": [
+        "wine_bar"
+      ],
+      "az_culture": [
+        "traditional_interior"
+      ],
+      "area": [
+        "khatai"
+      ]
+    }
   },
   {
-    "id": "77d967f4-1ef0-5011-9412-f31df58392cf",
     "name": "Chinar Dining",
+    "slug": "chinar",
     "cuisine": [
       "Pan-Asian",
       "Cocktail Lounge"
     ],
-    "city": "Baku",
-    "slug": "chinar",
-    "cover_photo": "/assets/restaurants/chinar/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Highland Park",
     "address": "1 Shovket Alakbarova St, Highland Park, Baku",
+    "phone": "+994 51 404 82 11",
+    "photos": [
+      "/assets/restaurants/chinar/1.jpg",
+      "/assets/restaurants/chinar/2.jpg",
+      "/assets/restaurants/chinar/3.jpg",
+      "/assets/restaurants/chinar/4.jpg",
+      "/assets/restaurants/chinar/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/chinar/1.jpg",
     "short_description": "Iconic pan-Asian dining and high-energy lounge beneath the Highland Park plane trees.",
+    "neighborhood": "Highland Park",
     "price_level": "AZN 4/4",
     "tags": [
       "mixology",
@@ -93,23 +746,285 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "pan_asian",
       "trendy"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 90–150 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3659,
+    "longitude": 49.8375,
+    "menu_url": "https://chinar-dining.az/menu",
+    "instagram": "https://www.instagram.com/chinardining/",
+    "average_spend": "AZN 90–150 per guest",
+    "dress_code": "Smart chic",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "chinar-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "chinar-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "chinar-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "chinar-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "chinar-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "chinar-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "chinar-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "chinar-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "chinar-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "chinar-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "chinar-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "chinar-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "chinar-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "chinar-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "77d967f4-1ef0-5011-9412-f31df58392cf",
+    "directions_url": "https://maps.google.com/?q=40.3659,49.8375",
+    "call_url": "tel:+994514048211",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "pan_asian"
+      ],
+      "vibe": [
+        "trendy"
+      ],
+      "features": [
+        "bar",
+        "terrace"
+      ],
+      "view": [
+        "city_view"
+      ],
+      "area": [
+        "funicular_area"
+      ]
+    }
   },
   {
-    "id": "173b0b00-829c-52ff-b87e-af395418e9b1",
     "name": "Shirvanshah Museum Restaurant",
+    "slug": "shirvanshah",
     "cuisine": [
       "Azerbaijani",
       "Heritage"
     ],
-    "city": "Baku",
-    "slug": "shirvanshah",
-    "cover_photo": "/assets/restaurants/shirvanshah/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Sabayil",
     "address": "86 Salatin Asgarova St, Baku",
+    "phone": "+994 12 595 09 01",
+    "photos": [
+      "/assets/restaurants/shirvanshah/1.jpg",
+      "/assets/restaurants/shirvanshah/2.jpg",
+      "/assets/restaurants/shirvanshah/3.jpg",
+      "/assets/restaurants/shirvanshah/4.jpg",
+      "/assets/restaurants/shirvanshah/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/shirvanshah/1.jpg",
     "short_description": "Dine inside a living museum of carpets, antiques, and Mugham performances.",
+    "neighborhood": "Sabayil",
     "price_level": "AZN 3/4",
     "tags": [
       "azerbaijani",
@@ -123,23 +1038,287 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "restaurant",
       "book_early"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 60–100 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3683,
+    "longitude": 49.8356,
+    "menu_url": "https://shirvanshah.az/menu",
+    "instagram": "https://www.instagram.com/shirvanshah_restaurant/",
+    "average_spend": "AZN 60–100 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "shirvanshah-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "shirvanshah-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "shirvanshah-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "shirvanshah-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "shirvanshah-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "shirvanshah-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "shirvanshah-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "shirvanshah-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "shirvanshah-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "shirvanshah-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "shirvanshah-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "shirvanshah-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "shirvanshah-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "shirvanshah-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "173b0b00-829c-52ff-b87e-af395418e9b1",
+    "directions_url": "https://maps.google.com/?q=40.3683,49.8356",
+    "call_url": "tel:+994125950901",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "azerbaijani"
+      ],
+      "vibe": [
+        "romantic",
+        "traditional_interior"
+      ],
+      "features": [
+        "live_music",
+        "tea_culture"
+      ],
+      "az_culture": [
+        "mugham_music",
+        "traditional_interior"
+      ],
+      "area": [
+        "fountains_square/old_city"
+      ]
+    }
   },
   {
-    "id": "4b5d8a1e-afc1-5bed-bc61-3b74be372a56",
     "name": "Dolma Restaurant",
+    "slug": "dolma",
     "cuisine": [
       "Azerbaijani",
       "Family Style"
     ],
-    "city": "Baku",
-    "slug": "dolma",
-    "cover_photo": "/assets/restaurants/dolma/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Fountain Square",
     "address": "53 Istiglaliyyat St, Fountain Square, Baku",
+    "phone": "+994 12 498 19 38",
+    "photos": [
+      "/assets/restaurants/dolma/1.jpg",
+      "/assets/restaurants/dolma/2.jpg",
+      "/assets/restaurants/dolma/3.jpg",
+      "/assets/restaurants/dolma/4.jpg",
+      "/assets/restaurants/dolma/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/dolma/1.jpg",
     "short_description": "Beloved cellar spot for hearty dolma platters and tandir bread straight from the oven.",
+    "neighborhood": "Fountain Square",
     "price_level": "AZN 2/4",
     "tags": [
       "azerbaijani",
@@ -152,23 +1331,282 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "comfort",
       "restaurant"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 35–55 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.369914,
+    "longitude": 49.836945,
+    "menu_url": "https://menu.az/en/dolma-restaurant",
+    "instagram": "https://www.instagram.com/dolma.restaurant/",
+    "average_spend": "AZN 35–55 per guest",
+    "dress_code": "Casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "dolma-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#D9B99B"
+        },
+        "landmarks": [
+          {
+            "id": "dolma-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "dolma-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "dolma-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "dolma-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "dolma-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "dolma-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "dolma-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#D9B99B"
+        },
+        "landmarks": [
+          {
+            "id": "dolma-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "dolma-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "dolma-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "dolma-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "dolma-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "dolma-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "4b5d8a1e-afc1-5bed-bc61-3b74be372a56",
+    "directions_url": "https://maps.google.com/?q=40.3698,49.8363",
+    "call_url": "tel:+994124981938",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "azerbaijani"
+      ],
+      "vibe": [
+        "cozy",
+        "family_friendly"
+      ],
+      "az_culture": [
+        "traditional_interior"
+      ],
+      "area": [
+        "fountains_square"
+      ]
+    }
   },
   {
-    "id": "4be8a017-0089-5866-92b2-4e5679ad4e05",
     "name": "Firuze Restaurant",
+    "slug": "firuze",
     "cuisine": [
       "Azerbaijani",
       "Traditional"
     ],
-    "city": "Baku",
-    "slug": "firuze",
-    "cover_photo": "/assets/restaurants/firuze/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Fountain Square",
     "address": "14 Tarlan Aliyarbeyov St, Fountain Square, Baku",
+    "phone": "+994 50 318 65 45",
+    "photos": [
+      "/assets/restaurants/firuze/1.jpg",
+      "/assets/restaurants/firuze/2.jpg",
+      "/assets/restaurants/firuze/3.jpg",
+      "/assets/restaurants/firuze/4.jpg",
+      "/assets/restaurants/firuze/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/firuze/1.jpg",
     "short_description": "Carpet-lined rooms, copper decor, and a menu spanning every regional plov.",
+    "neighborhood": "Fountain Square",
     "price_level": "AZN 2/4",
     "tags": [
       "azerbaijani",
@@ -181,23 +1619,282 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "restaurant",
       "book_early"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 40–65 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.370491,
+    "longitude": 49.837707,
+    "menu_url": "https://firuze.az/menu",
+    "instagram": "https://www.instagram.com/firuzerestoran/",
+    "average_spend": "AZN 40–65 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "firuze-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "firuze-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "firuze-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "firuze-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "firuze-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "firuze-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "firuze-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "firuze-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "firuze-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "firuze-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "firuze-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "firuze-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "firuze-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "firuze-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "4be8a017-0089-5866-92b2-4e5679ad4e05",
+    "directions_url": "https://maps.google.com/?q=40.3701,49.8358",
+    "call_url": "tel:+994503186545",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "azerbaijani"
+      ],
+      "vibe": [
+        "cozy",
+        "family_friendly"
+      ],
+      "az_culture": [
+        "traditional_interior"
+      ],
+      "area": [
+        "fountains_square"
+      ]
+    }
   },
   {
-    "id": "13edc326-a18c-5010-9651-891e8fa77fd9",
     "name": "Nergiz Restaurant",
+    "slug": "nergiz",
     "cuisine": [
       "Azerbaijani",
       "Garden"
     ],
-    "city": "Baku",
-    "slug": "nergiz",
-    "cover_photo": "/assets/restaurants/nergiz/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Fountain Square",
     "address": "9 Tarlan Aliyarbeyov St, Fountain Square, Baku",
+    "phone": "+994 50 547 65 45",
+    "photos": [
+      "/assets/restaurants/nergiz/1.jpg",
+      "/assets/restaurants/nergiz/2.jpg",
+      "/assets/restaurants/nergiz/3.jpg",
+      "/assets/restaurants/nergiz/4.jpg",
+      "/assets/restaurants/nergiz/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/nergiz/1.jpg",
     "short_description": "Cave-like arches, terracotta murals, and generous portions at this Fountain Square classic.",
+    "neighborhood": "Fountain Square",
     "price_level": "AZN 2/4",
     "tags": [
       "azerbaijani",
@@ -209,23 +1906,284 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "comfort",
       "restaurant"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 35–60 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3702,
+    "longitude": 49.8352,
+    "menu_url": "https://nergizrestoran.az/menu",
+    "instagram": "https://www.instagram.com/nergizrestoran/",
+    "average_spend": "AZN 35–60 per guest",
+    "dress_code": "Casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "nergiz-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "nergiz-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "nergiz-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "nergiz-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "nergiz-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "nergiz-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "nergiz-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "nergiz-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "nergiz-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "nergiz-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "nergiz-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "nergiz-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "nergiz-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "nergiz-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "13edc326-a18c-5010-9651-891e8fa77fd9",
+    "directions_url": "https://maps.google.com/?q=40.3702,49.8352",
+    "call_url": "tel:+994505476545",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "azerbaijani"
+      ],
+      "vibe": [
+        "cozy"
+      ],
+      "features": [
+        "late_night"
+      ],
+      "az_culture": [
+        "traditional_interior"
+      ],
+      "area": [
+        "fountains_square"
+      ]
+    }
   },
   {
-    "id": "07d62433-5290-5553-b74c-783b2d12e2c3",
     "name": "Shah Restaurant & Gallery",
+    "slug": "shah",
     "cuisine": [
       "Azerbaijani",
       "Fine Dining"
     ],
-    "city": "Baku",
-    "slug": "shah",
-    "cover_photo": "/assets/restaurants/shah/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Sabayil",
     "address": "25A Najafgulu Rafiyev St, Baku",
+    "phone": "+994 55 772 38 33",
+    "photos": [
+      "/assets/restaurants/shah/1.jpg",
+      "/assets/restaurants/shah/2.jpg",
+      "/assets/restaurants/shah/3.jpg",
+      "/assets/restaurants/shah/4.jpg",
+      "/assets/restaurants/shah/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/shah/1.jpg",
     "short_description": "Gallery-like interiors showcasing Azerbaijani art alongside modern shah plov and grills.",
+    "neighborhood": "Sabayil",
     "price_level": "AZN 3/4",
     "tags": [
       "azerbaijani",
@@ -239,23 +2197,286 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "wine_bar",
       "book_early"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–120 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1533777324565-a040eb52fac1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3655,
+    "longitude": 49.8297,
+    "menu_url": "https://shahrestaurant.az/menu",
+    "instagram": "https://www.instagram.com/shahrestaurant/",
+    "average_spend": "AZN 70–120 per guest",
+    "dress_code": "Smart elegant",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "shah-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "shah-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "shah-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "shah-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "shah-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "shah-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "shah-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "shah-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "shah-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "shah-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "shah-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "shah-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "shah-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "shah-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "07d62433-5290-5553-b74c-783b2d12e2c3",
+    "directions_url": "https://maps.google.com/?q=40.3655,49.8297",
+    "call_url": "tel:+994557723833",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "azerbaijani"
+      ],
+      "vibe": [
+        "elegant",
+        "romantic"
+      ],
+      "features": [
+        "live_music",
+        "wine_bar"
+      ],
+      "az_culture": [
+        "traditional_interior"
+      ],
+      "area": [
+        "khatai"
+      ]
+    }
   },
   {
-    "id": "fdb388a9-a4fc-5653-84d9-a8bf71345f01",
     "name": "Qala Divari",
+    "slug": "qaladivari",
     "cuisine": [
       "Azerbaijani",
       "Old City"
     ],
-    "city": "Baku",
-    "slug": "qaladivari",
-    "cover_photo": "/assets/restaurants/qaladivari/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Icherisheher",
     "address": "28 Kichik Gala St, Icherisheher, Baku",
+    "phone": "+994 50 555 50 51",
+    "photos": [
+      "/assets/restaurants/qaladivari/1.jpg",
+      "/assets/restaurants/qaladivari/2.jpg",
+      "/assets/restaurants/qaladivari/3.jpg",
+      "/assets/restaurants/qaladivari/4.jpg",
+      "/assets/restaurants/qaladivari/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/qaladivari/1.jpg",
     "short_description": "Old City terraces serving saj, tandir bread, and pomegranate-spiked kebabs.",
+    "neighborhood": "Icherisheher",
     "price_level": "AZN 2/4",
     "tags": [
       "azerbaijani",
@@ -268,23 +2489,285 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "european",
       "sunset"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 40–70 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.368509,
+    "longitude": 49.835139,
+    "menu_url": "https://qaladivari.az/menu",
+    "instagram": "https://www.instagram.com/qala_divari/",
+    "average_spend": "AZN 40–70 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "qaladivari-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#D9B99B"
+        },
+        "landmarks": [
+          {
+            "id": "qaladivari-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "qaladivari-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "qaladivari-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "qaladivari-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "qaladivari-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "qaladivari-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "qaladivari-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#D9B99B"
+        },
+        "landmarks": [
+          {
+            "id": "qaladivari-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "qaladivari-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "qaladivari-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "qaladivari-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "qaladivari-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "qaladivari-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "fdb388a9-a4fc-5653-84d9-a8bf71345f01",
+    "directions_url": "https://maps.google.com/?q=40.3668,49.8373",
+    "call_url": "tel:+994505555051",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "azerbaijani",
+        "european"
+      ],
+      "vibe": [
+        "cozy"
+      ],
+      "features": [
+        "terrace"
+      ],
+      "az_culture": [
+        "traditional_interior"
+      ],
+      "area": [
+        "old_city"
+      ]
+    }
   },
   {
-    "id": "c1c03f77-481b-55e4-9251-f66966697521",
     "name": "Qaynana Restaurant",
+    "slug": "qaynana",
     "cuisine": [
       "Azerbaijani",
       "Home Style"
     ],
-    "city": "Baku",
-    "slug": "qaynana",
-    "cover_photo": "/assets/restaurants/qaynana/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Icherisheher",
     "address": "126 Kichik Gala St, Old City, Baku",
+    "phone": "+994 70 434 00 13",
+    "photos": [
+      "/assets/restaurants/qaynana/1.jpg",
+      "/assets/restaurants/qaynana/2.jpg",
+      "/assets/restaurants/qaynana/3.jpg",
+      "/assets/restaurants/qaynana/4.jpg",
+      "/assets/restaurants/qaynana/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/qaynana/1.jpg",
     "short_description": "Cozy ‘mother-in-law’ kitchen serving dolma, piti, and generous breakfast trays.",
+    "neighborhood": "Icherisheher",
     "price_level": "AZN 2/4",
     "tags": [
       "azerbaijani",
@@ -298,23 +2781,285 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "tea_culture",
       "breakfast"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 30–55 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.368625,
+    "longitude": 49.835968,
+    "menu_url": "https://taplink.cc/qaynana_restaurant/menu",
+    "instagram": "https://www.instagram.com/qaynana_restaurant/",
+    "average_spend": "AZN 30–55 per guest",
+    "dress_code": "Casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "qaynana-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "qaynana-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "qaynana-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "qaynana-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "qaynana-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "qaynana-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "qaynana-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "qaynana-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "qaynana-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "qaynana-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "qaynana-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "qaynana-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "qaynana-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "qaynana-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "c1c03f77-481b-55e4-9251-f66966697521",
+    "directions_url": "https://maps.google.com/?q=40.3665,49.8379",
+    "call_url": "tel:+994704340013",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "azerbaijani"
+      ],
+      "vibe": [
+        "cozy",
+        "family_friendly"
+      ],
+      "features": [
+        "tea_culture"
+      ],
+      "az_culture": [
+        "traditional_interior"
+      ],
+      "area": [
+        "old_city"
+      ]
+    }
   },
   {
-    "id": "917cea2c-73ba-572d-9c38-6ef7d2bbb90b",
     "name": "Art Club Restaurant",
+    "slug": "artclub",
     "cuisine": [
       "Azerbaijani",
       "Artisanal"
     ],
-    "city": "Baku",
-    "slug": "artclub",
-    "cover_photo": "/assets/restaurants/artclub/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Icherisheher",
     "address": "11 Asaf Zeynalli St, Old City, Baku",
+    "phone": "+994 50 525 87 07",
+    "photos": [
+      "/assets/restaurants/artclub/1.jpg",
+      "/assets/restaurants/artclub/2.jpg",
+      "/assets/restaurants/artclub/3.jpg",
+      "/assets/restaurants/artclub/4.jpg",
+      "/assets/restaurants/artclub/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/artclub/1.jpg",
     "short_description": "Boutique courtyard restaurant with sculpted arches and seasonal chef menus.",
+    "neighborhood": "Icherisheher",
     "price_level": "AZN 3/4",
     "tags": [
       "azerbaijani",
@@ -328,23 +3073,286 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "wine_bar",
       "book_early"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 85–140 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.364298,
+    "longitude": 49.833776,
+    "menu_url": "https://artclub.az/menu",
+    "instagram": "https://www.instagram.com/artclubrestaurant/",
+    "average_spend": "AZN 85–140 per guest",
+    "dress_code": "Smart elegant",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "artclub-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "artclub-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "artclub-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "artclub-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "artclub-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "artclub-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "artclub-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "artclub-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "artclub-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "artclub-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "artclub-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "artclub-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "artclub-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "artclub-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "917cea2c-73ba-572d-9c38-6ef7d2bbb90b",
+    "directions_url": "https://maps.google.com/?q=40.366,49.8381",
+    "call_url": "tel:+994505258707",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "azerbaijani",
+        "european"
+      ],
+      "vibe": [
+        "romantic",
+        "traditional_interior"
+      ],
+      "features": [
+        "wine_bar"
+      ],
+      "az_culture": [
+        "traditional_interior"
+      ],
+      "area": [
+        "old_city"
+      ]
+    }
   },
   {
-    "id": "4d74974e-1e42-5079-9f10-2560889767ac",
     "name": "Mugam Club Restaurant",
+    "slug": "mugam",
     "cuisine": [
       "Azerbaijani",
       "Live Music"
     ],
-    "city": "Baku",
-    "slug": "mugam",
-    "cover_photo": "/assets/restaurants/mugam/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Icherisheher",
     "address": "9 Hagigat Rzayeva St, Old City, Baku",
+    "phone": "+994 50 440 20 50",
+    "photos": [
+      "/assets/restaurants/mugam/1.jpg",
+      "/assets/restaurants/mugam/2.jpg",
+      "/assets/restaurants/mugam/3.jpg",
+      "/assets/restaurants/mugam/4.jpg",
+      "/assets/restaurants/mugam/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/mugam/1.jpg",
     "short_description": "Historic caravanserai courtyard with nightly mugham performances.",
+    "neighborhood": "Icherisheher",
     "price_level": "AZN 3/4",
     "tags": [
       "azerbaijani",
@@ -358,23 +3366,286 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "restaurant",
       "book_early"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 55–90 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.365657,
+    "longitude": 49.836729,
+    "menu_url": "https://mugamclub.az/menu",
+    "instagram": "https://www.instagram.com/mugamclub/",
+    "average_spend": "AZN 55–90 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "mugam-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "mugam-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "mugam-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "mugam-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "mugam-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "mugam-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "mugam-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "mugam-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "mugam-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "mugam-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "mugam-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "mugam-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "mugam-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "mugam-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "4d74974e-1e42-5079-9f10-2560889767ac",
+    "directions_url": "https://maps.google.com/?q=40.3659,49.8384",
+    "call_url": "tel:+994504402050",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "azerbaijani"
+      ],
+      "vibe": [
+        "romantic"
+      ],
+      "features": [
+        "live_music",
+        "tea_culture"
+      ],
+      "az_culture": [
+        "mugham_music",
+        "traditional_interior"
+      ],
+      "area": [
+        "old_city"
+      ]
+    }
   },
   {
-    "id": "0111b572-99be-518a-80e3-e0f6ac8cbf70",
     "name": "Mari Vanna Baku",
+    "slug": "marivanna",
     "cuisine": [
       "Eastern European",
       "Russian"
     ],
-    "city": "Baku",
-    "slug": "marivanna",
-    "cover_photo": "/assets/restaurants/marivanna/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Port Baku",
     "address": "93A Zarifa Aliyeva St, Baku",
+    "phone": "+994 12 404 95 95",
+    "photos": [
+      "/assets/restaurants/marivanna/1.jpg",
+      "/assets/restaurants/marivanna/2.jpg",
+      "/assets/restaurants/marivanna/3.jpg",
+      "/assets/restaurants/marivanna/4.jpg",
+      "/assets/restaurants/marivanna/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/marivanna/1.jpg",
     "short_description": "Whimsical apartment-style dining with nostalgic Russian comfort dishes.",
+    "neighborhood": "Port Baku",
     "price_level": "AZN 3/4",
     "tags": [
       "traditional_interior",
@@ -390,23 +3661,287 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "seaside_boulevard/zarifa_aliyeva",
       "tea_culture"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–120 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.372957,
+    "longitude": 49.849614,
+    "menu_url": "https://ginzaproj.com/en/restaurants/mari-vanna-baku/menu",
+    "instagram": "https://www.instagram.com/marivannabaku/",
+    "average_spend": "AZN 70–120 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "marivanna-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#D9B99B"
+        },
+        "landmarks": [
+          {
+            "id": "marivanna-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "marivanna-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "marivanna-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "marivanna-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "marivanna-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "marivanna-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "marivanna-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#D9B99B"
+        },
+        "landmarks": [
+          {
+            "id": "marivanna-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "marivanna-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "marivanna-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "marivanna-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "marivanna-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "marivanna-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "0111b572-99be-518a-80e3-e0f6ac8cbf70",
+    "directions_url": "https://maps.google.com/?q=40.3705,49.845",
+    "call_url": "tel:+994124049595",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "russian",
+        "european"
+      ],
+      "vibe": [
+        "cozy",
+        "romantic"
+      ],
+      "features": [
+        "wine_bar",
+        "tea_culture"
+      ],
+      "az_culture": [
+        "traditional_interior"
+      ],
+      "area": [
+        "seaside_boulevard/zarifa_aliyeva"
+      ]
+    }
   },
   {
-    "id": "cdedf570-3bb5-5cde-959f-351210b59d8b",
     "name": "Mangal Steak House",
+    "slug": "mangal",
     "cuisine": [
       "Steakhouse",
       "Turkish"
     ],
-    "city": "Baku",
-    "slug": "mangal",
-    "cover_photo": "/assets/restaurants/mangal/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Bayil",
     "address": "National Flag Square, Baku",
+    "phone": "+994 50 228 10 11",
+    "photos": [
+      "/assets/restaurants/mangal/1.jpg",
+      "/assets/restaurants/mangal/2.jpg",
+      "/assets/restaurants/mangal/3.jpg",
+      "/assets/restaurants/mangal/4.jpg",
+      "/assets/restaurants/mangal/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/mangal/1.jpg",
     "short_description": "Dry-aged cuts grilled over mangal coals with Turkish meze spreads.",
+    "neighborhood": "Bayil",
     "price_level": "AZN 3/4",
     "tags": [
       "azerbaijani",
@@ -418,23 +3953,281 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "book_early",
       "lively"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 80–140 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.343132,
+    "longitude": 49.841416,
+    "menu_url": "https://mangalsteakhouse.az/menu",
+    "instagram": "https://www.instagram.com/mangal_steak_house/",
+    "average_spend": "AZN 80–140 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "mangal-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "mangal-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "mangal-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "mangal-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "mangal-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "mangal-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "mangal-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "mangal-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "mangal-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "mangal-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "mangal-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "mangal-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "mangal-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "mangal-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "cdedf570-3bb5-5cde-959f-351210b59d8b",
+    "directions_url": "https://maps.google.com/?q=40.3521,49.8209",
+    "call_url": "tel:+994502281011",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "steakhouse"
+      ],
+      "cuisine": [
+        "steakhouse",
+        "azerbaijani"
+      ],
+      "vibe": [
+        "lively"
+      ],
+      "features": [
+        "bar",
+        "late_night"
+      ],
+      "area": [
+        "seaside_boulevard"
+      ]
+    }
   },
   {
-    "id": "d721f224-f5d5-5f05-bbb6-84d77e8d7bf3",
     "name": "Paulaner Bräuhaus Baku",
+    "slug": "paulaner",
     "cuisine": [
       "German",
       "Brewpub"
     ],
-    "city": "Baku",
-    "slug": "paulaner",
-    "cover_photo": "/assets/restaurants/paulaner/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "White City",
     "address": "25B 8 November Ave, Baku",
+    "phone": "+994 12 497 97 97",
+    "photos": [
+      "/assets/restaurants/paulaner/1.jpg",
+      "/assets/restaurants/paulaner/2.jpg",
+      "/assets/restaurants/paulaner/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/paulaner/1.jpg",
     "short_description": "On-site German brewery pouring fresh lagers with hearty Bavarian fare.",
+    "neighborhood": "White City",
     "price_level": "AZN 3/4",
     "tags": [
       "craft_beer",
@@ -449,23 +4242,287 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "brewery",
       "german_bavarian"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 55–85 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1527169402691-feff5539e52c?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3597,
+    "longitude": 49.8651,
+    "menu_url": "https://paulaner-brauhaus-baku.com/menu",
+    "instagram": "https://www.instagram.com/paulanerbaku/",
+    "average_spend": "AZN 55–85 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "paulaner-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#D9B99B"
+        },
+        "landmarks": [
+          {
+            "id": "paulaner-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "paulaner-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "paulaner-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "paulaner-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "paulaner-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "paulaner-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "paulaner-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#D9B99B"
+        },
+        "landmarks": [
+          {
+            "id": "paulaner-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "paulaner-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "paulaner-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "paulaner-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "paulaner-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "paulaner-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "d721f224-f5d5-5f05-bbb6-84d77e8d7bf3",
+    "directions_url": "https://maps.google.com/?q=40.3597,49.8651",
+    "call_url": "tel:+994124979797",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "brewery"
+      ],
+      "cuisine": [
+        "german_bavarian"
+      ],
+      "vibe": [
+        "casual",
+        "lively"
+      ],
+      "features": [
+        "craft_beer",
+        "microbrewery",
+        "terrace"
+      ],
+      "view": [
+        "sea_view"
+      ],
+      "area": [
+        "seaside_boulevard"
+      ]
+    }
   },
   {
-    "id": "b4a9f7e7-7669-55ea-a9b7-d756c39a23f6",
     "name": "Zafferano – Four Seasons Baku",
+    "slug": "zafferano",
     "cuisine": [
       "Italian",
       "Fine Dining"
     ],
-    "city": "Baku",
-    "slug": "zafferano",
-    "cover_photo": "/assets/restaurants/zafferano/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Neftchilar Avenue",
     "address": "Four Seasons Hotel Baku, 1 Neftchilar Ave",
+    "phone": "+994 12 404 24 24",
+    "photos": [
+      "/assets/restaurants/zafferano/1.jpg",
+      "/assets/restaurants/zafferano/2.jpg",
+      "/assets/restaurants/zafferano/3.jpg",
+      "/assets/restaurants/zafferano/4.jpg",
+      "/assets/restaurants/zafferano/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/zafferano/1.jpg",
     "short_description": "Elegant Italian dining room with Caspian views and handmade pastas.",
+    "neighborhood": "Neftchilar Avenue",
     "price_level": "AZN 4/4",
     "tags": [
       "four_seasons/old_city",
@@ -480,23 +4537,287 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "city_view",
       "wine_bar"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 120–200 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1481931098730-318b6f776db0?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3654,
+    "longitude": 49.8408,
+    "menu_url": "https://www.fourseasons.com/baku/dining/zafferano/menu",
+    "instagram": "https://www.instagram.com/zafferanobaku/",
+    "average_spend": "AZN 120–200 per guest",
+    "dress_code": "Elegant",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "zafferano-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "zafferano-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "zafferano-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "zafferano-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "zafferano-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "zafferano-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "zafferano-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "zafferano-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "zafferano-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "zafferano-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "zafferano-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "zafferano-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "zafferano-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "zafferano-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "b4a9f7e7-7669-55ea-a9b7-d756c39a23f6",
+    "directions_url": "https://maps.google.com/?q=40.3654,49.8408",
+    "call_url": "tel:+994124042424",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "hotel_restaurant"
+      ],
+      "cuisine": [
+        "italian"
+      ],
+      "vibe": [
+        "fine_dining",
+        "romantic"
+      ],
+      "features": [
+        "terrace",
+        "wine_bar",
+        "breakfast"
+      ],
+      "view": [
+        "city_view"
+      ],
+      "area": [
+        "four_seasons/old_city"
+      ]
+    }
   },
   {
-    "id": "7eeffd08-c7d2-54f3-9b5b-8ab0c61ff84e",
     "name": "OroNero Bar & Ristorante",
+    "slug": "oronero",
     "cuisine": [
       "Italian",
       "Modern"
     ],
-    "city": "Baku",
-    "slug": "oronero",
-    "cover_photo": "/assets/restaurants/oronero/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Azadliq Square",
     "address": "JW Marriott Absheron, 674 Azadliq Square, Baku",
+    "phone": "+994 12 499 88 88",
+    "photos": [
+      "/assets/restaurants/oronero/1.jpg",
+      "/assets/restaurants/oronero/2.jpg",
+      "/assets/restaurants/oronero/3.jpg",
+      "/assets/restaurants/oronero/4.jpg",
+      "/assets/restaurants/oronero/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/oronero/1.jpg",
     "short_description": "Sleek Italian dining with white truffle menus and skyline bar seating.",
+    "neighborhood": "Azadliq Square",
     "price_level": "AZN 4/4",
     "tags": [
       "elegant",
@@ -511,23 +4832,286 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "city_view",
       "wine_bar"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 110–190 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1516684732162-4c3032a2bb22?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3723,
+    "longitude": 49.8531,
+    "menu_url": "https://oronero.az/menu",
+    "instagram": "https://www.instagram.com/oronerobaku/",
+    "average_spend": "AZN 110–190 per guest",
+    "dress_code": "Elegant",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "oronero-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "oronero-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "oronero-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "oronero-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "oronero-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "oronero-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "oronero-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "oronero-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "oronero-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "oronero-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "oronero-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "oronero-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "oronero-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "oronero-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "7eeffd08-c7d2-54f3-9b5b-8ab0c61ff84e",
+    "directions_url": "https://maps.google.com/?q=40.3723,49.8531",
+    "call_url": "tel:+994124998888",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "hotel_restaurant"
+      ],
+      "cuisine": [
+        "italian"
+      ],
+      "vibe": [
+        "elegant",
+        "romantic"
+      ],
+      "features": [
+        "wine_bar",
+        "private_dining"
+      ],
+      "view": [
+        "city_view"
+      ],
+      "area": [
+        "jw_marriott"
+      ]
+    }
   },
   {
-    "id": "08238a17-ddcb-5e74-a4bc-8a4741ae78d5",
     "name": "360 Bar",
+    "slug": "360bar",
     "cuisine": [
       "Cocktail Lounge",
       "Sushi"
     ],
-    "city": "Baku",
-    "slug": "360bar",
-    "cover_photo": "/assets/restaurants/360bar/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "City Center",
     "address": "Hilton Baku, 24th Floor, 1 Azadliq Ave",
+    "phone": "+994 12 464 50 00",
+    "photos": [
+      "/assets/restaurants/360bar/1.jpg",
+      "/assets/restaurants/360bar/2.jpg",
+      "/assets/restaurants/360bar/3.jpg",
+      "/assets/restaurants/360bar/4.jpg",
+      "/assets/restaurants/360bar/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/360bar/1.jpg",
     "short_description": "Revolving rooftop lounge with craft cocktails, sushi, and skyline panoramas.",
+    "neighborhood": "City Center",
     "price_level": "AZN 3/4",
     "tags": [
       "rooftop",
@@ -542,23 +5126,289 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "international",
       "trendy"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 65–95 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1470339000060-1f86b25eed17?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3692,
+    "longitude": 49.8379,
+    "menu_url": "https://www.hilton.com/en/hotels/gydhbhi-hilton-baku/dining/360-bar",
+    "instagram": "https://www.instagram.com/hiltonbaku/",
+    "average_spend": "AZN 65–95 per guest",
+    "dress_code": "Smart chic",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "360bar-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "360bar-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "360bar-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "360bar-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "360bar-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "360bar-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "360bar-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "360bar-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "360bar-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "360bar-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "360bar-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "360bar-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "360bar-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "360bar-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "08238a17-ddcb-5e74-a4bc-8a4741ae78d5",
+    "directions_url": "https://maps.google.com/?q=40.3692,49.8379",
+    "call_url": "tel:+994124645000",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "18:00–03:00",
+    "structured_tags": {
+      "venue_type": [
+        "rooftop_bar"
+      ],
+      "cuisine": [
+        "international"
+      ],
+      "vibe": [
+        "trendy",
+        "lively"
+      ],
+      "features": [
+        "rooftop",
+        "city_view",
+        "late_night",
+        "cocktails"
+      ],
+      "view": [
+        "city_view"
+      ],
+      "area": [
+        "hilton"
+      ]
+    }
   },
   {
-    "id": "3b63d5eb-22d6-56a1-80a8-d6ff47ed82f3",
     "name": "Sky Grill",
+    "slug": "skygrill",
     "cuisine": [
       "Mediterranean",
       "Grill"
     ],
-    "city": "Baku",
-    "slug": "skygrill",
-    "cover_photo": "/assets/restaurants/skygrill/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "City Center",
     "address": "Hilton Baku, 14th Floor, 1 Azadliq Ave",
+    "phone": "+994 12 464 50 00",
+    "photos": [
+      "/assets/restaurants/skygrill/1.jpg",
+      "/assets/restaurants/skygrill/2.jpg",
+      "/assets/restaurants/skygrill/3.jpg",
+      "/assets/restaurants/skygrill/4.jpg",
+      "/assets/restaurants/skygrill/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/skygrill/1.jpg",
     "short_description": "Open-air rooftop grill with retractable roof and Caspian fire pits.",
+    "neighborhood": "City Center",
     "price_level": "AZN 3/4",
     "tags": [
       "elegant",
@@ -573,23 +5423,288 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "city_view",
       "waterfront"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 80–130 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1470339000060-1f86b25eed17?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3692,
+    "longitude": 49.8379,
+    "menu_url": "https://www.hilton.com/en/hotels/gydhbhi-hilton-baku/dining/sky-grill",
+    "instagram": "https://www.instagram.com/hiltonbaku/",
+    "average_spend": "AZN 80–130 per guest",
+    "dress_code": "Smart chic",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "skygrill-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "skygrill-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "skygrill-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "skygrill-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "skygrill-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "skygrill-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "skygrill-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "skygrill-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "skygrill-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "skygrill-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "skygrill-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "skygrill-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "skygrill-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "skygrill-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "3b63d5eb-22d6-56a1-80a8-d6ff47ed82f3",
+    "directions_url": "https://maps.google.com/?q=40.3692,49.8379",
+    "call_url": "tel:+994124645000",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "12:00–01:00",
+    "structured_tags": {
+      "venue_type": [
+        "hotel_restaurant"
+      ],
+      "cuisine": [
+        "european",
+        "seafood"
+      ],
+      "vibe": [
+        "elegant",
+        "romantic"
+      ],
+      "features": [
+        "terrace",
+        "city_view"
+      ],
+      "view": [
+        "city_view"
+      ],
+      "area": [
+        "hilton"
+      ]
+    }
   },
   {
-    "id": "81554dc0-d0cd-51ca-ab72-eb3f8d5da646",
     "name": "Riviera Restaurant",
+    "slug": "riviera",
     "cuisine": [
       "Seafood",
       "Mediterranean"
     ],
-    "city": "Baku",
-    "slug": "riviera",
-    "cover_photo": "/assets/restaurants/riviera/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Bayil",
     "address": "1 Gurban Abbasov St, Bayil, Baku",
+    "phone": "+994 50 544 44 02",
+    "photos": [
+      "/assets/restaurants/riviera/1.jpg",
+      "/assets/restaurants/riviera/2.jpg",
+      "/assets/restaurants/riviera/3.jpg",
+      "/assets/restaurants/riviera/4.jpg",
+      "/assets/restaurants/riviera/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/riviera/1.jpg",
     "short_description": "Marina-front seafood lounge with panoramic Caspian views and live DJ sunsets.",
+    "neighborhood": "Bayil",
     "price_level": "AZN 3/4",
     "tags": [
       "live_music",
@@ -605,23 +5720,288 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "terrace",
       "waterfront"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 75–125 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1470339000060-1f86b25eed17?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.350001,
+    "longitude": 49.835068,
+    "menu_url": "https://rivierabaku.az/menu",
+    "instagram": "https://www.instagram.com/rivierabaku/",
+    "average_spend": "AZN 75–125 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "riviera-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "riviera-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "riviera-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "riviera-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "riviera-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "riviera-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "riviera-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "riviera-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "riviera-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "riviera-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "riviera-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "riviera-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "riviera-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "riviera-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "81554dc0-d0cd-51ca-ab72-eb3f8d5da646",
+    "directions_url": "https://maps.google.com/?q=40.3542,49.8236",
+    "call_url": "tel:+994505444402",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "hotel_restaurant"
+      ],
+      "cuisine": [
+        "azerbaijani",
+        "european"
+      ],
+      "vibe": [
+        "family_friendly",
+        "romantic"
+      ],
+      "features": [
+        "terrace",
+        "sea_view",
+        "breakfast"
+      ],
+      "view": [
+        "sea_view"
+      ],
+      "area": [
+        "seaside_boulevard"
+      ]
+    }
   },
   {
-    "id": "a961f3a9-67fb-5689-a521-06c2b5d4edad",
     "name": "Novikov Café Baku",
+    "slug": "novikov",
     "cuisine": [
       "European",
       "Cafe"
     ],
-    "city": "Baku",
-    "slug": "novikov",
-    "cover_photo": "/assets/restaurants/novikov/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Fountain Square",
     "address": "2-4 Mammad Amin Rasulzade St, Baku",
+    "phone": "+994 51 206 85 43",
+    "photos": [
+      "/assets/restaurants/novikov/1.jpg",
+      "/assets/restaurants/novikov/2.jpg",
+      "/assets/restaurants/novikov/3.jpg",
+      "/assets/restaurants/novikov/4.jpg",
+      "/assets/restaurants/novikov/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/novikov/1.jpg",
     "short_description": "Stylish patisserie and light dining concept from Novikov Group with terrace seating.",
+    "neighborhood": "Fountain Square",
     "price_level": "AZN 2/4",
     "tags": [
       "bar",
@@ -636,23 +6016,285 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "wine_bar",
       "trendy"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 30–55 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.368066,
+    "longitude": 49.838399,
+    "menu_url": "https://novikov-cafe.com/menu",
+    "instagram": "https://www.instagram.com/novikovcafe/",
+    "average_spend": "AZN 30–55 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "novikov-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#D9B99B"
+        },
+        "landmarks": [
+          {
+            "id": "novikov-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "novikov-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "novikov-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "novikov-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "novikov-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "novikov-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "novikov-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#D9B99B"
+        },
+        "landmarks": [
+          {
+            "id": "novikov-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "novikov-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "novikov-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "novikov-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "novikov-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "novikov-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "a961f3a9-67fb-5689-a521-06c2b5d4edad",
+    "directions_url": "https://maps.google.com/?q=40.3703,49.8382",
+    "call_url": "tel:+994512068543",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "european",
+        "seafood"
+      ],
+      "vibe": [
+        "trendy"
+      ],
+      "features": [
+        "bar",
+        "wine_bar",
+        "outdoor"
+      ],
+      "area": [
+        "seaside_boulevard/central"
+      ]
+    }
   },
   {
-    "id": "e7b9e75d-9c0e-41cf-9539-9e1fec7ae6ab",
     "name": "Nakhchivan Restaurant",
+    "slug": "nakhchivan-restaurant",
+    "id": "e7b9e75d-9c0e-41cf-9539-9e1fec7ae6ab",
     "cuisine": [
       "Azerbaijani",
       "Nakhchivani Regional"
     ],
-    "city": "Baku",
-    "slug": "nakhchivan-restaurant",
-    "cover_photo": "/assets/restaurants/nakhchivan-restaurant/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Parliament Avenue · Yasamal",
     "address": "8A Parlament Prospekti, Baku",
+    "phone": "+994 12 480 85 85",
+    "photos": [
+      "/assets/restaurants/nakhchivan-restaurant/1.jpg",
+      "/assets/restaurants/nakhchivan-restaurant/2.jpg",
+      "/assets/restaurants/nakhchivan-restaurant/3.jpg",
+      "/assets/restaurants/nakhchivan-restaurant/4.jpg",
+      "/assets/restaurants/nakhchivan-restaurant/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/nakhchivan-restaurant/1.jpg",
     "short_description": "Regional dining room near Parliament Avenue serving piti, Ordubad kebabs and a samovar tea table in a vintage oil-boom interior.",
+    "neighborhood": "Parliament Avenue · Yasamal",
     "price_level": "AZN 2/4",
     "tags": [
       "heritage",
@@ -661,23 +6303,46 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "pilaf",
       "tea_service"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 30–60 per guest"
+    "highlights": [
+      "Free tea table with sweets for diners",
+      "Wood-fired tandoor and Nakhchivani kebabs"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3638898,
+    "longitude": 49.8193296,
+    "menu_url": "https://baku.cafe/en/nakhchivan",
+    "instagram": "https://www.instagram.com/nakhchivanrestaurant/",
+    "whatsapp": "+994 51 385 85 58",
+    "average_spend": "AZN 30–60 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3638898,49.8193296",
+    "call_url": "tel:+994124808585",
+    "timezone": "Asia/Baku"
   },
   {
-    "id": "eb7cd2b5-5e85-5ca4-b647-12e2a571f46e",
     "name": "Syrovarnya Baku",
+    "slug": "syrovarnya",
     "cuisine": [
       "Italian",
       "Cheese Bar"
     ],
-    "city": "Baku",
-    "slug": "syrovarnya",
-    "cover_photo": "/assets/restaurants/syrovarnya/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Port Baku",
     "address": "2 Zarifa Aliyeva St, Baku",
+    "phone": "+994 12 525 00 25",
+    "photos": [
+      "/assets/restaurants/syrovarnya/1.jpg",
+      "/assets/restaurants/syrovarnya/2.jpg",
+      "/assets/restaurants/syrovarnya/3.jpg",
+      "/assets/restaurants/syrovarnya/4.jpg",
+      "/assets/restaurants/syrovarnya/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/syrovarnya/1.jpg",
     "short_description": "House-made mozzarella bar with wood-fired pizzas and coastal Italian plates.",
+    "neighborhood": "Port Baku",
     "price_level": "AZN 3/4",
     "tags": [
       "central/zarifa_aliyeva",
@@ -691,23 +6356,283 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "wine_bar",
       "book_early"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 55–95 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1543353071-10c8ba85a904?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.368453,
+    "longitude": 49.839537,
+    "menu_url": "https://syrovarnya.com/menus/baku",
+    "instagram": "https://www.instagram.com/syrovarnya.baku/",
+    "average_spend": "AZN 55–95 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "syrovarnya-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "syrovarnya-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "syrovarnya-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "syrovarnya-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "syrovarnya-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "syrovarnya-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "syrovarnya-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "syrovarnya-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "syrovarnya-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "syrovarnya-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "syrovarnya-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "syrovarnya-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "syrovarnya-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "syrovarnya-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "eb7cd2b5-5e85-5ca4-b647-12e2a571f46e",
+    "directions_url": "https://maps.google.com/?q=40.3709,49.8446",
+    "call_url": "tel:+994125250025",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "european",
+        "cheese_focused"
+      ],
+      "vibe": [
+        "family_friendly",
+        "casual"
+      ],
+      "features": [
+        "wine_bar"
+      ],
+      "area": [
+        "central/zarifa_aliyeva"
+      ]
+    }
   },
   {
-    "id": "ba9f7284-ccee-5044-9786-fafda66ce184",
     "name": "Vapiano Baku",
+    "slug": "vapiano",
     "cuisine": [
       "Italian",
       "Casual"
     ],
-    "city": "Baku",
-    "slug": "vapiano",
-    "cover_photo": "/assets/restaurants/vapiano/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Malakan Garden",
     "address": "6 Uzeyir Hajibayli St, Baku",
+    "phone": "+994 12 598 81 18",
+    "photos": [
+      "/assets/restaurants/vapiano/1.jpg",
+      "/assets/restaurants/vapiano/2.jpg",
+      "/assets/restaurants/vapiano/3.jpg",
+      "/assets/restaurants/vapiano/4.jpg",
+      "/assets/restaurants/vapiano/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/vapiano/1.jpg",
     "short_description": "Fast-casual Italian with live pasta stations and wood-fired pizzas.",
+    "neighborhood": "Malakan Garden",
     "price_level": "AZN 2/4",
     "tags": [
       "counter_service",
@@ -719,23 +6644,282 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "restaurant",
       "quick_bite"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 25–40 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.371001,
+    "longitude": 49.840997,
+    "menu_url": "https://www.vapiano.az/menu",
+    "instagram": "https://www.instagram.com/vapiano.baku/",
+    "average_spend": "AZN 25–40 per guest",
+    "dress_code": "Casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "vapiano-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#D9B99B"
+        },
+        "landmarks": [
+          {
+            "id": "vapiano-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "vapiano-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "vapiano-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "vapiano-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "vapiano-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "vapiano-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "vapiano-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#D9B99B"
+        },
+        "landmarks": [
+          {
+            "id": "vapiano-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "vapiano-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "vapiano-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "vapiano-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "vapiano-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "vapiano-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "ba9f7284-ccee-5044-9786-fafda66ce184",
+    "directions_url": "https://maps.google.com/?q=40.3725,49.8491",
+    "call_url": "tel:+994125988118",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "italian"
+      ],
+      "vibe": [
+        "casual"
+      ],
+      "features": [
+        "counter_service"
+      ],
+      "area": [
+        "nizami_street",
+        "ganjlik_mall"
+      ]
+    }
   },
   {
-    "id": "4b546ac5-7687-56a8-8d0c-d13cdb9e4b0a",
     "name": "Passage 145",
+    "slug": "passage145",
     "cuisine": [
       "International",
       "All Day"
     ],
-    "city": "Baku",
-    "slug": "passage145",
-    "cover_photo": "/assets/restaurants/passage145/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Fountain Square",
     "address": "37 Nigar Rafibeyli St, Baku",
+    "phone": "+994 51 700 01 45",
+    "photos": [
+      "/assets/restaurants/passage145/1.jpg",
+      "/assets/restaurants/passage145/2.jpg",
+      "/assets/restaurants/passage145/3.jpg",
+      "/assets/restaurants/passage145/4.jpg",
+      "/assets/restaurants/passage145/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/passage145/1.jpg",
     "short_description": "24/7 dining from the 145 Group with global comfort dishes and live dessert bar.",
+    "neighborhood": "Fountain Square",
     "price_level": "AZN 2/4",
     "tags": [
       "shisha",
@@ -762,23 +6946,301 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "city_view",
       "brunch"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 35–60 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.371997,
+    "longitude": 49.83868,
+    "menu_url": "https://145group.az/passage/menu",
+    "instagram": "https://www.instagram.com/passage145/",
+    "average_spend": "AZN 35–60 per guest",
+    "dress_code": "Casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "passage145-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "passage145-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "passage145-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "passage145-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "passage145-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "passage145-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "passage145-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "passage145-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#E7A977"
+        },
+        "landmarks": [
+          {
+            "id": "passage145-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "passage145-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "passage145-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "passage145-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "passage145-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "passage145-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "4b546ac5-7687-56a8-8d0c-d13cdb9e4b0a",
+    "directions_url": "https://maps.google.com/?q=40.3712,49.8378",
+    "call_url": "tel:+994517000145",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "Open 24/7",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant",
+        "lounge",
+        "hookah_lounge"
+      ],
+      "cuisine": [
+        "azerbaijani",
+        "european",
+        "international"
+      ],
+      "vibe": [
+        "casual",
+        "lively",
+        "traditional_interior"
+      ],
+      "features": [
+        "24_7",
+        "breakfast",
+        "tea_culture",
+        "terrace",
+        "shisha",
+        "live_music",
+        "cocktails"
+      ],
+      "view": [
+        "city_view"
+      ],
+      "az_culture": [
+        "tea_culture",
+        "shisha_hookah"
+      ],
+      "area": [
+        "fountains_square"
+      ]
+    }
   },
   {
-    "id": "e84ca3c6-a14f-5bc9-99f8-ad5d0d0e2caa",
     "name": "Çay Bağı 145",
+    "slug": "caybagi145",
     "cuisine": [
       "Tea House",
       "Breakfast"
     ],
-    "city": "Baku",
-    "slug": "caybagi145",
-    "cover_photo": "/assets/restaurants/caybagi145/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Icherisheher",
     "address": "4 Boyuk Gala St, Old City, Baku",
+    "phone": "+994 50 600 01 45",
+    "photos": [
+      "/assets/restaurants/caybagi145/1.jpg",
+      "/assets/restaurants/caybagi145/2.jpg",
+      "/assets/restaurants/caybagi145/3.jpg",
+      "/assets/restaurants/caybagi145/4.jpg",
+      "/assets/restaurants/caybagi145/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/caybagi145/1.jpg",
     "short_description": "Tea garden near Maiden Tower serving samovars, breakfast trays, and light bites.",
+    "neighborhood": "Icherisheher",
     "price_level": "AZN 2/4",
     "tags": [
       "rooftop",
@@ -792,23 +7254,292 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "tea_house",
       "tea_culture"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 25–40 per guest"
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3664,
+    "longitude": 49.8368,
+    "menu_url": "https://145group.az/caybagi/menu",
+    "instagram": "https://www.instagram.com/caybagi145/",
+    "average_spend": "AZN 25–40 per guest",
+    "dress_code": "Casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "caybagi145-main",
+        "name": "Main Dining",
+        "theme": {
+          "texture": "marble",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "caybagi145-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "caybagi145-m1",
+            "name": "M1",
+            "capacity": 2,
+            "position": [
+              20,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "caybagi145-m2",
+            "name": "M2",
+            "capacity": 4,
+            "position": [
+              40,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "caybagi145-m3",
+            "name": "M3",
+            "capacity": 4,
+            "position": [
+              60,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "caybagi145-m4",
+            "name": "M4",
+            "capacity": 6,
+            "position": [
+              34,
+              60
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "high"
+          },
+          {
+            "id": "caybagi145-m5",
+            "name": "M5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      },
+      {
+        "id": "caybagi145-terrace",
+        "name": "Lounge Terrace",
+        "theme": {
+          "texture": "linen",
+          "ambientLight": "rgba(244, 151, 142, 0.18)",
+          "accent": "#F4978E"
+        },
+        "landmarks": [
+          {
+            "id": "caybagi145-dj",
+            "label": "Music Niche",
+            "type": "stage",
+            "position": [
+              48,
+              72
+            ],
+            "footprint": [
+              [
+                42,
+                68
+              ],
+              [
+                54,
+                68
+              ],
+              [
+                54,
+                76
+              ],
+              [
+                42,
+                76
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "caybagi145-t1",
+            "name": "T1",
+            "capacity": 2,
+            "position": [
+              24,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low"
+          },
+          {
+            "id": "caybagi145-t2",
+            "name": "T2",
+            "capacity": 4,
+            "position": [
+              46,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "caybagi145-t3",
+            "name": "T3",
+            "capacity": 4,
+            "position": [
+              68,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "caybagi145-t4",
+            "name": "Cabana",
+            "capacity": 6,
+            "position": [
+              36,
+              70
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium"
+          },
+          {
+            "id": "caybagi145-t5",
+            "name": "Firepit Circle",
+            "capacity": 6,
+            "position": [
+              64,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high"
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "id": "e84ca3c6-a14f-5bc9-99f8-ad5d0d0e2caa",
+    "directions_url": "https://maps.google.com/?q=40.3664,49.8368",
+    "call_url": "tel:+994506000145",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "09:00–04:00",
+    "structured_tags": {
+      "venue_type": [
+        "tea_house"
+      ],
+      "cuisine": [
+        "azerbaijani"
+      ],
+      "vibe": [
+        "cozy",
+        "family_friendly"
+      ],
+      "features": [
+        "tea_culture",
+        "terrace",
+        "rooftop"
+      ],
+      "view": [
+        "sea_view"
+      ],
+      "az_culture": [
+        "tea_house"
+      ],
+      "area": [
+        "old_city"
+      ]
+    }
   },
   {
-    "id": "8d80f430-461f-436d-952d-ca76c6e60d34",
     "name": "Baku Cafe",
+    "slug": "baku-cafe",
+    "id": "8d80f430-461f-436d-952d-ca76c6e60d34",
     "cuisine": [
       "Azerbaijani",
       "Seafood"
     ],
-    "city": "Baku",
-    "slug": "baku-cafe",
-    "cover_photo": "/assets/restaurants/baku-cafe/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Seaside Boulevard",
     "address": "153 Neftçilər Prospekti, Bakı, Azerbaijan",
+    "phone": "+994 12 310 08 08",
+    "photos": [
+      "/assets/restaurants/baku-cafe/1.jpg",
+      "/assets/restaurants/baku-cafe/2.jpg",
+      "/assets/restaurants/baku-cafe/3.jpg",
+      "/assets/restaurants/baku-cafe/4.jpg",
+      "/assets/restaurants/baku-cafe/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/baku-cafe/1.jpg",
     "short_description": "Baku Cafe pairs family-size platters with plated desserts in Seaside Boulevard.",
+    "neighborhood": "Seaside Boulevard",
     "price_level": "AZN 4/4",
     "tags": [
       "central",
@@ -825,22 +7556,468 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "family_friendly",
       "international"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 110–160 per guest"
+    "highlights": [
+      "Spacious booths for families",
+      "Showpiece dessert trolley",
+      "Daily seafood and raw bar"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.375772,
+    "longitude": 49.862096,
+    "menu_url": null,
+    "instagram": "https://www.instagram.com/bakucafe.miami/",
+    "whatsapp": "+994 12 310 08 08",
+    "average_spend": "AZN 110–160 per guest",
+    "dress_code": "Chic evening",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-baku-cafe-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#E7A977",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "texture": "marble"
+        },
+        "landmarks": [
+          {
+            "id": "baku-cafe-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "baku-cafe-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "baku-cafe-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "baku-cafe-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "baku-cafe-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "baku-cafe-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-baku-cafe-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#F4978E",
+          "ambientLight": "rgba(255, 210, 155, 0.22)",
+          "texture": "linen"
+        },
+        "landmarks": [
+          {
+            "id": "baku-cafe-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "baku-cafe-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "baku-cafe-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "baku-cafe-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "baku-cafe-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "baku-cafe-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.376193,49.861214",
+    "call_url": "tel:+994123100808",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "international",
+        "azerbaijani"
+      ],
+      "vibe": [
+        "casual",
+        "lively"
+      ],
+      "features": [
+        "bar"
+      ],
+      "area": [
+        "central"
+      ]
+    }
   },
   {
-    "id": "b1c9cd7d-a986-4c35-9779-476de083b341",
     "name": "Baku Convention Center",
+    "slug": "baku-convention-center",
+    "id": "b1c9cd7d-a986-4c35-9779-476de083b341",
     "cuisine": [
       "Azerbaijani"
     ],
-    "city": "Baku",
-    "slug": "baku-convention-center",
-    "cover_photo": "/assets/restaurants/baku-convention-center/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "130 Təbriz küçəsi, Bakı, Azerbaijan",
+    "phone": "+994 12 404 18 81",
+    "photos": [
+      "/assets/restaurants/baku-convention-center/1.jpg",
+      "/assets/restaurants/baku-convention-center/2.jpg",
+      "/assets/restaurants/baku-convention-center/3.jpg",
+      "/assets/restaurants/baku-convention-center/4.jpg",
+      "/assets/restaurants/baku-convention-center/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/baku-convention-center/1.jpg",
     "short_description": "Baku Convention Center highlights modern Azeri flavors in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
       "azerbaijani",
@@ -854,23 +8031,465 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "hotel_restaurant",
       "trendy"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Service-led dining room with attentive hosts"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3974915,
+    "longitude": 49.8654521,
+    "menu_url": "http://bakuconventioncenter.com/",
+    "instagram": "https://www.instagram.com/baku_convention_center/",
+    "whatsapp": "+994 12 404 18 81",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-baku-convention-center-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#E7A977",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "texture": "marble"
+        },
+        "landmarks": [
+          {
+            "id": "baku-convention-center-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "baku-convention-center-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "baku-convention-center-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "baku-convention-center-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "baku-convention-center-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "baku-convention-center-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-baku-convention-center-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#F4978E",
+          "ambientLight": "rgba(255, 210, 155, 0.22)",
+          "texture": "linen"
+        },
+        "landmarks": [
+          {
+            "id": "baku-convention-center-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "baku-convention-center-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "baku-convention-center-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "baku-convention-center-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "baku-convention-center-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "baku-convention-center-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3974915,49.8654521",
+    "call_url": "tel:+994124041881",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "hotel_restaurant"
+      ],
+      "cuisine": [
+        "international"
+      ],
+      "vibe": [
+        "business"
+      ],
+      "features": [
+        "multiple_restaurants"
+      ],
+      "area": [
+        "khatai"
+      ]
+    }
   },
   {
-    "id": "e7ad9a7c-c56d-4ea9-b126-54033e38f174",
     "name": "Balcon Cafe",
+    "slug": "balcon-cafe",
+    "id": "e7ad9a7c-c56d-4ea9-b126-54033e38f174",
     "cuisine": [
       "Cafe",
       "Bar & Lounge"
     ],
-    "city": "Baku",
-    "slug": "balcon-cafe",
-    "cover_photo": "/assets/restaurants/balcon-cafe/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "Alov Qülleleri, Mehdi Hüseyn Street, Bakı, Azerbaijan",
+    "phone": "+994 55 505 04 20",
+    "photos": [
+      "/assets/restaurants/balcon-cafe/1.jpg",
+      "/assets/restaurants/balcon-cafe/2.jpg",
+      "/assets/restaurants/balcon-cafe/3.jpg",
+      "/assets/restaurants/balcon-cafe/4.jpg",
+      "/assets/restaurants/balcon-cafe/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/balcon-cafe/1.jpg",
     "short_description": "Balcon Cafe pairs signature cocktails with third-wave coffee service in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 2/4",
     "tags": [
       "elegant",
@@ -887,23 +8506,473 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "tea_culture",
       "cafe"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 45–75 per guest"
+    "highlights": [
+      "Mixology-led cocktail list",
+      "Spritz-friendly coffee program",
+      "Spacious booths for families"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3598572,
+    "longitude": 49.8266265,
+    "menu_url": "https://www.fairmont.com/en/hotels/barbados/fairmont-royal-pavilion.html",
+    "instagram": "https://www.instagram.com/fairmonthotels/",
+    "whatsapp": "+994 55 505 04 20",
+    "average_spend": "AZN 45–75 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-balcon-cafe-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#E7A977",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "texture": "marble"
+        },
+        "landmarks": [
+          {
+            "id": "balcon-cafe-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "balcon-cafe-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "balcon-cafe-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "balcon-cafe-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "balcon-cafe-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "balcon-cafe-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-balcon-cafe-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#F4978E",
+          "ambientLight": "rgba(255, 210, 155, 0.22)",
+          "texture": "linen"
+        },
+        "landmarks": [
+          {
+            "id": "balcon-cafe-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "balcon-cafe-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "balcon-cafe-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "balcon-cafe-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "balcon-cafe-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "balcon-cafe-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3598572,49.8266265",
+    "call_url": "tel:+994555050420",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "12:00–20:00",
+    "structured_tags": {
+      "venue_type": [
+        "cafe"
+      ],
+      "cuisine": [
+        "cafe_bakery"
+      ],
+      "vibe": [
+        "elegant",
+        "romantic"
+      ],
+      "features": [
+        "tea_culture",
+        "desserts"
+      ],
+      "view": [
+        "city_view"
+      ],
+      "area": [
+        "flame_towers"
+      ]
+    }
   },
   {
-    "id": "be677b14-5e15-47cd-ae37-0928f712e531",
     "name": "BESH Gastropub",
+    "slug": "besh-gastropub",
+    "id": "be677b14-5e15-47cd-ae37-0928f712e531",
     "cuisine": [
       "Cafe",
       "Patisserie"
     ],
-    "city": "Baku",
-    "slug": "besh-gastropub",
-    "cover_photo": "/assets/restaurants/besh-gastropub/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Nasimi",
     "address": "300-303 quarter, intersection of M. Fuzuli and A. Topchubashov streets Nasimi district Baku, Bakı 1009, Azerbaijan",
+    "phone": "",
+    "photos": [
+      "/assets/restaurants/besh-gastropub/1.jpg",
+      "/assets/restaurants/besh-gastropub/2.jpg",
+      "/assets/restaurants/besh-gastropub/3.jpg",
+      "/assets/restaurants/besh-gastropub/4.jpg",
+      "/assets/restaurants/besh-gastropub/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/besh-gastropub/1.jpg",
     "short_description": "BESH Gastropub pairs skyline terrace seating with family-size platters in Nasimi.",
+    "neighborhood": "Nasimi",
     "price_level": "AZN 3/4",
     "tags": [
       "rooftop",
@@ -920,23 +8989,470 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "family_friendly",
       "international"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Skyline terrace with Caspian views",
+      "Spacious booths for families",
+      "Showpiece dessert trolley"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3764701,
+    "longitude": 49.83453489999999,
+    "menu_url": "https://www.marriott.com/en-us/destinations/united-states/california/santa-barbara.mi",
+    "instagram": "https://www.instagram.com/courtyardbaku/",
+    "whatsapp": "",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart nightlife",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-besh-gastropub-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#C88EA7",
+          "ambientLight": "rgba(238, 207, 195, 0.18)",
+          "texture": "velvet"
+        },
+        "landmarks": [
+          {
+            "id": "besh-gastropub-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "besh-gastropub-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "besh-gastropub-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "besh-gastropub-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "besh-gastropub-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "besh-gastropub-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-besh-gastropub-lounge",
+        "name": "Sky Terrace",
+        "theme": {
+          "accent": "#A0C1B8",
+          "ambientLight": "rgba(160, 193, 184, 0.2)",
+          "texture": "parquet"
+        },
+        "landmarks": [
+          {
+            "id": "besh-gastropub-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "besh-gastropub-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "besh-gastropub-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "besh-gastropub-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "besh-gastropub-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "besh-gastropub-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3764701,49.83453489999999",
+    "call_url": "",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "06:30–24:00",
+    "structured_tags": {
+      "venue_type": [
+        "gastropub"
+      ],
+      "cuisine": [
+        "international"
+      ],
+      "vibe": [
+        "casual",
+        "lively"
+      ],
+      "features": [
+        "craft_beer",
+        "bar"
+      ],
+      "area": [
+        "courtyard_baku"
+      ]
+    }
   },
   {
-    "id": "28765442-f839-433b-bb69-bbee480f0d03",
     "name": "Black City Lounge & Terrace",
+    "slug": "black-city-lounge-terrace",
+    "id": "28765442-f839-433b-bb69-bbee480f0d03",
     "cuisine": [
       "Patisserie",
       "Bar & Lounge"
     ],
-    "city": "Baku",
-    "slug": "black-city-lounge-terrace",
-    "cover_photo": "/assets/restaurants/black-city-lounge-terrace/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "4C Xəqani Rüstəmov, Bakı 1010, Azerbaijan",
+    "phone": "+994 12 310 00 40",
+    "photos": [
+      "/assets/restaurants/black-city-lounge-terrace/1.jpg",
+      "/assets/restaurants/black-city-lounge-terrace/2.jpg",
+      "/assets/restaurants/black-city-lounge-terrace/3.jpg",
+      "/assets/restaurants/black-city-lounge-terrace/4.jpg",
+      "/assets/restaurants/black-city-lounge-terrace/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/black-city-lounge-terrace/1.jpg",
     "short_description": "Black City Lounge & Terrace pairs live music sets with signature cocktails in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 2/4",
     "tags": [
       "baku_marriott_boulevard/white_city",
@@ -954,23 +9470,475 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "international",
       "trendy"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 45–75 per guest"
+    "highlights": [
+      "Resident DJs on weekends",
+      "Mixology-led cocktail list",
+      "Showpiece dessert trolley"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3749473,
+    "longitude": 49.8836592,
+    "menu_url": null,
+    "instagram": "https://www.instagram.com/blackcitylounge/",
+    "whatsapp": "+994 12 310 00 40",
+    "average_spend": "AZN 45–75 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-black-city-lounge-terrace-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#A0C1B8",
+          "ambientLight": "rgba(160, 193, 184, 0.2)",
+          "texture": "parquet"
+        },
+        "landmarks": [
+          {
+            "id": "black-city-lounge-terrace-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "black-city-lounge-terrace-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "black-city-lounge-terrace-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "black-city-lounge-terrace-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "black-city-lounge-terrace-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "black-city-lounge-terrace-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-black-city-lounge-terrace-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#E7A977",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "texture": "marble"
+        },
+        "landmarks": [
+          {
+            "id": "black-city-lounge-terrace-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "black-city-lounge-terrace-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "black-city-lounge-terrace-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "black-city-lounge-terrace-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "black-city-lounge-terrace-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "black-city-lounge-terrace-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3749473,49.8836592",
+    "call_url": "tel:+994123100040",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "18:00–02:00",
+    "structured_tags": {
+      "venue_type": [
+        "lounge"
+      ],
+      "cuisine": [
+        "international"
+      ],
+      "vibe": [
+        "trendy",
+        "lively"
+      ],
+      "features": [
+        "shisha",
+        "terrace",
+        "dj",
+        "bar"
+      ],
+      "view": [
+        "sea_view"
+      ],
+      "area": [
+        "baku_marriott_boulevard/white_city"
+      ]
+    }
   },
   {
-    "id": "c46a49c1-b55d-45f4-a319-34a767da4bb8",
     "name": "Cafe City Fountain",
+    "slug": "cafe-city-fountain",
+    "id": "c46a49c1-b55d-45f4-a319-34a767da4bb8",
     "cuisine": [
       "Azerbaijani",
       "Italian"
     ],
-    "city": "Baku",
-    "slug": "cafe-city-fountain",
-    "cover_photo": "/assets/restaurants/cafe-city-fountain/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "1 Islam Safarli Street, Bakı 1005, Azerbaijan",
+    "phone": "+994 12 598 86 86",
+    "photos": [
+      "/assets/restaurants/cafe-city-fountain/1.jpg",
+      "/assets/restaurants/cafe-city-fountain/2.jpg",
+      "/assets/restaurants/cafe-city-fountain/3.jpg",
+      "/assets/restaurants/cafe-city-fountain/4.jpg",
+      "/assets/restaurants/cafe-city-fountain/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/cafe-city-fountain/1.jpg",
     "short_description": "Cafe City Fountain pairs wood-fired pizzas with plated desserts in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
       "fountains_square",
@@ -989,23 +9957,472 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "tea_culture",
       "cafe"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Showpiece dessert trolley",
+      "Skyline terrace with Caspian views",
+      "Mixology-led cocktail list"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3703845,
+    "longitude": 49.83580190000001,
+    "menu_url": "https://cafecity.az/products/cafecity-fountain/poke-bowl-menu",
+    "instagram": "https://www.instagram.com/cafecitybaku/",
+    "whatsapp": "+994 12 598 86 86",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart nightlife",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-cafe-city-fountain-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#A0C1B8",
+          "ambientLight": "rgba(160, 193, 184, 0.2)",
+          "texture": "parquet"
+        },
+        "landmarks": [
+          {
+            "id": "cafe-city-fountain-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "cafe-city-fountain-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "cafe-city-fountain-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "cafe-city-fountain-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "cafe-city-fountain-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "cafe-city-fountain-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-cafe-city-fountain-lounge",
+        "name": "Sky Terrace",
+        "theme": {
+          "accent": "#E7A977",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "texture": "marble"
+        },
+        "landmarks": [
+          {
+            "id": "cafe-city-fountain-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "cafe-city-fountain-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "cafe-city-fountain-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "cafe-city-fountain-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "cafe-city-fountain-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "cafe-city-fountain-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3703845,49.83580190000001",
+    "call_url": "tel:+994125988686",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "cafe"
+      ],
+      "cuisine": [
+        "international",
+        "azerbaijani"
+      ],
+      "vibe": [
+        "casual",
+        "family_friendly"
+      ],
+      "features": [
+        "breakfast",
+        "desserts",
+        "tea_culture",
+        "outdoor"
+      ],
+      "area": [
+        "fountains_square"
+      ]
+    }
   },
   {
-    "id": "62d41d6a-f5c6-44f9-8a80-8e052caa4b15",
     "name": "Fireworks Urban Kitchen",
+    "slug": "fireworks-urban-kitchen",
+    "id": "62d41d6a-f5c6-44f9-8a80-8e052caa4b15",
     "cuisine": [
       "Japanese",
       "Steakhouse"
     ],
-    "city": "Baku",
-    "slug": "fireworks-urban-kitchen",
-    "cover_photo": "/assets/restaurants/fireworks-urban-kitchen/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "JW Marriott AZ1010, 674 Azadlıq Prospekti, Bakı, Azerbaijan",
+    "phone": "+994 12 499 88 88",
+    "photos": [
+      "/assets/restaurants/fireworks-urban-kitchen/1.jpg",
+      "/assets/restaurants/fireworks-urban-kitchen/2.jpg",
+      "/assets/restaurants/fireworks-urban-kitchen/3.jpg",
+      "/assets/restaurants/fireworks-urban-kitchen/4.jpg",
+      "/assets/restaurants/fireworks-urban-kitchen/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/fireworks-urban-kitchen/1.jpg",
     "short_description": "Fireworks Urban Kitchen pairs family-size platters with smoked prime steaks in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
       "middle_eastern",
@@ -1022,23 +10439,473 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "sushi",
       "trendy"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Spacious booths for families",
+      "Chef-led sushi counter",
+      "Showpiece dessert trolley"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3742262,
+    "longitude": 49.8564452,
+    "menu_url": "https://www.fireworks.az/en/",
+    "instagram": "https://www.instagram.com/fireworksbaku/",
+    "whatsapp": "+994 12 499 88 88",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart nightlife",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-fireworks-urban-kitchen-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#C88EA7",
+          "ambientLight": "rgba(238, 207, 195, 0.18)",
+          "texture": "velvet"
+        },
+        "landmarks": [
+          {
+            "id": "fireworks-urban-kitchen-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "fireworks-urban-kitchen-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "fireworks-urban-kitchen-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "fireworks-urban-kitchen-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "fireworks-urban-kitchen-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "fireworks-urban-kitchen-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-fireworks-urban-kitchen-lounge",
+        "name": "Sky Terrace",
+        "theme": {
+          "accent": "#A0C1B8",
+          "ambientLight": "rgba(160, 193, 184, 0.2)",
+          "texture": "parquet"
+        },
+        "landmarks": [
+          {
+            "id": "fireworks-urban-kitchen-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "fireworks-urban-kitchen-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "fireworks-urban-kitchen-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "fireworks-urban-kitchen-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "fireworks-urban-kitchen-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "fireworks-urban-kitchen-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3742262,49.8564452",
+    "call_url": "tel:+994124998888",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "Business lunch 12:00–15:00",
+    "structured_tags": {
+      "venue_type": [
+        "steakhouse"
+      ],
+      "cuisine": [
+        "steakhouse",
+        "middle_eastern"
+      ],
+      "vibe": [
+        "elegant",
+        "trendy"
+      ],
+      "features": [
+        "bar"
+      ],
+      "view": [
+        "city_view"
+      ],
+      "area": [
+        "jw_marriott"
+      ]
+    }
   },
   {
-    "id": "d98a1e87-387d-4d23-aa77-3a11cdb1e936",
     "name": "Green House Asian Kitchen",
+    "slug": "green-house-asian-kitchen",
+    "id": "d98a1e87-387d-4d23-aa77-3a11cdb1e936",
     "cuisine": [
       "Patisserie",
       "Bar & Lounge"
     ],
-    "city": "Baku",
-    "slug": "green-house-asian-kitchen",
-    "cover_photo": "/assets/restaurants/green-house-asian-kitchen/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "Baku Marriott Hotel Bouelvard, Bakı, Azerbaijan",
+    "phone": "+994 12 310 00 10",
+    "photos": [
+      "/assets/restaurants/green-house-asian-kitchen/1.jpg",
+      "/assets/restaurants/green-house-asian-kitchen/2.webp",
+      "/assets/restaurants/green-house-asian-kitchen/3.jpg",
+      "/assets/restaurants/green-house-asian-kitchen/4.webp",
+      "/assets/restaurants/green-house-asian-kitchen/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/green-house-asian-kitchen/1.jpg",
     "short_description": "Green House Asian Kitchen pairs live music sets with family-size platters in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 2/4",
     "tags": [
       "baku_marriott_boulevard",
@@ -1051,22 +10918,468 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "restaurant",
       "chinese"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 45–75 per guest"
+    "highlights": [
+      "Resident DJs on weekends",
+      "Spacious booths for families",
+      "Showpiece dessert trolley"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3751629,
+    "longitude": 49.8836466,
+    "menu_url": null,
+    "instagram": "https://www.instagram.com/greenhouseasiankitchen/",
+    "whatsapp": "+994 12 310 00 10",
+    "average_spend": "AZN 45–75 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-green-house-asian-kitchen-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#F4978E",
+          "ambientLight": "rgba(255, 210, 155, 0.22)",
+          "texture": "linen"
+        },
+        "landmarks": [
+          {
+            "id": "green-house-asian-kitchen-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "green-house-asian-kitchen-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "green-house-asian-kitchen-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "green-house-asian-kitchen-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "green-house-asian-kitchen-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "green-house-asian-kitchen-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-green-house-asian-kitchen-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#C88EA7",
+          "ambientLight": "rgba(238, 207, 195, 0.18)",
+          "texture": "velvet"
+        },
+        "landmarks": [
+          {
+            "id": "green-house-asian-kitchen-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "green-house-asian-kitchen-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "green-house-asian-kitchen-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "green-house-asian-kitchen-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "green-house-asian-kitchen-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "green-house-asian-kitchen-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3751629,49.8836466",
+    "call_url": "tel:+994123100010",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "14:00–23:30",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "asian",
+        "chinese"
+      ],
+      "vibe": [
+        "casual"
+      ],
+      "features": [
+        "bar"
+      ],
+      "area": [
+        "baku_marriott_boulevard"
+      ]
+    }
   },
   {
-    "id": "84ed3923-ed8b-4473-980b-3461f1982bc4",
     "name": "Harbour Tap and Grill",
+    "slug": "harbour-tap-and-grill",
+    "id": "84ed3923-ed8b-4473-980b-3461f1982bc4",
     "cuisine": [
       "Bar & Lounge"
     ],
-    "city": "Baku",
-    "slug": "harbour-tap-and-grill",
-    "cover_photo": "/assets/restaurants/harbour-tap-and-grill/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Seaside Boulevard",
     "address": "153 Neftçilər Prospekti, Bakı 1010, Azerbaijan",
+    "phone": "+994 12 404 82 05",
+    "photos": [
+      "/assets/restaurants/harbour-tap-and-grill/1.jpg",
+      "/assets/restaurants/harbour-tap-and-grill/2.jpg",
+      "/assets/restaurants/harbour-tap-and-grill/3.jpg",
+      "/assets/restaurants/harbour-tap-and-grill/4.jpg",
+      "/assets/restaurants/harbour-tap-and-grill/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/harbour-tap-and-grill/1.jpg",
     "short_description": "Harbour Tap and Grill highlights signature cocktails in Seaside Boulevard.",
+    "neighborhood": "Seaside Boulevard",
     "price_level": "AZN 2/4",
     "tags": [
       "indian",
@@ -1081,23 +11394,470 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "cozy",
       "trendy"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 45–75 per guest"
+    "highlights": [
+      "Mixology-led cocktail list"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3761593,
+    "longitude": 49.8612501,
+    "menu_url": "https://drive.google.com/file/d/15-q-OFS03fOt60x1aQB3JX5x1ekn9HOm/view?usp=sharing",
+    "instagram": "https://www.instagram.com/harbourbaku/",
+    "whatsapp": "+994 12 404 82 05",
+    "average_spend": "AZN 45–75 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-harbour-tap-and-grill-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#E7A977",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "texture": "marble"
+        },
+        "landmarks": [
+          {
+            "id": "harbour-tap-and-grill-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "harbour-tap-and-grill-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "harbour-tap-and-grill-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "harbour-tap-and-grill-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "harbour-tap-and-grill-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "harbour-tap-and-grill-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-harbour-tap-and-grill-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#F4978E",
+          "ambientLight": "rgba(255, 210, 155, 0.22)",
+          "texture": "linen"
+        },
+        "landmarks": [
+          {
+            "id": "harbour-tap-and-grill-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "harbour-tap-and-grill-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "harbour-tap-and-grill-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "harbour-tap-and-grill-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "harbour-tap-and-grill-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "harbour-tap-and-grill-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3761593,49.8612501",
+    "call_url": "tel:+994124048205",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "gastropub"
+      ],
+      "cuisine": [
+        "indian",
+        "european"
+      ],
+      "vibe": [
+        "casual",
+        "lively"
+      ],
+      "features": [
+        "bar"
+      ],
+      "view": [
+        "sea_view"
+      ],
+      "area": [
+        "port_baku"
+      ]
+    }
   },
   {
-    "id": "06337701-201b-4778-9633-390d3123b10b",
     "name": "Hard Rock Cafe",
+    "slug": "hard-rock-cafe",
+    "id": "06337701-201b-4778-9633-390d3123b10b",
     "cuisine": [
       "Japanese",
       "Bar & Lounge"
     ],
-    "city": "Baku",
-    "slug": "hard-rock-cafe",
-    "cover_photo": "/assets/restaurants/hard-rock-cafe/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Fountain Square",
     "address": "Fountain Square, 8 Əziz Əliyev küçəsi, Bakı 1000, Azerbaijan",
+    "phone": "+994 12 404 82 28",
+    "photos": [
+      "/assets/restaurants/hard-rock-cafe/1.jpg",
+      "/assets/restaurants/hard-rock-cafe/2.jpg",
+      "/assets/restaurants/hard-rock-cafe/3.jpg",
+      "/assets/restaurants/hard-rock-cafe/4.jpg",
+      "/assets/restaurants/hard-rock-cafe/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/hard-rock-cafe/1.jpg",
     "short_description": "Hard Rock Cafe pairs signature cocktails with omakase-style sushi flights in Fountain Square.",
+    "neighborhood": "Fountain Square",
     "price_level": "AZN 2/4",
     "tags": [
       "fountains_square",
@@ -1110,23 +11870,467 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "sushi",
       "lively"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 45–75 per guest"
+    "highlights": [
+      "Mixology-led cocktail list",
+      "Chef-led sushi counter"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.369031,
+    "longitude": 49.837363,
+    "menu_url": "https://cafe.hardrock.com/menu.aspx",
+    "instagram": "https://www.instagram.com/hardrockcafe/",
+    "whatsapp": "+994 12 404 82 28",
+    "average_spend": "AZN 45–75 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-hard-rock-cafe-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#F4978E",
+          "ambientLight": "rgba(255, 210, 155, 0.22)",
+          "texture": "linen"
+        },
+        "landmarks": [
+          {
+            "id": "hard-rock-cafe-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "hard-rock-cafe-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "hard-rock-cafe-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "hard-rock-cafe-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "hard-rock-cafe-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "hard-rock-cafe-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-hard-rock-cafe-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#C88EA7",
+          "ambientLight": "rgba(238, 207, 195, 0.18)",
+          "texture": "velvet"
+        },
+        "landmarks": [
+          {
+            "id": "hard-rock-cafe-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "hard-rock-cafe-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "hard-rock-cafe-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "hard-rock-cafe-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "hard-rock-cafe-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "hard-rock-cafe-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.369031,49.837363",
+    "call_url": "tel:+994124048228",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "american"
+      ],
+      "vibe": [
+        "lively"
+      ],
+      "features": [
+        "bar",
+        "live_music"
+      ],
+      "area": [
+        "fountains_square"
+      ]
+    }
   },
   {
-    "id": "055375bb-25a8-4ec0-870d-7c02c17143f7",
     "name": "KEFLI Local Wine & Snacks",
+    "slug": "kefli-local-wine-snacks",
+    "id": "055375bb-25a8-4ec0-870d-7c02c17143f7",
     "cuisine": [
       "Azerbaijani",
       "Seafood"
     ],
-    "city": "Baku",
-    "slug": "kefli-local-wine-snacks",
-    "cover_photo": "/assets/restaurants/kefli-local-wine-snacks/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "Tərlan Əliyarbəyov, Bakı, Azerbaijan",
+    "phone": "+994 51 308 99 09",
+    "photos": [
+      "/assets/restaurants/kefli-local-wine-snacks/1.jpg",
+      "/assets/restaurants/kefli-local-wine-snacks/2.jpg",
+      "/assets/restaurants/kefli-local-wine-snacks/3.jpg",
+      "/assets/restaurants/kefli-local-wine-snacks/4.jpg",
+      "/assets/restaurants/kefli-local-wine-snacks/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/kefli-local-wine-snacks/1.jpg",
     "short_description": "KEFLI Local Wine & Snacks pairs skyline terrace seating with signature cocktails in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
       "azerbaijani",
@@ -1141,23 +12345,473 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "azerbaijani_wine",
       "wine_bar"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Skyline terrace with Caspian views",
+      "Mixology-led cocktail list",
+      "Spritz-friendly coffee program"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3684516,
+    "longitude": 49.8398031,
+    "menu_url": "https://www.facebook.com/kefliwinebar/?fref=ts",
+    "instagram": "https://www.instagram.com/kefliwinebar/",
+    "whatsapp": "+994 51 308 99 09",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart nightlife",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-kefli-local-wine-snacks-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#F4978E",
+          "ambientLight": "rgba(255, 210, 155, 0.22)",
+          "texture": "linen"
+        },
+        "landmarks": [
+          {
+            "id": "kefli-local-wine-snacks-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "kefli-local-wine-snacks-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "kefli-local-wine-snacks-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "kefli-local-wine-snacks-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "kefli-local-wine-snacks-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "kefli-local-wine-snacks-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-kefli-local-wine-snacks-lounge",
+        "name": "Sky Terrace",
+        "theme": {
+          "accent": "#C88EA7",
+          "ambientLight": "rgba(238, 207, 195, 0.18)",
+          "texture": "velvet"
+        },
+        "landmarks": [
+          {
+            "id": "kefli-local-wine-snacks-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "kefli-local-wine-snacks-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "kefli-local-wine-snacks-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "kefli-local-wine-snacks-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "kefli-local-wine-snacks-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "kefli-local-wine-snacks-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3684516,49.8398031",
+    "call_url": "tel:+994513089909",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "15:00–01:00 (to 03:00 Fri/Sat)",
+    "structured_tags": {
+      "venue_type": [
+        "bar"
+      ],
+      "cuisine": [
+        "azerbaijani",
+        "wine_bar"
+      ],
+      "vibe": [
+        "cozy",
+        "casual"
+      ],
+      "features": [
+        "wine_bar"
+      ],
+      "az_culture": [
+        "azerbaijani_wine"
+      ],
+      "area": [
+        "central/old_city_edge"
+      ]
+    }
   },
   {
-    "id": "5284ca0c-3c4a-4b42-a052-e33249045fc4",
     "name": "La Kükü",
+    "slug": "la-kuku",
+    "id": "5284ca0c-3c4a-4b42-a052-e33249045fc4",
     "cuisine": [
       "Azerbaijani",
       "Grill"
     ],
-    "city": "Baku",
-    "slug": "la-kuku",
-    "cover_photo": "/assets/restaurants/la-kuku/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "Baku, Azerbaijan",
+    "phone": "+994 70 565 01 78",
+    "photos": [
+      "/assets/restaurants/la-kuku/1.jpg",
+      "/assets/restaurants/la-kuku/2.jpg",
+      "/assets/restaurants/la-kuku/3.jpg",
+      "/assets/restaurants/la-kuku/4.jpg",
+      "/assets/restaurants/la-kuku/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/la-kuku/1.jpg",
     "short_description": "La Kükü pairs modern Azeri flavors with third-wave coffee service in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 2/4",
     "tags": [
       "traditional_interior",
@@ -1172,22 +12826,464 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "family_friendly",
       "tea_culture"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 45–75 per guest"
+    "highlights": [
+      "Spritz-friendly coffee program"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1481833761820-0509d3217039?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3653647,
+    "longitude": 49.8315394,
+    "menu_url": "https://www.instagram.com/La_K%C3%BCk%C3%BC",
+    "instagram": "https://www.instagram.com/la_kuku_baku/",
+    "whatsapp": "+994 70 565 01 78",
+    "average_spend": "AZN 45–75 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-la-kuku-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#C88EA7",
+          "ambientLight": "rgba(238, 207, 195, 0.18)",
+          "texture": "velvet"
+        },
+        "landmarks": [
+          {
+            "id": "la-kuku-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "la-kuku-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "la-kuku-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "la-kuku-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "la-kuku-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "la-kuku-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-la-kuku-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#A0C1B8",
+          "ambientLight": "rgba(160, 193, 184, 0.2)",
+          "texture": "parquet"
+        },
+        "landmarks": [
+          {
+            "id": "la-kuku-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "la-kuku-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "la-kuku-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "la-kuku-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "la-kuku-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "la-kuku-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3653647,49.8315394",
+    "call_url": "tel:+994705650178",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "10:00–23:30",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "azerbaijani",
+        "european"
+      ],
+      "vibe": [
+        "family_friendly",
+        "cozy"
+      ],
+      "features": [
+        "tea_culture"
+      ],
+      "az_culture": [
+        "traditional_interior"
+      ],
+      "area": [
+        "old_city"
+      ]
+    }
   },
   {
-    "id": "f44ef494-7fe6-402f-872c-b993123875e3",
     "name": "La Maison Patisserie&Cafe",
+    "slug": "la-maison-patisserie-cafe",
+    "id": "f44ef494-7fe6-402f-872c-b993123875e3",
     "cuisine": [
       "International"
     ],
-    "city": "Baku",
-    "slug": "la-maison-patisserie-cafe",
-    "cover_photo": null,
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "Nəsimi Rayonu, Nəsib bəy Yusifbəyli küçəsi, 9RWJ+G75, Bakı, Azerbaijan",
+    "phone": "+994 50 242 42 28",
+    "photos": [],
+    "cover_photo": "",
     "short_description": "La Maison Patisserie&Cafe keeps the service warm and flexible in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
       "romantic",
@@ -1202,23 +13298,468 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "tea_culture",
       "trendy"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Service-led dining room with attentive hosts"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3962712,
+    "longitude": 49.8307464,
+    "menu_url": null,
+    "instagram": "@lamaison_patisserie",
+    "whatsapp": "+994 50 242 42 28",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-la-maison-patisserie-cafe-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#C88EA7",
+          "ambientLight": "rgba(238, 207, 195, 0.18)",
+          "texture": "velvet"
+        },
+        "landmarks": [
+          {
+            "id": "la-maison-patisserie-cafe-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "la-maison-patisserie-cafe-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "la-maison-patisserie-cafe-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "la-maison-patisserie-cafe-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "la-maison-patisserie-cafe-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "la-maison-patisserie-cafe-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-la-maison-patisserie-cafe-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#A0C1B8",
+          "ambientLight": "rgba(160, 193, 184, 0.2)",
+          "texture": "parquet"
+        },
+        "landmarks": [
+          {
+            "id": "la-maison-patisserie-cafe-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "la-maison-patisserie-cafe-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "la-maison-patisserie-cafe-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "la-maison-patisserie-cafe-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "la-maison-patisserie-cafe-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "la-maison-patisserie-cafe-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3962712,49.8307464",
+    "call_url": "tel:+994502424228",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "09:00–23:30",
+    "structured_tags": {
+      "venue_type": [
+        "patisserie"
+      ],
+      "cuisine": [
+        "cafe_bakery"
+      ],
+      "vibe": [
+        "casual",
+        "romantic"
+      ],
+      "features": [
+        "desserts",
+        "tea_culture"
+      ],
+      "area": [
+        "crescent_mall"
+      ]
+    }
   },
   {
-    "id": "56cefc32-2800-40a4-b23c-8aff0b7bf8f8",
     "name": "Latitude & Longitude Bar Lounge",
+    "slug": "latitude-longitude-bar-lounge",
+    "id": "56cefc32-2800-40a4-b23c-8aff0b7bf8f8",
     "cuisine": [
       "Azerbaijani",
       "Patisserie"
     ],
-    "city": "Baku",
-    "slug": "latitude-longitude-bar-lounge",
-    "cover_photo": "/assets/restaurants/latitude-longitude-bar-lounge/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "4, 6 Əziz Əliyev küçəsi, Bakı 1005, Azerbaijan",
+    "phone": "+994 51 206 85 81",
+    "photos": [
+      "/assets/restaurants/latitude-longitude-bar-lounge/1.jpg",
+      "/assets/restaurants/latitude-longitude-bar-lounge/2.jpg",
+      "/assets/restaurants/latitude-longitude-bar-lounge/3.jpg",
+      "/assets/restaurants/latitude-longitude-bar-lounge/4.jpg",
+      "/assets/restaurants/latitude-longitude-bar-lounge/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/latitude-longitude-bar-lounge/1.jpg",
     "short_description": "Latitude & Longitude Bar Lounge pairs plated desserts with live music sets in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
       "azerbaijani",
@@ -1233,23 +13774,468 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "trendy",
       "lounge"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Showpiece dessert trolley",
+      "Resident DJs on weekends",
+      "Mixology-led cocktail list"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3683929,
+    "longitude": 49.8380957,
+    "menu_url": "https://themerchantbaku.com/dining/",
+    "instagram": "https://www.instagram.com/lalobarlounge/",
+    "whatsapp": "+994 51 206 85 81",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart nightlife",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-latitude-longitude-bar-lounge-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#E7A977",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "texture": "marble"
+        },
+        "landmarks": [
+          {
+            "id": "latitude-longitude-bar-lounge-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "latitude-longitude-bar-lounge-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "latitude-longitude-bar-lounge-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "latitude-longitude-bar-lounge-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "latitude-longitude-bar-lounge-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "latitude-longitude-bar-lounge-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-latitude-longitude-bar-lounge-lounge",
+        "name": "Sky Terrace",
+        "theme": {
+          "accent": "#F4978E",
+          "ambientLight": "rgba(255, 210, 155, 0.22)",
+          "texture": "linen"
+        },
+        "landmarks": [
+          {
+            "id": "latitude-longitude-bar-lounge-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "latitude-longitude-bar-lounge-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "latitude-longitude-bar-lounge-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "latitude-longitude-bar-lounge-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "latitude-longitude-bar-lounge-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "latitude-longitude-bar-lounge-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3683929,49.8380957",
+    "call_url": "tel:+994512068581",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "lounge"
+      ],
+      "cuisine": [
+        "international"
+      ],
+      "vibe": [
+        "elegant",
+        "trendy"
+      ],
+      "features": [
+        "cocktails"
+      ],
+      "area": [
+        "merchant_baku"
+      ]
+    }
   },
   {
-    "id": "cde0bbb6-c4a0-4f48-bd5e-dc00277e5d31",
     "name": "Merci Baku",
+    "slug": "merci-baku",
+    "id": "cde0bbb6-c4a0-4f48-bd5e-dc00277e5d31",
     "cuisine": [
       "Azerbaijani",
       "Seafood"
     ],
-    "city": "Baku",
-    "slug": "merci-baku",
-    "cover_photo": "/assets/restaurants/merci-baku/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "Asaf Zeynalli,16, AZ1000 Baku, Azerbaijan, Kichik Qala, Bakı 1000, Azerbaijan",
+    "phone": "+994 50 266 26 68",
+    "photos": [
+      "/assets/restaurants/merci-baku/1.jpg",
+      "/assets/restaurants/merci-baku/2.jpg",
+      "/assets/restaurants/merci-baku/3.jpg",
+      "/assets/restaurants/merci-baku/4.jpg",
+      "/assets/restaurants/merci-baku/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/merci-baku/1.jpg",
     "short_description": "Merci Baku pairs signature cocktails with smoked prime steaks in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
       "shisha",
@@ -1265,23 +14251,469 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "coffee",
       "cozy"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Mixology-led cocktail list",
+      "Spritz-friendly coffee program",
+      "Daily seafood and raw bar"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1481833761820-0509d3217039?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.36452070000001,
+    "longitude": 49.8349875,
+    "menu_url": "https://mercibaku.co/",
+    "instagram": "https://www.instagram.com/merci_baku/",
+    "whatsapp": "+994 50 266 26 68",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-merci-baku-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#E7A977",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "texture": "marble"
+        },
+        "landmarks": [
+          {
+            "id": "merci-baku-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "merci-baku-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "merci-baku-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "merci-baku-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "merci-baku-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "merci-baku-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-merci-baku-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#F4978E",
+          "ambientLight": "rgba(255, 210, 155, 0.22)",
+          "texture": "linen"
+        },
+        "landmarks": [
+          {
+            "id": "merci-baku-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "merci-baku-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "merci-baku-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "merci-baku-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "merci-baku-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "merci-baku-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.36452070000001,49.8349875",
+    "call_url": "tel:+994502662668",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "european",
+        "azerbaijani"
+      ],
+      "vibe": [
+        "cozy"
+      ],
+      "features": [
+        "shisha",
+        "breakfast"
+      ],
+      "area": [
+        "old_city"
+      ]
+    }
   },
   {
-    "id": "d94974fb-8ffc-4dd7-8539-4b0e2dd778a4",
     "name": "Movida Lounge and Dining",
+    "slug": "movida-lounge-and-dining",
+    "id": "d94974fb-8ffc-4dd7-8539-4b0e2dd778a4",
     "cuisine": [
       "Seafood",
       "Italian"
     ],
-    "city": "Baku",
-    "slug": "movida-lounge-and-dining",
-    "cover_photo": "/assets/restaurants/movida-lounge-and-dining/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Port Baku",
     "address": "Port Baku Towers, 153 Neftçilər Prospekti, Bakı 1010, Azerbaijan",
+    "phone": "+994 50 229 10 60",
+    "photos": [
+      "/assets/restaurants/movida-lounge-and-dining/1.jpg",
+      "/assets/restaurants/movida-lounge-and-dining/2.jpg",
+      "/assets/restaurants/movida-lounge-and-dining/3.jpg",
+      "/assets/restaurants/movida-lounge-and-dining/4.jpg",
+      "/assets/restaurants/movida-lounge-and-dining/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/movida-lounge-and-dining/1.jpg",
     "short_description": "Movida Lounge and Dining pairs after-dark lounge energy with signature cocktails in Port Baku.",
+    "neighborhood": "Port Baku",
     "price_level": "AZN 3/4",
     "tags": [
       "middle_eastern",
@@ -1301,23 +14733,475 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "moroccan",
       "trendy"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Mixology-led cocktail list",
+      "Daily seafood and raw bar",
+      "Dedicated shisha pergola"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3758162,
+    "longitude": 49.8614013,
+    "menu_url": "https://drive.google.com/file/d/1-baXozOzQh0Me3IJDecBj8DjmVO7cQoi/view?usp=sharing",
+    "instagram": "https://www.instagram.com/movidabaku/",
+    "whatsapp": "+994 50 229 10 60",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart nightlife",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-movida-lounge-and-dining-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#A0C1B8",
+          "ambientLight": "rgba(160, 193, 184, 0.2)",
+          "texture": "parquet"
+        },
+        "landmarks": [
+          {
+            "id": "movida-lounge-and-dining-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "movida-lounge-and-dining-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "movida-lounge-and-dining-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "movida-lounge-and-dining-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "movida-lounge-and-dining-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "movida-lounge-and-dining-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-movida-lounge-and-dining-lounge",
+        "name": "Sky Terrace",
+        "theme": {
+          "accent": "#E7A977",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "texture": "marble"
+        },
+        "landmarks": [
+          {
+            "id": "movida-lounge-and-dining-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "movida-lounge-and-dining-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "movida-lounge-and-dining-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "movida-lounge-and-dining-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "movida-lounge-and-dining-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "movida-lounge-and-dining-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3758162,49.8614013",
+    "call_url": "tel:+994502291060",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "11:00–01:00",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "middle_eastern",
+        "moroccan"
+      ],
+      "vibe": [
+        "trendy",
+        "lively"
+      ],
+      "features": [
+        "shisha",
+        "bar",
+        "lunch_menu"
+      ],
+      "view": [
+        "sea_view"
+      ],
+      "area": [
+        "seaside_boulevard"
+      ]
+    }
   },
   {
-    "id": "77adcb40-7b89-4faf-a3ca-71fe9ae00aeb",
     "name": "Nur Lounge",
+    "slug": "nur-lounge",
+    "id": "77adcb40-7b89-4faf-a3ca-71fe9ae00aeb",
     "cuisine": [
       "Seafood",
       "Japanese"
     ],
-    "city": "Baku",
-    "slug": "nur-lounge",
-    "cover_photo": "/assets/restaurants/nur-lounge/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Flame Towers",
     "address": "Fairmont Baku Azərbaycan, 1A, 1006 Mehdi Hüseyn Küçəsi, Bakı 1006, Azerbaijan",
+    "phone": "+994 55 505 04 30",
+    "photos": [
+      "/assets/restaurants/nur-lounge/1.jpg",
+      "/assets/restaurants/nur-lounge/2.jpg",
+      "/assets/restaurants/nur-lounge/3.jpg",
+      "/assets/restaurants/nur-lounge/4.jpg",
+      "/assets/restaurants/nur-lounge/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/nur-lounge/1.jpg",
     "short_description": "Nur Lounge pairs plated desserts with signature cocktails in Flame Towers.",
+    "neighborhood": "Flame Towers",
     "price_level": "AZN 4/4",
     "tags": [
       "rooftop",
@@ -1338,22 +15222,473 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "sushi",
       "tea_culture"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 110–160 per guest"
+    "highlights": [
+      "Showpiece dessert trolley",
+      "Mixology-led cocktail list",
+      "Spacious booths for families"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3601143,
+    "longitude": 49.8262438,
+    "menu_url": "https://www.fairmont.com/en/hotels/barbados/fairmont-royal-pavilion.html",
+    "instagram": "https://www.instagram.com/fairmontbaku/",
+    "whatsapp": "+994 55 505 04 30",
+    "average_spend": "AZN 110–160 per guest",
+    "dress_code": "Chic evening",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-nur-lounge-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#A0C1B8",
+          "ambientLight": "rgba(160, 193, 184, 0.2)",
+          "texture": "parquet"
+        },
+        "landmarks": [
+          {
+            "id": "nur-lounge-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "nur-lounge-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "nur-lounge-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "nur-lounge-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "nur-lounge-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "nur-lounge-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-nur-lounge-lounge",
+        "name": "Sky Terrace",
+        "theme": {
+          "accent": "#E7A977",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "texture": "marble"
+        },
+        "landmarks": [
+          {
+            "id": "nur-lounge-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "nur-lounge-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "nur-lounge-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "nur-lounge-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "nur-lounge-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "nur-lounge-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3601143,49.8262438",
+    "call_url": "tel:+994555050430",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "10:00–23:00",
+    "structured_tags": {
+      "venue_type": [
+        "lounge"
+      ],
+      "cuisine": [
+        "international"
+      ],
+      "vibe": [
+        "elegant",
+        "romantic"
+      ],
+      "features": [
+        "live_piano",
+        "cocktails",
+        "tea_culture"
+      ],
+      "view": [
+        "city_view"
+      ],
+      "area": [
+        "flame_towers"
+      ]
+    }
   },
   {
-    "id": "ba3e29f4-6cf2-400b-93e5-53adc9ee96ab",
     "name": "Paris Bistro",
+    "slug": "paris-bistro",
+    "id": "ba3e29f4-6cf2-400b-93e5-53adc9ee96ab",
     "cuisine": [
       "Cafe"
     ],
-    "city": "Baku",
-    "slug": "paris-bistro",
-    "cover_photo": "/assets/restaurants/paris-bistro/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "Zarifa Aliyeva St, Baku, Azerbaijan",
+    "phone": "+994 10 265 44 94",
+    "photos": [
+      "/assets/restaurants/paris-bistro/1.jpg",
+      "/assets/restaurants/paris-bistro/2.jpg",
+      "/assets/restaurants/paris-bistro/3.webp",
+      "/assets/restaurants/paris-bistro/4.webp",
+      "/assets/restaurants/paris-bistro/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/paris-bistro/1.jpg",
     "short_description": "Paris Bistro highlights third-wave coffee service in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 2/4",
     "tags": [
       "central/zarifa_aliyeva",
@@ -1369,23 +15704,470 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "wine_bar",
       "trendy"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 45–75 per guest"
+    "highlights": [
+      "Spritz-friendly coffee program"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3679021,
+    "longitude": 49.8381549,
+    "menu_url": "https://monyo.az/?r=parisbistro",
+    "instagram": "https://www.instagram.com/parisbistrobaku/",
+    "whatsapp": "+994 10 265 44 94",
+    "average_spend": "AZN 45–75 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-paris-bistro-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#E7A977",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "texture": "marble"
+        },
+        "landmarks": [
+          {
+            "id": "paris-bistro-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "paris-bistro-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "paris-bistro-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "paris-bistro-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "paris-bistro-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "paris-bistro-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-paris-bistro-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#F4978E",
+          "ambientLight": "rgba(255, 210, 155, 0.22)",
+          "texture": "linen"
+        },
+        "landmarks": [
+          {
+            "id": "paris-bistro-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "paris-bistro-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "paris-bistro-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "paris-bistro-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "paris-bistro-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "paris-bistro-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3679021,49.8381549",
+    "call_url": "tel:+994102654494",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "08:00–03:00",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "european",
+        "french"
+      ],
+      "vibe": [
+        "casual",
+        "romantic"
+      ],
+      "features": [
+        "wine_bar",
+        "breakfast",
+        "late_night"
+      ],
+      "area": [
+        "central/zarifa_aliyeva"
+      ]
+    }
   },
   {
-    "id": "943ed561-d679-42e1-9f5e-5dfd1bbe7b74",
     "name": "Pasifico Lounge and Dining",
+    "slug": "pasifico-lounge-and-dining",
+    "id": "943ed561-d679-42e1-9f5e-5dfd1bbe7b74",
     "cuisine": [
       "Seafood",
       "Japanese"
     ],
-    "city": "Baku",
-    "slug": "pasifico-lounge-and-dining",
-    "cover_photo": "/assets/restaurants/pasifico-lounge-and-dining/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Seaside Boulevard",
     "address": "Seaside Boulevard, 34 Neftçilər Prospekti, Bakı 1010, Azerbaijan",
+    "phone": "+994 50 285 00 21",
+    "photos": [
+      "/assets/restaurants/pasifico-lounge-and-dining/1.jpg",
+      "/assets/restaurants/pasifico-lounge-and-dining/2.jpg",
+      "/assets/restaurants/pasifico-lounge-and-dining/3.jpg",
+      "/assets/restaurants/pasifico-lounge-and-dining/4.jpg",
+      "/assets/restaurants/pasifico-lounge-and-dining/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/pasifico-lounge-and-dining/1.jpg",
     "short_description": "Pasifico Lounge and Dining pairs Caspian seafood towers with omakase-style sushi flights in Seaside Boulevard.",
+    "neighborhood": "Seaside Boulevard",
     "price_level": "AZN 3/4",
     "tags": [
       "rooftop",
@@ -1403,23 +16185,468 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "sushi",
       "trendy"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Daily seafood and raw bar",
+      "Chef-led sushi counter",
+      "Mixology-led cocktail list"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3696618,
+    "longitude": 49.8454942,
+    "menu_url": "http://pasifico.az/menu",
+    "instagram": "https://www.instagram.com/pasificobaku/",
+    "whatsapp": "+994 50 285 00 21",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart nightlife",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-pasifico-lounge-and-dining-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#A0C1B8",
+          "ambientLight": "rgba(160, 193, 184, 0.2)",
+          "texture": "parquet"
+        },
+        "landmarks": [
+          {
+            "id": "pasifico-lounge-and-dining-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "pasifico-lounge-and-dining-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "pasifico-lounge-and-dining-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "pasifico-lounge-and-dining-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "pasifico-lounge-and-dining-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "pasifico-lounge-and-dining-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-pasifico-lounge-and-dining-lounge",
+        "name": "Sky Terrace",
+        "theme": {
+          "accent": "#E7A977",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "texture": "marble"
+        },
+        "landmarks": [
+          {
+            "id": "pasifico-lounge-and-dining-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "pasifico-lounge-and-dining-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "pasifico-lounge-and-dining-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "pasifico-lounge-and-dining-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "pasifico-lounge-and-dining-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "pasifico-lounge-and-dining-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3696618,49.8454942",
+    "call_url": "tel:+994502850021",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "18:00–02:00 (Fri/Sat till 06:00)",
+    "structured_tags": {
+      "venue_type": [
+        "lounge"
+      ],
+      "cuisine": [
+        "latin"
+      ],
+      "vibe": [
+        "trendy",
+        "lively"
+      ],
+      "features": [
+        "dj",
+        "late_night",
+        "cocktails"
+      ],
+      "view": [
+        "sea_view"
+      ],
+      "area": [
+        "seaside_boulevard"
+      ]
+    }
   },
   {
-    "id": "a05d96d0-1af6-4e5c-9a6a-6ef8aa051ebe",
     "name": "People Livebar",
+    "slug": "people-livebar",
+    "id": "a05d96d0-1af6-4e5c-9a6a-6ef8aa051ebe",
     "cuisine": [
       "Cafe",
       "Bar & Lounge"
     ],
-    "city": "Baku",
-    "slug": "people-livebar",
-    "cover_photo": null,
-    "timezone": "Asia/Baku",
-    "neighborhood": "Nizami Street",
     "address": "69 Nizami St, Baku 1005, Azerbaijan",
+    "phone": "+994 50 710 00 11",
+    "photos": [],
+    "cover_photo": "",
     "short_description": "People Livebar pairs signature cocktails with third-wave coffee service in Nizami Street.",
+    "neighborhood": "Nizami Street",
     "price_level": "AZN 2/4",
     "tags": [
       "nizami_street",
@@ -1432,22 +16659,463 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "restaurant",
       "lively"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 45–75 per guest"
+    "highlights": [
+      "Mixology-led cocktail list",
+      "Spritz-friendly coffee program"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3724107,
+    "longitude": 49.837528,
+    "menu_url": null,
+    "instagram": "https://www.instagram.com/p/",
+    "whatsapp": "+994 50 710 00 11",
+    "average_spend": "AZN 45–75 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-people-livebar-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#A0C1B8",
+          "ambientLight": "rgba(160, 193, 184, 0.2)",
+          "texture": "parquet"
+        },
+        "landmarks": [
+          {
+            "id": "people-livebar-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "people-livebar-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "people-livebar-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "people-livebar-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "people-livebar-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "people-livebar-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-people-livebar-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#E7A977",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "texture": "marble"
+        },
+        "landmarks": [
+          {
+            "id": "people-livebar-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "people-livebar-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "people-livebar-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "people-livebar-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "people-livebar-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "people-livebar-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3724107,49.837528",
+    "call_url": "tel:+994507100011",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "bar"
+      ],
+      "cuisine": [
+        "gastropub"
+      ],
+      "vibe": [
+        "lively"
+      ],
+      "features": [
+        "dj",
+        "bar"
+      ],
+      "area": [
+        "nizami_street"
+      ]
+    }
   },
   {
-    "id": "78b589a5-d037-4bc1-9d96-a916b8864c42",
     "name": "Porterhouse Grill & Wine",
+    "slug": "porterhouse-grill-wine",
+    "id": "78b589a5-d037-4bc1-9d96-a916b8864c42",
     "cuisine": [
       "Steakhouse"
     ],
-    "city": "Baku",
-    "slug": "porterhouse-grill-wine",
-    "cover_photo": "/assets/restaurants/porterhouse-grill-wine/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Bayil",
     "address": "National Flag Square Complex, Bakı 1010, Azerbaijan",
+    "phone": "+994 51 999 99 11",
+    "photos": [
+      "/assets/restaurants/porterhouse-grill-wine/1.jpg",
+      "/assets/restaurants/porterhouse-grill-wine/2.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/porterhouse-grill-wine/1.jpg",
     "short_description": "Porterhouse Grill & Wine highlights smoked prime steaks in Bayil.",
+    "neighborhood": "Bayil",
     "price_level": "AZN 3/4",
     "tags": [
       "central",
@@ -1460,23 +17128,466 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "wine_bar",
       "trendy"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Service-led dining room with attentive hosts"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1481833761820-0509d3217039?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3393445,
+    "longitude": 49.8398498,
+    "menu_url": null,
+    "instagram": "https://www.instagram.com/porterhousebaku/",
+    "whatsapp": "+994 51 999 99 11",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-porterhouse-grill-wine-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#A0C1B8",
+          "ambientLight": "rgba(160, 193, 184, 0.2)",
+          "texture": "parquet"
+        },
+        "landmarks": [
+          {
+            "id": "porterhouse-grill-wine-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "porterhouse-grill-wine-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "porterhouse-grill-wine-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "porterhouse-grill-wine-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "porterhouse-grill-wine-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "porterhouse-grill-wine-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-porterhouse-grill-wine-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#E7A977",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "texture": "marble"
+        },
+        "landmarks": [
+          {
+            "id": "porterhouse-grill-wine-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "porterhouse-grill-wine-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "porterhouse-grill-wine-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "porterhouse-grill-wine-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "porterhouse-grill-wine-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "porterhouse-grill-wine-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3393445,49.8398498",
+    "call_url": "tel:+994519999911",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "steakhouse"
+      ],
+      "vibe": [
+        "elegant"
+      ],
+      "features": [
+        "wine_bar",
+        "bar"
+      ],
+      "area": [
+        "central"
+      ]
+    }
   },
   {
-    "id": "be1e5d37-519c-4378-bc90-bff7f567ff54",
     "name": "Prive Steak Gallery Baku",
+    "slug": "prive-steak-gallery-baku",
+    "id": "be1e5d37-519c-4378-bc90-bff7f567ff54",
     "cuisine": [
       "Steakhouse",
       "Bar & Lounge"
     ],
-    "city": "Baku",
-    "slug": "prive-steak-gallery-baku",
-    "cover_photo": "/assets/restaurants/prive-steak-gallery-baku/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "14/a Xaqani Küçəsi, Bakı, Azerbaijan",
+    "phone": "+994 12 598 05 55",
+    "photos": [
+      "/assets/restaurants/prive-steak-gallery-baku/1.jpg",
+      "/assets/restaurants/prive-steak-gallery-baku/2.jpg",
+      "/assets/restaurants/prive-steak-gallery-baku/3.jpg",
+      "/assets/restaurants/prive-steak-gallery-baku/4.jpg",
+      "/assets/restaurants/prive-steak-gallery-baku/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/prive-steak-gallery-baku/1.jpg",
     "short_description": "Prive Steak Gallery Baku pairs signature cocktails with smoked prime steaks in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
       "central",
@@ -1489,23 +17600,467 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "breakfast",
       "private_dining"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Mixology-led cocktail list"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1481833761820-0509d3217039?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3721495,
+    "longitude": 49.8416105,
+    "menu_url": "http://privebaku.com/az/menu/",
+    "instagram": "https://www.instagram.com/prive_steak_gallery/",
+    "whatsapp": "+994 12 598 05 55",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-prive-steak-gallery-baku-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#E7A977",
+          "ambientLight": "rgba(231, 169, 119, 0.16)",
+          "texture": "marble"
+        },
+        "landmarks": [
+          {
+            "id": "prive-steak-gallery-baku-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "prive-steak-gallery-baku-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "prive-steak-gallery-baku-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "prive-steak-gallery-baku-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "prive-steak-gallery-baku-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "prive-steak-gallery-baku-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-prive-steak-gallery-baku-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#F4978E",
+          "ambientLight": "rgba(255, 210, 155, 0.22)",
+          "texture": "linen"
+        },
+        "landmarks": [
+          {
+            "id": "prive-steak-gallery-baku-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "prive-steak-gallery-baku-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "prive-steak-gallery-baku-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "prive-steak-gallery-baku-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "prive-steak-gallery-baku-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "prive-steak-gallery-baku-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3721495,49.8416105",
+    "call_url": "tel:+994125980555",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "09:00–00:00",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "steakhouse"
+      ],
+      "vibe": [
+        "elegant"
+      ],
+      "features": [
+        "wine_bar",
+        "private_dining"
+      ],
+      "area": [
+        "central"
+      ]
+    }
   },
   {
-    "id": "57fb9d47-c7b8-456d-8c8e-6d7de71d5b94",
     "name": "Scalini",
+    "slug": "scalini",
+    "id": "57fb9d47-c7b8-456d-8c8e-6d7de71d5b94",
     "cuisine": [
       "Azerbaijani",
       "Seafood"
     ],
-    "city": "Baku",
-    "slug": "scalini",
-    "cover_photo": "/assets/restaurants/scalini/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "9VG6+6J8, Baku, Azerbaijan",
+    "phone": "+994 12 404 82 07",
+    "photos": [
+      "/assets/restaurants/scalini/1.jpg",
+      "/assets/restaurants/scalini/2.jpg",
+      "/assets/restaurants/scalini/3.jpg",
+      "/assets/restaurants/scalini/4.jpg",
+      "/assets/restaurants/scalini/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/scalini/1.jpg",
     "short_description": "Scalini pairs wood-fired pizzas with modern Azeri flavors in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
       "azerbaijani",
@@ -1521,23 +18076,468 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "restaurant",
       "wine_bar"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Showpiece dessert trolley",
+      "Spritz-friendly coffee program",
+      "Spacious booths for families"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.38627,
+    "longitude": 49.82526,
+    "menu_url": "http://www.scalini.az/#menu",
+    "instagram": "https://www.instagram.com/scalini_baku/",
+    "whatsapp": "+994 12 404 82 07",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-scalini-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#C88EA7",
+          "ambientLight": "rgba(238, 207, 195, 0.18)",
+          "texture": "velvet"
+        },
+        "landmarks": [
+          {
+            "id": "scalini-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "scalini-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "scalini-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "scalini-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "scalini-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "scalini-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-scalini-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#A0C1B8",
+          "ambientLight": "rgba(160, 193, 184, 0.2)",
+          "texture": "parquet"
+        },
+        "landmarks": [
+          {
+            "id": "scalini-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "scalini-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "scalini-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "scalini-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "scalini-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "scalini-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3755332,49.8615678",
+    "call_url": "tel:+994124048207",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "italian"
+      ],
+      "vibe": [
+        "cozy",
+        "family_friendly"
+      ],
+      "features": [
+        "wine_bar"
+      ],
+      "area": [
+        "port_baku"
+      ]
+    }
   },
   {
-    "id": "e5d44235-f6fc-41a9-bdac-8a287ed24f09",
     "name": "SHUR",
+    "slug": "shur",
+    "id": "e5d44235-f6fc-41a9-bdac-8a287ed24f09",
     "cuisine": [
       "Seafood",
       "Bar & Lounge"
     ],
-    "city": "Baku",
-    "slug": "shur",
-    "cover_photo": "/assets/restaurants/shur/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "Baku, Azerbaijan",
+    "phone": "+994 12 493 02 72",
+    "photos": [
+      "/assets/restaurants/shur/1.jpg",
+      "/assets/restaurants/shur/2.jpg",
+      "/assets/restaurants/shur/3.jpg",
+      "/assets/restaurants/shur/4.jpg",
+      "/assets/restaurants/shur/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/shur/1.jpg",
     "short_description": "SHUR pairs live music sets with Caspian seafood towers in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
       "azerbaijani",
@@ -1549,23 +18549,469 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "breakfast",
       "lively"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Resident DJs on weekends",
+      "Daily seafood and raw bar",
+      "Mixology-led cocktail list"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3770909,
+    "longitude": 49.8450813,
+    "menu_url": "https://www.facebook.com/shurbaku",
+    "instagram": "https://www.instagram.com/shur.restaurant/",
+    "whatsapp": "+994 12 493 02 72",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-shur-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#F4978E",
+          "ambientLight": "rgba(255, 210, 155, 0.22)",
+          "texture": "linen"
+        },
+        "landmarks": [
+          {
+            "id": "shur-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "shur-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "shur-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "shur-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "shur-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "shur-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-shur-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#C88EA7",
+          "ambientLight": "rgba(238, 207, 195, 0.18)",
+          "texture": "velvet"
+        },
+        "landmarks": [
+          {
+            "id": "shur-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "shur-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "shur-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "shur-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "shur-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "shur-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3770909,49.8450813",
+    "call_url": "tel:+994124930272",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "12:00–00:00",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "azerbaijani"
+      ],
+      "vibe": [
+        "lively"
+      ],
+      "features": [
+        "live_music",
+        "bar"
+      ],
+      "area": [
+        "central/rashid_behbudov"
+      ]
+    }
   },
   {
-    "id": "01afa005-66b9-46e6-9d55-cca2ce7dbeab",
     "name": "SUSHI ROOM BAKU",
+    "slug": "sushi-room-baku",
+    "id": "01afa005-66b9-46e6-9d55-cca2ce7dbeab",
     "cuisine": [
       "Seafood",
       "Japanese"
     ],
-    "city": "Baku",
-    "slug": "sushi-room-baku",
-    "cover_photo": "/assets/restaurants/sushi-room-baku/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Nizami Street",
     "address": "91 Nizami St, Baku 1010, Azerbaijan",
+    "phone": "+994 55 587 90 30",
+    "photos": [
+      "/assets/restaurants/sushi-room-baku/1.jpg",
+      "/assets/restaurants/sushi-room-baku/2.jpg",
+      "/assets/restaurants/sushi-room-baku/3.jpg",
+      "/assets/restaurants/sushi-room-baku/4.jpg",
+      "/assets/restaurants/sushi-room-baku/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/sushi-room-baku/1.jpg",
     "short_description": "SUSHI ROOM BAKU pairs omakase-style sushi flights with Caspian seafood towers in Nizami Street.",
+    "neighborhood": "Nizami Street",
     "price_level": "AZN 3/4",
     "tags": [
       "takeaway",
@@ -1577,23 +19023,468 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "delivery",
       "multiple_locations"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Chef-led sushi counter",
+      "Daily seafood and raw bar"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3742065,
+    "longitude": 49.844619,
+    "menu_url": "http://www.sushiroom.az/",
+    "instagram": "https://www.instagram.com/sushiroom.az/",
+    "whatsapp": "+994 55 587 90 30",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-sushi-room-baku-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#F4978E",
+          "ambientLight": "rgba(255, 210, 155, 0.22)",
+          "texture": "linen"
+        },
+        "landmarks": [
+          {
+            "id": "sushi-room-baku-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "sushi-room-baku-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "sushi-room-baku-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "sushi-room-baku-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "sushi-room-baku-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "sushi-room-baku-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-sushi-room-baku-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#C88EA7",
+          "ambientLight": "rgba(238, 207, 195, 0.18)",
+          "texture": "velvet"
+        },
+        "landmarks": [
+          {
+            "id": "sushi-room-baku-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "sushi-room-baku-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "sushi-room-baku-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "sushi-room-baku-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "sushi-room-baku-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "sushi-room-baku-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3742065,49.844619",
+    "call_url": "tel:+994555879030",
+    "timezone": "Asia/Baku",
+    "open_hours_notes": "10:00–23:00",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "japanese_sushi"
+      ],
+      "vibe": [
+        "casual"
+      ],
+      "features": [
+        "delivery",
+        "takeaway"
+      ],
+      "area": [
+        "multiple_locations"
+      ]
+    }
   },
   {
-    "id": "62c34292-72d2-40f5-b6de-0d8cf447a9a4",
     "name": "WOOGA Korean Steakhouse",
+    "slug": "wooga-korean-steakhouse",
+    "id": "62c34292-72d2-40f5-b6de-0d8cf447a9a4",
     "cuisine": [
       "Seafood",
       "Steakhouse"
     ],
-    "city": "Baku",
-    "slug": "wooga-korean-steakhouse",
-    "cover_photo": "/assets/restaurants/wooga-korean-steakhouse/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "5 1-ci yaşıl ada, Bakı, Azerbaijan",
+    "phone": "+994 51 310 40 00",
+    "photos": [
+      "/assets/restaurants/wooga-korean-steakhouse/1.jpg",
+      "/assets/restaurants/wooga-korean-steakhouse/2.jpg",
+      "/assets/restaurants/wooga-korean-steakhouse/3.jpg",
+      "/assets/restaurants/wooga-korean-steakhouse/4.jpg",
+      "/assets/restaurants/wooga-korean-steakhouse/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/wooga-korean-steakhouse/1.jpg",
     "short_description": "WOOGA Korean Steakhouse pairs smoked prime steaks with signature cocktails in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
       "central",
@@ -1607,23 +19498,467 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "korean_bbq",
       "trendy"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
+    "highlights": [
+      "Mixology-led cocktail list",
+      "Daily seafood and raw bar"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3811711,
+    "longitude": 49.8836991,
+    "menu_url": null,
+    "instagram": "https://www.instagram.com/woogakoreansteakhouse/",
+    "whatsapp": "+994 51 310 40 00",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart casual",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-wooga-korean-steakhouse-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#F4978E",
+          "ambientLight": "rgba(255, 210, 155, 0.22)",
+          "texture": "linen"
+        },
+        "landmarks": [
+          {
+            "id": "wooga-korean-steakhouse-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "wooga-korean-steakhouse-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "wooga-korean-steakhouse-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "wooga-korean-steakhouse-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "wooga-korean-steakhouse-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "wooga-korean-steakhouse-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-wooga-korean-steakhouse-lounge",
+        "name": "Lounge Salon",
+        "theme": {
+          "accent": "#C88EA7",
+          "ambientLight": "rgba(238, 207, 195, 0.18)",
+          "texture": "velvet"
+        },
+        "landmarks": [
+          {
+            "id": "wooga-korean-steakhouse-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "wooga-korean-steakhouse-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "wooga-korean-steakhouse-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "wooga-korean-steakhouse-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "wooga-korean-steakhouse-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "wooga-korean-steakhouse-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.3811711,49.8836991",
+    "call_url": "tel:+994513104000",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "restaurant"
+      ],
+      "cuisine": [
+        "korean_bbq"
+      ],
+      "vibe": [
+        "trendy"
+      ],
+      "features": [
+        "table_grill",
+        "wine_bar"
+      ],
+      "area": [
+        "central"
+      ]
+    }
   },
   {
-    "id": "620b8baf-8033-4749-b6f5-6f77f0d5a69d",
     "name": "Zest Lifestyle Cafe",
+    "slug": "zest-lifestyle-cafe",
+    "id": "620b8baf-8033-4749-b6f5-6f77f0d5a69d",
     "cuisine": [
       "Azerbaijani",
       "Steakhouse"
     ],
-    "city": "Baku",
-    "slug": "zest-lifestyle-cafe",
-    "cover_photo": "/assets/restaurants/zest-lifestyle-cafe/1.jpg",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Downtown",
     "address": "107A Zarifa Aliyeva, Bakı 1010, Azerbaijan",
+    "phone": "+994 12 499 88 88",
+    "photos": [
+      "/assets/restaurants/zest-lifestyle-cafe/1.jpg",
+      "/assets/restaurants/zest-lifestyle-cafe/2.jpg",
+      "/assets/restaurants/zest-lifestyle-cafe/3.jpg",
+      "/assets/restaurants/zest-lifestyle-cafe/4.jpg",
+      "/assets/restaurants/zest-lifestyle-cafe/5.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/zest-lifestyle-cafe/1.jpg",
     "short_description": "Zest Lifestyle Cafe pairs modern Azeri flavors with skyline terrace seating in Downtown.",
+    "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
       "rooftop",
@@ -1643,269 +19978,450 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "international",
       "brunch"
     ],
-    "tag_groups": null,
-    "average_spend": "AZN 70–110 per guest"
-  },
-  {
-    "id": "40e78fbd-d248-4248-96dd-73fea8ff13fe",
-    "name": "Cafecity Ganjlik",
-    "cuisine": [
-      "International",
-      "Azerbaijani",
-      "Cafe"
+    "highlights": [
+      "Skyline terrace with Caspian views",
+      "Spritz-friendly coffee program",
+      "Spacious booths for families"
+    ],
+    "map_images": [
+      "https://images.unsplash.com/photo-1498654896293-37aacf113fd9?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.3747401,
+    "longitude": 49.856475,
+    "menu_url": "https://www.marriott.com/en-us/destinations/united-states/california/santa-barbara.mi",
+    "instagram": "https://www.instagram.com/jwmarriottbaku/",
+    "whatsapp": "+994 12 499 88 88",
+    "average_spend": "AZN 70–110 per guest",
+    "dress_code": "Smart nightlife",
+    "experiences": [],
+    "areas": [
+      {
+        "id": "a-zest-lifestyle-cafe-dining",
+        "name": "Signature Dining",
+        "theme": {
+          "accent": "#F4978E",
+          "ambientLight": "rgba(255, 210, 155, 0.22)",
+          "texture": "linen"
+        },
+        "landmarks": [
+          {
+            "id": "zest-lifestyle-cafe-bar",
+            "label": "Signature Bar",
+            "type": "bar",
+            "position": [
+              18,
+              12
+            ],
+            "footprint": [
+              [
+                10,
+                8
+              ],
+              [
+                26,
+                8
+              ],
+              [
+                26,
+                16
+              ],
+              [
+                10,
+                16
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "zest-lifestyle-cafe-d-1",
+            "name": "D1",
+            "capacity": 2,
+            "position": [
+              18,
+              32
+            ],
+            "shape": "circle",
+            "tags": [
+              "window",
+              "intimate"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                16,
+                30
+              ],
+              [
+                20,
+                30
+              ],
+              [
+                20,
+                34
+              ],
+              [
+                16,
+                34
+              ]
+            ]
+          },
+          {
+            "id": "zest-lifestyle-cafe-d-2",
+            "name": "D2",
+            "capacity": 4,
+            "position": [
+              38,
+              34
+            ],
+            "shape": "rect",
+            "tags": [
+              "chef_counter"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                34,
+                32
+              ],
+              [
+                42,
+                32
+              ],
+              [
+                42,
+                38
+              ],
+              [
+                34,
+                38
+              ]
+            ]
+          },
+          {
+            "id": "zest-lifestyle-cafe-d-3",
+            "name": "D3",
+            "capacity": 4,
+            "position": [
+              58,
+              36
+            ],
+            "shape": "booth",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                54,
+                32
+              ],
+              [
+                62,
+                32
+              ],
+              [
+                62,
+                40
+              ],
+              [
+                54,
+                40
+              ]
+            ]
+          },
+          {
+            "id": "zest-lifestyle-cafe-d-4",
+            "name": "D4",
+            "capacity": 6,
+            "position": [
+              34,
+              62
+            ],
+            "shape": "rect",
+            "tags": [
+              "family"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                58
+              ],
+              [
+                38,
+                58
+              ],
+              [
+                38,
+                66
+              ],
+              [
+                30,
+                66
+              ]
+            ]
+          },
+          {
+            "id": "zest-lifestyle-cafe-d-5",
+            "name": "D5",
+            "capacity": 6,
+            "position": [
+              62,
+              64
+            ],
+            "shape": "rect",
+            "tags": [
+              "celebration"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                60
+              ],
+              [
+                66,
+                60
+              ],
+              [
+                66,
+                68
+              ],
+              [
+                58,
+                68
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "a-zest-lifestyle-cafe-lounge",
+        "name": "Sky Terrace",
+        "theme": {
+          "accent": "#C88EA7",
+          "ambientLight": "rgba(238, 207, 195, 0.18)",
+          "texture": "velvet"
+        },
+        "landmarks": [
+          {
+            "id": "zest-lifestyle-cafe-dj",
+            "label": "DJ Booth",
+            "type": "stage",
+            "position": [
+              48,
+              70
+            ],
+            "footprint": [
+              [
+                44,
+                66
+              ],
+              [
+                52,
+                66
+              ],
+              [
+                52,
+                74
+              ],
+              [
+                44,
+                74
+              ]
+            ]
+          }
+        ],
+        "tables": [
+          {
+            "id": "zest-lifestyle-cafe-l-1",
+            "name": "L1",
+            "capacity": 2,
+            "position": [
+              22,
+              40
+            ],
+            "shape": "circle",
+            "tags": [
+              "sunset"
+            ],
+            "noise_level": "low",
+            "footprint": [
+              [
+                20,
+                38
+              ],
+              [
+                24,
+                38
+              ],
+              [
+                24,
+                42
+              ],
+              [
+                20,
+                42
+              ]
+            ]
+          },
+          {
+            "id": "zest-lifestyle-cafe-l-2",
+            "name": "L2",
+            "capacity": 4,
+            "position": [
+              42,
+              44
+            ],
+            "shape": "rect",
+            "tags": [
+              "terrace"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                38,
+                42
+              ],
+              [
+                46,
+                42
+              ],
+              [
+                46,
+                48
+              ],
+              [
+                38,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "zest-lifestyle-cafe-l-3",
+            "name": "L3",
+            "capacity": 4,
+            "position": [
+              62,
+              46
+            ],
+            "shape": "rect",
+            "tags": [
+              "view"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                58,
+                44
+              ],
+              [
+                66,
+                44
+              ],
+              [
+                66,
+                48
+              ],
+              [
+                58,
+                48
+              ]
+            ]
+          },
+          {
+            "id": "zest-lifestyle-cafe-l-4",
+            "name": "L4",
+            "capacity": 6,
+            "position": [
+              34,
+              72
+            ],
+            "shape": "booth",
+            "tags": [
+              "lounge"
+            ],
+            "noise_level": "medium",
+            "footprint": [
+              [
+                30,
+                68
+              ],
+              [
+                38,
+                68
+              ],
+              [
+                38,
+                76
+              ],
+              [
+                30,
+                76
+              ]
+            ]
+          },
+          {
+            "id": "zest-lifestyle-cafe-l-5",
+            "name": "L5",
+            "capacity": 6,
+            "position": [
+              62,
+              74
+            ],
+            "shape": "circle",
+            "tags": [
+              "firepit"
+            ],
+            "noise_level": "high",
+            "footprint": [
+              [
+                58,
+                70
+              ],
+              [
+                66,
+                70
+              ],
+              [
+                66,
+                78
+              ],
+              [
+                58,
+                78
+              ]
+            ]
+          }
+        ]
+      }
     ],
     "city": "Baku",
-    "slug": "cafecity-ganjlik",
-    "cover_photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+    "directions_url": "https://maps.google.com/?q=40.3747401,49.856475",
+    "call_url": "tel:+994124998888",
     "timezone": "Asia/Baku",
-    "neighborhood": "Ganjlik",
-    "address": "3rd Floor, Ganjlik Mall, Fatali Khan Khoyski 38, Baku, Azerbaijan",
-    "short_description": "Mall-side cafe mixing Azerbaijani comfort plates, pastries, and quick service for shoppers.",
-    "price_level": "AZN 2/4",
-    "tags": [],
-    "tag_groups": null,
-    "average_spend": "AZN 25–40 per guest"
-  },
-  {
-    "id": "c6fd9738-2096-408e-95e1-354b2248767f",
-    "name": "Terrace 145",
-    "cuisine": [
-      "Azerbaijani",
-      "International"
-    ],
-    "city": "Baku",
-    "slug": "terrace-145",
-    "cover_photo": "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1200&q=80",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Old City",
-    "address": "20 Boyuk Qala St, Sultan Inn Boutique Hotel, Baku, Azerbaijan",
-    "short_description": "24/7 rooftop shisha lounge at Sultan Inn with fire pits, blankets, and Maiden Tower views.",
-    "price_level": "AZN 3/4",
-    "tags": [],
-    "tag_groups": null,
-    "average_spend": "AZN 40–65 per guest"
-  },
-  {
-    "id": "0c3407d4-57a6-47d2-8028-e3b1eed7a2b6",
-    "name": "Salam Baku",
-    "cuisine": [
-      "Azerbaijani",
-      "Middle Eastern"
-    ],
-    "city": "Baku",
-    "slug": "salam-baku",
-    "cover_photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Old City",
-    "address": "126 Kichik Qala, Icherisheher, Baku, Azerbaijan",
-    "short_description": "Family-friendly halal rooftop with Levantine mezze, tea service, and Old City skyline.",
-    "price_level": "AZN 2/4",
-    "tags": [],
-    "tag_groups": null,
-    "average_spend": "AZN 30–50 per guest"
-  },
-  {
-    "id": "f0bfa39c-ad2e-43ea-9cb4-dc413622db2a",
-    "name": "Cafe Metropol 145",
-    "cuisine": [
-      "International",
-      "Cafe"
-    ],
-    "city": "Baku",
-    "slug": "cafe-metropol-145",
-    "cover_photo": "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1200&q=80",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Fountain Square",
-    "address": "11 Aziz Aliyev St, Baku, Azerbaijan",
-    "short_description": "Round-the-clock cafe, hookah lounge, and live-music stage steps from Fountain Square.",
-    "price_level": "AZN 2/4",
-    "tags": [],
-    "tag_groups": null,
-    "average_spend": "AZN 30–55 per guest"
-  },
-  {
-    "id": "d83c67cd-43cb-45c1-a26c-258f169bc020",
-    "name": "Meating Point (Fountain Square)",
-    "cuisine": [
-      "American",
-      "Steakhouse"
-    ],
-    "city": "Baku",
-    "slug": "meating-point-fountain-square",
-    "cover_photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Fountain Square",
-    "address": "20 Nigar Rafibeyli St, Baku 1005, Azerbaijan",
-    "short_description": "Traveler-loved burger and steakhouse with open grills, patio tables, and a kids’ corner.",
-    "price_level": "AZN 2/4",
-    "tags": [],
-    "tag_groups": null,
-    "average_spend": "AZN 35–55 per guest"
-  },
-  {
-    "id": "09d546fa-5459-4930-8346-4782e2bcb30e",
-    "name": "İmereti Georgian Restaurant",
-    "cuisine": [
-      "Georgian"
-    ],
-    "city": "Baku",
-    "slug": "imereti-georgian",
-    "cover_photo": "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1200&q=80",
-    "timezone": "Asia/Baku",
-    "neighborhood": "City Center",
-    "address": "47A Rasul Rza Street, Baku, Azerbaijan",
-    "short_description": "Cozy Georgian tavern baking khachapuri and pouring Saperavi on Rasul Rza Street.",
-    "price_level": "AZN 2/4",
-    "tags": [],
-    "tag_groups": null,
-    "average_spend": "AZN 30–45 per guest"
-  },
-  {
-    "id": "7dec8789-8c02-4541-af5c-76d3f7892aee",
-    "name": "Kolorit Café & Dining",
-    "cuisine": [
-      "International",
-      "Cafe"
-    ],
-    "city": "Baku",
-    "slug": "kolorit-cafe-dining",
-    "cover_photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Nizami Street",
-    "address": "83 Nizami Street, Baku 1000, Azerbaijan",
-    "short_description": "Pop-art 24/7 diner on Torqovaya offering global comfort food, shisha, and mocktails.",
-    "price_level": "AZN 2/4",
-    "tags": [],
-    "tag_groups": null,
-    "average_spend": "AZN 30–50 per guest"
-  },
-  {
-    "id": "ac2c0815-1d72-4267-8956-9aec7264c845",
-    "name": "ROOM Fine Art Wine & Dine",
-    "cuisine": [
-      "Wine Bar",
-      "European"
-    ],
-    "city": "Baku",
-    "slug": "room-fine-art-wine-dine",
-    "cover_photo": "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1200&q=80",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Fountain Square",
-    "address": "22 Tarlan Aliyarbeyov St, Baku, Azerbaijan",
-    "short_description": "Intimate wine lounge and art salon pouring Azerbaijani vintages with weekly jazz.",
-    "price_level": "AZN 3/4",
-    "tags": [],
-    "tag_groups": null,
-    "average_spend": "AZN 45–80 per guest"
-  },
-  {
-    "id": "f8caafdb-e264-4b1b-8ba6-25b5ac4b6ae1",
-    "name": "Namlı Kebap",
-    "cuisine": [
-      "Turkish",
-      "Kebab"
-    ],
-    "city": "Baku",
-    "slug": "naml-kebap",
-    "cover_photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Nasimi",
-    "address": "3 Mardanov Brothers Street, Baku, Azerbaijan",
-    "short_description": "Upscale Turkish mangal house with live grill theatre, mezze service, and valet.",
-    "price_level": "AZN 3/4",
-    "tags": [],
-    "tag_groups": null,
-    "average_spend": "AZN 50–80 per guest"
-  },
-  {
-    "id": "94f20f7f-2351-4b17-893f-fd01ea72b9e1",
-    "name": "United Coffee Beans",
-    "cuisine": [
-      "Cafe",
-      "Bakery"
-    ],
-    "city": "Baku",
-    "slug": "united-coffee-beans",
-    "cover_photo": "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1200&q=80",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Fountain Square",
-    "address": "6 Yusif Mammadaliyev St, Baku 1000, Azerbaijan",
-    "short_description": "Local specialty roastery pulling pour-overs, espresso flights, and signature coffee tonics.",
-    "price_level": "AZN 2/4",
-    "tags": [],
-    "tag_groups": null,
-    "average_spend": "AZN 15–25 per guest"
-  },
-  {
-    "id": "244a3ce8-d64b-43ca-b651-37c5b61066cc",
-    "name": "Tsinandali Georgian Restaurant",
-    "cuisine": [
-      "Georgian"
-    ],
-    "city": "Baku",
-    "slug": "tsinandali-georgian",
-    "cover_photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
-    "timezone": "Asia/Baku",
-    "neighborhood": "City Center",
-    "address": "19 Khagani Street, Baku, Azerbaijan",
-    "short_description": "Spacious Georgian supra hall with live folk sets, dancing, and hearty khinkali.",
-    "price_level": "AZN 2/4",
-    "tags": [],
-    "tag_groups": null,
-    "average_spend": "AZN 35–55 per guest"
-  },
-  {
-    "id": "c387f0db-9ef4-46d7-bd41-69d9bb5723b2",
-    "name": "Buta Art Club",
-    "cuisine": [
-      "Azerbaijani"
-    ],
-    "city": "Baku",
-    "slug": "buta-art-club",
-    "cover_photo": "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1200&q=80",
-    "timezone": "Asia/Baku",
-    "neighborhood": "28 May",
-    "address": "216 Dilara Aliyeva St, Baku 1010, Azerbaijan",
-    "short_description": "Art-filled Azerbaijani dining room pairing mugham sets with heritage tasting menus.",
-    "price_level": "AZN 3/4",
-    "tags": [],
-    "tag_groups": null,
-    "average_spend": "AZN 50–85 per guest"
-  },
-  {
-    "id": "3edf483f-69a6-4f62-8081-2427541ed23d",
-    "name": "Vapiano Baku (Port Baku)",
-    "cuisine": [
-      "Italian"
-    ],
-    "city": "Baku",
-    "slug": "vapiano-baku-port",
-    "cover_photo": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
-    "timezone": "Asia/Baku",
-    "neighborhood": "Port Baku",
-    "address": "8 Azadliq Avenue, Port Baku Mall, Baku, Azerbaijan",
-    "short_description": "Fast-casual Italian outpost in Port Baku Mall with pasta, pizza, and gelato stations.",
-    "price_level": "AZN 2/4",
-    "tags": [],
-    "tag_groups": null,
-    "average_spend": "AZN 30–45 per guest"
-  },
-  {
-    "id": "3c4d4060-15c0-4ef5-87ba-62c3ff3f80c8",
-    "name": "Nuxa Restoranı",
-    "cuisine": [
-      "Azerbaijani"
-    ],
-    "city": "Baku",
-    "slug": "nuxa-restoran",
-    "cover_photo": "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=1200&q=80",
-    "timezone": "Asia/Baku",
-    "neighborhood": "6th Parallel",
-    "address": "14 Mahammad Nakhchivani St, Baku, Azerbaijan",
-    "short_description": "Sheki-inspired dining house with clay-pot piti, halva, and nightly ashig music.",
-    "price_level": "AZN 2/4",
-    "tags": [],
-    "tag_groups": null,
-    "average_spend": "AZN 30–50 per guest"
+    "structured_tags": {
+      "venue_type": [
+        "hotel_restaurant"
+      ],
+      "cuisine": [
+        "international",
+        "mediterranean"
+      ],
+      "vibe": [
+        "casual",
+        "elegant"
+      ],
+      "features": [
+        "breakfast",
+        "brunch",
+        "business_lunch"
+      ],
+      "area": [
+        "jw_marriott"
+      ]
+    }
   }
-];
+]
+;

@@ -16,16 +16,14 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import * as WebBrowser from 'expo-web-browser';
 import * as Haptics from 'expo-haptics';
 
-import { fetchRestaurant, fetchFeatureFlags, RestaurantDetail, FeatureFlags, fetchAvailability, type RestaurantSummary } from '../api';
+import { fetchRestaurant, RestaurantDetail, type RestaurantSummary } from '../api';
 import PhotoCarousel from '../components/PhotoCarousel';
 import Surface from '../components/Surface';
-import InfoBanner from '../components/InfoBanner';
 import { colors, radius, shadow, spacing } from '../config/theme';
 import { resolveRestaurantPhotos } from '../utils/photoSources';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../types/navigation';
 import { Feather } from '@expo/vector-icons';
-import { trackAvailabilitySignal } from '../utils/analytics';
 import { useRestaurantDirectory } from '../contexts/RestaurantDirectoryContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Restaurant'>;
@@ -59,9 +57,6 @@ export default function RestaurantScreen({ route, navigation }: Props) {
   const { id } = route.params;
   const [data, setData] = useState<RestaurantDetail | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [features, setFeatures] = useState<FeatureFlags | null>(null);
-  const [availabilitySignal, setAvailabilitySignal] = useState<{ ratio: number; slotStart: string } | null>(null);
-  const availabilityTracked = useRef<string | null>(null);
   const { restaurants } = useRestaurantDirectory();
   const fallbackSummary = useMemo(() => restaurants.find((restaurant) => restaurant.id === id), [restaurants, id]);
   const fallbackRef = useRef<RestaurantSummary | null>(null);
@@ -86,13 +81,9 @@ export default function RestaurantScreen({ route, navigation }: Props) {
     setLoading(true);
     (async () => {
       try {
-        const [r, f] = await Promise.all([
-          fetchRestaurant(id),
-          fetchFeatureFlags().catch(() => null),
-        ]);
+        const r = await fetchRestaurant(id);
         if (!mounted) return;
         setData(r);
-        setFeatures(f);
         navigation.setOptions({ title: r.name || 'Restaurant' });
       } catch (err: any) {
         if (!mounted) return;
@@ -119,59 +110,6 @@ export default function RestaurantScreen({ route, navigation }: Props) {
   const formattedTags = useMemo(() => {
     return data?.tags?.map((tag) => formatTag(tag)) ?? [];
   }, [data]);
-
-  const totalTables = useMemo(() => {
-    if (!data?.areas) return 0;
-    return data.areas.reduce((acc, area) => acc + (area.tables?.length ?? 0), 0);
-  }, [data?.areas]);
-
-  useEffect(() => {
-    if (!data || totalTables === 0) {
-      setAvailabilitySignal(null);
-      return;
-    }
-    const flagEnabled = Boolean(features?.availabilitySignals ?? features?.ui?.availabilitySignals);
-    if (!flagEnabled) {
-      setAvailabilitySignal(null);
-      return;
-    }
-    let cancelled = false;
-    const dateFormatter = new Intl.DateTimeFormat('en-CA', {
-      timeZone: data.timezone || 'Asia/Baku',
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-    });
-    const dateStr = dateFormatter.format(new Date());
-    fetchAvailability(data.id, dateStr, 2)
-      .then((response) => {
-        if (cancelled) return;
-        const now = Date.now();
-        const slot = response.slots.find((entry) => new Date(entry.start).getTime() >= now) || response.slots[0];
-        if (!slot || !slot.count) {
-          setAvailabilitySignal(null);
-          return;
-        }
-        const ratio = slot.count / totalTables;
-        if (ratio > 0 && ratio <= 0.2) {
-          setAvailabilitySignal({ ratio, slotStart: slot.start });
-          if (availabilityTracked.current !== slot.start) {
-            trackAvailabilitySignal('restaurant_detail', ratio, slot.start, features);
-            availabilityTracked.current = slot.start;
-          }
-        } else {
-          setAvailabilitySignal(null);
-        }
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setAvailabilitySignal(null);
-        }
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [data, features, totalTables]);
 
   const handleBook = () => {
     if (!data) return;
@@ -292,7 +230,7 @@ export default function RestaurantScreen({ route, navigation }: Props) {
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Surface tone="overlay" padding="none" style={styles.heroCard} testID="restaurant-hero-card">
+          <Surface tone="overlay" padding="none" style={styles.heroCard} testID="restaurant-hero-card">
           {isPendingPhotos ? (
             <View style={styles.pendingPhotos}>
               <Text style={styles.pendingTitle}>Photos coming soon</Text>
@@ -305,14 +243,6 @@ export default function RestaurantScreen({ route, navigation }: Props) {
           )}
           <View style={styles.heroBody}>
             <Text style={styles.heroTitle}>{data.name}</Text>
-
-            {availabilitySignal && (
-              <View style={styles.scarcityBadge}>
-                <Feather name="clock" size={12} color={colors.primaryStrong} />
-                <Text style={styles.scarcityText}>Almost full</Text>
-              </View>
-            )}
-
             <Text style={styles.heroSubtitle}>{data.cuisine?.join(' • ')}</Text>
             {data.short_description ? (
               <Text style={styles.heroDescription}>{data.short_description}</Text>
@@ -452,25 +382,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '700',
     color: colors.text,
-  },
-  scarcityBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-    backgroundColor: colors.overlay,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 4,
-    borderRadius: radius.md,
-    gap: 4,
-    marginTop: spacing.xs,
-    borderWidth: 1,
-    borderColor: `${colors.primaryStrong}33`,
-  },
-  scarcityText: {
-    fontSize: 12,
-    fontWeight: '600',
-    color: colors.primaryStrong,
-    textTransform: 'uppercase',
   },
   heroSubtitle: {
     color: colors.muted,

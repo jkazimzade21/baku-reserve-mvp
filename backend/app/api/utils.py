@@ -6,7 +6,6 @@ from typing import Any
 from fastapi import HTTPException
 
 from ..contracts import Reservation
-from ..settings import settings
 from ..storage import DB
 
 
@@ -43,51 +42,7 @@ def maybe_datetime(value: Any) -> datetime | None:
     return None
 
 
-def sanitize_items(items: list[str] | None) -> list[str] | None:
-    if not items:
-        return None
-    cleaned = [item.strip() for item in items if isinstance(item, str) and item.strip()]
-    return cleaned or None
-
-
-def prep_policy(record: dict[str, Any]) -> str:
-    restaurant = DB.get_restaurant(str(record.get("restaurant_id")))
-    policy = None
-    if restaurant:
-        policy = restaurant.get("prep_policy") or restaurant.get("deposit_policy")
-    resolved = (policy or settings.PREP_POLICY_TEXT or "").strip()
-    return resolved or settings.PREP_POLICY_TEXT
-
-
-def build_prep_plan(record: dict[str, Any], scope: str, minutes_away: int) -> tuple[int, str]:
-    policy = prep_policy(record)
-    recommended = max(5, min(int(minutes_away or 5), 90))
-    if scope == "full":
-        recommended = max(recommended, 10)
-    return recommended, policy
-
-
-def notify_restaurant(reservation: dict[str, Any], context: dict[str, Any]) -> None:
-    from ..logging_config import get_logger
-
-    logger = get_logger(__name__)
-    logger.info(
-        "Pre-arrival prep notify triggered",
-        extra={
-            "reservation_id": reservation.get("id"),
-            "minutes_away": context.get("minutes_away"),
-            "scope": context.get("scope"),
-        },
-    )
-
-
 def rec_to_reservation(rec: dict[str, Any]) -> Reservation:
-    raw_items = rec.get("prep_items")
-    prep_items: list[str] | None = None
-    if isinstance(raw_items, list):
-        prep_items = [str(item) for item in raw_items if isinstance(item, str)] or None
-    elif isinstance(raw_items, str):
-        prep_items = [raw_items]
     return Reservation(
         id=str(rec["id"]),
         restaurant_id=str(rec["restaurant_id"]),
@@ -98,12 +53,6 @@ def rec_to_reservation(rec: dict[str, Any]) -> Reservation:
         guest_name=str(rec.get("guest_name", "")),
         guest_phone=str(rec.get("guest_phone", "")) if rec.get("guest_phone") else None,
         status=str(rec.get("status", "booked")),
-        prep_eta_minutes=rec.get("prep_eta_minutes"),
-        prep_request_time=maybe_datetime(rec.get("prep_request_time")),
-        prep_items=prep_items,
-        prep_scope=rec.get("prep_scope"),
-        prep_status=rec.get("prep_status"),
-        prep_policy=rec.get("prep_policy"),
     )
 
 
@@ -131,11 +80,6 @@ async def require_active_reservation(
     res_id: str, owner_id: str | None = None, allow_admin: bool = False
 ) -> dict[str, Any]:
     record = ensure_reservation_owner(await DB.get_reservation(res_id), owner_id, allow_admin)
-    if record.get("status") != "booked":
+    if record.get("status") not in {"booked", "pending", "arrived"}:
         raise HTTPException(409, "Reservation is not active")
     return record
-
-
-def ensure_prep_feature_enabled() -> None:
-    if not settings.PREP_NOTIFY_ENABLED:
-        raise HTTPException(status_code=404, detail="Feature disabled")

@@ -9,15 +9,12 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from sentry_sdk.integrations.fastapi import FastApiIntegration
 
-from .api.routes import concierge as concierge_routes
-from .api.routes import maps_stub
 from .api.routes import reservations as reservations_routes
 from .api.routes import restaurants as restaurants_routes
 from .api_v1 import v1_router
 from .auth import require_auth
 from .backup import backup_manager
 from .cache import clear_all_caches, get_all_cache_stats
-from .concierge_v2_service import concierge_v2_service as concierge_service
 from .health import health_checker
 from .logging_config import configure_structlog, get_logger
 from .metrics import PrometheusMiddleware, get_metrics
@@ -62,7 +59,7 @@ app.add_middleware(APIVersionMiddleware, current_version="1.0", latest_version="
 app.add_middleware(PrometheusMiddleware)
 
 API_PREFIX = "/v1"
-LEGACY_API_PREFIXES = ("/restaurants", "/reservations", "/concierge")
+LEGACY_API_PREFIXES = ("/restaurants", "/reservations")
 
 
 @app.middleware("http")
@@ -94,22 +91,10 @@ async def legacy_prefix_upgrade(request: Request, call_next):  # type: ignore[ov
     return response
 
 
-@app.on_event("startup")
-async def concierge_startup() -> None:
-    await concierge_service.startup()
-
-
-@app.on_event("shutdown")
-async def concierge_shutdown() -> None:
-    await concierge_service.shutdown()
-
-
 # Include v1 API router (versioned endpoints)
 app.include_router(restaurants_routes.router, prefix=API_PREFIX)
 app.include_router(reservations_routes.router, prefix=API_PREFIX)
-app.include_router(concierge_routes.router, prefix=API_PREFIX)
 app.include_router(v1_router)
-app.include_router(maps_stub.router)
 
 # Include UI router (admin/booking console)
 app.include_router(ui_router)
@@ -218,16 +203,6 @@ if settings.DEBUG and settings.DEV_ROUTES_ENABLED:
             raise HTTPException(404, f"Backup not found: {backup_name}")
         except Exception as exc:
             raise HTTPException(500, f"Restore failed: {exc}")
-
-
-@app.get("/config/features")
-def feature_flags():
-    return {
-        "prep_notify_enabled": settings.PREP_NOTIFY_ENABLED,
-        "payments_mode": settings.PAYMENTS_MODE,
-        "payment_provider": settings.PAYMENT_PROVIDER,
-        "currency": settings.CURRENCY,
-    }
 
 
 # ---------- root redirect to docs ----------

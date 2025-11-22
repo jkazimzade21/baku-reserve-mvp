@@ -16,6 +16,8 @@ export interface RestaurantListItem {
   tags?: string[];
   tag_groups?: Record<string, string[]> | null;
   average_spend?: string | null;
+  rating?: number | null;
+  reviews_count?: number | null;
 }
 
 export interface Restaurant {
@@ -46,6 +48,8 @@ export interface Restaurant {
   dress_code?: string | null;
   experiences?: string[];
   areas?: Area[];
+  rating?: number | null;
+  reviews_count?: number | null;
 }
 
 export interface Area {
@@ -71,13 +75,7 @@ export interface Reservation {
   guest_name: string;
   guest_phone?: string | null;
   table_id?: string | null;
-  status?: "booked" | "cancelled";
-  prep_eta_minutes?: number | null;
-  prep_request_time?: string | null;
-  prep_items?: string[] | null;
-  prep_scope?: "starters" | "full" | null;
-  prep_status?: "pending" | "accepted" | "rejected" | null;
-  prep_policy?: string | null;
+  status?: "pending" | "booked" | "cancelled" | "arrived" | "no_show";
 }
 
 export interface ReservationCreate {
@@ -88,4 +86,14 @@ export interface ReservationCreate {
   guest_name: string;
   guest_phone?: string | null;
   table_id?: string | null;
+}
+
+export interface Review {
+  id: string;
+  reservation_id: string;
+  restaurant_id: string;
+  rating: number;
+  comment?: string | null;
+  guest_name?: string | null;
+  created_at?: string | null;
 }

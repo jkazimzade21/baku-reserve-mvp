@@ -3,7 +3,6 @@ from __future__ import annotations
 import uuid
 
 from sqlalchemy import (
-    JSON,
     CheckConstraint,
     Column,
     DateTime,
@@ -30,14 +29,7 @@ class ReservationRecord(Base):
     guest_name = Column(String(255), nullable=False)
     guest_phone = Column(String(50), nullable=True)
     status = Column(String(20), nullable=False, default="booked", server_default=text("'booked'"))
-    arrival_intent = Column(JSON, nullable=False, default=dict, server_default=text("'{}'"))
     owner_id = Column(String(128), nullable=True, index=True)
-    prep_eta_minutes = Column(Integer, nullable=True)
-    prep_scope = Column(String(50), nullable=True)
-    prep_request_time = Column(DateTime(timezone=True), nullable=True)
-    prep_items = Column(JSON, nullable=True)
-    prep_status = Column(String(32), nullable=True)
-    prep_policy = Column(String(255), nullable=True)
     created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at = Column(
         DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now()
@@ -86,24 +78,18 @@ class RestaurantRecord(Base):
         DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now()
     )
 
-    def to_dict(self) -> dict[str, object]:
-        return {
-            "id": self.id,
-            "restaurant_id": self.restaurant_id,
-            "table_id": self.table_id,
-            "party_size": self.party_size,
-            "start": self.start,
-            "end": self.end,
-            "guest_name": self.guest_name,
-            "guest_phone": self.guest_phone,
-            "status": self.status,
-            "owner_id": self.owner_id,
-            "prep_eta_minutes": self.prep_eta_minutes,
-            "prep_scope": self.prep_scope,
-            "prep_request_time": self.prep_request_time,
-            "prep_items": self.prep_items,
-            "prep_status": self.prep_status,
-            "prep_policy": self.prep_policy,
-            "created_at": self.created_at,
-            "updated_at": self.updated_at,
-        }
+
+class ReviewRecord(Base):
+    __tablename__ = "reviews"
+
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    reservation_id = Column(String(36), nullable=False, index=True, unique=True)
+    restaurant_id = Column(String(64), nullable=False, index=True)
+    owner_id = Column(String(128), nullable=True, index=True)
+    guest_name = Column(String(255), nullable=True)
+    rating = Column(Integer, nullable=False)
+    comment = Column(String(1000), nullable=True)
+    created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
+    updated_at = Column(
+        DateTime(timezone=True), nullable=False, server_default=func.now(), onupdate=func.now()
+    )

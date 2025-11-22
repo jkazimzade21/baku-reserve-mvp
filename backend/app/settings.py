@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal
 
@@ -27,19 +26,6 @@ class Settings(BaseSettings):
     # CORS allow origins (comma-separated). Default empty (no cross-origin).
     CORS_ALLOW_ORIGINS: str = ""
 
-    # Feature flags
-    PREP_NOTIFY_ENABLED: bool = False
-
-    # Payments / currency metadata (no deposits required)
-    PAYMENTS_MODE: Literal["mock", "live"] = "mock"
-    PAYMENT_PROVIDER: Literal["mock", "paymentwall", "azericard"] = "mock"
-    CURRENCY: str = "AZN"
-    OSRM_BASE_URL: str = "https://router.project-osrm.org/route/v1/driving"
-    OSRM_CACHE_TTL_SECONDS: int = 300
-    PREP_POLICY_TEXT: str = (
-        "We ping the kitchen once you're en route; cancel or adjust if your plans change."
-    )
-
     # Auth0 integration
     AUTH0_DOMAIN: str | None = None
     AUTH0_AUDIENCE: str | None = None
@@ -57,34 +43,11 @@ class Settings(BaseSettings):
     # Leave empty to never trust X-Forwarded-For (use direct client.host only)
     TRUSTED_PROXIES: str = ""
 
-    # Concierge AI
-    OPENAI_API_KEY: str | None = None
-    CONCIERGE_GPT_MODEL: str = "gpt-3.5-turbo-0125"
-    CONCIERGE_EMBED_MODEL: str = "text-embedding-3-small"
-    CONCIERGE_SUMMARY_MODEL: str | None = None
-    CONCIERGE_SUMMARY_MAX_TOKENS: int = 320
-    CONCIERGE_SUMMARY_TEMPERATURE: float = 0.4
-    CONCIERGE_MODE: Literal["local", "ai", "ab"] = "local"
-    CONCIERGE_WEIGHTS: str = "alpha=1.0,beta=1.2,gamma=1.0,delta=0.8,epsilon=0.8,zeta=0.4,eta=1.0"
-    AI_SCORE_FLOOR: float = 0.0
-    OPENAI_API_BASE: str = "https://api.openai.com/v1"
-    OPENAI_TIMEOUT_SECONDS: float = 15.0
-    OPENAI_CONNECT_TIMEOUT_SECONDS: float = 5.0
-    CONCIERGE_REFRESH_INTERVAL_SECONDS: int = 1800
-
     # Observability
     SENTRY_DSN: str | None = None
     SENTRY_ENVIRONMENT: str = "development"
     SENTRY_RELEASE: str | None = None
     SENTRY_TRACES_SAMPLE_RATE: float = 0.2
-
-    # Location Ping Throttling
-    LOCATION_PING_MIN_DISTANCE_METERS: float = 100.0  # Minimum movement required
-    LOCATION_PING_MIN_INTERVAL_SECONDS: int = 30  # Rate limiting per reservation
-
-    # Redis Configuration (Optional - for circuit breaker state persistence)
-    REDIS_URL: str | None = None  # e.g., "redis://localhost:6379/0"
-    REDIS_ENABLED: bool = False
 
     @property
     def allow_origins(self) -> list[str]:
@@ -140,46 +103,6 @@ class Settings(BaseSettings):
             return None
         domain = self.AUTH0_DOMAIN.removeprefix("https://").removeprefix("http://")
         return f"https://{domain}/"
-
-    @property
-    def parsed_concierge_weights(self) -> ConciergeWeights:
-        return ConciergeWeights.from_string(self.CONCIERGE_WEIGHTS)
-
-
-@dataclass(slots=True)
-class ConciergeWeights:
-    alpha: float = 1.0
-    beta: float = 1.2
-    gamma: float = 1.0
-    delta: float = 0.8
-    epsilon: float = 0.8
-    zeta: float = 0.4
-    eta: float = 1.0
-
-    @classmethod
-    def from_string(cls, payload: str | None) -> ConciergeWeights:
-        base = cls()
-        if not payload:
-            return base
-        mapping: dict[str, float] = {}
-        for part in payload.split(","):
-            if "=" not in part:
-                continue
-            key, value = part.split("=", 1)
-            key = key.strip().lower()
-            try:
-                mapping[key] = float(value.strip())
-            except ValueError:
-                continue
-        return cls(
-            alpha=mapping.get("alpha", base.alpha),
-            beta=mapping.get("beta", base.beta),
-            gamma=mapping.get("gamma", base.gamma),
-            delta=mapping.get("delta", base.delta),
-            epsilon=mapping.get("epsilon", base.epsilon),
-            zeta=mapping.get("zeta", base.zeta),
-            eta=mapping.get("eta", base.eta),
-        )
 
 
 settings = Settings()
