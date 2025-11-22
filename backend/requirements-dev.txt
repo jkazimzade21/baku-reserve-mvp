@@ -1,2 +1,3 @@
 # Development dependencies kept lean for MVP
 -r requirements.txt
+ruff==0.6.9

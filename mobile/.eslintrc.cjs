@@ -17,6 +17,7 @@ module.exports = {
     'react',
     'react-hooks',
     'react-native',
+    'jest',
     'import',
   ],
   env: {
