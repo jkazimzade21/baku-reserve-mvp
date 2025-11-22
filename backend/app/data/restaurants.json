@@ -21,18 +21,18 @@
     "neighborhood": "Seaside Boulevard",
     "price_level": "AZN 3/4",
     "tags": [
-      "elegant",
-      "sea_view",
-      "restaurant",
-      "book_early",
-      "sunset",
-      "azerbaijani",
+      "waterfront",
+      "trendy",
       "seafood",
       "seaside_boulevard",
-      "terrace",
+      "azerbaijani",
+      "sunset",
+      "elegant",
       "wine_bar",
-      "trendy",
-      "waterfront"
+      "restaurant",
+      "terrace",
+      "book_early",
+      "sea_view"
     ],
     "highlights": [],
     "map_images": [
@@ -43,7 +43,7 @@
     "menu_url": "https://sahil.az/menu",
     "instagram": "https://www.instagram.com/sahilrestaurantbaku/",
     "whatsapp": "+994515001122",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -438,16 +438,16 @@
     "neighborhood": "Khatai",
     "price_level": "AZN 3/4",
     "tags": [
-      "azerbaijani",
-      "traditional_interior",
       "heritage",
+      "azerbaijani",
+      "wine_cellar",
       "elegant",
-      "romantic",
+      "wine_bar",
       "khatai",
       "restaurant",
-      "wine_cellar",
-      "wine_bar",
-      "book_early"
+      "book_early",
+      "romantic",
+      "traditional_interior"
     ],
     "highlights": [],
     "map_images": [
@@ -457,7 +457,7 @@
     "longitude": 49.868534,
     "menu_url": "https://sumakh.az/menu",
     "instagram": "https://www.instagram.com/sumakhrestaurant/",
-    "average_spend": "AZN 65–115 per guest",
+    "average_spend": "AZN 65\u2013115 per guest",
     "dress_code": "Smart elegant",
     "experiences": [],
     "areas": [
@@ -730,16 +730,16 @@
     "neighborhood": "Highland Park",
     "price_level": "AZN 4/4",
     "tags": [
-      "mixology",
-      "terrace",
-      "skyline",
-      "late_night",
       "city_view",
-      "bar",
-      "restaurant",
       "funicular_area",
+      "trendy",
+      "mixology",
       "pan_asian",
-      "trendy"
+      "restaurant",
+      "skyline",
+      "bar",
+      "terrace",
+      "late_night"
     ],
     "highlights": [],
     "map_images": [
@@ -749,7 +749,7 @@
     "longitude": 49.8375,
     "menu_url": "https://chinar-dining.az/menu",
     "instagram": "https://www.instagram.com/chinardining/",
-    "average_spend": "AZN 90–150 per guest",
+    "average_spend": "AZN 90\u2013150 per guest",
     "dress_code": "Smart chic",
     "experiences": [],
     "areas": [
@@ -1022,16 +1022,16 @@
     "neighborhood": "Sabayil",
     "price_level": "AZN 3/4",
     "tags": [
-      "azerbaijani",
-      "traditional_interior",
-      "heritage",
-      "romantic",
-      "live_music",
       "mugham_music",
-      "tea_culture",
-      "fountains_square/old_city",
+      "heritage",
+      "azerbaijani",
+      "live_music",
       "restaurant",
-      "book_early"
+      "fountains_square/old_city",
+      "book_early",
+      "romantic",
+      "traditional_interior",
+      "tea_culture"
     ],
     "highlights": [],
     "map_images": [
@@ -1041,7 +1041,7 @@
     "longitude": 49.8356,
     "menu_url": "https://shirvanshah.az/menu",
     "instagram": "https://www.instagram.com/shirvanshah_restaurant/",
-    "average_spend": "AZN 60–100 per guest",
+    "average_spend": "AZN 60\u2013100 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -1317,14 +1317,14 @@
     "price_level": "AZN 2/4",
     "tags": [
       "azerbaijani",
-      "fountains_square",
-      "traditional_interior",
-      "cozy",
-      "family_friendly",
-      "late_night",
       "family",
       "comfort",
-      "restaurant"
+      "cozy",
+      "fountains_square",
+      "restaurant",
+      "late_night",
+      "family_friendly",
+      "traditional_interior"
     ],
     "highlights": [],
     "map_images": [
@@ -1334,7 +1334,7 @@
     "longitude": 49.836945,
     "menu_url": "https://menu.az/en/dolma-restaurant",
     "instagram": "https://www.instagram.com/dolma.restaurant/",
-    "average_spend": "AZN 35–55 per guest",
+    "average_spend": "AZN 35\u201355 per guest",
     "dress_code": "Casual",
     "experiences": [],
     "areas": [
@@ -1604,15 +1604,15 @@
     "neighborhood": "Fountain Square",
     "price_level": "AZN 2/4",
     "tags": [
-      "azerbaijani",
-      "fountains_square",
-      "traditional_interior",
       "heritage",
-      "cozy",
-      "family_friendly",
+      "azerbaijani",
       "family",
+      "cozy",
+      "fountains_square",
       "restaurant",
-      "book_early"
+      "family_friendly",
+      "book_early",
+      "traditional_interior"
     ],
     "highlights": [],
     "map_images": [
@@ -1622,7 +1622,7 @@
     "longitude": 49.837707,
     "menu_url": "https://firuze.az/menu",
     "instagram": "https://www.instagram.com/firuzerestoran/",
-    "average_spend": "AZN 40–65 per guest",
+    "average_spend": "AZN 40\u201365 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -1893,13 +1893,13 @@
     "price_level": "AZN 2/4",
     "tags": [
       "azerbaijani",
-      "fountains_square",
-      "traditional_interior",
-      "cozy",
-      "late_night",
       "family",
       "comfort",
-      "restaurant"
+      "cozy",
+      "fountains_square",
+      "restaurant",
+      "late_night",
+      "traditional_interior"
     ],
     "highlights": [],
     "map_images": [
@@ -1909,7 +1909,7 @@
     "longitude": 49.8352,
     "menu_url": "https://nergizrestoran.az/menu",
     "instagram": "https://www.instagram.com/nergizrestoran/",
-    "average_spend": "AZN 35–60 per guest",
+    "average_spend": "AZN 35\u201360 per guest",
     "dress_code": "Casual",
     "experiences": [],
     "areas": [
@@ -2182,15 +2182,15 @@
     "price_level": "AZN 3/4",
     "tags": [
       "azerbaijani",
-      "traditional_interior",
-      "elegant",
-      "romantic",
       "live_music",
-      "fine_dining",
-      "khatai",
-      "restaurant",
+      "elegant",
       "wine_bar",
-      "book_early"
+      "khatai",
+      "fine_dining",
+      "restaurant",
+      "book_early",
+      "romantic",
+      "traditional_interior"
     ],
     "highlights": [],
     "map_images": [
@@ -2200,7 +2200,7 @@
     "longitude": 49.8297,
     "menu_url": "https://shahrestaurant.az/menu",
     "instagram": "https://www.instagram.com/shahrestaurant/",
-    "average_spend": "AZN 70–120 per guest",
+    "average_spend": "AZN 70\u2013120 per guest",
     "dress_code": "Smart elegant",
     "experiences": [],
     "areas": [
@@ -2475,14 +2475,14 @@
     "price_level": "AZN 2/4",
     "tags": [
       "azerbaijani",
-      "traditional_interior",
+      "family",
+      "european",
+      "sunset",
       "old_city",
       "cozy",
-      "terrace",
-      "family",
       "restaurant",
-      "european",
-      "sunset"
+      "terrace",
+      "traditional_interior"
     ],
     "highlights": [],
     "map_images": [
@@ -2492,7 +2492,7 @@
     "longitude": 49.835139,
     "menu_url": "https://qaladivari.az/menu",
     "instagram": "https://www.instagram.com/qala_divari/",
-    "average_spend": "AZN 40–70 per guest",
+    "average_spend": "AZN 40\u201370 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -2761,20 +2761,20 @@
       "/assets/restaurants/qaynana/5.jpg"
     ],
     "cover_photo": "/assets/restaurants/qaynana/1.jpg",
-    "short_description": "Cozy ‘mother-in-law’ kitchen serving dolma, piti, and generous breakfast trays.",
+    "short_description": "Cozy \u2018mother-in-law\u2019 kitchen serving dolma, piti, and generous breakfast trays.",
     "neighborhood": "Icherisheher",
     "price_level": "AZN 2/4",
     "tags": [
-      "azerbaijani",
-      "traditional_interior",
       "heritage",
+      "azerbaijani",
+      "breakfast",
+      "family",
       "old_city",
       "cozy",
-      "family_friendly",
-      "family",
       "restaurant",
-      "tea_culture",
-      "breakfast"
+      "family_friendly",
+      "traditional_interior",
+      "tea_culture"
     ],
     "highlights": [],
     "map_images": [
@@ -2784,7 +2784,7 @@
     "longitude": 49.835968,
     "menu_url": "https://taplink.cc/qaynana_restaurant/menu",
     "instagram": "https://www.instagram.com/qaynana_restaurant/",
-    "average_spend": "AZN 30–55 per guest",
+    "average_spend": "AZN 30\u201355 per guest",
     "dress_code": "Casual",
     "experiences": [],
     "areas": [
@@ -3058,15 +3058,15 @@
     "price_level": "AZN 3/4",
     "tags": [
       "azerbaijani",
-      "traditional_interior",
-      "romantic",
-      "garden",
-      "fine_dining",
-      "old_city",
-      "restaurant",
       "european",
       "wine_bar",
-      "book_early"
+      "old_city",
+      "garden",
+      "fine_dining",
+      "restaurant",
+      "book_early",
+      "romantic",
+      "traditional_interior"
     ],
     "highlights": [],
     "map_images": [
@@ -3076,7 +3076,7 @@
     "longitude": 49.833776,
     "menu_url": "https://artclub.az/menu",
     "instagram": "https://www.instagram.com/artclubrestaurant/",
-    "average_spend": "AZN 85–140 per guest",
+    "average_spend": "AZN 85\u2013140 per guest",
     "dress_code": "Smart elegant",
     "experiences": [],
     "areas": [
@@ -3350,16 +3350,16 @@
     "neighborhood": "Icherisheher",
     "price_level": "AZN 3/4",
     "tags": [
-      "azerbaijani",
-      "traditional_interior",
-      "heritage",
-      "romantic",
-      "live_music",
       "mugham_music",
+      "heritage",
+      "azerbaijani",
+      "live_music",
       "old_city",
-      "tea_culture",
       "restaurant",
-      "book_early"
+      "book_early",
+      "romantic",
+      "traditional_interior",
+      "tea_culture"
     ],
     "highlights": [],
     "map_images": [
@@ -3369,7 +3369,7 @@
     "longitude": 49.836729,
     "menu_url": "https://mugamclub.az/menu",
     "instagram": "https://www.instagram.com/mugamclub/",
-    "average_spend": "AZN 55–90 per guest",
+    "average_spend": "AZN 55\u201390 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -3643,18 +3643,18 @@
     "neighborhood": "Port Baku",
     "price_level": "AZN 3/4",
     "tags": [
-      "traditional_interior",
       "garden",
-      "restaurant",
-      "european",
-      "book_early",
       "romantic",
+      "traditional_interior",
+      "tea_culture",
+      "european",
       "wine_bar",
-      "cozy",
-      "russian",
       "comfort",
       "seaside_boulevard/zarifa_aliyeva",
-      "tea_culture"
+      "restaurant",
+      "cozy",
+      "russian",
+      "book_early"
     ],
     "highlights": [],
     "map_images": [
@@ -3664,7 +3664,7 @@
     "longitude": 49.849614,
     "menu_url": "https://ginzaproj.com/en/restaurants/mari-vanna-baku/menu",
     "instagram": "https://www.instagram.com/marivannabaku/",
-    "average_spend": "AZN 70–120 per guest",
+    "average_spend": "AZN 70\u2013120 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -3939,14 +3939,14 @@
     "neighborhood": "Bayil",
     "price_level": "AZN 3/4",
     "tags": [
+      "lively",
       "azerbaijani",
-      "seaside_boulevard",
-      "late_night",
       "family",
       "bar",
-      "steakhouse",
+      "late_night",
       "book_early",
-      "lively"
+      "seaside_boulevard",
+      "steakhouse"
     ],
     "highlights": [],
     "map_images": [
@@ -3956,7 +3956,7 @@
     "longitude": 49.841416,
     "menu_url": "https://mangalsteakhouse.az/menu",
     "instagram": "https://www.instagram.com/mangal_steak_house/",
-    "average_spend": "AZN 80–140 per guest",
+    "average_spend": "AZN 80\u2013140 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -4207,7 +4207,7 @@
     }
   },
   {
-    "name": "Paulaner Bräuhaus Baku",
+    "name": "Paulaner Br\u00e4uhaus Baku",
     "slug": "paulaner",
     "cuisine": [
       "German",
@@ -4226,16 +4226,16 @@
     "price_level": "AZN 3/4",
     "tags": [
       "craft_beer",
+      "german_bavarian",
       "live_music",
-      "sea_view",
-      "casual",
+      "brewery",
+      "microbrewery",
       "lively",
       "seaside_boulevard",
-      "microbrewery",
+      "casual",
       "terrace",
       "late_night",
-      "brewery",
-      "german_bavarian"
+      "sea_view"
     ],
     "highlights": [],
     "map_images": [
@@ -4245,7 +4245,7 @@
     "longitude": 49.8651,
     "menu_url": "https://paulaner-brauhaus-baku.com/menu",
     "instagram": "https://www.instagram.com/paulanerbaku/",
-    "average_spend": "AZN 55–85 per guest",
+    "average_spend": "AZN 55\u201385 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -4500,7 +4500,7 @@
     }
   },
   {
-    "name": "Zafferano – Four Seasons Baku",
+    "name": "Zafferano \u2013 Four Seasons Baku",
     "slug": "zafferano",
     "cuisine": [
       "Italian",
@@ -4520,17 +4520,17 @@
     "neighborhood": "Neftchilar Avenue",
     "price_level": "AZN 4/4",
     "tags": [
-      "four_seasons/old_city",
-      "hotel_partner",
       "italian",
-      "hotel_restaurant",
       "breakfast",
-      "romantic",
-      "fine_dining",
-      "terrace",
-      "skyline",
+      "hotel_partner",
       "city_view",
-      "wine_bar"
+      "skyline",
+      "four_seasons/old_city",
+      "romantic",
+      "hotel_restaurant",
+      "wine_bar",
+      "fine_dining",
+      "terrace"
     ],
     "highlights": [],
     "map_images": [
@@ -4540,7 +4540,7 @@
     "longitude": 49.8408,
     "menu_url": "https://www.fourseasons.com/baku/dining/zafferano/menu",
     "instagram": "https://www.instagram.com/zafferanobaku/",
-    "average_spend": "AZN 120–200 per guest",
+    "average_spend": "AZN 120\u2013200 per guest",
     "dress_code": "Elegant",
     "experiences": [],
     "areas": [
@@ -4815,17 +4815,17 @@
     "neighborhood": "Azadliq Square",
     "price_level": "AZN 4/4",
     "tags": [
-      "elegant",
-      "hotel_partner",
       "italian",
-      "hotel_restaurant",
-      "book_early",
-      "private_dining",
-      "jw_marriott",
-      "romantic",
-      "fine_dining",
+      "hotel_partner",
       "city_view",
-      "wine_bar"
+      "romantic",
+      "hotel_restaurant",
+      "elegant",
+      "jw_marriott",
+      "private_dining",
+      "wine_bar",
+      "fine_dining",
+      "book_early"
     ],
     "highlights": [],
     "map_images": [
@@ -4835,7 +4835,7 @@
     "longitude": 49.8531,
     "menu_url": "https://oronero.az/menu",
     "instagram": "https://www.instagram.com/oronerobaku/",
-    "average_spend": "AZN 110–190 per guest",
+    "average_spend": "AZN 110\u2013190 per guest",
     "dress_code": "Elegant",
     "experiences": [],
     "areas": [
@@ -5110,16 +5110,16 @@
     "price_level": "AZN 3/4",
     "tags": [
       "rooftop",
+      "trendy",
+      "international",
       "live_music",
       "hilton",
-      "cocktails",
-      "lively",
       "rooftop_bar",
-      "skyline",
-      "late_night",
       "city_view",
-      "international",
-      "trendy"
+      "skyline",
+      "lively",
+      "late_night",
+      "cocktails"
     ],
     "highlights": [],
     "map_images": [
@@ -5129,7 +5129,7 @@
     "longitude": 49.8379,
     "menu_url": "https://www.hilton.com/en/hotels/gydhbhi-hilton-baku/dining/360-bar",
     "instagram": "https://www.instagram.com/hiltonbaku/",
-    "average_spend": "AZN 65–95 per guest",
+    "average_spend": "AZN 65\u201395 per guest",
     "dress_code": "Smart chic",
     "experiences": [],
     "areas": [
@@ -5359,7 +5359,7 @@
     "directions_url": "https://maps.google.com/?q=40.3692,49.8379",
     "call_url": "tel:+994124645000",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "18:00–03:00",
+    "open_hours_notes": "18:00\u201303:00",
     "structured_tags": {
       "venue_type": [
         "rooftop_bar"
@@ -5406,17 +5406,17 @@
     "neighborhood": "City Center",
     "price_level": "AZN 3/4",
     "tags": [
-      "elegant",
-      "hilton",
-      "european",
-      "hotel_restaurant",
-      "book_early",
+      "waterfront",
       "seafood",
-      "romantic",
-      "terrace",
-      "skyline",
+      "hilton",
       "city_view",
-      "waterfront"
+      "skyline",
+      "romantic",
+      "hotel_restaurant",
+      "european",
+      "elegant",
+      "terrace",
+      "book_early"
     ],
     "highlights": [],
     "map_images": [
@@ -5426,7 +5426,7 @@
     "longitude": 49.8379,
     "menu_url": "https://www.hilton.com/en/hotels/gydhbhi-hilton-baku/dining/sky-grill",
     "instagram": "https://www.instagram.com/hiltonbaku/",
-    "average_spend": "AZN 80–130 per guest",
+    "average_spend": "AZN 80\u2013130 per guest",
     "dress_code": "Smart chic",
     "experiences": [],
     "areas": [
@@ -5656,7 +5656,7 @@
     "directions_url": "https://maps.google.com/?q=40.3692,49.8379",
     "call_url": "tel:+994124645000",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "12:00–01:00",
+    "open_hours_notes": "12:00\u201301:00",
     "structured_tags": {
       "venue_type": [
         "hotel_restaurant"
@@ -5702,18 +5702,18 @@
     "neighborhood": "Bayil",
     "price_level": "AZN 3/4",
     "tags": [
-      "live_music",
-      "sea_view",
-      "european",
-      "hotel_restaurant",
+      "waterfront",
       "breakfast",
-      "sunset",
-      "azerbaijani",
-      "romantic",
+      "live_music",
       "seaside_boulevard",
-      "family_friendly",
+      "romantic",
+      "hotel_restaurant",
+      "azerbaijani",
+      "european",
+      "sunset",
       "terrace",
-      "waterfront"
+      "family_friendly",
+      "sea_view"
     ],
     "highlights": [],
     "map_images": [
@@ -5723,7 +5723,7 @@
     "longitude": 49.835068,
     "menu_url": "https://rivierabaku.az/menu",
     "instagram": "https://www.instagram.com/rivierabaku/",
-    "average_spend": "AZN 75–125 per guest",
+    "average_spend": "AZN 75\u2013125 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -5979,7 +5979,7 @@
     }
   },
   {
-    "name": "Novikov Café Baku",
+    "name": "Novikov Caf\u00e9 Baku",
     "slug": "novikov",
     "cuisine": [
       "European",
@@ -5999,17 +5999,17 @@
     "neighborhood": "Fountain Square",
     "price_level": "AZN 2/4",
     "tags": [
-      "bar",
-      "restaurant",
-      "european",
-      "book_early",
+      "trendy",
       "seafood",
-      "dessert",
-      "outdoor",
-      "seaside_boulevard/central",
       "brunch",
+      "bar",
+      "dessert",
+      "european",
       "wine_bar",
-      "trendy"
+      "seaside_boulevard/central",
+      "restaurant",
+      "book_early",
+      "outdoor"
     ],
     "highlights": [],
     "map_images": [
@@ -6019,7 +6019,7 @@
     "longitude": 49.838399,
     "menu_url": "https://novikov-cafe.com/menu",
     "instagram": "https://www.instagram.com/novikovcafe/",
-    "average_spend": "AZN 30–55 per guest",
+    "average_spend": "AZN 30\u201355 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -6289,7 +6289,7 @@
     ],
     "cover_photo": "/assets/restaurants/nakhchivan-restaurant/1.jpg",
     "short_description": "Regional dining room near Parliament Avenue serving piti, Ordubad kebabs and a samovar tea table in a vintage oil-boom interior.",
-    "neighborhood": "Parliament Avenue · Yasamal",
+    "neighborhood": "Parliament Avenue \u00b7 Yasamal",
     "price_level": "AZN 2/4",
     "tags": [
       "heritage",
@@ -6310,7 +6310,7 @@
     "menu_url": "https://baku.cafe/en/nakhchivan",
     "instagram": "https://www.instagram.com/nakhchivanrestaurant/",
     "whatsapp": "+994 51 385 85 58",
-    "average_spend": "AZN 30–60 per guest",
+    "average_spend": "AZN 30\u201360 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [],
@@ -6340,15 +6340,15 @@
     "neighborhood": "Port Baku",
     "price_level": "AZN 3/4",
     "tags": [
-      "central/zarifa_aliyeva",
-      "casual",
       "cheese_focused",
-      "family_friendly",
-      "cheese_bar",
+      "central/zarifa_aliyeva",
       "family",
-      "restaurant",
       "european",
       "wine_bar",
+      "cheese_bar",
+      "casual",
+      "restaurant",
+      "family_friendly",
       "book_early"
     ],
     "highlights": [],
@@ -6359,7 +6359,7 @@
     "longitude": 49.839537,
     "menu_url": "https://syrovarnya.com/menus/baku",
     "instagram": "https://www.instagram.com/syrovarnya.baku/",
-    "average_spend": "AZN 55–95 per guest",
+    "average_spend": "AZN 55\u201395 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -6630,14 +6630,14 @@
     "neighborhood": "Malakan Garden",
     "price_level": "AZN 2/4",
     "tags": [
-      "counter_service",
-      "nizami_street",
       "ganjlik_mall",
-      "casual",
       "italian",
+      "quick_bite",
       "family",
+      "casual",
+      "nizami_street",
       "restaurant",
-      "quick_bite"
+      "counter_service"
     ],
     "highlights": [],
     "map_images": [
@@ -6647,7 +6647,7 @@
     "longitude": 49.840997,
     "menu_url": "https://www.vapiano.az/menu",
     "instagram": "https://www.instagram.com/vapiano.baku/",
-    "average_spend": "AZN 25–40 per guest",
+    "average_spend": "AZN 25\u201340 per guest",
     "dress_code": "Casual",
     "experiences": [],
     "areas": [
@@ -6917,29 +6917,29 @@
     "neighborhood": "Fountain Square",
     "price_level": "AZN 2/4",
     "tags": [
-      "shisha",
-      "live_music",
-      "restaurant",
-      "european",
-      "cocktails",
-      "24_7",
-      "breakfast",
-      "azerbaijani",
-      "terrace",
-      "international",
-      "tea_culture",
-      "cafe",
-      "fountains_square",
-      "traditional_interior",
-      "casual",
-      "hookah_lounge",
-      "lively",
-      "lounge",
       "shisha_hookah",
-      "late_night",
-      "family",
+      "breakfast",
+      "live_music",
+      "cafe",
       "city_view",
-      "brunch"
+      "lively",
+      "traditional_interior",
+      "tea_culture",
+      "24_7",
+      "family",
+      "restaurant",
+      "casual",
+      "terrace",
+      "late_night",
+      "cocktails",
+      "international",
+      "brunch",
+      "fountains_square",
+      "lounge",
+      "hookah_lounge",
+      "azerbaijani",
+      "european",
+      "shisha"
     ],
     "highlights": [],
     "map_images": [
@@ -6949,7 +6949,7 @@
     "longitude": 49.83868,
     "menu_url": "https://145group.az/passage/menu",
     "instagram": "https://www.instagram.com/passage145/",
-    "average_spend": "AZN 35–60 per guest",
+    "average_spend": "AZN 35\u201360 per guest",
     "dress_code": "Casual",
     "experiences": [],
     "areas": [
@@ -7218,7 +7218,7 @@
     }
   },
   {
-    "name": "Çay Bağı 145",
+    "name": "\u00c7ay Ba\u011f\u0131 145",
     "slug": "caybagi145",
     "cuisine": [
       "Tea House",
@@ -7239,15 +7239,15 @@
     "price_level": "AZN 2/4",
     "tags": [
       "rooftop",
-      "sea_view",
       "breakfast",
+      "tea_house",
+      "tea_culture",
       "azerbaijani",
       "old_city",
       "cozy",
-      "family_friendly",
       "terrace",
-      "tea_house",
-      "tea_culture"
+      "family_friendly",
+      "sea_view"
     ],
     "highlights": [],
     "map_images": [
@@ -7257,7 +7257,7 @@
     "longitude": 49.8368,
     "menu_url": "https://145group.az/caybagi/menu",
     "instagram": "https://www.instagram.com/caybagi145/",
-    "average_spend": "AZN 25–40 per guest",
+    "average_spend": "AZN 25\u201340 per guest",
     "dress_code": "Casual",
     "experiences": [],
     "areas": [
@@ -7487,7 +7487,7 @@
     "directions_url": "https://maps.google.com/?q=40.3664,49.8368",
     "call_url": "tel:+994506000145",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "09:00–04:00",
+    "open_hours_notes": "09:00\u201304:00",
     "structured_tags": {
       "venue_type": [
         "tea_house"
@@ -7523,7 +7523,7 @@
       "Azerbaijani",
       "Seafood"
     ],
-    "address": "153 Neftçilər Prospekti, Bakı, Azerbaijan",
+    "address": "153 Neft\u00e7il\u0259r Prospekti, Bak\u0131, Azerbaijan",
     "phone": "+994 12 310 08 08",
     "photos": [
       "/assets/restaurants/baku-cafe/1.jpg",
@@ -7537,19 +7537,19 @@
     "neighborhood": "Seaside Boulevard",
     "price_level": "AZN 4/4",
     "tags": [
-      "central",
-      "casual",
-      "bar",
-      "restaurant",
+      "international",
+      "seafood",
       "breakfast",
       "lively",
-      "azerbaijani",
-      "seafood",
-      "fine_dining",
-      "dessert",
+      "bar",
       "coffee",
-      "family_friendly",
-      "international"
+      "central",
+      "azerbaijani",
+      "dessert",
+      "fine_dining",
+      "restaurant",
+      "casual",
+      "family_friendly"
     ],
     "highlights": [
       "Spacious booths for families",
@@ -7564,7 +7564,7 @@
     "menu_url": null,
     "instagram": "https://www.instagram.com/bakucafe.miami/",
     "whatsapp": "+994 12 310 08 08",
-    "average_spend": "AZN 110–160 per guest",
+    "average_spend": "AZN 110\u2013160 per guest",
     "dress_code": "Chic evening",
     "experiences": [],
     "areas": [
@@ -8001,7 +8001,7 @@
     "cuisine": [
       "Azerbaijani"
     ],
-    "address": "130 Təbriz küçəsi, Bakı, Azerbaijan",
+    "address": "130 T\u0259briz k\u00fc\u00e7\u0259si, Bak\u0131, Azerbaijan",
     "phone": "+994 12 404 18 81",
     "photos": [
       "/assets/restaurants/baku-convention-center/1.jpg",
@@ -8015,16 +8015,16 @@
     "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
-      "azerbaijani",
-      "casual",
-      "cozy",
-      "multiple_restaurants",
-      "business",
-      "international",
-      "khatai",
-      "restaurant",
       "hotel_restaurant",
-      "trendy"
+      "trendy",
+      "azerbaijani",
+      "international",
+      "business",
+      "khatai",
+      "multiple_restaurants",
+      "cozy",
+      "casual",
+      "restaurant"
     ],
     "highlights": [
       "Service-led dining room with attentive hosts"
@@ -8037,7 +8037,7 @@
     "menu_url": "http://bakuconventioncenter.com/",
     "instagram": "https://www.instagram.com/baku_convention_center/",
     "whatsapp": "+994 12 404 18 81",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -8473,7 +8473,7 @@
       "Cafe",
       "Bar & Lounge"
     ],
-    "address": "Alov Qülleleri, Mehdi Hüseyn Street, Bakı, Azerbaijan",
+    "address": "Alov Q\u00fclleleri, Mehdi H\u00fcseyn Street, Bak\u0131, Azerbaijan",
     "phone": "+994 55 505 04 20",
     "photos": [
       "/assets/restaurants/balcon-cafe/1.jpg",
@@ -8487,19 +8487,19 @@
     "neighborhood": "Downtown",
     "price_level": "AZN 2/4",
     "tags": [
-      "elegant",
-      "flame_towers",
-      "cafe_bakery",
-      "bar",
-      "restaurant",
       "breakfast",
-      "romantic",
-      "coffee",
-      "family_friendly",
-      "desserts",
+      "cafe",
+      "flame_towers",
       "city_view",
+      "bar",
+      "desserts",
+      "coffee",
+      "romantic",
       "tea_culture",
-      "cafe"
+      "elegant",
+      "restaurant",
+      "cafe_bakery",
+      "family_friendly"
     ],
     "highlights": [
       "Mixology-led cocktail list",
@@ -8514,7 +8514,7 @@
     "menu_url": "https://www.fairmont.com/en/hotels/barbados/fairmont-royal-pavilion.html",
     "instagram": "https://www.instagram.com/fairmonthotels/",
     "whatsapp": "+994 55 505 04 20",
-    "average_spend": "AZN 45–75 per guest",
+    "average_spend": "AZN 45\u201375 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -8924,7 +8924,7 @@
     "directions_url": "https://maps.google.com/?q=40.3598572,49.8266265",
     "call_url": "tel:+994555050420",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "12:00–20:00",
+    "open_hours_notes": "12:00\u201320:00",
     "structured_tags": {
       "venue_type": [
         "cafe"
@@ -8956,7 +8956,7 @@
       "Cafe",
       "Patisserie"
     ],
-    "address": "300-303 quarter, intersection of M. Fuzuli and A. Topchubashov streets Nasimi district Baku, Bakı 1009, Azerbaijan",
+    "address": "300-303 quarter, intersection of M. Fuzuli and A. Topchubashov streets Nasimi district Baku, Bak\u0131 1009, Azerbaijan",
     "phone": "",
     "photos": [
       "/assets/restaurants/besh-gastropub/1.jpg",
@@ -8971,18 +8971,18 @@
     "price_level": "AZN 3/4",
     "tags": [
       "rooftop",
-      "craft_beer",
-      "live_music",
-      "casual",
-      "courtyard_baku",
-      "bar",
-      "breakfast",
-      "lively",
       "gastropub",
-      "dessert",
+      "craft_beer",
+      "international",
+      "breakfast",
+      "live_music",
+      "lively",
+      "bar",
       "coffee",
-      "family_friendly",
-      "international"
+      "dessert",
+      "courtyard_baku",
+      "casual",
+      "family_friendly"
     ],
     "highlights": [
       "Skyline terrace with Caspian views",
@@ -8997,7 +8997,7 @@
     "menu_url": "https://www.marriott.com/en-us/destinations/united-states/california/santa-barbara.mi",
     "instagram": "https://www.instagram.com/courtyardbaku/",
     "whatsapp": "",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart nightlife",
     "experiences": [],
     "areas": [
@@ -9407,7 +9407,7 @@
     "directions_url": "https://maps.google.com/?q=40.3764701,49.83453489999999",
     "call_url": "",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "06:30–24:00",
+    "open_hours_notes": "06:30\u201324:00",
     "structured_tags": {
       "venue_type": [
         "gastropub"
@@ -9436,7 +9436,7 @@
       "Patisserie",
       "Bar & Lounge"
     ],
-    "address": "4C Xəqani Rüstəmov, Bakı 1010, Azerbaijan",
+    "address": "4C X\u0259qani R\u00fcst\u0259mov, Bak\u0131 1010, Azerbaijan",
     "phone": "+994 12 310 00 40",
     "photos": [
       "/assets/restaurants/black-city-lounge-terrace/1.jpg",
@@ -9450,20 +9450,20 @@
     "neighborhood": "Downtown",
     "price_level": "AZN 2/4",
     "tags": [
-      "baku_marriott_boulevard/white_city",
-      "shisha",
+      "trendy",
+      "international",
       "live_music",
-      "sea_view",
-      "dj",
-      "casual",
-      "bar",
-      "restaurant",
       "lively",
+      "bar",
       "lounge",
       "dessert",
+      "baku_marriott_boulevard/white_city",
+      "dj",
+      "casual",
+      "restaurant",
       "terrace",
-      "international",
-      "trendy"
+      "shisha",
+      "sea_view"
     ],
     "highlights": [
       "Resident DJs on weekends",
@@ -9478,7 +9478,7 @@
     "menu_url": null,
     "instagram": "https://www.instagram.com/blackcitylounge/",
     "whatsapp": "+994 12 310 00 40",
-    "average_spend": "AZN 45–75 per guest",
+    "average_spend": "AZN 45\u201375 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -9888,7 +9888,7 @@
     "directions_url": "https://maps.google.com/?q=40.3749473,49.8836592",
     "call_url": "tel:+994123100040",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "18:00–02:00",
+    "open_hours_notes": "18:00\u201302:00",
     "structured_tags": {
       "venue_type": [
         "lounge"
@@ -9922,7 +9922,7 @@
       "Azerbaijani",
       "Italian"
     ],
-    "address": "1 Islam Safarli Street, Bakı 1005, Azerbaijan",
+    "address": "1 Islam Safarli Street, Bak\u0131 1005, Azerbaijan",
     "phone": "+994 12 598 86 86",
     "photos": [
       "/assets/restaurants/cafe-city-fountain/1.jpg",
@@ -9936,21 +9936,21 @@
     "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
-      "fountains_square",
       "rooftop",
-      "casual",
+      "international",
+      "breakfast",
+      "cafe",
+      "fountains_square",
       "pizza",
       "bar",
-      "breakfast",
+      "desserts",
+      "coffee",
+      "tea_culture",
       "azerbaijani",
       "dessert",
-      "coffee",
+      "casual",
       "family_friendly",
-      "desserts",
-      "outdoor",
-      "international",
-      "tea_culture",
-      "cafe"
+      "outdoor"
     ],
     "highlights": [
       "Showpiece dessert trolley",
@@ -9965,7 +9965,7 @@
     "menu_url": "https://cafecity.az/products/cafecity-fountain/poke-bowl-menu",
     "instagram": "https://www.instagram.com/cafecitybaku/",
     "whatsapp": "+994 12 598 86 86",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart nightlife",
     "experiences": [],
     "areas": [
@@ -10406,7 +10406,7 @@
       "Japanese",
       "Steakhouse"
     ],
-    "address": "JW Marriott AZ1010, 674 Azadlıq Prospekti, Bakı, Azerbaijan",
+    "address": "JW Marriott AZ1010, 674 Azadl\u0131q Prospekti, Bak\u0131, Azerbaijan",
     "phone": "+994 12 499 88 88",
     "photos": [
       "/assets/restaurants/fireworks-urban-kitchen/1.jpg",
@@ -10420,19 +10420,19 @@
     "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
-      "middle_eastern",
       "rooftop",
-      "elegant",
+      "trendy",
       "live_music",
+      "city_view",
       "bar",
       "steakhouse",
-      "burger",
-      "jw_marriott",
       "dessert",
+      "burger",
+      "elegant",
+      "jw_marriott",
+      "middle_eastern",
       "family_friendly",
-      "city_view",
-      "sushi",
-      "trendy"
+      "sushi"
     ],
     "highlights": [
       "Spacious booths for families",
@@ -10447,7 +10447,7 @@
     "menu_url": "https://www.fireworks.az/en/",
     "instagram": "https://www.instagram.com/fireworksbaku/",
     "whatsapp": "+994 12 499 88 88",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart nightlife",
     "experiences": [],
     "areas": [
@@ -10857,7 +10857,7 @@
     "directions_url": "https://maps.google.com/?q=40.3742262,49.8564452",
     "call_url": "tel:+994124998888",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "Business lunch 12:00–15:00",
+    "open_hours_notes": "Business lunch 12:00\u201315:00",
     "structured_tags": {
       "venue_type": [
         "steakhouse"
@@ -10889,7 +10889,7 @@
       "Patisserie",
       "Bar & Lounge"
     ],
-    "address": "Baku Marriott Hotel Bouelvard, Bakı, Azerbaijan",
+    "address": "Baku Marriott Hotel Bouelvard, Bak\u0131, Azerbaijan",
     "phone": "+994 12 310 00 10",
     "photos": [
       "/assets/restaurants/green-house-asian-kitchen/1.jpg",
@@ -10904,14 +10904,14 @@
     "price_level": "AZN 2/4",
     "tags": [
       "baku_marriott_boulevard",
-      "live_music",
-      "casual",
       "dessert",
-      "family_friendly",
-      "bar",
-      "asian",
+      "live_music",
+      "chinese",
+      "casual",
       "restaurant",
-      "chinese"
+      "bar",
+      "family_friendly",
+      "asian"
     ],
     "highlights": [
       "Resident DJs on weekends",
@@ -10926,7 +10926,7 @@
     "menu_url": null,
     "instagram": "https://www.instagram.com/greenhouseasiankitchen/",
     "whatsapp": "+994 12 310 00 10",
-    "average_spend": "AZN 45–75 per guest",
+    "average_spend": "AZN 45\u201375 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -11336,7 +11336,7 @@
     "directions_url": "https://maps.google.com/?q=40.3751629,49.8836466",
     "call_url": "tel:+994123100010",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "14:00–23:30",
+    "open_hours_notes": "14:00\u201323:30",
     "structured_tags": {
       "venue_type": [
         "restaurant"
@@ -11363,7 +11363,7 @@
     "cuisine": [
       "Bar & Lounge"
     ],
-    "address": "153 Neftçilər Prospekti, Bakı 1010, Azerbaijan",
+    "address": "153 Neft\u00e7il\u0259r Prospekti, Bak\u0131 1010, Azerbaijan",
     "phone": "+994 12 404 82 05",
     "photos": [
       "/assets/restaurants/harbour-tap-and-grill/1.jpg",
@@ -11377,17 +11377,17 @@
     "neighborhood": "Seaside Boulevard",
     "price_level": "AZN 2/4",
     "tags": [
+      "trendy",
+      "gastropub",
       "indian",
       "port_baku",
-      "sea_view",
-      "casual",
-      "bar",
-      "restaurant",
-      "european",
       "lively",
-      "gastropub",
+      "bar",
+      "european",
+      "casual",
+      "restaurant",
       "cozy",
-      "trendy"
+      "sea_view"
     ],
     "highlights": [
       "Mixology-led cocktail list"
@@ -11400,7 +11400,7 @@
     "menu_url": "https://drive.google.com/file/d/15-q-OFS03fOt60x1aQB3JX5x1ekn9HOm/view?usp=sharing",
     "instagram": "https://www.instagram.com/harbourbaku/",
     "whatsapp": "+994 12 404 82 05",
-    "average_spend": "AZN 45–75 per guest",
+    "average_spend": "AZN 45\u201375 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -11841,7 +11841,7 @@
       "Japanese",
       "Bar & Lounge"
     ],
-    "address": "Fountain Square, 8 Əziz Əliyev küçəsi, Bakı 1000, Azerbaijan",
+    "address": "Fountain Square, 8 \u018fziz \u018fliyev k\u00fc\u00e7\u0259si, Bak\u0131 1000, Azerbaijan",
     "phone": "+994 12 404 82 28",
     "photos": [
       "/assets/restaurants/hard-rock-cafe/1.jpg",
@@ -11855,15 +11855,15 @@
     "neighborhood": "Fountain Square",
     "price_level": "AZN 2/4",
     "tags": [
-      "fountains_square",
-      "live_music",
-      "american",
-      "casual",
+      "lively",
       "trendy",
+      "american",
+      "live_music",
+      "casual",
+      "fountains_square",
       "bar",
       "restaurant",
-      "sushi",
-      "lively"
+      "sushi"
     ],
     "highlights": [
       "Mixology-led cocktail list",
@@ -11877,7 +11877,7 @@
     "menu_url": "https://cafe.hardrock.com/menu.aspx",
     "instagram": "https://www.instagram.com/hardrockcafe/",
     "whatsapp": "+994 12 404 82 28",
-    "average_spend": "AZN 45–75 per guest",
+    "average_spend": "AZN 45\u201375 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -12314,7 +12314,7 @@
       "Azerbaijani",
       "Seafood"
     ],
-    "address": "Tərlan Əliyarbəyov, Bakı, Azerbaijan",
+    "address": "T\u0259rlan \u018fliyarb\u0259yov, Bak\u0131, Azerbaijan",
     "phone": "+994 51 308 99 09",
     "photos": [
       "/assets/restaurants/kefli-local-wine-snacks/1.jpg",
@@ -12328,17 +12328,17 @@
     "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
-      "azerbaijani",
       "rooftop",
-      "seafood",
-      "casual",
-      "cozy",
-      "coffee",
-      "dessert",
+      "azerbaijani",
       "central/old_city_edge",
+      "seafood",
+      "dessert",
+      "wine_bar",
+      "cozy",
+      "casual",
       "bar",
       "azerbaijani_wine",
-      "wine_bar"
+      "coffee"
     ],
     "highlights": [
       "Skyline terrace with Caspian views",
@@ -12353,7 +12353,7 @@
     "menu_url": "https://www.facebook.com/kefliwinebar/?fref=ts",
     "instagram": "https://www.instagram.com/kefliwinebar/",
     "whatsapp": "+994 51 308 99 09",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart nightlife",
     "experiences": [],
     "areas": [
@@ -12763,7 +12763,7 @@
     "directions_url": "https://maps.google.com/?q=40.3684516,49.8398031",
     "call_url": "tel:+994513089909",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "15:00–01:00 (to 03:00 Fri/Sat)",
+    "open_hours_notes": "15:00\u201301:00 (to 03:00 Fri/Sat)",
     "structured_tags": {
       "venue_type": [
         "bar"
@@ -12788,7 +12788,7 @@
     }
   },
   {
-    "name": "La Kükü",
+    "name": "La K\u00fck\u00fc",
     "slug": "la-kuku",
     "id": "5284ca0c-3c4a-4b42-a052-e33249045fc4",
     "cuisine": [
@@ -12805,21 +12805,21 @@
       "/assets/restaurants/la-kuku/5.jpg"
     ],
     "cover_photo": "/assets/restaurants/la-kuku/1.jpg",
-    "short_description": "La Kükü pairs modern Azeri flavors with third-wave coffee service in Downtown.",
+    "short_description": "La K\u00fck\u00fc pairs modern Azeri flavors with third-wave coffee service in Downtown.",
     "neighborhood": "Downtown",
     "price_level": "AZN 2/4",
     "tags": [
-      "traditional_interior",
-      "casual",
-      "restaurant",
-      "european",
-      "burger",
-      "azerbaijani",
-      "old_city",
-      "cozy",
       "coffee",
-      "family_friendly",
-      "tea_culture"
+      "traditional_interior",
+      "tea_culture",
+      "azerbaijani",
+      "burger",
+      "european",
+      "old_city",
+      "restaurant",
+      "casual",
+      "cozy",
+      "family_friendly"
     ],
     "highlights": [
       "Spritz-friendly coffee program"
@@ -12832,7 +12832,7 @@
     "menu_url": "https://www.instagram.com/La_K%C3%BCk%C3%BC",
     "instagram": "https://www.instagram.com/la_kuku_baku/",
     "whatsapp": "+994 70 565 01 78",
-    "average_spend": "AZN 45–75 per guest",
+    "average_spend": "AZN 45\u201375 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -13242,7 +13242,7 @@
     "directions_url": "https://maps.google.com/?q=40.3653647,49.8315394",
     "call_url": "tel:+994705650178",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "10:00–23:30",
+    "open_hours_notes": "10:00\u201323:30",
     "structured_tags": {
       "venue_type": [
         "restaurant"
@@ -13273,7 +13273,7 @@
     "cuisine": [
       "International"
     ],
-    "address": "Nəsimi Rayonu, Nəsib bəy Yusifbəyli küçəsi, 9RWJ+G75, Bakı, Azerbaijan",
+    "address": "N\u0259simi Rayonu, N\u0259sib b\u0259y Yusifb\u0259yli k\u00fc\u00e7\u0259si, 9RWJ+G75, Bak\u0131, Azerbaijan",
     "phone": "+994 50 242 42 28",
     "photos": [],
     "cover_photo": "",
@@ -13281,17 +13281,17 @@
     "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
-      "romantic",
-      "crescent_mall",
-      "casual",
-      "cafe_bakery",
-      "cozy",
       "patisserie",
-      "desserts",
-      "restaurant",
+      "trendy",
       "group_friendly",
-      "tea_culture",
-      "trendy"
+      "cozy",
+      "casual",
+      "restaurant",
+      "crescent_mall",
+      "cafe_bakery",
+      "desserts",
+      "romantic",
+      "tea_culture"
     ],
     "highlights": [
       "Service-led dining room with attentive hosts"
@@ -13304,7 +13304,7 @@
     "menu_url": null,
     "instagram": "@lamaison_patisserie",
     "whatsapp": "+994 50 242 42 28",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -13714,7 +13714,7 @@
     "directions_url": "https://maps.google.com/?q=40.3962712,49.8307464",
     "call_url": "tel:+994502424228",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "09:00–23:30",
+    "open_hours_notes": "09:00\u201323:30",
     "structured_tags": {
       "venue_type": [
         "patisserie"
@@ -13743,7 +13743,7 @@
       "Azerbaijani",
       "Patisserie"
     ],
-    "address": "4, 6 Əziz Əliyev küçəsi, Bakı 1005, Azerbaijan",
+    "address": "4, 6 \u018fziz \u018fliyev k\u00fc\u00e7\u0259si, Bak\u0131 1005, Azerbaijan",
     "phone": "+994 51 206 85 81",
     "photos": [
       "/assets/restaurants/latitude-longitude-bar-lounge/1.jpg",
@@ -13757,17 +13757,17 @@
     "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
-      "azerbaijani",
       "rooftop",
-      "elegant",
-      "live_music",
-      "dessert",
-      "bar",
-      "international",
-      "cocktails",
-      "merchant_baku",
       "trendy",
-      "lounge"
+      "azerbaijani",
+      "international",
+      "dessert",
+      "merchant_baku",
+      "live_music",
+      "elegant",
+      "bar",
+      "lounge",
+      "cocktails"
     ],
     "highlights": [
       "Showpiece dessert trolley",
@@ -13782,7 +13782,7 @@
     "menu_url": "https://themerchantbaku.com/dining/",
     "instagram": "https://www.instagram.com/lalobarlounge/",
     "whatsapp": "+994 51 206 85 81",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart nightlife",
     "experiences": [],
     "areas": [
@@ -14219,7 +14219,7 @@
       "Azerbaijani",
       "Seafood"
     ],
-    "address": "Asaf Zeynalli,16, AZ1000 Baku, Azerbaijan, Kichik Qala, Bakı 1000, Azerbaijan",
+    "address": "Asaf Zeynalli,16, AZ1000 Baku, Azerbaijan, Kichik Qala, Bak\u0131 1000, Azerbaijan",
     "phone": "+994 50 266 26 68",
     "photos": [
       "/assets/restaurants/merci-baku/1.jpg",
@@ -14233,18 +14233,18 @@
     "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
-      "shisha",
-      "bar",
-      "steakhouse",
-      "european",
-      "restaurant",
-      "breakfast",
-      "azerbaijani",
       "seafood",
-      "old_city",
-      "dessert",
+      "breakfast",
+      "bar",
       "coffee",
-      "cozy"
+      "steakhouse",
+      "azerbaijani",
+      "dessert",
+      "european",
+      "old_city",
+      "restaurant",
+      "cozy",
+      "shisha"
     ],
     "highlights": [
       "Mixology-led cocktail list",
@@ -14259,7 +14259,7 @@
     "menu_url": "https://mercibaku.co/",
     "instagram": "https://www.instagram.com/merci_baku/",
     "whatsapp": "+994 50 266 26 68",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -14697,7 +14697,7 @@
       "Seafood",
       "Italian"
     ],
-    "address": "Port Baku Towers, 153 Neftçilər Prospekti, Bakı 1010, Azerbaijan",
+    "address": "Port Baku Towers, 153 Neft\u00e7il\u0259r Prospekti, Bak\u0131 1010, Azerbaijan",
     "phone": "+994 50 229 10 60",
     "photos": [
       "/assets/restaurants/movida-lounge-and-dining/1.jpg",
@@ -14711,22 +14711,22 @@
     "neighborhood": "Port Baku",
     "price_level": "AZN 3/4",
     "tags": [
-      "middle_eastern",
       "rooftop",
-      "shisha",
-      "sea_view",
-      "pizza",
-      "bar",
-      "restaurant",
-      "lunch_menu",
-      "lively",
+      "trendy",
       "seafood",
+      "lively",
+      "bar",
+      "pizza",
+      "coffee",
       "seaside_boulevard",
       "dessert",
-      "coffee",
+      "lunch_menu",
+      "shisha",
+      "middle_eastern",
+      "restaurant",
       "late_night",
       "moroccan",
-      "trendy"
+      "sea_view"
     ],
     "highlights": [
       "Mixology-led cocktail list",
@@ -14741,7 +14741,7 @@
     "menu_url": "https://drive.google.com/file/d/1-baXozOzQh0Me3IJDecBj8DjmVO7cQoi/view?usp=sharing",
     "instagram": "https://www.instagram.com/movidabaku/",
     "whatsapp": "+994 50 229 10 60",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart nightlife",
     "experiences": [],
     "areas": [
@@ -15151,7 +15151,7 @@
     "directions_url": "https://maps.google.com/?q=40.3758162,49.8614013",
     "call_url": "tel:+994502291060",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "11:00–01:00",
+    "open_hours_notes": "11:00\u201301:00",
     "structured_tags": {
       "venue_type": [
         "restaurant"
@@ -15185,7 +15185,7 @@
       "Seafood",
       "Japanese"
     ],
-    "address": "Fairmont Baku Azərbaycan, 1A, 1006 Mehdi Hüseyn Küçəsi, Bakı 1006, Azerbaijan",
+    "address": "Fairmont Baku Az\u0259rbaycan, 1A, 1006 Mehdi H\u00fcseyn K\u00fc\u00e7\u0259si, Bak\u0131 1006, Azerbaijan",
     "phone": "+994 55 505 04 30",
     "photos": [
       "/assets/restaurants/nur-lounge/1.jpg",
@@ -15200,22 +15200,22 @@
     "price_level": "AZN 4/4",
     "tags": [
       "rooftop",
-      "elegant",
+      "international",
+      "seafood",
       "live_music",
       "flame_towers",
-      "bar",
-      "cocktails",
-      "lounge",
-      "live_piano",
-      "seafood",
-      "romantic",
-      "fine_dining",
-      "dessert",
-      "family_friendly",
       "city_view",
-      "international",
-      "sushi",
-      "tea_culture"
+      "bar",
+      "lounge",
+      "romantic",
+      "cocktails",
+      "tea_culture",
+      "dessert",
+      "live_piano",
+      "elegant",
+      "fine_dining",
+      "family_friendly",
+      "sushi"
     ],
     "highlights": [
       "Showpiece dessert trolley",
@@ -15230,7 +15230,7 @@
     "menu_url": "https://www.fairmont.com/en/hotels/barbados/fairmont-royal-pavilion.html",
     "instagram": "https://www.instagram.com/fairmontbaku/",
     "whatsapp": "+994 55 505 04 30",
-    "average_spend": "AZN 110–160 per guest",
+    "average_spend": "AZN 110\u2013160 per guest",
     "dress_code": "Chic evening",
     "experiences": [],
     "areas": [
@@ -15640,7 +15640,7 @@
     "directions_url": "https://maps.google.com/?q=40.3601143,49.8262438",
     "call_url": "tel:+994555050430",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "10:00–23:00",
+    "open_hours_notes": "10:00\u201323:00",
     "structured_tags": {
       "venue_type": [
         "lounge"
@@ -15686,18 +15686,18 @@
     "neighborhood": "Downtown",
     "price_level": "AZN 2/4",
     "tags": [
+      "trendy",
       "central/zarifa_aliyeva",
-      "casual",
-      "restaurant",
-      "european",
       "breakfast",
+      "coffee",
       "romantic",
       "french",
-      "cozy",
-      "coffee",
-      "late_night",
+      "european",
       "wine_bar",
-      "trendy"
+      "restaurant",
+      "casual",
+      "cozy",
+      "late_night"
     ],
     "highlights": [
       "Spritz-friendly coffee program"
@@ -15710,7 +15710,7 @@
     "menu_url": "https://monyo.az/?r=parisbistro",
     "instagram": "https://www.instagram.com/parisbistrobaku/",
     "whatsapp": "+994 10 265 44 94",
-    "average_spend": "AZN 45–75 per guest",
+    "average_spend": "AZN 45\u201375 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -16120,7 +16120,7 @@
     "directions_url": "https://maps.google.com/?q=40.3679021,49.8381549",
     "call_url": "tel:+994102654494",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "08:00–03:00",
+    "open_hours_notes": "08:00\u201303:00",
     "structured_tags": {
       "venue_type": [
         "restaurant"
@@ -16151,7 +16151,7 @@
       "Seafood",
       "Japanese"
     ],
-    "address": "Seaside Boulevard, 34 Neftçilər Prospekti, Bakı 1010, Azerbaijan",
+    "address": "Seaside Boulevard, 34 Neft\u00e7il\u0259r Prospekti, Bak\u0131 1010, Azerbaijan",
     "phone": "+994 50 285 00 21",
     "photos": [
       "/assets/restaurants/pasifico-lounge-and-dining/1.jpg",
@@ -16166,19 +16166,19 @@
     "price_level": "AZN 3/4",
     "tags": [
       "rooftop",
-      "live_music",
-      "sea_view",
-      "dj",
-      "latin",
-      "bar",
-      "cocktails",
-      "lively",
-      "lounge",
+      "trendy",
       "seafood",
+      "live_music",
+      "lively",
+      "bar",
+      "latin",
+      "lounge",
       "seaside_boulevard",
+      "cocktails",
+      "dj",
       "late_night",
       "sushi",
-      "trendy"
+      "sea_view"
     ],
     "highlights": [
       "Daily seafood and raw bar",
@@ -16193,7 +16193,7 @@
     "menu_url": "http://pasifico.az/menu",
     "instagram": "https://www.instagram.com/pasificobaku/",
     "whatsapp": "+994 50 285 00 21",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart nightlife",
     "experiences": [],
     "areas": [
@@ -16603,7 +16603,7 @@
     "directions_url": "https://maps.google.com/?q=40.3696618,49.8454942",
     "call_url": "tel:+994502850021",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "18:00–02:00 (Fri/Sat till 06:00)",
+    "open_hours_notes": "18:00\u201302:00 (Fri/Sat till 06:00)",
     "structured_tags": {
       "venue_type": [
         "lounge"
@@ -16644,15 +16644,15 @@
     "neighborhood": "Nizami Street",
     "price_level": "AZN 2/4",
     "tags": [
-      "nizami_street",
+      "lively",
+      "trendy",
+      "gastropub",
       "dj",
       "casual",
-      "gastropub",
-      "coffee",
-      "trendy",
+      "nizami_street",
       "bar",
       "restaurant",
-      "lively"
+      "coffee"
     ],
     "highlights": [
       "Mixology-led cocktail list",
@@ -16666,7 +16666,7 @@
     "menu_url": null,
     "instagram": "https://www.instagram.com/p/",
     "whatsapp": "+994 50 710 00 11",
-    "average_spend": "AZN 45–75 per guest",
+    "average_spend": "AZN 45\u201375 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -17102,7 +17102,7 @@
     "cuisine": [
       "Steakhouse"
     ],
-    "address": "National Flag Square Complex, Bakı 1010, Azerbaijan",
+    "address": "National Flag Square Complex, Bak\u0131 1010, Azerbaijan",
     "phone": "+994 51 999 99 11",
     "photos": [
       "/assets/restaurants/porterhouse-grill-wine/1.jpg",
@@ -17113,15 +17113,15 @@
     "neighborhood": "Bayil",
     "price_level": "AZN 3/4",
     "tags": [
-      "central",
+      "trendy",
       "elegant",
-      "casual",
-      "cozy",
-      "bar",
-      "steakhouse",
-      "restaurant",
       "wine_bar",
-      "trendy"
+      "cozy",
+      "casual",
+      "bar",
+      "restaurant",
+      "steakhouse",
+      "central"
     ],
     "highlights": [
       "Service-led dining room with attentive hosts"
@@ -17134,7 +17134,7 @@
     "menu_url": null,
     "instagram": "https://www.instagram.com/porterhousebaku/",
     "whatsapp": "+994 51 999 99 11",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -17571,7 +17571,7 @@
       "Steakhouse",
       "Bar & Lounge"
     ],
-    "address": "14/a Xaqani Küçəsi, Bakı, Azerbaijan",
+    "address": "14/a Xaqani K\u00fc\u00e7\u0259si, Bak\u0131, Azerbaijan",
     "phone": "+994 12 598 05 55",
     "photos": [
       "/assets/restaurants/prive-steak-gallery-baku/1.jpg",
@@ -17585,15 +17585,15 @@
     "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
-      "central",
+      "breakfast",
       "elegant",
+      "wine_bar",
+      "private_dining",
       "casual",
+      "restaurant",
       "bar",
       "steakhouse",
-      "restaurant",
-      "wine_bar",
-      "breakfast",
-      "private_dining"
+      "central"
     ],
     "highlights": [
       "Mixology-led cocktail list"
@@ -17606,7 +17606,7 @@
     "menu_url": "http://privebaku.com/az/menu/",
     "instagram": "https://www.instagram.com/prive_steak_gallery/",
     "whatsapp": "+994 12 598 05 55",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -18016,7 +18016,7 @@
     "directions_url": "https://maps.google.com/?q=40.3721495,49.8416105",
     "call_url": "tel:+994125980555",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "09:00–00:00",
+    "open_hours_notes": "09:00\u201300:00",
     "structured_tags": {
       "venue_type": [
         "restaurant"
@@ -18058,18 +18058,18 @@
     "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
+      "italian",
       "azerbaijani",
       "seafood",
+      "dessert",
       "port_baku",
+      "bar",
+      "wine_bar",
       "cozy",
-      "coffee",
+      "restaurant",
       "pizza",
       "family_friendly",
-      "italian",
-      "dessert",
-      "bar",
-      "restaurant",
-      "wine_bar"
+      "coffee"
     ],
     "highlights": [
       "Showpiece dessert trolley",
@@ -18084,7 +18084,7 @@
     "menu_url": "http://www.scalini.az/#menu",
     "instagram": "https://www.instagram.com/scalini_baku/",
     "whatsapp": "+994 12 404 82 07",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -18535,14 +18535,14 @@
     "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
+      "lively",
       "azerbaijani",
-      "seafood",
-      "live_music",
-      "bar",
-      "restaurant",
       "central/rashid_behbudov",
+      "seafood",
       "breakfast",
-      "lively"
+      "live_music",
+      "restaurant",
+      "bar"
     ],
     "highlights": [
       "Resident DJs on weekends",
@@ -18557,7 +18557,7 @@
     "menu_url": "https://www.facebook.com/shurbaku",
     "instagram": "https://www.instagram.com/shur.restaurant/",
     "whatsapp": "+994 12 493 02 72",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -18967,7 +18967,7 @@
     "directions_url": "https://maps.google.com/?q=40.3770909,49.8450813",
     "call_url": "tel:+994124930272",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "12:00–00:00",
+    "open_hours_notes": "12:00\u201300:00",
     "structured_tags": {
       "venue_type": [
         "restaurant"
@@ -19009,14 +19009,14 @@
     "neighborhood": "Nizami Street",
     "price_level": "AZN 3/4",
     "tags": [
-      "takeaway",
-      "seafood",
-      "casual",
+      "multiple_locations",
       "japanese_sushi",
-      "restaurant",
-      "sushi",
+      "seafood",
+      "takeaway",
       "delivery",
-      "multiple_locations"
+      "restaurant",
+      "casual",
+      "sushi"
     ],
     "highlights": [
       "Chef-led sushi counter",
@@ -19030,7 +19030,7 @@
     "menu_url": "http://www.sushiroom.az/",
     "instagram": "https://www.instagram.com/sushiroom.az/",
     "whatsapp": "+994 55 587 90 30",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -19440,7 +19440,7 @@
     "directions_url": "https://maps.google.com/?q=40.3742065,49.844619",
     "call_url": "tel:+994555879030",
     "timezone": "Asia/Baku",
-    "open_hours_notes": "10:00–23:00",
+    "open_hours_notes": "10:00\u201323:00",
     "structured_tags": {
       "venue_type": [
         "restaurant"
@@ -19468,7 +19468,7 @@
       "Seafood",
       "Steakhouse"
     ],
-    "address": "5 1-ci yaşıl ada, Bakı, Azerbaijan",
+    "address": "5 1-ci ya\u015f\u0131l ada, Bak\u0131, Azerbaijan",
     "phone": "+994 51 310 40 00",
     "photos": [
       "/assets/restaurants/wooga-korean-steakhouse/1.jpg",
@@ -19482,16 +19482,16 @@
     "neighborhood": "Downtown",
     "price_level": "AZN 3/4",
     "tags": [
-      "central",
-      "table_grill",
+      "trendy",
       "seafood",
-      "casual",
-      "bar",
-      "steakhouse",
-      "restaurant",
+      "table_grill",
       "wine_bar",
+      "casual",
+      "restaurant",
+      "bar",
       "korean_bbq",
-      "trendy"
+      "steakhouse",
+      "central"
     ],
     "highlights": [
       "Mixology-led cocktail list",
@@ -19505,7 +19505,7 @@
     "menu_url": null,
     "instagram": "https://www.instagram.com/woogakoreansteakhouse/",
     "whatsapp": "+994 51 310 40 00",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart casual",
     "experiences": [],
     "areas": [
@@ -19942,7 +19942,7 @@
       "Azerbaijani",
       "Steakhouse"
     ],
-    "address": "107A Zarifa Aliyeva, Bakı 1010, Azerbaijan",
+    "address": "107A Zarifa Aliyeva, Bak\u0131 1010, Azerbaijan",
     "phone": "+994 12 499 88 88",
     "photos": [
       "/assets/restaurants/zest-lifestyle-cafe/1.jpg",
@@ -19957,21 +19957,21 @@
     "price_level": "AZN 3/4",
     "tags": [
       "rooftop",
-      "elegant",
+      "international",
+      "breakfast",
       "mediterranean",
-      "casual",
+      "brunch",
       "bar",
+      "coffee",
       "steakhouse",
       "hotel_restaurant",
       "business_lunch",
-      "breakfast",
       "azerbaijani",
-      "jw_marriott",
       "dessert",
-      "coffee",
-      "family_friendly",
-      "international",
-      "brunch"
+      "elegant",
+      "jw_marriott",
+      "casual",
+      "family_friendly"
     ],
     "highlights": [
       "Skyline terrace with Caspian views",
@@ -19986,7 +19986,7 @@
     "menu_url": "https://www.marriott.com/en-us/destinations/united-states/california/santa-barbara.mi",
     "instagram": "https://www.instagram.com/jwmarriottbaku/",
     "whatsapp": "+994 12 499 88 88",
-    "average_spend": "AZN 70–110 per guest",
+    "average_spend": "AZN 70\u2013110 per guest",
     "dress_code": "Smart nightlife",
     "experiences": [],
     "areas": [
@@ -20417,5 +20417,60 @@
         "jw_marriott"
       ]
     }
+  },
+  {
+    "name": "Dar Es Salaam Baku",
+    "slug": "dar-es-salaam",
+    "id": "26ab1c49-f4c4-48e8-b3ae-4b2fcc23f554",
+    "cuisine": [
+      "International",
+      "Lounge"
+    ],
+    "address": "Allahyar N\u0259sibov 5, N\u0259simi r., Baku",
+    "phone": "+994 12 404 99 91",
+    "photos": [
+      "/assets/restaurants/dar-es-salaam/1.jpg",
+      "/assets/restaurants/dar-es-salaam/2.jpg"
+    ],
+    "cover_photo": "/assets/restaurants/dar-es-salaam/1.jpg",
+    "short_description": "A vibrant restaurant and lounge offering an international menu and a relaxing atmosphere.",
+    "neighborhood": "Nasimi",
+    "price_level": "AZN 3/4",
+    "tags": [
+      "lounge",
+      "international",
+      "restaurant",
+      "nasimi"
+    ],
+    "highlights": [],
+    "map_images": [
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80"
+    ],
+    "latitude": 40.388424,
+    "longitude": 49.829531,
+    "menu_url": "https://des.goalgroup.az/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnyA1pkgQnX7XsOmnCO6qDYG9G9Zh1YcCuTObnzQBqYlxAxNRLNB9vpOIalHw_aem_YG5q9hGtXMY08rGoF7d4qA",
+    "instagram": "https://www.instagram.com/des_baku",
+    "whatsapp": null,
+    "average_spend": null,
+    "dress_code": null,
+    "experiences": [],
+    "areas": [],
+    "city": "Baku",
+    "directions_url": "https://maps.google.com/?q=40.388424,49.829531",
+    "call_url": "tel:+994124049991",
+    "timezone": "Asia/Baku",
+    "structured_tags": {
+      "venue_type": [
+        "lounge",
+        "restaurant"
+      ],
+      "cuisine": [
+        "international"
+      ],
+      "area": [
+        "nasimi"
+      ]
+    },
+    "open_hours_notes": "10:00-02:00"
   }
 ]
