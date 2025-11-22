@@ -141,7 +141,10 @@ async def submit_review(
     ensure_reservation_owner(await DB.get_reservation(str(resid)), owner_id, is_admin)
     try:
         review = await DB.create_review(
-            str(resid), owner_id=owner_id if not is_admin else None, rating=payload.rating, comment=payload.comment
+            str(resid),
+            owner_id=owner_id if not is_admin else None,
+            rating=payload.rating,
+            comment=payload.comment,
         )
     except HTTPException:
         raise

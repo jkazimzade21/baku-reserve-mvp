@@ -301,14 +301,11 @@ class Database:
 
     async def _load_review_stats(self) -> dict[str, dict[str, Any]]:
         async with get_session() as session:
-            stmt = (
-                select(
-                    ReviewRecord.restaurant_id,
-                    func.count(ReviewRecord.id),
-                    func.avg(ReviewRecord.rating),
-                )
-                .group_by(ReviewRecord.restaurant_id)
-            )
+            stmt = select(
+                ReviewRecord.restaurant_id,
+                func.count(ReviewRecord.id),
+                func.avg(ReviewRecord.rating),
+            ).group_by(ReviewRecord.restaurant_id)
             result = await session.execute(stmt)
             stats: dict[str, dict[str, Any]] = {}
             for restaurant_id, count, average in result.all():
