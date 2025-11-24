@@ -32,7 +32,7 @@ warnings.filterwarnings(
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
-PHOTO_DIR = (REPO_ROOT / "IGPics").resolve()
+PHOTO_DIR = (REPO_ROOT / "photos" / "IGPics").resolve()
 
 # Configure structured logging (must be done before any logging calls)
 configure_structlog(json_logs=not settings.DEBUG)

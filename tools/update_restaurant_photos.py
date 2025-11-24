@@ -47,7 +47,7 @@ except ImportError as exc:  # pragma: no cover - guard for missing deps
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-IGPICS_ROOT = REPO_ROOT / "IGPics"
+IGPICS_ROOT = REPO_ROOT / "photos" / "IGPics"
 ASSETS_ROOT = REPO_ROOT / "mobile" / "src" / "assets" / "restaurants"
 RESTAURANT_DATA_PATH = REPO_ROOT / "backend" / "app" / "data" / "restaurants.json"
 MANIFEST_PATH = REPO_ROOT / "mobile" / "src" / "assets" / "restaurantPhotoManifest.ts"

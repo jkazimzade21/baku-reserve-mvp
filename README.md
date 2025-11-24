@@ -102,7 +102,7 @@ falls back to API-provided URLs.
 
 ### Curated Instagram Photo Pipeline
 
-1. Drop original JPG/PNG files inside `IGPics/<slug>/1.jpg … 5.jpg`. This folder is
+1. Drop original JPG/PNG files inside `photos/IGPics/<slug>/1.jpg … 5.jpg`. This folder is
    now tracked so we never lose the source imagery.
 2. Maintain the canonical Instagram post list for each slug inside
    `tools/update_restaurant_photos.py` (`PHOTO_SOURCES`).
@@ -117,7 +117,7 @@ falls back to API-provided URLs.
    ```
    Provide `--login` and an `IG_PASSWORD` env var if Instagram blocks anonymous
    scraping.
-5. To regenerate assets from the files already in `IGPics/`, just run:
+5. To regenerate assets from the files already in `photos/IGPics/`, just run:
    ```bash
    python tools/update_restaurant_photos.py
    ```
@@ -133,7 +133,7 @@ The script will:
 
 - Generated artefacts (`node_modules`, `__pycache__`, `.hypothesis`, etc.) are
   still ignored via `.gitignore`.
-- Raw Instagram photos are now checked in under `IGPics/` so the team has a
+- Raw Instagram photos are now checked in under `photos/IGPics/` so the team has a
   permanent archive of every curated shot that ships with the demo.
 
 <!-- gemini-push-verification -->
