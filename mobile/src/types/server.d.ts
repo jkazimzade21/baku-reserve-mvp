@@ -41,7 +41,6 @@ export interface Restaurant {
   map_images?: string[];
   latitude?: number | null;
   longitude?: number | null;
-  directions_url?: string | null;
   menu_url?: string | null;
   instagram?: string | null;
   whatsapp?: string | null;

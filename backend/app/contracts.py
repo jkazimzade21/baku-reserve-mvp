@@ -64,7 +64,6 @@ class Restaurant(BaseModel):
     map_images: list[str] = Field(default_factory=list)
     latitude: float | None = None
     longitude: float | None = None
-    directions_url: str | None = None
     menu_url: str | None = None
     instagram: str | None = None
     whatsapp: str | None = None

@@ -128,7 +128,6 @@ def restaurant_to_detail(r: Any, request: Request | None = None) -> dict[str, An
         "map_images": list(get_attr(r, "map_images", []) or []),
         "latitude": get_attr(r, "latitude"),
         "longitude": get_attr(r, "longitude"),
-        "directions_url": get_attr(r, "directions_url"),
         "menu_url": get_attr(r, "menu_url"),
         "instagram": get_attr(r, "instagram"),
         "whatsapp": get_attr(r, "whatsapp"),
