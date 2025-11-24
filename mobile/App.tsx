@@ -33,6 +33,7 @@ const resolvedSentryDsn =
   process.env.EXPO_PUBLIC_SENTRY_DSN ||
   DEFAULT_SENTRY_DSN;
 
+try {
   if (resolvedSentryDsn) {
     Sentry.init({
       dsn: resolvedSentryDsn,
@@ -41,9 +42,13 @@ const resolvedSentryDsn =
       tracesSampleRate: 1.0,
     });
 
-  if (Sentry.Native?.setTag) {
-    Sentry.Native.setTag('runtime', 'expo-dev');
+    if (Sentry.Native?.setTag) {
+      Sentry.Native.setTag('runtime', 'expo-dev');
+    }
   }
+} catch (err) {
+  // eslint-disable-next-line no-console
+  console.warn('[sentry] disabled due to init error', err);
 }
 
 const navigationTheme = {

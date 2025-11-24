@@ -1,11 +1,9 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import Auth0 from 'react-native-auth0';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
 
 import { AUTH0_AUDIENCE, AUTH0_CLIENT_ID, AUTH0_DOMAIN, AUTH0_REALM } from '../config/auth';
 import { setAuthToken } from '../api';
 
-const auth0 = new Auth0({ domain: AUTH0_DOMAIN, clientId: AUTH0_CLIENT_ID });
 const TOKEN_KEY = 'baku_reserve_token';
 const REFRESH_KEY = 'baku_reserve_refresh';
 const NORMALISED_DOMAIN = AUTH0_DOMAIN.replace(/^https?:\/\//, '').replace(/\/$/, '');
@@ -21,6 +19,22 @@ export type AuthContextValue = {
 };
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
+
+function createAuthClient() {
+  if (!AUTH0_DOMAIN || !AUTH0_CLIENT_ID) {
+    return null;
+  }
+  try {
+    // dynamic require to avoid crashing Expo Go if native module is unavailable
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const Auth0 = require('react-native-auth0').default;
+    return new Auth0({ domain: AUTH0_DOMAIN, clientId: AUTH0_CLIENT_ID });
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.warn('[auth] Auth0 client unavailable, running in offline/demo mode', err);
+    return null;
+  }
+}
 
 async function loadStoredToken(): Promise<string | null> {
   try {
@@ -46,9 +60,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState<string | null>(null);
   const [profile, setProfile] = useState<{ name?: string; email?: string } | null>(null);
+  const auth0Ref = useRef(createAuthClient());
+  const authEnabled = Boolean(auth0Ref.current);
 
   const hydrateProfile = useCallback(async (accessToken: string) => {
-    const details = await auth0.auth.userInfo({ token: accessToken });
+    if (!auth0Ref.current) {
+      return;
+    }
+    const details = await auth0Ref.current.auth.userInfo({ token: accessToken });
     const derivedName = details.name || (details as any)?.user_metadata?.name || undefined;
     setProfile({ name: derivedName, email: details.email });
   }, []);
@@ -56,6 +75,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     let mounted = true;
     (async () => {
+      if (!authEnabled) {
+        setLoading(false);
+        return;
+      }
       try {
         const stored = await loadStoredToken();
         if (mounted && stored) {
@@ -87,7 +110,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const authenticate = useCallback(
     async (email: string, password: string) => {
-      const credentials = await auth0.auth.passwordRealm({
+    if (!auth0Ref.current) {
+      throw new Error('Sign-in unavailable in this build. Use the dev client or set Auth0 env vars.');
+    }
+      const credentials = await auth0Ref.current.auth.passwordRealm({
         username: email.trim(),
         password,
         realm: AUTH0_REALM,
@@ -121,8 +147,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signupWithPassword = useCallback(
     async ({ email, password, name }: { email: string; password: string; name?: string }) => {
+      if (!auth0Ref.current) {
+        throw new Error('Sign-up unavailable in this build. Use the dev client or set Auth0 env vars.');
+      }
       try {
-        await auth0.auth.createUser({
+        await auth0Ref.current.auth.createUser({
           email: email.trim(),
           password,
           connection: AUTH0_REALM,
@@ -138,8 +167,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
 
   const requestPasswordReset = useCallback(async (email: string) => {
+    if (!auth0Ref.current) {
+      throw new Error('Password reset unavailable in this build.');
+    }
     try {
-      await auth0.auth.resetPassword({
+      await auth0Ref.current.auth.resetPassword({
         email: email.trim(),
         connection: AUTH0_REALM,
       });
@@ -150,10 +182,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const logout = useCallback(async () => {
-    try {
-      await auth0.webAuth.clearSession();
-    } catch {
-      // ignore
+    if (auth0Ref.current) {
+      try {
+        await auth0Ref.current.webAuth.clearSession();
+      } catch {
+        // ignore
+      }
     }
     setToken(null);
     setProfile(null);
