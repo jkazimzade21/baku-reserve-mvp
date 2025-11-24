@@ -42,6 +42,8 @@ export const shadow = {
     shadowOpacity: 0.08,
     shadowRadius: 12,
     elevation: 4,
+    // Ensure Android can compute shadow without complaining about transparent backgrounds
+    backgroundColor: '#FFFDF9',
   },
   subtle: {
     shadowColor: '#000',
@@ -49,5 +51,6 @@ export const shadow = {
     shadowOpacity: 0.04,
     shadowRadius: 8,
     elevation: 2,
+    backgroundColor: '#FFFDF9',
   },
 };
