@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
-from datetime import date, datetime, time, timedelta, timezone
+from datetime import UTC, date, datetime, time, timedelta
 from pathlib import Path
 from shutil import copy2
 from typing import Any
@@ -26,22 +26,22 @@ LEGACY_DATA_DIR = Path(__file__).resolve().parent / "data"
 
 def _iso(dt: datetime) -> str:
     if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=timezone.utc)
-    return dt.astimezone(timezone.utc).isoformat()
+        dt = dt.replace(tzinfo=UTC)
+    return dt.astimezone(UTC).isoformat()
 
 
 def _parse_iso(value: str) -> datetime:
     parsed = datetime.fromisoformat(value)
     if parsed.tzinfo is None:
-        parsed = parsed.replace(tzinfo=timezone.utc)
-    return parsed.astimezone(timezone.utc)
+        parsed = parsed.replace(tzinfo=UTC)
+    return parsed.astimezone(UTC)
 
 
 def _ensure_datetime(value: datetime | str) -> datetime:
     if isinstance(value, datetime):
         if value.tzinfo is None:
-            return value.replace(tzinfo=timezone.utc)
-        return value.astimezone(timezone.utc)
+            return value.replace(tzinfo=UTC)
+        return value.astimezone(UTC)
     return _parse_iso(str(value))
 
 
@@ -356,8 +356,8 @@ class Database:
             tzinfo = ZoneInfo("Asia/Baku")
         day_start_local = datetime.combine(day, time.min, tzinfo=tzinfo)
         day_end_local = day_start_local + timedelta(days=1)
-        day_start = day_start_local.astimezone(timezone.utc)
-        day_end = day_end_local.astimezone(timezone.utc)
+        day_start = day_start_local.astimezone(UTC)
+        day_end = day_end_local.astimezone(UTC)
         async with get_session() as session:
             stmt = (
                 select(ReservationRecord)
