@@ -79,7 +79,9 @@ def ensure_reservation_owner(
 async def require_active_reservation(
     res_id: str, owner_id: str | None = None, allow_admin: bool = False
 ) -> dict[str, Any]:
-    record = ensure_reservation_owner(await DB.get_reservation(res_id), owner_id, allow_admin)
+    record = ensure_reservation_owner(
+        await DB.get_reservation(res_id), owner_id, allow_admin
+    )
     if record.get("status") not in {"booked", "pending", "arrived"}:
         raise HTTPException(409, "Reservation is not active")
     return record

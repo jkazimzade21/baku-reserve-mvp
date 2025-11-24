@@ -46,7 +46,9 @@ class AccountStore:
     def _write_store(self, path: Path, payload: dict[str, Any]) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         with FileLock(path, timeout=5.0):
-            path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+            path.write_text(
+                json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+            )
 
     def _now(self) -> datetime:
         return datetime.utcnow()

@@ -177,7 +177,9 @@ class HttpEndToEndSuite:
         if not condition:
             raise AssertionError(message)
 
-    def _first_slot_with_table(self, slots: Iterable[dict], *, earliest: str | None = None) -> dict:
+    def _first_slot_with_table(
+        self, slots: Iterable[dict], *, earliest: str | None = None
+    ) -> dict:
         for slot in slots:
             if earliest and slot["start"] < earliest:
                 continue
@@ -189,7 +191,9 @@ class HttpEndToEndSuite:
     def reset_state(self) -> str:
         reset_script = BACKEND_DIR / "reset_backend_state.sh"
         if reset_script.exists():
-            subprocess.run([str(reset_script)], cwd=str(BACKEND_DIR), check=False)  # noqa: S603
+            subprocess.run(
+                [str(reset_script)], cwd=str(BACKEND_DIR), check=False
+            )  # noqa: S603
         resp = self.client.get("/reservations")
         resp.raise_for_status()
         reservations = resp.json()
@@ -201,8 +205,11 @@ class HttpEndToEndSuite:
     def health_and_consoles(self) -> str:
         endpoints = {
             "/health": lambda r: r.json().get("ok") is True,
-            "/docs": lambda r: "text/html" in (r.headers.get("content-type", "")).lower(),
-            "/openapi.json": lambda r: r.headers.get("content-type", "").startswith("application/json"),
+            "/docs": lambda r: "text/html"
+            in (r.headers.get("content-type", "")).lower(),
+            "/openapi.json": lambda r: r.headers.get("content-type", "").startswith(
+                "application/json"
+            ),
             "/book/": lambda r: "book a table" in r.text.lower(),
             "/admin/": lambda r: "admin console" in r.text.lower(),
         }
@@ -211,15 +218,23 @@ class HttpEndToEndSuite:
             resp.raise_for_status()
             self._assert(validator(resp), f"{path} did not return expected payload")
         root = self.client.get("/", follow_redirects=False)
-        self._assert(root.status_code in (307, 308), "root should redirect to booking console")
-        self._assert(root.headers.get("location") in ("/book/", "/book"), "root redirect target unexpected")
+        self._assert(
+            root.status_code in (307, 308), "root should redirect to booking console"
+        )
+        self._assert(
+            root.headers.get("location") in ("/book/", "/book"),
+            "root redirect target unexpected",
+        )
         return "health, docs, OpenAPI, book/admin consoles, and root redirect confirmed"
 
     def restaurant_catalogue(self) -> str:
         resp = self.client.get("/restaurants")
         resp.raise_for_status()
         restaurants = resp.json()
-        self._assert(isinstance(restaurants, list) and restaurants, "/restaurants returned no data")
+        self._assert(
+            isinstance(restaurants, list) and restaurants,
+            "/restaurants returned no data",
+        )
         self._assert(
             any(r["name"] == "Sahil Bar & Restaurant" for r in restaurants),
             "Expected Sahil Bar & Restaurant in catalogue",
@@ -235,12 +250,18 @@ class HttpEndToEndSuite:
         query = self.client.get("/restaurants", params={"q": "steak"})
         query.raise_for_status()
         q_results = query.json()
-        self._assert(any("Steak" in ", ".join(r.get("cuisine", [])) for r in q_results), "Search did not match steak")
+        self._assert(
+            any("Steak" in ", ".join(r.get("cuisine", [])) for r in q_results),
+            "Search did not match steak",
+        )
         self.primary_restaurant = primary
         return f"catalogued {len(restaurants)} restaurants with detail, floorplan, and search verified"
 
     def availability_and_reservations(self) -> str:
-        self._assert(self.primary_restaurant is not None, "restaurant catalogue step must run first")
+        self._assert(
+            self.primary_restaurant is not None,
+            "restaurant catalogue step must run first",
+        )
         rid = self.primary_restaurant["id"]
         today = date.today().isoformat()
         availability = self.client.get(
@@ -266,7 +287,10 @@ class HttpEndToEndSuite:
         booking = created.json()
         resid = booking["id"]
         self.created_reservation_ids.append(resid)
-        self._assert(booking["table_id"] == table_id, "explicit reservation did not honour table selection")
+        self._assert(
+            booking["table_id"] == table_id,
+            "explicit reservation did not honour table selection",
+        )
 
         # Verify persistence hit disk.
         if DB_PATH.exists():
@@ -279,7 +303,10 @@ class HttpEndToEndSuite:
             self._assert(count > 0, "Database missing the new booking")
 
         overlap = self.client.post("/reservations", json=payload)
-        self._assert(overlap.status_code == 409, f"overlap should return 409, got {overlap.status_code}")
+        self._assert(
+            overlap.status_code == 409,
+            f"overlap should return 409, got {overlap.status_code}",
+        )
 
         cancel_once = self.client.post(f"/reservations/{resid}/cancel")
         cancel_once.raise_for_status()
@@ -324,18 +351,34 @@ class HttpEndToEndSuite:
         return "explicit bookings, overlap detection, cancel/confirm, auto-pick, and cleanup succeeded"
 
     def validation_rules(self) -> str:
-        self._assert(self.primary_restaurant is not None, "restaurant catalogue step must run first")
+        self._assert(
+            self.primary_restaurant is not None,
+            "restaurant catalogue step must run first",
+        )
         rid = self.primary_restaurant["id"]
         base_start = datetime.combine(date.today(), datetime.min.time())
         invalid_cases = [
             {},
-            {"restaurant_id": rid, "party_size": 0, "start": base_start.isoformat(), "end": (base_start + timedelta(hours=1)).isoformat()},
+            {
+                "restaurant_id": rid,
+                "party_size": 0,
+                "start": base_start.isoformat(),
+                "end": (base_start + timedelta(hours=1)).isoformat(),
+            },
             {"restaurant_id": rid, "party_size": 2, "start": "bad", "end": "bad"},
-            {"restaurant_id": rid, "party_size": 2, "start": (base_start + timedelta(hours=3)).isoformat(), "end": (base_start + timedelta(hours=2)).isoformat()},
+            {
+                "restaurant_id": rid,
+                "party_size": 2,
+                "start": (base_start + timedelta(hours=3)).isoformat(),
+                "end": (base_start + timedelta(hours=2)).isoformat(),
+            },
         ]
         for payload in invalid_cases:
             resp = self.client.post("/reservations", json=payload)
-            self._assert(resp.status_code == 422, f"expected 422 for payload {payload}, got {resp.status_code}")
+            self._assert(
+                resp.status_code == 422,
+                f"expected 422 for payload {payload}, got {resp.status_code}",
+            )
         missing = self.client.get("/restaurants/00000000-0000-0000-0000-000000000000")
         self._assert(missing.status_code == 404, "unknown restaurant should return 404")
         return "invalid payloads rejected with 422 and unknown restaurant returns 404"
@@ -348,9 +391,14 @@ class HttpEndToEndSuite:
                 "Access-Control-Request-Method": "POST",
             },
         )
-        self._assert(resp.status_code in (200, 204), f"preflight returned {resp.status_code}")
+        self._assert(
+            resp.status_code in (200, 204), f"preflight returned {resp.status_code}"
+        )
         header_names = {name.lower() for name in resp.headers}
-        self._assert("access-control-allow-origin" in header_names, "allow-origin header missing in preflight")
+        self._assert(
+            "access-control-allow-origin" in header_names,
+            "allow-origin header missing in preflight",
+        )
         return "CORS preflight exposes access-control-allow-origin"
 
     def cleanup(self) -> str:
@@ -359,7 +407,10 @@ class HttpEndToEndSuite:
         remaining = self.client.get("/reservations")
         remaining.raise_for_status()
         self._assert(
-            all(rec["id"] not in self.created_reservation_ids for rec in remaining.json()),
+            all(
+                rec["id"] not in self.created_reservation_ids
+                for rec in remaining.json()
+            ),
             "reservations still present after cleanup",
         )
         return f"cleaned up {before} ephemeral reservations"
@@ -379,9 +430,13 @@ def run_mega_tester(skip_mobile: bool, skip_pytest: bool) -> StepResult:
         bin_dir = venv_dir / "bin"
         if bin_dir.exists():
             env["PATH"] = f"{bin_dir}{os.pathsep}{env.get('PATH','')}"
-    proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, env=env)  # noqa: S603
+    proc = subprocess.run(
+        cmd, cwd=str(ROOT), capture_output=True, text=True, env=env
+    )  # noqa: S603
     if proc.returncode == 0:
-        return StepResult("mega tester", True, "Mega tester (API suite + pytest + tsc) passed")
+        return StepResult(
+            "mega tester", True, "Mega tester (API suite + pytest + tsc) passed"
+        )
     details = textwrap.dedent(
         f"""\
         Mega tester failed with exit code {proc.returncode}
@@ -399,13 +454,34 @@ def choose_ephemeral_port(start: int = 8800, end: int = 8990) -> int:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run comprehensive full-stack tests for Baku Reserve.")
-    parser.add_argument("--base", help="Use an already running backend at this base URL")
-    parser.add_argument("--skip-http", action="store_true", help="Skip HTTP end-to-end checks")
-    parser.add_argument("--skip-mega", action="store_true", help="Skip invoking tools/mega_tester.py")
-    parser.add_argument("--skip-mobile", action="store_true", help="Skip mobile TypeScript checks inside mega tester")
-    parser.add_argument("--skip-pytest", action="store_true", help="Skip pytest invocation inside mega tester")
-    parser.add_argument("--port", type=int, default=0, help="Override port when auto-starting backend (default random 8800-8990)")
+    parser = argparse.ArgumentParser(
+        description="Run comprehensive full-stack tests for Baku Reserve."
+    )
+    parser.add_argument(
+        "--base", help="Use an already running backend at this base URL"
+    )
+    parser.add_argument(
+        "--skip-http", action="store_true", help="Skip HTTP end-to-end checks"
+    )
+    parser.add_argument(
+        "--skip-mega", action="store_true", help="Skip invoking tools/mega_tester.py"
+    )
+    parser.add_argument(
+        "--skip-mobile",
+        action="store_true",
+        help="Skip mobile TypeScript checks inside mega tester",
+    )
+    parser.add_argument(
+        "--skip-pytest",
+        action="store_true",
+        help="Skip pytest invocation inside mega tester",
+    )
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=0,
+        help="Override port when auto-starting backend (default random 8800-8990)",
+    )
     args = parser.parse_args()
 
     summary: List[StepResult] = []
@@ -418,7 +494,11 @@ def main() -> None:
             try:
                 server_proc = start_backend_server(port)
             except Exception as exc:  # noqa: BLE001
-                summary.append(StepResult("start backend", False, f"Failed to start local backend: {exc}"))
+                summary.append(
+                    StepResult(
+                        "start backend", False, f"Failed to start local backend: {exc}"
+                    )
+                )
             else:
                 base_url = f"http://127.0.0.1:{port}"
         if base_url:
@@ -429,7 +509,9 @@ def main() -> None:
         stop_backend_server(server_proc)
 
     if not args.skip_mega:
-        summary.append(run_mega_tester(skip_mobile=args.skip_mobile, skip_pytest=args.skip_pytest))
+        summary.append(
+            run_mega_tester(skip_mobile=args.skip_mobile, skip_pytest=args.skip_pytest)
+        )
 
     width = max((len(step.name) for step in summary), default=0)
     print("\n=== Full Stack Tester Summary ===")

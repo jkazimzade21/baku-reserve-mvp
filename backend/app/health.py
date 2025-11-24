@@ -43,12 +43,17 @@ class HealthChecker:
                 if auth0_configured and not settings.AUTH0_BYPASS
                 else {"status": "bypassed"}
             ),
-            "sentry": await self._check_sentry() if sentry_configured else {"status": "disabled"},
+            "sentry": (
+                await self._check_sentry()
+                if sentry_configured
+                else {"status": "disabled"}
+            ),
         }
 
         # Overall health is OK if all enabled checks pass
         all_ok = all(
-            check.get("status") in {"ok", "disabled", "bypassed"} for check in checks.values()
+            check.get("status") in {"ok", "disabled", "bypassed"}
+            for check in checks.values()
         )
 
         return {

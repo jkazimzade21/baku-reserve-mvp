@@ -1,22 +1,28 @@
-import os, re, io, json, time, hashlib, math, pathlib, mimetypes, sys
-from typing import List, Dict, Any, Optional, Tuple
+import io
+import json
+import os
+import pathlib
+import re
+import sys
+import time
+from typing import Any, Dict, List, Optional, Tuple
+from urllib.parse import urljoin, urlparse
+
+import imagehash
 import requests
-from urllib.parse import urlparse, urljoin
+import tldextract
+import typer
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
+from PIL import Image
+from slugify import slugify
+
+# Optional deps (guarded)
 try:
     import googlemaps  # type: ignore
 except Exception:
     googlemaps = None
-from slugify import slugify
-import typer
-from tenacity import retry, stop_after_attempt, wait_exponential
-from PIL import Image
-import imagehash
-import tldextract
-from rapidfuzz import fuzz
-from dotenv import load_dotenv
 
-# Optional deps (guarded)
 try:
     from apify_client import ApifyClient
 except Exception:
@@ -38,21 +44,26 @@ app = typer.Typer(help="Baku Restaurant Enricher (Codex CLI tool)")
 # Utility
 # --------------------------
 
+
 def norm(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
+
 
 def headers() -> Dict[str, str]:
     return {
         "User-Agent": "Mozilla/5.0 (compatible; BakuEnricher/1.0; +https://example.invalid)"
     }
 
+
 def is_pdf_url(url: str) -> bool:
     p = urlparse(url)
     return p.path.lower().endswith(".pdf")
 
+
 def is_image_url(url: str) -> bool:
     ext = pathlib.Path(urlparse(url).path).suffix.lower()
     return ext in {".jpg", ".jpeg", ".png", ".webp"}
+
 
 def safe_get(url: str, timeout=15) -> Optional[requests.Response]:
     try:
@@ -63,6 +74,7 @@ def safe_get(url: str, timeout=15) -> Optional[requests.Response]:
         return None
     return None
 
+
 def head_ok(url: str, timeout=10) -> bool:
     try:
         r = requests.head(url, headers=headers(), timeout=timeout, allow_redirects=True)
@@ -70,24 +82,26 @@ def head_ok(url: str, timeout=10) -> bool:
     except Exception:
         return False
 
+
 def domain(url: str) -> str:
     p = tldextract.extract(url)
     return ".".join([x for x in [p.domain, p.suffix] if x])
 
+
 def to_maps_place_url(place_id: str) -> str:
     return f"https://www.google.com/maps/place/?q=place_id:{place_id}"
+
 
 # --------------------------
 # Google Places
 # --------------------------
 
+
 def find_place_in_baku(gmaps: Any, query: str) -> Optional[Dict[str, Any]]:
     if googlemaps is None:
         raise RuntimeError("Google Maps provider disabled; place lookup unavailable.")
     fp = gmaps.find_place(
-        input=f"{query} Baku",
-        input_type="textquery",
-        fields=["place_id"]
+        input=f"{query} Baku", input_type="textquery", fields=["place_id"]
     )
     candidates = fp.get("candidates", [])
     if not candidates:
@@ -96,18 +110,25 @@ def find_place_in_baku(gmaps: Any, query: str) -> Optional[Dict[str, Any]]:
     details = gmaps.place(
         place_id=place_id,
         fields=[
-            "name","formatted_address","geometry/location",
-            "url","website","international_phone_number","type"
-        ]
+            "name",
+            "formatted_address",
+            "geometry/location",
+            "url",
+            "website",
+            "international_phone_number",
+            "type",
+        ],
     )["result"]
     details["place_id"] = place_id
     return details
+
 
 # --------------------------
 # Instagram handle resolution
 # --------------------------
 
 IG_RX = re.compile(r"https?://(www\.)?instagram\.com/([A-Za-z0-9_.]+)/?", re.I)
+
 
 def extract_ig_from_html(url: str, html: str) -> Optional[str]:
     soup = BeautifulSoup(html, "html.parser")
@@ -117,7 +138,10 @@ def extract_ig_from_html(url: str, html: str) -> Optional[str]:
             return m.group(2).strip("/")
     return None
 
-def resolve_instagram_handle(name: str, website: Optional[str]) -> Tuple[Optional[str], float, str]:
+
+def resolve_instagram_handle(
+    name: str, website: Optional[str]
+) -> Tuple[Optional[str], float, str]:
     """
     Strategy:
       1) If website exists, parse footer/header for instagram link — high confidence.
@@ -150,12 +174,12 @@ def resolve_instagram_handle(name: str, website: Optional[str]) -> Tuple[Optiona
         try:
             resp = requests.get(
                 "https://serpapi.com/search.json",
-                params={"engine":"google","q":q,"api_key":serp},
-                timeout=20
+                params={"engine": "google", "q": q, "api_key": serp},
+                timeout=20,
             )
             data = resp.json()
             for item in data.get("organic_results", []):
-                link = item.get("link","")
+                link = item.get("link", "")
                 m = IG_RX.match(link)
                 if m:
                     return m.group(2).strip("/"), 0.8, "serpapi"
@@ -165,13 +189,13 @@ def resolve_instagram_handle(name: str, website: Optional[str]) -> Tuple[Optiona
         try:
             resp = requests.get(
                 "https://api.bing.microsoft.com/v7.0/search",
-                params={"q":q,"count":10},
+                params={"q": q, "count": 10},
                 headers={"Ocp-Apim-Subscription-Key": bing},
-                timeout=20
+                timeout=20,
             )
             data = resp.json()
             for w in data.get("webPages", {}).get("value", []):
-                link = w.get("url","")
+                link = w.get("url", "")
                 m = IG_RX.match(link)
                 if m:
                     return m.group(2).strip("/"), 0.75, "bing"
@@ -180,9 +204,11 @@ def resolve_instagram_handle(name: str, website: Optional[str]) -> Tuple[Optiona
 
     return None, 0.0, "none"
 
+
 # --------------------------
 # Instagram media fetch
 # --------------------------
+
 
 def _is_video_entry(item: Dict[str, Any]) -> bool:
     media_type = (item.get("type") or item.get("productType") or "").lower()
@@ -235,7 +261,8 @@ def _extract_image_urls(node: Dict[str, Any]) -> List[str]:
 
     return urls
 
-def fetch_instagram_images_apify(handle: str, limit=40) -> List[Dict[str,Any]]:
+
+def fetch_instagram_images_apify(handle: str, limit=40) -> List[Dict[str, Any]]:
     if not ApifyClient:
         return []
     token = os.getenv("APIFY_TOKEN")
@@ -261,7 +288,9 @@ def fetch_instagram_images_apify(handle: str, limit=40) -> List[Dict[str,Any]]:
     try:
         run = client.actor("apify/instagram-scraper").call(run_input=run_input)
     except Exception as exc:
-        print(f"[baku-enricher] Apify scrape failed for {handle}: {exc}", file=sys.stderr)
+        print(
+            f"[baku-enricher] Apify scrape failed for {handle}: {exc}", file=sys.stderr
+        )
         return []
     if run.get("status") != "SUCCEEDED":
         print(
@@ -271,7 +300,9 @@ def fetch_instagram_images_apify(handle: str, limit=40) -> List[Dict[str,Any]]:
     out = []
     dataset_id = run.get("defaultDatasetId")
     if not dataset_id:
-        print(f"[baku-enricher] Apify run missing dataset for {handle}", file=sys.stderr)
+        print(
+            f"[baku-enricher] Apify run missing dataset for {handle}", file=sys.stderr
+        )
         return []
     for item in client.dataset(dataset_id).iterate_items():
         if _is_video_entry(item):
@@ -290,10 +321,16 @@ def fetch_instagram_images_apify(handle: str, limit=40) -> List[Dict[str,Any]]:
         print(f"[baku-enricher] Apify returned 0 images for {handle}", file=sys.stderr)
     return out
 
-def fetch_instagram_images_instaloader(handle: str, limit=40) -> List[Dict[str,Any]]:
+
+def fetch_instagram_images_instaloader(handle: str, limit=40) -> List[Dict[str, Any]]:
     if not instaloader:
         return []
-    L = instaloader.Instaloader(download_pictures=False, download_video_thumbnails=False, save_metadata=False, max_connection_attempts=1)
+    L = instaloader.Instaloader(
+        download_pictures=False,
+        download_video_thumbnails=False,
+        save_metadata=False,
+        max_connection_attempts=1,
+    )
     ig_user = os.getenv("INSTAGRAM_USERNAME")
     ig_pass = os.getenv("INSTAGRAM_PASSWORD")
     if ig_user and ig_pass:
@@ -319,19 +356,25 @@ def fetch_instagram_images_instaloader(handle: str, limit=40) -> List[Dict[str,A
                 out.append({"url": post.url, "caption": post.caption or ""})
         return out
     except Exception as exc:
-        print(f"[baku-enricher] Instaloader fetch failed for {handle}: {exc}", file=sys.stderr)
+        print(
+            f"[baku-enricher] Instaloader fetch failed for {handle}: {exc}",
+            file=sys.stderr,
+        )
         return []
 
-def fetch_instagram_media(handle: str, limit=40) -> List[Dict[str,Any]]:
+
+def fetch_instagram_media(handle: str, limit=40) -> List[Dict[str, Any]]:
     # Prefer Apify if configured
     items = fetch_instagram_images_apify(handle, limit=limit)
     if items:
         return items
     return fetch_instagram_images_instaloader(handle, limit=limit)
 
+
 # --------------------------
 # CLIP classification (food vs interior)
 # --------------------------
+
 
 class ClipClassifier:
     def __init__(self):
@@ -378,6 +421,7 @@ class ClipClassifier:
         interior_sim = (img_feat @ interior.T).max().item()
         return food_sim, interior_sim
 
+
 def download_image(url: str) -> Optional[Image.Image]:
     try:
         r = requests.get(url, headers=headers(), timeout=20)
@@ -387,7 +431,10 @@ def download_image(url: str) -> Optional[Image.Image]:
         return None
     return None
 
-def select_3_food_2_interior(media: List[Dict[str,Any]], classifier: ClipClassifier) -> Tuple[List[Dict[str,Any]], List[Dict[str,Any]]]:
+
+def select_3_food_2_interior(
+    media: List[Dict[str, Any]], classifier: ClipClassifier
+) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     # de-duplicate by perceptual hash
     seen = set()
     scored = []
@@ -400,23 +447,52 @@ def select_3_food_2_interior(media: List[Dict[str,Any]], classifier: ClipClassif
             continue
         seen.add(ph)
         fs, iscore = classifier.score(img)
-        scored.append({"url": item["url"], "caption": item.get("caption",""), "food": fs, "interior": iscore})
+        scored.append(
+            {
+                "url": item["url"],
+                "caption": item.get("caption", ""),
+                "food": fs,
+                "interior": iscore,
+            }
+        )
     # rank
     food_sorted = sorted(scored, key=lambda x: x["food"], reverse=True)
     interior_sorted = sorted(scored, key=lambda x: x["interior"], reverse=True)
     return food_sorted[:3], interior_sorted[:2]
+
 
 # --------------------------
 # Menu finder
 # --------------------------
 
 MENU_WORDS = [
-    "menu", "menyu", "menü", "меню", "speisekarte", "карта", "карта меню", "karte"
+    "menu",
+    "menyu",
+    "menü",
+    "меню",
+    "speisekarte",
+    "карта",
+    "карта меню",
+    "karte",
 ]
 # Also treat "food", "yemək", "kahvaltı", "şirniyyat", etc. as weaker hints if anchor text contains them with "menu"
-WEAK_HINTS = ["food", "cuisine", "qida", "yemək", "kahvalti", "kahvaltı", "şirniyyat", "dessert", "drinks", "bar"]
+WEAK_HINTS = [
+    "food",
+    "cuisine",
+    "qida",
+    "yemək",
+    "kahvalti",
+    "kahvaltı",
+    "şirniyyat",
+    "dessert",
+    "drinks",
+    "bar",
+]
 
-def discover_menu_url(website: Optional[str], ig_bio_url: Optional[str]) -> Tuple[Optional[str], float, str]:
+
+def discover_menu_url(
+    website: Optional[str], ig_bio_url: Optional[str]
+) -> Tuple[Optional[str], float, str]:
     """
     Strategy:
       1) Crawl homepage and common pages; find <a> with text matching MENU_WORDS (highest).
@@ -425,6 +501,7 @@ def discover_menu_url(website: Optional[str], ig_bio_url: Optional[str]) -> Tupl
     Returns: (url, confidence, source)
     """
     tried = set()
+
     def crawl(url: str) -> Optional[str]:
         if not url or url in tried:
             return None
@@ -460,7 +537,20 @@ def discover_menu_url(website: Optional[str], ig_bio_url: Optional[str]) -> Tupl
 
     # 1) website crawl
     if website:
-        for path in ["", "/menu", "/menyu", "/menü", "/ru", "/az", "/en", "/tr", "/about", "/contact", "/food", "/dishes"]:
+        for path in [
+            "",
+            "/menu",
+            "/menyu",
+            "/menü",
+            "/ru",
+            "/az",
+            "/en",
+            "/tr",
+            "/about",
+            "/contact",
+            "/food",
+            "/dishes",
+        ]:
             u = urljoin(website, path) if path else website
             m = crawl(u)
             if m:
@@ -476,33 +566,66 @@ def discover_menu_url(website: Optional[str], ig_bio_url: Optional[str]) -> Tupl
     # 3) none
     return None, 0.0, "none"
 
+
 # --------------------------
 # Tag generation
 # --------------------------
 
 KEYWORDS = {
     # cuisine
-    "azerbaijani": ["azerbaijani","azərbaycan","qutab","döner","dönər","plov","dolma","kebap","kabab","qəlyanaltı","gurza"],
-    "georgian": ["georgian","khinkali","hacapuri","khachapuri","xinkali","хинкали","хачапури"],
-    "sushi": ["sushi","roll","nigiri","sashimi","японская","японский","japanese"],
-    "steakhouse": ["steak","ribeye","t-bone","porterhouse","sirloin","steakhouse"],
-    "burger": ["burger","бургер"],
-    "pizza": ["pizza","пицца"],
-    "seafood": ["fish","balıq","seafood","морепродукты","əjdaha","shrimp","prawn","salmon","tuna","oyster"],
-    "vegan": ["vegan","vegan-friendly","веган"],
-    "vegetarian": ["vegetarian","вегетариан"],
-    "dessert": ["dessert","şirniyyat","sweet","cake","tort","чизкейк","пирожное"],
-    "breakfast": ["breakfast","kahvaltı","zavtrak","завтрак","səhər yeməyi"],
-    "coffee": ["coffee","espresso","latte","americano","капучино","кофе","qəhvə"],
-    "bar": ["bar","cocktail","mixology","drinks","мохито","маргарита","negroni"],
-    "shisha": ["shisha","hookah","nargile","kalyan","кальян","nargilə"],
+    "azerbaijani": [
+        "azerbaijani",
+        "azərbaycan",
+        "qutab",
+        "döner",
+        "dönər",
+        "plov",
+        "dolma",
+        "kebap",
+        "kabab",
+        "qəlyanaltı",
+        "gurza",
+    ],
+    "georgian": [
+        "georgian",
+        "khinkali",
+        "hacapuri",
+        "khachapuri",
+        "xinkali",
+        "хинкали",
+        "хачапури",
+    ],
+    "sushi": ["sushi", "roll", "nigiri", "sashimi", "японская", "японский", "japanese"],
+    "steakhouse": ["steak", "ribeye", "t-bone", "porterhouse", "sirloin", "steakhouse"],
+    "burger": ["burger", "бургер"],
+    "pizza": ["pizza", "пицца"],
+    "seafood": [
+        "fish",
+        "balıq",
+        "seafood",
+        "морепродукты",
+        "əjdaha",
+        "shrimp",
+        "prawn",
+        "salmon",
+        "tuna",
+        "oyster",
+    ],
+    "vegan": ["vegan", "vegan-friendly", "веган"],
+    "vegetarian": ["vegetarian", "вегетариан"],
+    "dessert": ["dessert", "şirniyyat", "sweet", "cake", "tort", "чизкейк", "пирожное"],
+    "breakfast": ["breakfast", "kahvaltı", "zavtrak", "завтрак", "səhər yeməyi"],
+    "coffee": ["coffee", "espresso", "latte", "americano", "капучино", "кофе", "qəhvə"],
+    "bar": ["bar", "cocktail", "mixology", "drinks", "мохито", "маргарита", "negroni"],
+    "shisha": ["shisha", "hookah", "nargile", "kalyan", "кальян", "nargilə"],
     # vibes
-    "late night": ["late night","ночью","open late","gecə açıq"],
-    "rooftop": ["rooftop","terrace","teras","терасса","terras"],
-    "fine dining": ["fine dining","мишелин","sommelier","tasting menu"],
-    "family-friendly": ["family","kids","ușaq","дети","детское меню","child"],
-    "live music": ["live music","dj","музыка","концерт"],
+    "late night": ["late night", "ночью", "open late", "gecə açıq"],
+    "rooftop": ["rooftop", "terrace", "teras", "терасса", "terras"],
+    "fine dining": ["fine dining", "мишелин", "sommelier", "tasting menu"],
+    "family-friendly": ["family", "kids", "ușaq", "дети", "детское меню", "child"],
+    "live music": ["live music", "dj", "музыка", "концерт"],
 }
+
 
 def make_tags(text_blobs: List[str], place_types: List[str]) -> List[str]:
     base = set()
@@ -514,24 +637,31 @@ def make_tags(text_blobs: List[str], place_types: List[str]) -> List[str]:
                 break
     # infer from Google place types
     type_map = {
-        "bar": "bar", "night_club": "late night", "cafe": "coffee",
-        "meal_takeaway": "takeout", "meal_delivery": "delivery",
-        "bakery": "dessert", "restaurant": None
+        "bar": "bar",
+        "night_club": "late night",
+        "cafe": "coffee",
+        "meal_takeaway": "takeout",
+        "meal_delivery": "delivery",
+        "bakery": "dessert",
+        "restaurant": None,
     }
     for t in place_types or []:
         if t in type_map and type_map[t]:
             base.add(type_map[t])
 
     # ensure at least five tags with fallbacks
-    fallbacks = ["restaurant","casual","trendy","cozy","group friendly","romantic"]
+    fallbacks = ["restaurant", "casual", "trendy", "cozy", "group friendly", "romantic"]
     for f in fallbacks:
-        if len(base) >= 5: break
+        if len(base) >= 5:
+            break
         base.add(f)
     return list(base)[:8]
+
 
 # --------------------------
 # Main enrich flow
 # --------------------------
+
 
 def resolved_bio_link_from_instagram_profile(handle: Optional[str]) -> Optional[str]:
     # Lightweight: if Apify result includes profile info, it can return externalUrl.
@@ -539,13 +669,22 @@ def resolved_bio_link_from_instagram_profile(handle: Optional[str]) -> Optional[
     # Leave None; menu finder will rely on website crawl primarily.
     return None
 
+
 @app.command()
 def enrich(
     name: str = typer.Argument(..., help="Restaurant name (Baku)"),
-    out_dir: pathlib.Path = typer.Option(pathlib.Path("out/restaurants"), "--out-dir", help="Output directory"),
-    download_images: bool = typer.Option(bool(os.getenv("DOWNLOAD_IMAGES","false").lower()=="true"), "--download-images", help="Download images instead of keeping remote URLs"),
-    min_confidence: float = typer.Option(0.7, help="Minimum confidence for IG handle & menu before 'needs_review'"),
-    limit_posts: int = typer.Option(60, help="Max IG posts to scan")
+    out_dir: pathlib.Path = typer.Option(
+        pathlib.Path("out/restaurants"), "--out-dir", help="Output directory"
+    ),
+    download_images: bool = typer.Option(
+        bool(os.getenv("DOWNLOAD_IMAGES", "false").lower() == "true"),
+        "--download-images",
+        help="Download images instead of keeping remote URLs",
+    ),
+    min_confidence: float = typer.Option(
+        0.7, help="Minimum confidence for IG handle & menu before 'needs_review'"
+    ),
+    limit_posts: int = typer.Option(60, help="Max IG posts to scan"),
 ):
     load_dotenv(override=True)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -558,7 +697,13 @@ def enrich(
     gmaps = googlemaps.Client(key=gkey)
     place = find_place_in_baku(gmaps, name)
     if not place:
-        typer.echo(json.dumps({"error":"place_not_found","input":name}, ensure_ascii=False, indent=2))
+        typer.echo(
+            json.dumps(
+                {"error": "place_not_found", "input": name},
+                ensure_ascii=False,
+                indent=2,
+            )
+        )
         raise typer.Exit(1)
 
     website = place.get("website")
@@ -579,7 +724,7 @@ def enrich(
     menu_url, menu_conf, menu_src = discover_menu_url(website, ig_bio_link)
 
     # Tags from captions + website + place types
-    captions = [m.get("caption","") for m in media[:40]]
+    captions = [m.get("caption", "") for m in media[:40]]
     site_text = ""
     if website:
         r = safe_get(website)
@@ -594,7 +739,7 @@ def enrich(
     tags = make_tags([*captions, site_text], place_types)
 
     # Download or keep URLs
-    def persist_images(items: List[Dict[str,Any]], prefix: str) -> List[str]:
+    def persist_images(items: List[Dict[str, Any]], prefix: str) -> List[str]:
         urls = []
         for i, it in enumerate(items, 1):
             u = it["url"]
@@ -616,7 +761,12 @@ def enrich(
     food_urls = persist_images(food, "food-")
     interior_urls = persist_images(interior, "interior-")
 
-    needs_review = (ig_conf < min_confidence) or (menu_conf < min_confidence) or (len(food_urls) < 3) or (len(interior_urls) < 2)
+    needs_review = (
+        (ig_conf < min_confidence)
+        or (menu_conf < min_confidence)
+        or (len(food_urls) < 3)
+        or (len(interior_urls) < 2)
+    )
 
     record = {
         "slug": slug,
@@ -633,20 +783,20 @@ def enrich(
             "handle": ig_handle,
             "url": ig_url,
             "confidence": round(ig_conf, 2),
-            "source": ig_source
+            "source": ig_source,
         },
         "menu_url": {
             "url": menu_url,
             "confidence": round(menu_conf, 2),
-            "source": menu_src
+            "source": menu_src,
         },
         "images": {
-            "food": food_urls,       # exactly 3 if available
-            "interior": interior_urls # exactly 2 if available
+            "food": food_urls,  # exactly 3 if available
+            "interior": interior_urls,  # exactly 2 if available
         },
         "tags": tags[:8],
         "needs_review": needs_review,
-        "generated_at": int(time.time())
+        "generated_at": int(time.time()),
     }
 
     # Save JSON
@@ -656,6 +806,7 @@ def enrich(
 
     typer.echo(json.dumps(record, ensure_ascii=False, indent=2))
     typer.echo(f"\nSaved -> {out_path}", err=True)
+
 
 if __name__ == "__main__":
     app()

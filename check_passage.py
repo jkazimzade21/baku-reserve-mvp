@@ -6,6 +6,7 @@ from backend.app.schemas import ConciergeRequest
 
 logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 
+
 async def run_test():
     print("--- Checking Passage 145 Search ---")
     await concierge_v2_service.startup()
@@ -13,7 +14,7 @@ async def run_test():
     prompts = [
         "Where can I smoke shisha late night?",
         "Lively lounge with live music and local food",
-        "24/7 restaurant with terrace"
+        "24/7 restaurant with terrace",
     ]
 
     for prompt in prompts:
@@ -24,7 +25,9 @@ async def run_test():
             print("Results:")
             found = False
             for i, res in enumerate(response.results):
-                print(f"{i+1}. {res.name} ({res.neighborhood}) - {response.explanations.get((res.slug or res.id).lower())}")
+                print(
+                    f"{i+1}. {res.name} ({res.neighborhood}) - {response.explanations.get((res.slug or res.id).lower())}"
+                )
                 if "Passage 145" in res.name:
                     found = True
             if found:
@@ -33,6 +36,7 @@ async def run_test():
                 print("--> Passage 145 NOT found in top results.")
         except Exception as e:
             print(f"Error: {e}")
+
 
 if __name__ == "__main__":
     asyncio.run(run_test())

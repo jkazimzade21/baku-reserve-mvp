@@ -261,7 +261,12 @@ def track_circuit_breaker_metrics(breaker_name: str, stats: dict) -> None:
     """Update circuit breaker metrics from stats dict."""
     previous = track_circuit_breaker_metrics._previous.setdefault(
         breaker_name,
-        {"failed_calls": 0, "successful_calls": 0, "rejected_calls": 0, "circuit_opened_count": 0},
+        {
+            "failed_calls": 0,
+            "successful_calls": 0,
+            "rejected_calls": 0,
+            "circuit_opened_count": 0,
+        },
     )
     fields = {
         "failed_calls": circuit_breaker_failures_total,
@@ -353,7 +358,9 @@ class PrometheusMiddleware(BaseHTTPMiddleware):
         # Track request size
         request_size = int(request.headers.get("content-length", 0))
         if request_size > 0:
-            http_request_size_bytes.labels(method=method, endpoint=endpoint).observe(request_size)
+            http_request_size_bytes.labels(method=method, endpoint=endpoint).observe(
+                request_size
+            )
 
         # Time the request
         start_time = time.time()
@@ -363,21 +370,29 @@ class PrometheusMiddleware(BaseHTTPMiddleware):
             status = response.status_code
         except Exception as exc:
             # Track errors
-            http_requests_total.labels(method=method, endpoint=endpoint, status="500").inc()
+            http_requests_total.labels(
+                method=method, endpoint=endpoint, status="500"
+            ).inc()
             http_requests_in_progress.labels(method=method, endpoint=endpoint).dec()
             raise exc
         finally:
             duration = time.time() - start_time
-            http_request_duration_seconds.labels(method=method, endpoint=endpoint).observe(duration)
+            http_request_duration_seconds.labels(
+                method=method, endpoint=endpoint
+            ).observe(duration)
 
         # Track completed request
-        http_requests_total.labels(method=method, endpoint=endpoint, status=str(status)).inc()
+        http_requests_total.labels(
+            method=method, endpoint=endpoint, status=str(status)
+        ).inc()
         http_requests_in_progress.labels(method=method, endpoint=endpoint).dec()
 
         # Track response size
         response_size = int(response.headers.get("content-length", 0))
         if response_size > 0:
-            http_response_size_bytes.labels(method=method, endpoint=endpoint).observe(response_size)
+            http_response_size_bytes.labels(method=method, endpoint=endpoint).observe(
+                response_size
+            )
 
         return response
 

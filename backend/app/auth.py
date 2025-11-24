@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import time
+from typing import Annotated, Any
 
 import httpx
 import jwt
@@ -54,7 +55,9 @@ class Auth0Verifier:
         self._jwks_expiry = now + 60 * 15  # cache for 15 minutes
         return jwks
 
-    def verify(self, token: str, required_scopes: list[str] | None = None) -> dict[str, Any]:
+    def verify(
+        self, token: str, required_scopes: list[str] | None = None
+    ) -> dict[str, Any]:
         """
         Verify and validate Auth0 JWT token with comprehensive security checks.
 
@@ -88,7 +91,8 @@ class Auth0Verifier:
         kid = unverified_header.get("kid")
         if not kid:
             raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing key ID in token"
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Missing key ID in token",
             )
 
         # Verify algorithm is RS256 (prevent algorithm confusion attacks)
@@ -102,7 +106,8 @@ class Auth0Verifier:
         key = next((k for k in jwks.get("keys", []) if k.get("kid") == kid), None)
         if not key:
             raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED, detail="Unknown token signature key"
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Unknown token signature key",
             )
 
         public_key = RSAAlgorithm.from_jwk(json.dumps(key))
@@ -122,7 +127,11 @@ class Auth0Verifier:
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Token has expired",
             ) from exc
-        except (InvalidAudienceError, InvalidIssuerError, MissingRequiredClaimError) as exc:
+        except (
+            InvalidAudienceError,
+            InvalidIssuerError,
+            MissingRequiredClaimError,
+        ) as exc:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid token claims",
@@ -183,7 +192,9 @@ class Auth0Verifier:
                     detail="Token issued in the future",
                 )
 
-    def _validate_scopes(self, payload: dict[str, Any], required_scopes: list[str]) -> None:
+    def _validate_scopes(
+        self, payload: dict[str, Any], required_scopes: list[str]
+    ) -> None:
         """
         Validate token has required scopes for authorization.
 
@@ -245,7 +256,8 @@ async def require_auth(credentials: AuthCredentials) -> dict[str, Any]:
 
     if not credentials:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing Authorization header"
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Missing Authorization header",
         )
 
     token = credentials.credentials

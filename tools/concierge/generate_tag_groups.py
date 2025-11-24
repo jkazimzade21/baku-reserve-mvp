@@ -143,7 +143,11 @@ LOCATION_HINTS = {
 
 
 def normalize_name(value: str) -> str:
-    normalized = "".join(ch for ch in unicodedata.normalize("NFKD", value) if not unicodedata.combining(ch))
+    normalized = "".join(
+        ch
+        for ch in unicodedata.normalize("NFKD", value)
+        if not unicodedata.combining(ch)
+    )
     normalized = normalized.lower().replace("&", "and")
     normalized = re.sub(r"[^a-z0-9]+", " ", normalized)
     return re.sub(r"\s+", " ", normalized).strip()
@@ -175,7 +179,10 @@ def parse_research() -> list[dict[str, Any]]:
         if name_match:
             if current:
                 entries.append(current)
-            current = {"name": name_match.group(2).strip(), "tag_groups": defaultdict(list)}
+            current = {
+                "name": name_match.group(2).strip(),
+                "tag_groups": defaultdict(list),
+            }
             continue
         if current is None:
             continue
@@ -236,7 +243,9 @@ def category_suffix_tags(category: str, base_tags: list[str]) -> set[str]:
     return expanded
 
 
-def derive_contextual_tags(category: str, tags: list[str], context: dict[str, Any]) -> set[str]:
+def derive_contextual_tags(
+    category: str, tags: list[str], context: dict[str, Any]
+) -> set[str]:
     derived: set[str] = set()
     if category == "core_identity":
         for cuisine in context["cuisines"]:
@@ -279,7 +288,9 @@ def derive_contextual_tags(category: str, tags: list[str], context: dict[str, An
     return derived
 
 
-def build_context(record: dict[str, Any], manual_tags: dict[str, list[str]]) -> dict[str, Any]:
+def build_context(
+    record: dict[str, Any], manual_tags: dict[str, list[str]]
+) -> dict[str, Any]:
     cuisines = [normalize_tag(item) for item in record.get("cuisine", [])]
     neighborhood = normalize_tag(record.get("neighborhood") or "")
     address = record.get("address") or ""
@@ -297,14 +308,23 @@ def build_context(record: dict[str, Any], manual_tags: dict[str, list[str]]) -> 
         "neighborhood": neighborhood,
         "price_bucket": price_bucket,
         "has_bar": contains_any(["full_bar", "cocktail_bar", "wine_bar"]),
-        "offers_shisha": contains_any(["shisha_available", "hookah_service", "shisha_corner"]),
+        "offers_shisha": contains_any(
+            ["shisha_available", "hookah_service", "shisha_corner"]
+        ),
         "has_rooftop": contains_any(["rooftop", "rooftop_lounge"]),
-        "has_live_music": contains_any(["live_music", "live_mugham_music", "dj_nights", "live_mugham_or_jazz"]),
-        "has_sea_view": contains_any(["sea_view", "waterfront", "sunset_dining"]) or "boulevard" in text_blob,
+        "has_live_music": contains_any(
+            ["live_music", "live_mugham_music", "dj_nights", "live_mugham_or_jazz"]
+        ),
+        "has_sea_view": contains_any(["sea_view", "waterfront", "sunset_dining"])
+        or "boulevard" in text_blob,
         "sunset_spot": contains_any(["sunset_dining"]) or "sunset" in text_blob,
         "open_24_7": contains_any(["24_7_service", "open_all_day"]),
-        "halal_friendly": contains_any(["halal", "halal_meat", "halal_options", "halal_restaurant"]),
-        "vegetarian_friendly": contains_any(["vegetarian_friendly", "vegetarian_options"]),
+        "halal_friendly": contains_any(
+            ["halal", "halal_meat", "halal_options", "halal_restaurant"]
+        ),
+        "vegetarian_friendly": contains_any(
+            ["vegetarian_friendly", "vegetarian_options"]
+        ),
         "is_old_city": "old city" in address.lower() or neighborhood == "old_city",
     }
 
@@ -405,7 +425,9 @@ def main() -> None:
         if not record:
             alias_slug = ALIAS_MAP.get(normalized)
             if alias_slug:
-                record = next((r for r in records.values() if r.get("slug") == alias_slug), None)
+                record = next(
+                    (r for r in records.values() if r.get("slug") == alias_slug), None
+                )
         if not record:
             raise RuntimeError(f"No restaurant record found for research entry: {name}")
 
@@ -413,7 +435,10 @@ def main() -> None:
         if not slug:
             continue
 
-        manual_tags = {key: list(dict.fromkeys(values)) for key, values in entry["tag_groups"].items()}
+        manual_tags = {
+            key: list(dict.fromkeys(values))
+            for key, values in entry["tag_groups"].items()
+        }
         context = build_context(record, manual_tags)
 
         candidate_sets = enrich_categories(manual_tags, context)
@@ -438,12 +463,19 @@ def main() -> None:
         ensure_minimum(enriched)
         slug_map[slug] = {"name": slug_name.get(slug, ""), "tag_groups": enriched}
 
-    OUTPUT_PATH.write_text(json.dumps(slug_map, indent=2, ensure_ascii=False), encoding="utf-8")
+    OUTPUT_PATH.write_text(
+        json.dumps(slug_map, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
 
-    counts = [sum(len(values) for values in entry["tag_groups"].values()) for entry in slug_map.values()]
+    counts = [
+        sum(len(values) for values in entry["tag_groups"].values())
+        for entry in slug_map.values()
+    ]
     print(f"Generated tag groups for {len(slug_map)} restaurants.")
     if counts:
-        print(f"Min tags: {min(counts)} / Max tags: {max(counts)} / Avg: {sum(counts) / len(counts):.1f}")
+        print(
+            f"Min tags: {min(counts)} / Max tags: {max(counts)} / Avg: {sum(counts) / len(counts):.1f}"
+        )
 
 
 if __name__ == "__main__":

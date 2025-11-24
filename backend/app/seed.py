@@ -19,7 +19,11 @@ def seed():
         areas=[
             Area(
                 name="Main Hall",
-                tables=[t("T1", 4, 200, 300), t("T2", 2, 350, 320), t("T3", 4, 480, 310)],
+                tables=[
+                    t("T1", 4, 200, 300),
+                    t("T2", 2, 350, 320),
+                    t("T3", 4, 480, 310),
+                ],
             ),
             Area(name="Terrace", tables=[t("W1", 2, 700, 220), t("W2", 4, 820, 260)]),
         ],
@@ -35,7 +39,11 @@ def seed():
         areas=[
             Area(
                 name="Steak Hall",
-                tables=[t("S1", 2, 180, 600), t("S2", 4, 260, 640), t("S3", 6, 360, 620)],
+                tables=[
+                    t("S1", 2, 180, 600),
+                    t("S2", 4, 260, 640),
+                    t("S3", 6, 360, 620),
+                ],
             ),
             Area(name="Window", tables=[t("W1", 2, 700, 650), t("W2", 2, 780, 660)]),
         ],

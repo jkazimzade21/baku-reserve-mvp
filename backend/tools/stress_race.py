@@ -18,7 +18,9 @@ def iso(day, hhmm, dur="01:30"):
 
 async def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--base", default=os.environ.get("BASE", "http://192.168.0.148:8000"))
+    ap.add_argument(
+        "--base", default=os.environ.get("BASE", "http://192.168.0.148:8000")
+    )
     ap.add_argument("--rid", required=True)
     ap.add_argument("--tid", required=True)
     ap.add_argument("--start", default="10:00")

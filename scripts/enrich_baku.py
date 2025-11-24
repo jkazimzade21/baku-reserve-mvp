@@ -46,7 +46,9 @@ def load_seed() -> list[dict[str, Any]]:
 
 
 def save_seed(items: list[dict[str, Any]]) -> None:
-    DATA_PATH.write_text(json.dumps(items, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    DATA_PATH.write_text(
+        json.dumps(items, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
 
 
 def merge_record(base: dict[str, Any], enriched: dict[str, Any]) -> None:
@@ -72,7 +74,9 @@ def run_enricher(name: str, out_dir: Path) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Refresh restaurant metadata via the MCP enricher")
+    parser = argparse.ArgumentParser(
+        description="Refresh restaurant metadata via the MCP enricher"
+    )
     parser.add_argument(
         "--slugs",
         nargs="*",
@@ -89,7 +93,9 @@ def main() -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     seed = load_seed()
-    slug_map = {str(item.get("slug", "")).lower(): item for item in seed if item.get("slug")}
+    slug_map = {
+        str(item.get("slug", "")).lower(): item for item in seed if item.get("slug")
+    }
     targets = [slug.lower() for slug in (args.slugs or slug_map.keys())]
 
     for slug in targets:
@@ -106,7 +112,9 @@ def main() -> None:
 
         enriched_path = out_dir / f"{record.get('slug')}.json"
         if not enriched_path.exists():
-            print(f"[enrich] ! no payload produced for {record['slug']} (expected {enriched_path})")
+            print(
+                f"[enrich] ! no payload produced for {record['slug']} (expected {enriched_path})"
+            )
             continue
         try:
             enriched = json.loads(enriched_path.read_text(encoding="utf-8"))

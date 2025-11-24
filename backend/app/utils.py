@@ -131,7 +131,9 @@ class RateLimiter:
 
         identifier = self._identifier_for(request)
         now = time.monotonic()
-        allowed, remaining, reset_in = await self._consume(identifier, limit, window, now)
+        allowed, remaining, reset_in = await self._consume(
+            identifier, limit, window, now
+        )
         if not allowed:
             rate_limit_hits_total.inc()
             rate_limit_requests_total.labels(result="throttle").inc()
@@ -196,7 +198,9 @@ class RateLimiter:
             return
         stale_cutoff = now - (window * 3)
         stale_keys = [
-            key for key, meta in self._buckets.items() if meta.get("last", 0.0) < stale_cutoff
+            key
+            for key, meta in self._buckets.items()
+            if meta.get("last", 0.0) < stale_cutoff
         ]
         for key in stale_keys:
             self._buckets.pop(key, None)

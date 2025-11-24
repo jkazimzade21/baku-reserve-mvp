@@ -118,7 +118,9 @@ def restaurant_to_detail(r: Any, request: Request | None = None) -> dict[str, An
         "address": get_attr(r, "address") or "",
         "phone": get_attr(r, "phone") or "",
         "photos": list(get_attr(r, "photos", []) or []),
-        "cover_photo": (get_attr(r, "cover_photo") or (get_attr(r, "photos", []) or [None])[0]),
+        "cover_photo": (
+            get_attr(r, "cover_photo") or (get_attr(r, "photos", []) or [None])[0]
+        ),
         "short_description": get_attr(r, "short_description") or "",
         "neighborhood": get_attr(r, "neighborhood"),
         "price_level": get_attr(r, "price_level"),

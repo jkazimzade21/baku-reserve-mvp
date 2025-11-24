@@ -10,7 +10,9 @@ DEFAULT_TIMEZONE = "Asia/Baku"
 DAY_KEYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 
 
-def _overlaps(a_start: datetime, a_end: datetime, b_start: datetime, b_end: datetime) -> bool:
+def _overlaps(
+    a_start: datetime, a_end: datetime, b_start: datetime, b_end: datetime
+) -> bool:
     return not (a_end <= b_start or a_start >= b_end)
 
 
@@ -49,7 +51,9 @@ def _hours_for_day(restaurant: Any, day: date) -> tuple[time, time]:
     if isinstance(hours, dict):
         # Support global open/close as well as day-specific records
         weekday_key = DAY_KEYS[day.weekday()]
-        day_hours = hours.get(weekday_key) if isinstance(hours.get(weekday_key), dict) else None
+        day_hours = (
+            hours.get(weekday_key) if isinstance(hours.get(weekday_key), dict) else None
+        )
         open_str = day_hours.get("open") if day_hours else hours.get("open")
         close_str = day_hours.get("close") if day_hours else hours.get("close")
         open_time = _parse_time(open_str, OPEN)
@@ -97,7 +101,9 @@ def _normalize_timezone(dt: datetime, tz: ZoneInfo) -> datetime:
     return dt.astimezone(tz)
 
 
-async def availability_for_day(restaurant: Any, party_size: int, day: date, db) -> dict[str, Any]:
+async def availability_for_day(
+    restaurant: Any, party_size: int, day: date, db
+) -> dict[str, Any]:
     """
     Returns: {"slots":[{"start":iso,"end":iso,"available_table_ids":[...],"count":N}, ...]}
     Only considers reservations with status == "booked".
@@ -107,7 +113,9 @@ async def availability_for_day(restaurant: Any, party_size: int, day: date, db) 
         restaurant_tz = restaurant.get("timezone") or DEFAULT_TIMEZONE
     else:
         rid = str(restaurant.id)
-        restaurant_tz = getattr(restaurant, "timezone", DEFAULT_TIMEZONE) or DEFAULT_TIMEZONE
+        restaurant_tz = (
+            getattr(restaurant, "timezone", DEFAULT_TIMEZONE) or DEFAULT_TIMEZONE
+        )
     tzinfo = _resolve_timezone(restaurant_tz)
     open_time, close_time = _hours_for_day(restaurant, day)
 

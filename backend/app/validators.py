@@ -69,7 +69,9 @@ def normalize_prep_items(
         if not entry:
             continue
         if len(entry) > max_length:
-            raise ValueError(f"prep item '{entry[:20]}…' must be <= {max_length} characters")
+            raise ValueError(
+                f"prep item '{entry[:20]}…' must be <= {max_length} characters"
+            )
         cleaned.append(entry)
         if len(cleaned) > max_items:
             raise ValueError(f"prep_items accepts at most {max_items} entries")

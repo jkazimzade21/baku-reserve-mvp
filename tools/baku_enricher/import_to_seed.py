@@ -25,10 +25,26 @@ UNSPLASH_IMAGES = (
 )
 
 THEME_SWATCHES = (
-    {"accent": "#E7A977", "ambientLight": "rgba(231, 169, 119, 0.16)", "texture": "marble"},
-    {"accent": "#F4978E", "ambientLight": "rgba(255, 210, 155, 0.22)", "texture": "linen"},
-    {"accent": "#C88EA7", "ambientLight": "rgba(238, 207, 195, 0.18)", "texture": "velvet"},
-    {"accent": "#A0C1B8", "ambientLight": "rgba(160, 193, 184, 0.2)", "texture": "parquet"},
+    {
+        "accent": "#E7A977",
+        "ambientLight": "rgba(231, 169, 119, 0.16)",
+        "texture": "marble",
+    },
+    {
+        "accent": "#F4978E",
+        "ambientLight": "rgba(255, 210, 155, 0.22)",
+        "texture": "linen",
+    },
+    {
+        "accent": "#C88EA7",
+        "ambientLight": "rgba(238, 207, 195, 0.18)",
+        "texture": "velvet",
+    },
+    {
+        "accent": "#A0C1B8",
+        "ambientLight": "rgba(160, 193, 184, 0.2)",
+        "texture": "parquet",
+    },
 )
 
 NEIGHBORHOOD_RULES = (
@@ -96,19 +112,99 @@ CUISINE_HINTS = (
 )
 
 TABLE_TEMPLATE_PRIMARY = (
-    ("T1", 2, [18, 32], "circle", ["window", "intimate"], "low", [[16, 30], [20, 30], [20, 34], [16, 34]]),
-    ("T2", 4, [38, 34], "rect", ["chef_counter"], "medium", [[34, 32], [42, 32], [42, 38], [34, 38]]),
-    ("T3", 4, [58, 36], "booth", ["view"], "medium", [[54, 32], [62, 32], [62, 40], [54, 40]]),
-    ("T4", 6, [34, 62], "rect", ["family"], "medium", [[30, 58], [38, 58], [38, 66], [30, 66]]),
-    ("T5", 6, [62, 64], "rect", ["celebration"], "high", [[58, 60], [66, 60], [66, 68], [58, 68]]),
+    (
+        "T1",
+        2,
+        [18, 32],
+        "circle",
+        ["window", "intimate"],
+        "low",
+        [[16, 30], [20, 30], [20, 34], [16, 34]],
+    ),
+    (
+        "T2",
+        4,
+        [38, 34],
+        "rect",
+        ["chef_counter"],
+        "medium",
+        [[34, 32], [42, 32], [42, 38], [34, 38]],
+    ),
+    (
+        "T3",
+        4,
+        [58, 36],
+        "booth",
+        ["view"],
+        "medium",
+        [[54, 32], [62, 32], [62, 40], [54, 40]],
+    ),
+    (
+        "T4",
+        6,
+        [34, 62],
+        "rect",
+        ["family"],
+        "medium",
+        [[30, 58], [38, 58], [38, 66], [30, 66]],
+    ),
+    (
+        "T5",
+        6,
+        [62, 64],
+        "rect",
+        ["celebration"],
+        "high",
+        [[58, 60], [66, 60], [66, 68], [58, 68]],
+    ),
 )
 
 TABLE_TEMPLATE_SECONDARY = (
-    ("L1", 2, [22, 40], "circle", ["sunset"], "low", [[20, 38], [24, 38], [24, 42], [20, 42]]),
-    ("L2", 4, [42, 44], "rect", ["terrace"], "medium", [[38, 42], [46, 42], [46, 48], [38, 48]]),
-    ("L3", 4, [62, 46], "rect", ["view"], "medium", [[58, 44], [66, 44], [66, 48], [58, 48]]),
-    ("L4", 6, [34, 72], "booth", ["lounge"], "medium", [[30, 68], [38, 68], [38, 76], [30, 76]]),
-    ("L5", 6, [62, 74], "circle", ["firepit"], "high", [[58, 70], [66, 70], [66, 78], [58, 78]]),
+    (
+        "L1",
+        2,
+        [22, 40],
+        "circle",
+        ["sunset"],
+        "low",
+        [[20, 38], [24, 38], [24, 42], [20, 42]],
+    ),
+    (
+        "L2",
+        4,
+        [42, 44],
+        "rect",
+        ["terrace"],
+        "medium",
+        [[38, 42], [46, 42], [46, 48], [38, 48]],
+    ),
+    (
+        "L3",
+        4,
+        [62, 46],
+        "rect",
+        ["view"],
+        "medium",
+        [[58, 44], [66, 44], [66, 48], [58, 48]],
+    ),
+    (
+        "L4",
+        6,
+        [34, 72],
+        "booth",
+        ["lounge"],
+        "medium",
+        [[30, 68], [38, 68], [38, 76], [30, 76]],
+    ),
+    (
+        "L5",
+        6,
+        [62, 74],
+        "circle",
+        ["firepit"],
+        "high",
+        [[58, 70], [66, 70], [66, 78], [58, 78]],
+    ),
 )
 
 
@@ -192,7 +288,10 @@ def derive_price(tags: list[str]) -> str:
     lowered = [t.lower() for t in tags]
     if any("fine dining" in t for t in lowered):
         return "AZN 4/4"
-    if any(token in lowered for token in ("steakhouse", "steak", "rooftop", "late night", "seafood")):
+    if any(
+        token in lowered
+        for token in ("steakhouse", "steak", "rooftop", "late night", "seafood")
+    ):
         return "AZN 3/4"
     if any(token in lowered for token in ("coffee", "dessert", "bar")):
         return "AZN 2/4"
@@ -242,7 +341,9 @@ def build_highlights(tags: list[str]) -> list[str]:
 
 def themed_tables(slug: str, template: Iterable[tuple], prefix: str) -> list[dict]:
     tables: list[dict] = []
-    for index, (name, cap, position, shape, table_tags, noise, footprint) in enumerate(template, start=1):
+    for index, (name, cap, position, shape, table_tags, noise, footprint) in enumerate(
+        template, start=1
+    ):
         tables.append(
             {
                 "id": f"{slug}-{prefix}-{index}",

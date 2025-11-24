@@ -36,7 +36,7 @@ from typing import Dict, Iterable, List, Sequence
 try:
     import instaloader  # type: ignore
     from PIL import Image
-except ImportError as exc:  # pragma: no cover - guard for missing deps
+except ImportError:  # pragma: no cover - guard for missing deps
     print(
         "Missing dependencies. Install them with:\n"
         "  source .venv/bin/activate\n"
@@ -68,7 +68,7 @@ _INSTALOADER = instaloader.Instaloader(
 
 
 # Curated Instagram sources per restaurant slug.
-# If a URL is a profile URL (e.g. https://www.instagram.com/username/), 
+# If a URL is a profile URL (e.g. https://www.instagram.com/username/),
 # the script will attempt to download the most recent posts.
 PHOTO_SOURCES: Dict[str, Sequence[str]] = {
     "360bar": [
@@ -261,7 +261,11 @@ def fetch_instagram_image(url: str) -> bytes:
         _INSTALOADER.dirname_pattern = str(target)
         _INSTALOADER.download_post(post, target=str(target))
         images = sorted(
-            (p for p in Path(tmpdir).rglob("*") if p.suffix.lower() in {'.jpg', '.jpeg', '.png', '.webp'}),
+            (
+                p
+                for p in Path(tmpdir).rglob("*")
+                if p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}
+            ),
             key=lambda p: p.stat().st_mtime,
         )
         if not images:
@@ -269,39 +273,47 @@ def fetch_instagram_image(url: str) -> bytes:
         payload = images[0].read_bytes()
     return payload
 
+
 def fetch_from_profile(url: str, limit: int = MAX_PHOTOS_PER_SLUG) -> List[bytes]:
     match = PROFILE_PATTERN.search(url)
     if not match:
-         raise RuntimeError(f"Unsupported Profile URL: {url}")
+        raise RuntimeError(f"Unsupported Profile URL: {url}")
     username = match.group(1)
     print(f"[info] Fetching recent posts for user: {username}")
-    
+
     profile = instaloader.Profile.from_username(_INSTALOADER.context, username)
     posts = profile.get_posts()
-    
+
     results = []
     count = 0
     for post in posts:
         if count >= limit:
             break
-        
+
         try:
             with TemporaryDirectory() as tmpdir:
                 target = Path(tmpdir) / "post"
                 _INSTALOADER.dirname_pattern = str(target)
                 _INSTALOADER.download_post(post, target=str(target))
                 images = sorted(
-                    (p for p in Path(tmpdir).rglob("*") if p.suffix.lower() in {'.jpg', '.jpeg', '.png', '.webp'}),
+                    (
+                        p
+                        for p in Path(tmpdir).rglob("*")
+                        if p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}
+                    ),
                     key=lambda p: p.stat().st_mtime,
                 )
                 if images:
                     results.append(images[0].read_bytes())
                     count += 1
         except Exception as e:
-            print(f"[warn] Failed to download post {post.shortcode}: {e}", file=sys.stderr)
+            print(
+                f"[warn] Failed to download post {post.shortcode}: {e}", file=sys.stderr
+            )
             continue
-            
+
     return results
+
 
 def ensure_dir(path: Path) -> None:
     path.mkdir(parents=True, exist_ok=True)
@@ -327,7 +339,7 @@ def download_for_slug(slug: str, urls: Sequence[str]) -> None:
         return
     ensure_dir(IGPICS_ROOT / slug)
     ensure_dir(ASSETS_ROOT / slug)
-    
+
     # Check if the first URL is a profile
     if urls and PROFILE_PATTERN.search(urls[0]):
         try:
@@ -337,7 +349,9 @@ def download_for_slug(slug: str, urls: Sequence[str]) -> None:
                 raw_path.write_bytes(payload)
                 webp_path = ASSETS_ROOT / slug / f"{idx}.webp"
                 convert_to_webp(payload, webp_path)
-                print(f"[ok] {slug} photo {idx} saved from profile to {webp_path.relative_to(REPO_ROOT)}")
+                print(
+                    f"[ok] {slug} photo {idx} saved from profile to {webp_path.relative_to(REPO_ROOT)}"
+                )
             return
         except Exception as e:
             print(f"[error] Failed profile fetch for {slug}: {e}", file=sys.stderr)
@@ -357,6 +371,7 @@ def download_for_slug(slug: str, urls: Sequence[str]) -> None:
         convert_to_webp(payload, webp_path)
         print(f"[ok] {slug} photo {idx} saved to {webp_path.relative_to(REPO_ROOT)}")
 
+
 def convert_existing(slug: str) -> None:
     source_dir = IGPICS_ROOT / slug
     if not source_dir.exists():
@@ -367,7 +382,7 @@ def convert_existing(slug: str) -> None:
             for p in source_dir.iterdir()
             if p.is_file()
             and not p.name.startswith(".")
-            and p.suffix.lower() in {'.jpg', '.jpeg', '.png', '.webp'}
+            and p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}
         ),
         key=map_sort_key,
     )
@@ -382,6 +397,7 @@ def convert_existing(slug: str) -> None:
         convert_to_webp(payload, dest)
         print(f"[ok] {slug} photo {idx} refreshed from existing source")
 
+
 def load_restaurant_slugs() -> List[str]:
     data = json.loads(RESTAURANT_DATA_PATH.read_text())
     slugs = []
@@ -390,6 +406,7 @@ def load_restaurant_slugs() -> List[str]:
         if slug:
             slugs.append(str(slug).strip().lower())
     return sorted(set(slugs))
+
 
 def generate_manifest(slugs: Iterable[str]) -> None:
     asset_entries: List[str] = []
@@ -400,9 +417,9 @@ def generate_manifest(slugs: Iterable[str]) -> None:
         if not slug_dir.exists():
             pending_slugs.append(slug)
             continue
-        images = sorted((p for p in slug_dir.glob("*.webp") if p.is_file()), key=map_sort_key)[
-            :MAX_PHOTOS_PER_SLUG
-        ]
+        images = sorted(
+            (p for p in slug_dir.glob("*.webp") if p.is_file()), key=map_sort_key
+        )[:MAX_PHOTOS_PER_SLUG]
         if not images:
             pending_slugs.append(slug)
             continue
@@ -457,6 +474,7 @@ def generate_manifest(slugs: Iterable[str]) -> None:
     if pending_slugs:
         print(f"[info] Slugs without local assets: {', '.join(sorted(pending_slugs))}")
 
+
 def update_restaurant_data_image_refs() -> None:
     if not RESTAURANT_DATA_PATH.exists():
         return
@@ -479,7 +497,7 @@ def update_restaurant_data_image_refs() -> None:
                 for p in slug_dir.iterdir()
                 if p.is_file()
                 and not p.name.startswith(".")
-                and p.suffix.lower() in {'.jpg', '.jpeg', '.png', '.webp'}
+                and p.suffix.lower() in {".jpg", ".jpeg", ".png", ".webp"}
             ),
             key=map_sort_key,
         )[:MAX_PHOTOS_PER_SLUG]
@@ -494,11 +512,18 @@ def update_restaurant_data_image_refs() -> None:
             changed = True
 
     if changed:
-        RESTAURANT_DATA_PATH.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
-        print(f"[ok] Updated photo references in {RESTAURANT_DATA_PATH.relative_to(REPO_ROOT)}")
+        RESTAURANT_DATA_PATH.write_text(
+            json.dumps(data, indent=2, ensure_ascii=False) + "\n"
+        )
+        print(
+            f"[ok] Updated photo references in {RESTAURANT_DATA_PATH.relative_to(REPO_ROOT)}"
+        )
+
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Synchronise curated restaurant photos.")
+    parser = argparse.ArgumentParser(
+        description="Synchronise curated restaurant photos."
+    )
     parser.add_argument(
         "--download",
         action="store_true",
@@ -524,13 +549,16 @@ def main() -> None:
         password = os.environ.get(args.password_env)
         if not password:
             import getpass
+
             try:
-                password = getpass.getpass(f"Enter Instagram password for {args.login}: ")
+                password = getpass.getpass(
+                    f"Enter Instagram password for {args.login}: "
+                )
             except Exception as e:
                 parser.error(f"Failed to read password: {e}")
-        
+
         if not password:
-             parser.error("Password is required for login.")
+            parser.error("Password is required for login.")
 
         try:
             _INSTALOADER.login(args.login, password)
@@ -557,12 +585,15 @@ def main() -> None:
             slug = raw.strip().lower()
             # If not in sources but we just added it dynamically, it's fine.
             if slug not in PHOTO_SOURCES:
-                 # It might be in the dynamic list we just built?
-                 # Actually PHOTO_SOURCES is modified in place above.
-                 print(f"[warn] Unknown slug '{raw}' in sources (checked static and dynamic).", file=sys.stderr)
-                 # check if we can fallback to just skipping
-                 # parser.error(f"Unknown slug '{raw}'") 
-                 continue
+                # It might be in the dynamic list we just built?
+                # Actually PHOTO_SOURCES is modified in place above.
+                print(
+                    f"[warn] Unknown slug '{raw}' in sources (checked static and dynamic).",
+                    file=sys.stderr,
+                )
+                # check if we can fallback to just skipping
+                # parser.error(f"Unknown slug '{raw}'")
+                continue
             requested.append(slug)
     else:
         requested = list(PHOTO_SOURCES.keys())

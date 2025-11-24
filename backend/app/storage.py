@@ -94,8 +94,12 @@ def _record_to_public_dict(record: ReservationRecord) -> dict[str, Any]:
         "guest_phone": record.guest_phone,
         "status": record.status,
         "owner_id": record.owner_id,
-        "created_at": _iso(record.created_at) if getattr(record, "created_at", None) else None,
-        "updated_at": _iso(record.updated_at) if getattr(record, "updated_at", None) else None,
+        "created_at": (
+            _iso(record.created_at) if getattr(record, "created_at", None) else None
+        ),
+        "updated_at": (
+            _iso(record.updated_at) if getattr(record, "updated_at", None) else None
+        ),
     }
 
 
@@ -122,7 +126,9 @@ def _review_to_public(record: ReviewRecord) -> dict[str, Any]:
         "guest_name": record.guest_name,
         "rating": record.rating,
         "comment": record.comment,
-        "created_at": _iso(record.created_at) if getattr(record, "created_at", None) else None,
+        "created_at": (
+            _iso(record.created_at) if getattr(record, "created_at", None) else None
+        ),
     }
 
 
@@ -147,7 +153,9 @@ class Database:
                 try:
                     seed_restaurants = json.loads(payload)
                 except json.JSONDecodeError as exc:
-                    raise RuntimeError(f"Invalid restaurant seed data: {seed_path}") from exc
+                    raise RuntimeError(
+                        f"Invalid restaurant seed data: {seed_path}"
+                    ) from exc
 
         enriched_tags = _load_enriched_tags()
         normalised: list[dict[str, Any]] = []
@@ -174,7 +182,9 @@ class Database:
                 if isinstance(tag_groups, dict):
                     entry["tag_groups"] = tag_groups
                 flattened: set[str] = set(entry.get("tags") or [])
-                for values in tag_groups.values() if isinstance(tag_groups, dict) else []:
+                for values in (
+                    tag_groups.values() if isinstance(tag_groups, dict) else []
+                ):
                     if isinstance(values, list):
                         for tag in values:
                             if isinstance(tag, str):
@@ -199,7 +209,9 @@ class Database:
                     "Failed to sync restaurants into SQL store; continuing with JSON data"
                 )
         except Exception:
-            logger.exception("Failed to sync restaurants into SQL store; continuing with JSON data")
+            logger.exception(
+                "Failed to sync restaurants into SQL store; continuing with JSON data"
+            )
 
         self.restaurants: dict[str, dict[str, Any]] = {r["id"]: r for r in normalised}
         self._restaurants_by_slug: dict[str, dict[str, Any]] = {
@@ -247,7 +259,9 @@ class Database:
                     table_entries.append((t, cap))
             table_entries.sort(key=lambda entry: entry[1])
             self._tables_cache[rid] = table_entries
-            self._table_lookup_cache[rid] = {str(t.get("id")): t for t, _ in table_entries}
+            self._table_lookup_cache[rid] = {
+                str(t.get("id")): t for t, _ in table_entries
+            }
 
         try:
             # hydrate review aggregates on startup
@@ -261,9 +275,13 @@ class Database:
                         summary["rating"] = payload["average_rating"]
                         summary["reviews_count"] = payload["count"]
         except Exception:
-            logger.exception("Failed to hydrate review aggregates; continuing without stats")
+            logger.exception(
+                "Failed to hydrate review aggregates; continuing without stats"
+            )
 
-    async def _sync_restaurants_to_db(self, entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    async def _sync_restaurants_to_db(
+        self, entries: list[dict[str, Any]]
+    ) -> list[dict[str, Any]]:
         """Persist restaurant metadata to SQL so reservations can join across workers."""
         if not entries:
             return []
@@ -317,9 +335,9 @@ class Database:
 
     async def _refresh_review_stats_for_restaurant(self, rid: str) -> dict[str, Any]:
         async with get_session() as session:
-            stmt = select(func.count(ReviewRecord.id), func.avg(ReviewRecord.rating)).where(
-                ReviewRecord.restaurant_id == rid
-            )
+            stmt = select(
+                func.count(ReviewRecord.id), func.avg(ReviewRecord.rating)
+            ).where(ReviewRecord.restaurant_id == rid)
             result = await session.execute(stmt)
             count, average = result.one_or_none() or (0, 0.0)
             stats = {"count": int(count or 0), "average_rating": float(average or 0.0)}
@@ -340,10 +358,14 @@ class Database:
         return self._table_lookup_cache.get(rid, {})
 
     def eligible_tables(self, rid: str, party_size: int) -> list[dict[str, Any]]:
-        return [table for table, cap in self._tables_cache.get(rid, []) if cap >= party_size]
+        return [
+            table for table, cap in self._tables_cache.get(rid, []) if cap >= party_size
+        ]
 
     @staticmethod
-    def _overlap(a_start: datetime, a_end: datetime, b_start: datetime, b_end: datetime) -> bool:
+    def _overlap(
+        a_start: datetime, a_end: datetime, b_start: datetime, b_end: datetime
+    ) -> bool:
         return not (a_end <= b_start or b_end <= a_start)
 
     async def _reservations_for_restaurant_day(
@@ -382,7 +404,9 @@ class Database:
         qlow = q.lower().strip()
         if not qlow:
             return [dict(summary) for summary in self._restaurant_summaries]
-        return [dict(summary) for summary, search in self._summary_index if qlow in search]
+        return [
+            dict(summary) for summary, search in self._summary_index if qlow in search
+        ]
 
     def get_restaurant(self, rid: str) -> dict[str, Any] | None:
         rid_str = str(rid)
@@ -391,7 +415,9 @@ class Database:
         return self._restaurants_by_slug.get(rid_str.lower())
 
     # -------- reservations --------
-    async def list_reservations(self, owner_id: str | None = None) -> list[dict[str, Any]]:
+    async def list_reservations(
+        self, owner_id: str | None = None
+    ) -> list[dict[str, Any]]:
         async with get_session() as session:
             stmt = select(ReservationRecord)
             if owner_id:
@@ -443,7 +469,9 @@ class Database:
                     status_code=422, detail="table_id does not belong to restaurant"
                 )
             if tables_by_id[table_id].get("capacity", 1) < payload.party_size:
-                raise HTTPException(status_code=422, detail="party_size exceeds table capacity")
+                raise HTTPException(
+                    status_code=422, detail="party_size exceeds table capacity"
+                )
         else:
             table_id = None
             for table, cap in self._tables_cache.get(rid, []):
@@ -459,7 +487,9 @@ class Database:
                 existing_table = existing.table_id
                 if table_id and existing_table and existing_table != table_id:
                     continue
-                raise HTTPException(status_code=409, detail="Selected table/time is already booked")
+                raise HTTPException(
+                    status_code=409, detail="Selected table/time is already booked"
+                )
 
             record = ReservationRecord(
                 id=str(uuid4()),
@@ -522,7 +552,9 @@ class Database:
                 return None
             return _record_to_public_dict(record)
 
-    async def update_reservation(self, resid: str, **fields: Any) -> dict[str, Any] | None:
+    async def update_reservation(
+        self, resid: str, **fields: Any
+    ) -> dict[str, Any] | None:
         async with get_session() as session:
             record = await session.get(ReservationRecord, str(resid))
             if not record:
@@ -547,15 +579,21 @@ class Database:
         self, resid: str, owner_id: str | None, rating: int, comment: str | None = None
     ) -> dict[str, Any]:
         if rating < 1 or rating > 5:
-            raise HTTPException(status_code=422, detail="rating must be between 1 and 5")
+            raise HTTPException(
+                status_code=422, detail="rating must be between 1 and 5"
+            )
         async with get_session() as session:
             reservation = await session.get(ReservationRecord, str(resid))
             if not reservation:
                 raise HTTPException(status_code=404, detail="Reservation not found")
             if reservation.status != "arrived":
-                raise HTTPException(status_code=409, detail="Reviews are available after arrival")
+                raise HTTPException(
+                    status_code=409, detail="Reviews are available after arrival"
+                )
             if owner_id and reservation.owner_id and reservation.owner_id != owner_id:
-                raise HTTPException(status_code=403, detail="You cannot review this reservation")
+                raise HTTPException(
+                    status_code=403, detail="You cannot review this reservation"
+                )
             existing = await session.execute(
                 select(ReviewRecord).where(ReviewRecord.reservation_id == str(resid))
             )

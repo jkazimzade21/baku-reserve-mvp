@@ -12,7 +12,6 @@ import argparse
 import json
 import time
 from pathlib import Path
-from typing import Any
 
 import httpx
 
@@ -33,7 +32,9 @@ def _query_nominatim(query: str, bounded: bool = True) -> tuple[float, float] | 
     }
     if bounded:
         # viewbox: left, top, right, bottom (lon, lat)
-        params["viewbox"] = f"{LON_BOUNDS[0]},{LAT_BOUNDS[1]},{LON_BOUNDS[1]},{LAT_BOUNDS[0]}"
+        params["viewbox"] = (
+            f"{LON_BOUNDS[0]},{LAT_BOUNDS[1]},{LON_BOUNDS[1]},{LAT_BOUNDS[0]}"
+        )
         params["bounded"] = 1
     try:
         resp = httpx.get(
@@ -50,11 +51,14 @@ def _query_nominatim(query: str, bounded: bool = True) -> tuple[float, float] | 
     if not payload:
         return None
     try:
-            lat = float(payload[0]["lat"])
-            lon = float(payload[0]["lon"])
-            if LAT_BOUNDS[0] <= lat <= LAT_BOUNDS[1] and LON_BOUNDS[0] <= lon <= LON_BOUNDS[1]:
-                return lat, lon
-            return None
+        lat = float(payload[0]["lat"])
+        lon = float(payload[0]["lon"])
+        if (
+            LAT_BOUNDS[0] <= lat <= LAT_BOUNDS[1]
+            and LON_BOUNDS[0] <= lon <= LON_BOUNDS[1]
+        ):
+            return lat, lon
+        return None
     except (KeyError, ValueError):
         return None
 
@@ -73,9 +77,15 @@ def fetch_coords(name: str, address: str | None) -> tuple[float, float] | None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Update restaurant coordinates via Nominatim")
-    parser.add_argument("--sleep", type=float, default=1.0, help="Delay between requests (seconds)")
-    parser.add_argument("--dry-run", action="store_true", help="Only report differences")
+    parser = argparse.ArgumentParser(
+        description="Update restaurant coordinates via Nominatim"
+    )
+    parser.add_argument(
+        "--sleep", type=float, default=1.0, help="Delay between requests (seconds)"
+    )
+    parser.add_argument(
+        "--dry-run", action="store_true", help="Only report differences"
+    )
     args = parser.parse_args()
 
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
@@ -96,9 +106,13 @@ def main() -> None:
         if delta < 0.0005:
             continue
         if delta > MAX_DELTA:
-            print(f"[coords] skipped {name}: candidate outside guardrail (delta={delta:.3f})")
+            print(
+                f"[coords] skipped {name}: candidate outside guardrail (delta={delta:.3f})"
+            )
             continue
-        print(f"[coords] {name}: ({current_lat:.6f},{current_lon:.6f}) -> ({lat:.6f},{lon:.6f})")
+        print(
+            f"[coords] {name}: ({current_lat:.6f},{current_lon:.6f}) -> ({lat:.6f},{lon:.6f})"
+        )
         if not args.dry_run:
             entry["latitude"] = round(lat, 6)
             entry["longitude"] = round(lon, 6)
@@ -106,7 +120,9 @@ def main() -> None:
         time.sleep(args.sleep)
 
     if not args.dry_run:
-        OUTPUT_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+        OUTPUT_PATH.write_text(
+            json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
         print(f"[coords] Saved updates to {OUTPUT_PATH}")
     print(f"[coords] Updated {updated}, skipped {skipped}")
 
