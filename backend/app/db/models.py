@@ -29,13 +29,9 @@ class ReservationRecord(Base):
     end = Column(DateTime(timezone=True), nullable=False, index=True)
     guest_name = Column(String(255), nullable=False)
     guest_phone = Column(String(50), nullable=True)
-    status = Column(
-        String(20), nullable=False, default="booked", server_default=text("'booked'")
-    )
+    status = Column(String(20), nullable=False, default="booked", server_default=text("'booked'"))
     owner_id = Column(String(128), nullable=True, index=True)
-    created_at = Column(
-        DateTime(timezone=True), nullable=False, server_default=func.now()
-    )
+    created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at = Column(
         DateTime(timezone=True),
         nullable=False,
@@ -56,9 +52,7 @@ if settings.database_url.startswith("postgresql"):
         constraints.append(
             ExcludeConstraint(
                 (
-                    func.tstzrange(
-                        ReservationRecord.start, ReservationRecord.end, "[]"
-                    ),
+                    func.tstzrange(ReservationRecord.start, ReservationRecord.end, "[]"),
                     "&&",
                 ),
                 (ReservationRecord.restaurant_id, "="),
@@ -86,9 +80,7 @@ class RestaurantRecord(Base):
     tags = Column(JSON, nullable=True)
     payload = Column(JSON, nullable=False, server_default=text("'{}'"))
 
-    created_at = Column(
-        DateTime(timezone=True), nullable=False, server_default=func.now()
-    )
+    created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at = Column(
         DateTime(timezone=True),
         nullable=False,
@@ -107,9 +99,7 @@ class ReviewRecord(Base):
     guest_name = Column(String(255), nullable=True)
     rating = Column(Integer, nullable=False)
     comment = Column(String(1000), nullable=True)
-    created_at = Column(
-        DateTime(timezone=True), nullable=False, server_default=func.now()
-    )
+    created_at = Column(DateTime(timezone=True), nullable=False, server_default=func.now())
     updated_at = Column(
         DateTime(timezone=True),
         nullable=False,

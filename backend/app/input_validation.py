@@ -160,9 +160,7 @@ class InputValidator:
             HTTPException: If distance is invalid
         """
         if distance_km < 0:
-            raise HTTPException(
-                422, f"Invalid distance: must be non-negative, got {distance_km}"
-            )
+            raise HTTPException(422, f"Invalid distance: must be non-negative, got {distance_km}")
 
         if distance_km > max_km:
             raise HTTPException(
@@ -188,9 +186,7 @@ class InputValidator:
             HTTPException: If radius is invalid
         """
         if radius_km <= 0:
-            raise HTTPException(
-                422, f"Invalid radius: must be positive, got {radius_km}"
-            )
+            raise HTTPException(422, f"Invalid radius: must be positive, got {radius_km}")
 
         if radius_km > max_km:
             raise HTTPException(

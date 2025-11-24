@@ -55,9 +55,7 @@ class Auth0Verifier:
         self._jwks_expiry = now + 60 * 15  # cache for 15 minutes
         return jwks
 
-    def verify(
-        self, token: str, required_scopes: list[str] | None = None
-    ) -> dict[str, Any]:
+    def verify(self, token: str, required_scopes: list[str] | None = None) -> dict[str, Any]:
         """
         Verify and validate Auth0 JWT token with comprehensive security checks.
 
@@ -192,9 +190,7 @@ class Auth0Verifier:
                     detail="Token issued in the future",
                 )
 
-    def _validate_scopes(
-        self, payload: dict[str, Any], required_scopes: list[str]
-    ) -> None:
+    def _validate_scopes(self, payload: dict[str, Any], required_scopes: list[str]) -> None:
         """
         Validate token has required scopes for authorization.
 

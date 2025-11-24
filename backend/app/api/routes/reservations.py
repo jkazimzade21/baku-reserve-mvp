@@ -67,9 +67,7 @@ async def create_reservation(
 
 
 @router.post("/reservations/{resid}/cancel", response_model=Reservation)
-async def soft_cancel_reservation(
-    resid: UUID, claims: dict[str, Any] = Depends(require_auth)
-):
+async def soft_cancel_reservation(resid: UUID, claims: dict[str, Any] = Depends(require_auth)):
     is_admin = _is_reservations_admin(claims)
     owner_id = _owner_id_from_claims(claims)
     ensure_reservation_owner(await DB.get_reservation(str(resid)), owner_id, is_admin)
@@ -80,9 +78,7 @@ async def soft_cancel_reservation(
 
 
 @router.post("/reservations/{resid}/confirm", response_model=Reservation)
-async def confirm_reservation(
-    resid: UUID, claims: dict[str, Any] = Depends(require_auth)
-):
+async def confirm_reservation(resid: UUID, claims: dict[str, Any] = Depends(require_auth)):
     is_admin = _is_reservations_admin(claims)
     owner_id = _owner_id_from_claims(claims)
     ensure_reservation_owner(await DB.get_reservation(str(resid)), owner_id, is_admin)
@@ -93,9 +89,7 @@ async def confirm_reservation(
 
 
 @router.delete("/reservations/{resid}", response_model=Reservation)
-async def hard_delete_reservation(
-    resid: UUID, claims: dict[str, Any] = Depends(require_auth)
-):
+async def hard_delete_reservation(resid: UUID, claims: dict[str, Any] = Depends(require_auth)):
     is_admin = _is_reservations_admin(claims)
     owner_id = _owner_id_from_claims(claims)
     ensure_reservation_owner(await DB.get_reservation(str(resid)), owner_id, is_admin)

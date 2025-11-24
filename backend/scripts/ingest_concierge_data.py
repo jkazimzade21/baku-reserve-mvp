@@ -56,9 +56,7 @@ def ingest_data():
             )
             if matches:
                 match_idx = json_name_map[matches[0]]
-                logger.info(
-                    f"Fuzzy match: '{csv_name}' -> '{restaurants[match_idx]['name']}'"
-                )
+                logger.info(f"Fuzzy match: '{csv_name}' -> '{restaurants[match_idx]['name']}'")
             else:
                 logger.warning(f"No match found for CSV restaurant: '{csv_name}'")
                 continue
@@ -80,13 +78,9 @@ def ingest_data():
         # Cuisine
         cuisines = []
         if pd.notna(row["cuisine_primary"]):
-            cuisines.extend(
-                [normalize_tag(t) for t in row["cuisine_primary"].split(";")]
-            )
+            cuisines.extend([normalize_tag(t) for t in row["cuisine_primary"].split(";")])
         if pd.notna(row["cuisine_secondary"]):
-            cuisines.extend(
-                [normalize_tag(t) for t in row["cuisine_secondary"].split(";")]
-            )
+            cuisines.extend([normalize_tag(t) for t in row["cuisine_secondary"].split(";")])
         new_tags.update(cuisines)
         structured["cuisine"] = cuisines
 

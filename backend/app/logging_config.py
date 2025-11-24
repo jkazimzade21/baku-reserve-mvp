@@ -37,9 +37,7 @@ def add_app_context(logger: Any, _method_name: str, event_dict: EventDict) -> Ev
     return event_dict
 
 
-def drop_color_message_key(
-    logger: Any, _method_name: str, event_dict: EventDict
-) -> EventDict:
+def drop_color_message_key(logger: Any, _method_name: str, event_dict: EventDict) -> EventDict:
     """
     Remove the 'color_message' key from the event dict.
 

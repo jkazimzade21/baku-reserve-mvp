@@ -72,17 +72,9 @@ async def legacy_prefix_upgrade(request: Request, call_next):  # type: ignore[ov
     path = request.scope.get("path", "")
     if not path:
         return await call_next(request)
-    if (
-        path.startswith(API_PREFIX)
-        or path.startswith("/docs")
-        or path.startswith("/openapi")
-    ):
+    if path.startswith(API_PREFIX) or path.startswith("/docs") or path.startswith("/openapi"):
         return await call_next(request)
-    if (
-        path.startswith("/health")
-        or path.startswith("/metrics")
-        or path.startswith("/config")
-    ):
+    if path.startswith("/health") or path.startswith("/metrics") or path.startswith("/config"):
         return await call_next(request)
     if not path.startswith(LEGACY_API_PREFIXES):
         return await call_next(request)
@@ -206,9 +198,7 @@ if settings.DEBUG and settings.DEV_ROUTES_ENABLED:
         return {"ok": True, "backups": backups, "count": len(backups)}
 
     @app.post("/dev/backup/restore/{backup_name}")
-    def dev_restore_backup(
-        backup_name: str, claims: dict[str, Any] = Depends(_dev_guard)
-    ):
+    def dev_restore_backup(backup_name: str, claims: dict[str, Any] = Depends(_dev_guard)):
         """Restore database from a backup."""
         try:
             backup_manager.restore_backup(backup_name)

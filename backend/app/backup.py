@@ -65,9 +65,7 @@ class BackupManager:
 
         if description:
             # Sanitize description for filename
-            safe_desc = "".join(
-                c if c.isalnum() or c in "-_" else "_" for c in description
-            )
+            safe_desc = "".join(c if c.isalnum() or c in "-_" else "_" for c in description)
             backup_name = f"{backup_name}_{safe_desc[:50]}"
 
         # Create backup directory for this backup
