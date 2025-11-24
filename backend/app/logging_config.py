@@ -13,7 +13,7 @@ from .settings import settings
 from .utils import request_id_ctx
 
 
-def add_request_id(logger: Any, method_name: str, event_dict: EventDict) -> EventDict:
+def add_request_id(logger: Any, _method_name: str, event_dict: EventDict) -> EventDict:
     """
     Add request ID to log event if available.
 
@@ -25,7 +25,7 @@ def add_request_id(logger: Any, method_name: str, event_dict: EventDict) -> Even
     return event_dict
 
 
-def add_app_context(logger: Any, method_name: str, event_dict: EventDict) -> EventDict:
+def add_app_context(logger: Any, _method_name: str, event_dict: EventDict) -> EventDict:
     """
     Add application context to log events.
 
@@ -37,7 +37,7 @@ def add_app_context(logger: Any, method_name: str, event_dict: EventDict) -> Eve
     return event_dict
 
 
-def drop_color_message_key(logger: Any, method_name: str, event_dict: EventDict) -> EventDict:
+def drop_color_message_key(logger: Any, _method_name: str, event_dict: EventDict) -> EventDict:
     """
     Remove the 'color_message' key from the event dict.
 

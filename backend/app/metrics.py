@@ -18,29 +18,29 @@ try:  # pragma: no cover - exercised indirectly via import side effects
 except ModuleNotFoundError:  # pragma: no cover - fallback when dependency missing
     CONTENT_TYPE_LATEST = "text/plain; version=0.0.4; charset=utf-8"
 
-    def generate_latest(*args, **kwargs):  # type: ignore[no-redef]
+    def generate_latest(*_args, **_kwargs):  # type: ignore[no-redef]
         return b""
 
     class _NoopMetric:
-        def __init__(self, *args, **kwargs):
+        def __init__(self, *_args, **_kwargs):
             pass
 
-        def labels(self, *args, **kwargs):
+        def labels(self, *_args, **_kwargs):
             return self
 
-        def inc(self, *args, **kwargs):
+        def inc(self, *_args, **_kwargs):
             return self
 
-        def observe(self, *args, **kwargs):
+        def observe(self, *_args, **_kwargs):
             return self
 
-        def set(self, *args, **kwargs):
+        def set(self, *_args, **_kwargs):
             return self
 
-        def dec(self, *args, **kwargs):
+        def dec(self, *_args, **_kwargs):
             return self
 
-        def info(self, *args, **kwargs):
+        def info(self, *_args, **_kwargs):
             return self
 
     class Counter(_NoopMetric):  # type: ignore[no-redef]
