@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import time
-from typing import Annotated, Any, Optional
 
 import httpx
 import jwt
@@ -61,7 +60,6 @@ class Auth0Verifier:
 
         Args:
             token: JWT token string
-            required_scopes: Optional list of required scopes for authorization
 
         Returns:
             Decoded token payload
