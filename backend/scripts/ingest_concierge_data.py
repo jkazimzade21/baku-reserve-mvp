@@ -28,6 +28,12 @@ def ingest_data():
     with open(JSON_PATH) as f:
         restaurants = json.load(f)
 
+    if not CSV_PATH.exists():
+        logger.warning(
+            "CSV source %s missing; skipping concierge tag ingestion (no changes applied)", CSV_PATH
+        )
+        return
+
     logger.info(f"Loading CSV from {CSV_PATH}")
     df = pd.read_csv(CSV_PATH)
 

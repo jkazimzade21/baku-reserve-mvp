@@ -8,6 +8,7 @@
 ## Dev environment tips
 - Backend: `python3.11 -m venv .venv && source .venv/bin/activate && pip install -r backend/requirements.txt`, then `./scripts/dev_backend.sh` (hot reload on :8000). Data dir: `~/.baku-reserve-data`.
 - Mobile: `npm install`, then `EXPO_PUBLIC_API_BASE=http://localhost:8000 ./scripts/dev_mobile.sh` to start Metro/Expo.
+- Raw photos now live under `photos/IGPics/<slug>/1.jpg…`. Processed app assets stay in `mobile/src/assets/restaurants/`.
 - Sync seeds after edits:  
   ```bash
   python3 - <<'PY'
