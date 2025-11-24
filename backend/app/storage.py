@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
+from collections.abc import Callable
 from datetime import UTC, date, datetime, time, timedelta
 from pathlib import Path
 from shutil import copy2
@@ -249,9 +250,12 @@ class Database:
             self._tables_cache[rid] = table_entries
             self._table_lookup_cache[rid] = {str(t.get("id")): t for t, _ in table_entries}
 
-        try:
-            # hydrate review aggregates on startup
-            stats = asyncio.run(self._load_review_stats())
+        self._schedule_review_hydration()
+
+    def _schedule_review_hydration(self) -> None:
+        """Hydrate review aggregates without blocking startup."""
+
+        def _apply(stats: dict[str, dict[str, Any]]) -> None:
             for rid, payload in stats.items():
                 if rid in self.restaurants:
                     self.restaurants[rid]["rating"] = payload["average_rating"]
@@ -260,6 +264,24 @@ class Database:
                     if summary["id"] == rid:
                         summary["rating"] = payload["average_rating"]
                         summary["reviews_count"] = payload["count"]
+
+        try:
+            loop = asyncio.get_running_loop()
+        except RuntimeError:
+            try:
+                stats = asyncio.run(self._load_review_stats())
+                _apply(stats)
+            except Exception:
+                logger.exception("Failed to hydrate review aggregates; continuing without stats")
+        else:
+            loop.create_task(self._load_and_apply_review_stats(_apply))
+
+    async def _load_and_apply_review_stats(
+        self, apply_fn: Callable[[dict[str, dict[str, Any]]], None]
+    ) -> None:
+        try:
+            stats = await self._load_review_stats()
+            apply_fn(stats)
         except Exception:
             logger.exception("Failed to hydrate review aggregates; continuing without stats")
 
