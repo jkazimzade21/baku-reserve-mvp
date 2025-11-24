@@ -20,7 +20,7 @@ from jwt.algorithms import RSAAlgorithm
 from .settings import settings
 
 security = HTTPBearer(auto_error=False)
-AuthCredentials = Annotated[Optional[HTTPAuthorizationCredentials], Depends(security)]
+AuthCredentials = Annotated[HTTPAuthorizationCredentials | None, Depends(security)]
 
 
 class Auth0Verifier:
