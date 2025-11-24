@@ -33,7 +33,11 @@ const FALLBACK_PHONE = '+994 (12) 555 2025';
 
 const buildMockDetail = (summary: RestaurantSummary): RestaurantDetail => {
   const instagramHandle = summary.instagram ?? (summary.slug ? `https://instagram.com/${summary.slug}` : null);
-  const menuUrl = summary.slug ? `https://bakureserve.com/menus/${summary.slug}` : null;
+  const menuUrl =
+    // Prefer a menu URL if present on the summary (available in bundled seed)
+    (summary as any).menu_url ??
+    // fallback to slug-based placeholder (may 404, but keeps type stable)
+    (summary.slug ? `https://bakureserve.com/menus/${summary.slug}` : null);
   return {
     ...summary,
     city: summary.city ?? 'Baku',
