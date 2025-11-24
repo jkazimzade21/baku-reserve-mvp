@@ -76,11 +76,6 @@ pull the same curated imagery.
   and `RATE_LIMIT_WINDOW_SECONDS` in `.env` (defaults are 300 requests per minute)
   or set `RATE_LIMIT_ENABLED=false` if you need to disable it for isolated testing.
 
-### Routing & ETA
-
-- Live ETA, GPS/location sharing, and external routing providers have been removed.
-  The Prep Notify flow now operates without any map integrations.
-
 ### Mobile (Expo / React Native)
 
 ```bash

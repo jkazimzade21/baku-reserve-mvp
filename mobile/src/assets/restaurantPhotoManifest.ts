@@ -17,9 +17,29 @@ const pendingBundle = (): RestaurantAssetBundle => ({
   pending: true,
 });
 
-export const PENDING_PHOTO_SLUGS = new Set<string>([
+export const PENDING_PHOTO_SLUGS = new Set<string>([  'anadolu-restaurant-catering',
+  'araz-terrace',
+  'cafecity-28-mall',
+  'cafecity-five',
+  'cafecity-fountain',
+  'cafecity-ganjlik',
+  'coffee-space-baku',
+  'fisincan-cafe',
+  'green-garden-145',
+  'jazz-baku',
   'la-maison-patisserie-cafe',
+  'la-quzu',
+  'malacannes-145',
+  'metropol-145',
+  'nergiz-restaurant',
+  'passage-145',
+  'pendir-corek',
   'people-livebar',
+  'pivnaya-apteka',
+  'qala-divari',
+  'salam-baku',
+  'terrace-145',
+  'the-tea-lounge',
 ]);
 
 export const restaurantPhotoManifest: Record<string, RestaurantAssetBundle> = {
@@ -92,6 +112,13 @@ export const restaurantPhotoManifest: Record<string, RestaurantAssetBundle> = {
     require('./restaurants/chinar/3.webp'),
     require('./restaurants/chinar/4.webp'),
     require('./restaurants/chinar/5.webp'),
+  ]),
+  'dar-es-salaam': bundle(require('./restaurants/dar-es-salaam/1.webp'), [
+    require('./restaurants/dar-es-salaam/1.webp'),
+    require('./restaurants/dar-es-salaam/2.webp'),
+    require('./restaurants/dar-es-salaam/3.webp'),
+    require('./restaurants/dar-es-salaam/4.webp'),
+    require('./restaurants/dar-es-salaam/5.webp'),
   ]),
   'dolma': bundle(require('./restaurants/dolma/1.webp'), [
     require('./restaurants/dolma/1.webp'),

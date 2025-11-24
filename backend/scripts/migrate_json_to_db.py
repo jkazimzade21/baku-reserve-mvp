@@ -48,14 +48,7 @@ def main() -> None:
                 guest_name=str(row.get("guest_name", "")),
                 guest_phone=row.get("guest_phone"),
                 status=row.get("status", "booked"),
-                arrival_intent=row.get("arrival_intent") or {},
                 owner_id=row.get("owner_id"),
-                prep_eta_minutes=row.get("prep_eta_minutes"),
-                prep_scope=row.get("prep_scope"),
-                prep_request_time=row.get("prep_request_time"),
-                prep_items=row.get("prep_items"),
-                prep_status=row.get("prep_status"),
-                prep_policy=row.get("prep_policy"),
             )
             session.add(record)
             inserted += 1

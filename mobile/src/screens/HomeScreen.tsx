@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { Image, Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
+import * as Haptics from 'expo-haptics';
 import HorizontalRestaurantRow from '../components/HorizontalRestaurantRow';
 import { colors, radius, spacing } from '../config/theme';
 import { useRestaurantDirectory } from '../contexts/RestaurantDirectoryContext';
@@ -12,6 +13,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { MainTabParamList, RootStackParamList } from '../types/navigation';
 import type { RestaurantSummary } from '../api';
 import Surface from '../components/Surface';
+import { track } from '../utils/analytics';
 
  type Props = CompositeScreenProps<
   BottomTabScreenProps<MainTabParamList, 'Discover'>,
@@ -37,6 +39,12 @@ export default function HomeScreen({ navigation }: Props) {
       source: 'search',
       query: '',
     });
+  }, [navigation]);
+
+  const handleConcierge = useCallback(() => {
+    Haptics.selectionAsync().catch(() => {});
+    track('concierge_open', { source: 'home_link' });
+    navigation.navigate('Concierge');
   }, [navigation]);
 
   const cards = useMemo(() => {
@@ -89,6 +97,20 @@ export default function HomeScreen({ navigation }: Props) {
         >
           <Feather name="search" size={18} color={colors.muted} />
           <Text style={styles.searchPlaceholder}>Search restaurants, cuisines, vibes…</Text>
+        </Pressable>
+
+        <Pressable
+          style={({ pressed }) => [styles.conciergeCard, pressed && styles.cardPressed]}
+          onPress={handleConcierge}
+        >
+          <View style={styles.conciergeIconWrap}>
+          <Feather name="star" size={18} color={colors.primaryStrong} />
+          </View>
+          <View style={styles.conciergeCopy}>
+            <Text style={styles.conciergeTitle}>Need ideas? Ask Concierge</Text>
+            <Text style={styles.conciergeSubtitle}>Describe a vibe, budget, or group size and get 3 picks.</Text>
+          </View>
+          <Feather name="arrow-up-right" size={18} color={colors.text} />
         </Pressable>
 
         <HorizontalRestaurantRow
@@ -162,6 +184,40 @@ const styles = StyleSheet.create({
   searchPlaceholder: {
     color: colors.muted,
     fontSize: 15,
+  },
+  conciergeCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
+    borderRadius: radius.lg,
+    backgroundColor: colors.card,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  conciergeIconWrap: {
+    width: 40,
+    height: 40,
+    borderRadius: radius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  conciergeCopy: {
+    flex: 1,
+    gap: spacing.xs / 2,
+  },
+  conciergeTitle: {
+    fontWeight: '700',
+    fontSize: 15,
+    color: colors.text,
+  },
+  conciergeSubtitle: {
+    color: colors.muted,
+    fontSize: 12,
   },
   sectionHeaderRow: {
     flexDirection: 'row',

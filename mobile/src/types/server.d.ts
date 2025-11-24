@@ -17,7 +17,8 @@ export interface RestaurantListItem {
   tag_groups?: Record<string, string[]> | null;
   average_spend?: string | null;
   rating?: number | null;
-  reviews_count?: number | null;
+  reviews_count?: number;
+  instagram?: string | null;
 }
 
 export interface Restaurant {
@@ -49,7 +50,7 @@ export interface Restaurant {
   experiences?: string[];
   areas?: Area[];
   rating?: number | null;
-  reviews_count?: number | null;
+  reviews_count?: number;
 }
 
 export interface Area {
@@ -86,14 +87,4 @@ export interface ReservationCreate {
   guest_name: string;
   guest_phone?: string | null;
   table_id?: string | null;
-}
-
-export interface Review {
-  id: string;
-  reservation_id: string;
-  restaurant_id: string;
-  rating: number;
-  comment?: string | null;
-  guest_name?: string | null;
-  created_at?: string | null;
 }

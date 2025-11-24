@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 import time
-from typing import Annotated, Any
+from typing import Annotated, Any, Optional
 
 import httpx
 import jwt
@@ -20,7 +20,7 @@ from jwt.algorithms import RSAAlgorithm
 from .settings import settings
 
 security = HTTPBearer(auto_error=False)
-AuthCredentials = Annotated[HTTPAuthorizationCredentials | None, Depends(security)]
+AuthCredentials = Annotated[Optional[HTTPAuthorizationCredentials], Depends(security)]
 
 
 class Auth0Verifier:

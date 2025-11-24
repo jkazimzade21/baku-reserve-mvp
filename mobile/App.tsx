@@ -17,6 +17,7 @@ import RestaurantScreen from './src/screens/RestaurantScreen';
 import BookScreen from './src/screens/BookScreen';
 import AuthScreen from './src/screens/AuthScreen';
 import RestaurantCollectionScreen from './src/screens/RestaurantCollectionScreen';
+import ConciergeScreen from './src/screens/ConciergeScreen';
 import { colors } from './src/config/theme';
 import { MainTabParamList, RootStackParamList } from './src/types/navigation';
 import { useWarmRestaurantPhotoCovers } from './src/hooks/useWarmRestaurantPhotoCovers';
@@ -119,6 +120,7 @@ function RootNavigator() {
         <Stack.Screen name="Restaurant" component={RestaurantScreen} options={{ title: 'Restaurant' }} />
         <Stack.Screen name="RestaurantCollection" component={RestaurantCollectionScreen} options={{ title: 'Collections' }} />
         <Stack.Screen name="Book" component={BookScreen} options={{ title: 'Book a Table' }} />
+        <Stack.Screen name="Concierge" component={ConciergeScreen} options={{ title: 'Concierge' }} />
         <Stack.Screen
           name="Auth"
           component={AuthScreen}

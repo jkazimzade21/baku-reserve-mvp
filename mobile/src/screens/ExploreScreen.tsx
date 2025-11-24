@@ -1,10 +1,12 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useCallback } from 'react';
 import { RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useScrollToTop } from '@react-navigation/native';
+import * as Haptics from 'expo-haptics';
 
 import HorizontalRestaurantRow from '../components/HorizontalRestaurantRow';
 import CategoryGrid from '../components/CategoryGrid';
+import ConciergeEntryCard from '../components/ConciergeEntryCard';
 import { colors, spacing } from '../config/theme';
 import { useRestaurantDirectory } from '../contexts/RestaurantDirectoryContext';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
@@ -12,6 +14,8 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { CompositeScreenProps } from '@react-navigation/native';
 import type { MainTabParamList, RootStackParamList } from '../types/navigation';
 import type { RestaurantSummary } from '../api';
+import { CONCIERGE_PROMPTS } from '../utils/concierge';
+import { track } from '../utils/analytics';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<MainTabParamList, 'Explore'>,
@@ -31,6 +35,15 @@ export default function ExploreScreen({ navigation }: Props) {
   const scrollRef = useRef<ScrollView>(null);
   useScrollToTop(scrollRef);
   const { restaurants, refreshing, reload } = useRestaurantDirectory();
+
+  const handleOpenConcierge = useCallback(
+    (promptId?: string) => {
+      Haptics.selectionAsync().catch(() => {});
+      track('concierge_open', { source: 'explore_entry', prompt: promptId });
+      navigation.navigate('Concierge', promptId ? { promptId } : undefined);
+    },
+    [navigation],
+  );
 
   const shuffled = useMemo<RestaurantSummary[]>(() => shuffleRestaurants(restaurants), [restaurants]);
 
@@ -80,6 +93,14 @@ export default function ExploreScreen({ navigation }: Props) {
         contentContainerStyle={styles.container}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => reload({ refreshing: true })} tintColor={colors.primaryStrong} />}
       >
+        <View style={styles.section}>
+          <ConciergeEntryCard
+            prompts={CONCIERGE_PROMPTS}
+            onOpen={() => handleOpenConcierge()}
+            onSelectPrompt={(prompt) => handleOpenConcierge(prompt.id)}
+          />
+        </View>
+
         <View style={styles.section}>
           <Text style={styles.pageTitle}>Explore Baku</Text>
           <Text style={styles.pageSubtitle}>Find the right place by vibe, cuisine, or rating.</Text>

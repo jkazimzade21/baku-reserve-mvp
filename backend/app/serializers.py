@@ -52,6 +52,7 @@ def restaurant_to_list_item(r: Any, request: Request | None = None) -> dict[str,
         "average_spend": get_attr(r, "average_spend"),
         "rating": float(get_attr(r, "rating", 0.0) or 0.0),
         "reviews_count": int(get_attr(r, "reviews_count", 0) or 0),
+        "instagram": get_attr(r, "instagram"),
     }
 
 

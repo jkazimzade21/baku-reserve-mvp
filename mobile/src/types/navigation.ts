@@ -20,4 +20,5 @@ export type RootStackParamList = {
     query?: string;
     restaurantIds?: string[];
   };
+  Concierge: { promptId?: string; initialText?: string } | undefined;
 };

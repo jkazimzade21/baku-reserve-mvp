@@ -32,7 +32,7 @@ type ActionItem = { key: string; label: string; onPress: () => void };
 const FALLBACK_PHONE = '+994 (12) 555 2025';
 
 const buildMockDetail = (summary: RestaurantSummary): RestaurantDetail => {
-  const instagramHandle = summary.slug ? `https://instagram.com/${summary.slug}` : null;
+  const instagramHandle = summary.instagram ?? (summary.slug ? `https://instagram.com/${summary.slug}` : null);
   const menuUrl = summary.slug ? `https://bakureserve.com/menus/${summary.slug}` : null;
   return {
     ...summary,
@@ -113,7 +113,7 @@ export default function RestaurantScreen({ route, navigation }: Props) {
 
   const handleBook = () => {
     if (!data) return;
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => { });
     navigation.navigate('Book', { id: data.id, name: data.name });
   };
 
@@ -168,26 +168,6 @@ export default function RestaurantScreen({ route, navigation }: Props) {
     }
   };
 
-  const handleDirections = () => {
-    if (data?.latitude && data?.longitude) {
-      const { latitude, longitude } = data;
-      const encodedLabel = encodeURIComponent(data.name);
-      const url = Platform.select({
-        ios: `maps://?q=${encodedLabel}&ll=${latitude},${longitude}`,
-        android: `geo:${latitude},${longitude}?q=${latitude},${longitude}(${encodedLabel})`,
-        default: `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=16/${latitude}/${longitude}`,
-      });
-      Linking.openURL(url ?? '').catch(() => Alert.alert('Unable to open maps.'));
-      return;
-    }
-    if (data?.address) {
-      const url = `https://www.openstreetmap.org/search?query=${encodeURIComponent(data.address)}`;
-      Linking.openURL(url).catch(() => Alert.alert('Unable to open maps.'));
-      return;
-    }
-    Alert.alert('No address provided', 'This venue has not shared a map location yet.');
-  };
-
   if (loading && !data) {
     return (
       <SafeAreaView style={styles.center}>
@@ -214,9 +194,6 @@ export default function RestaurantScreen({ route, navigation }: Props) {
         : [];
 
   const quickActionItems = [
-    (data.latitude && data.longitude) || data.address
-      ? { key: 'directions', label: 'Directions', onPress: handleDirections }
-      : null,
     data.phone ? { key: 'call', label: 'Call', onPress: handleCall } : null,
     data.whatsapp ? { key: 'whatsapp', label: 'WhatsApp', onPress: handleWhatsapp } : null,
     data.instagram ? { key: 'instagram', label: 'Instagram', onPress: handleInstagram } : null,
@@ -230,7 +207,7 @@ export default function RestaurantScreen({ route, navigation }: Props) {
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-          <Surface tone="overlay" padding="none" style={styles.heroCard} testID="restaurant-hero-card">
+        <Surface tone="overlay" padding="none" style={styles.heroCard} testID="restaurant-hero-card">
           {isPendingPhotos ? (
             <View style={styles.pendingPhotos}>
               <Text style={styles.pendingTitle}>Photos coming soon</Text>

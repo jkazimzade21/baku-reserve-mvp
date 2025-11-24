@@ -100,7 +100,7 @@ module.exports = ({ config } = {}) => {
 
   mergedExtra.eas = {
     ...(mergedExtra.eas ?? {}),
-    projectId: 'c7078790-3e05-4283-82a3-b1911b4a16ea',
+    projectId: '0795e859-7529-4b25-940f-b12fea5a4531',
   };
 
   if (envApiUrl && envApiUrl.trim().length) {

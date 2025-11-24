@@ -41,6 +41,7 @@ class RestaurantListItem(BaseModel):
     average_spend: str | None = None
     rating: float | None = None
     reviews_count: int = 0
+    instagram: str | None = None
 
 
 class Restaurant(BaseModel):

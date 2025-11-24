@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "baku-reserve-mobile",
-    "slug": "baku-reserve-mobile",
+    "name": "baku-reserve-mvp",
+    "slug": "baku-reserve-mvp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -15,7 +15,7 @@
     "scheme": "bakureserve",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.baku-reserve-mobile",
+      "bundleIdentifier": "com.jkazimzade.bakureserve",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -35,19 +35,35 @@
       "expo-dev-client",
       "expo-font",
       [
+        "expo-build-properties",
+        {
+          "ios": {
+            "newArchEnabled": false
+          },
+          "android": {
+            "newArchEnabled": false
+          }
+        }
+      ],
+      [
         "sentry-expo",
         {
           "organization": "jamil-kazimzade",
-          "project": "baku-reserve-mobile"
+          "project": "baku-reserve-mvp"
         }
       ]
     ],
     "extra": {
-      "apiUrl": null,
-      "auth0Domain": null,
-      "auth0ClientId": null,
-      "auth0Audience": null,
-      "auth0Realm": null
+      "apiUrl": "http://192.168.0.151:8000",
+      "auth0Domain": "dev-qsgi082lyfxd6efi.eu.auth0.com",
+      "auth0ClientId": "PBkuLbGBQ1inG03lnNfja1qhdTNPoFcy",
+      "auth0Audience": "https://api.bakureserve.az",
+      "auth0Realm": "Username-Password-Authentication",
+      "conciergeMode": "ai",
+      "sentryDsn": "https://3064ef3ffd6731fbe3d280b8b0a4d026@o4510277399543808.ingest.us.sentry.io/4510347154554880",
+      "eas": {
+        "projectId": "0795e859-7529-4b25-940f-b12fea5a4531"
+      }
     }
   }
 }

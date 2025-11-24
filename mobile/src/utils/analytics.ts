@@ -3,6 +3,8 @@ import type { FeatureFlags } from '../api';
 export type AnalyticsEvent =
   | 'home_search_tap'
   | 'concierge_open'
+  | 'concierge_suggest'
+  | 'concierge_book_intent'
   | 'section_view'
   | 'availability_signal_view';
 
