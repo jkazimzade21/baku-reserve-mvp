@@ -5,7 +5,7 @@ import { Feather } from '@expo/vector-icons';
 import { colors, radius, spacing, shadow } from '../config/theme';
 import { RestaurantSummary } from '../api';
 import { resolveRestaurantPhotos, defaultFallbackSource } from '../utils/photoSources';
-import { formatPriceLabel, formatReviews, getPrimaryCuisine, hashRating } from '../utils/restaurantMeta';
+import { formatLocation, formatPriceLabel, formatReviews, getPrimaryCuisine, hashRating } from '../utils/restaurantMeta';
 import SectionHeading from './SectionHeading';
 
 type Props = {
@@ -66,7 +66,7 @@ export default function HorizontalRestaurantRow({
           const { rating, reviews } = hashRating(item.id || item.slug || 'restaurant');
           const priceLabel = formatPriceLabel(item.price_level) || '$$';
           const displayCuisine = getPrimaryCuisine(item);
-          const location = item.neighborhood || item.city || 'Baku';
+          const location = formatLocation(item.neighborhood || item.city) || 'Baku';
 
           return (
             <Pressable
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
   },
   cardBody: {
     paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
+    paddingVertical: spacing.xs,
     gap: spacing.xs,
   },
   name: {

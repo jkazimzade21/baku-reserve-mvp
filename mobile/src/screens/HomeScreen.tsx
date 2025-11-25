@@ -22,6 +22,7 @@ import type { PromptLike } from '../components/ConciergeEntryCard';
 import { colors, radius, shadow, spacing } from '../config/theme';
 import { useRestaurantDirectory } from '../contexts/RestaurantDirectoryContext';
 import { defaultFallbackSource, resolveRestaurantPhotos } from '../utils/photoSources';
+import { formatLocation } from '../utils/restaurantMeta';
 import {
   getMockMostBooked,
   getMockContinueExploring,
@@ -133,11 +134,14 @@ export default function HomeScreen({ navigation }: Props) {
         {data.map((restaurant) => {
           const photoBundle = resolveRestaurantPhotos(restaurant);
           const meta =
-            restaurant.neighborhood ||
-            restaurant.city ||
-            (Array.isArray((restaurant.tags as any)?.location) && (restaurant.tags as any).location?.[0]) ||
-            (restaurant.cuisine ?? [])[0] ||
-            'Baku';
+            formatLocation(
+              restaurant.neighborhood ||
+                restaurant.city ||
+                (Array.isArray((restaurant.tags as any)?.location)
+                  ? (restaurant.tags as any).location?.[0]
+                  : undefined) ||
+                (restaurant.cuisine ?? [])[0],
+            ) || 'Baku';
           return (
             <Pressable
               key={restaurant.id}

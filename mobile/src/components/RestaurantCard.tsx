@@ -5,7 +5,7 @@ import { Feather } from '@expo/vector-icons';
 import { colors, radius, shadow, spacing } from '../config/theme';
 import type { RestaurantSummary } from '../api';
 import { resolveRestaurantPhotos, defaultFallbackSource } from '../utils/photoSources';
-import { formatPriceLabel, formatReviews, getPrimaryCuisine, hashRating } from '../utils/restaurantMeta';
+import { formatLocation, formatPriceLabel, formatReviews, getPrimaryCuisine, hashRating } from '../utils/restaurantMeta';
 
 type Props = {
   item: RestaurantSummary;
@@ -15,7 +15,8 @@ type Props = {
 export default function RestaurantCard({ item, onPress }: Props) {
   const displayCuisine = getPrimaryCuisine(item);
   const priceLabel = formatPriceLabel(item.price_level);
-  const location = item.neighborhood || item.city || 'Baku';
+  const rawLocation = item.neighborhood || item.city || 'Baku';
+  const location = formatLocation(rawLocation) || 'Baku';
   const { rating, reviews } = hashRating(item.id || item.slug || 'restaurant');
   const bundle = resolveRestaurantPhotos(item);
   const isPendingPhotos = bundle.pending;

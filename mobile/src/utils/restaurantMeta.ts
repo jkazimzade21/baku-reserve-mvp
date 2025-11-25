@@ -29,6 +29,19 @@ export const formatPriceLabel = (price?: string | null) => {
   return price;
 };
 
+export const formatLocation = (value?: string | null) => {
+  if (!value) return null;
+  const cleaned = value
+    .replace(/[-–—]+/g, ' ') // replace dashes with spaces
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (!cleaned) return null;
+  return cleaned
+    .split(' ')
+    .map((part) => (part ? part.charAt(0).toUpperCase() + part.slice(1) : ''))
+    .join(' ');
+};
+
 export const formatCuisine = (value?: string | null) => {
   if (!value) return null;
   return value
