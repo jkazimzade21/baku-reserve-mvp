@@ -8,6 +8,7 @@ DEFAULT_IP="$(ipconfig getifaddr en0 2>/dev/null || ipconfig getifaddr en1 2>/de
 IP="${EXPO_HOST_IP:-$DEFAULT_IP}"
 API_PORT="${API_PORT:-8000}"
 PORT="${EXPO_DEV_PORT:-8081}"
+USE_TUNNEL="${EXPO_USE_TUNNEL:-0}"
 
 # Auth0 defaults for local dev; override via environment when needed
 export EXPO_PUBLIC_AUTH0_DOMAIN="${EXPO_PUBLIC_AUTH0_DOMAIN:-dev-qsgi082lyfxd6efi.eu.auth0.com}"
@@ -47,5 +48,11 @@ EXPO_PUBLIC_SENTRY_DSN=$EXPO_PUBLIC_SENTRY_DSN
 EOF
 
 echo "[dev-mobile] Using API at $EXPO_PUBLIC_API_BASE"
-echo "[dev-mobile] Starting Expo Dev Client on port $PORT"
-exec npx expo start --dev-client --port "$PORT" "$@"
+echo "[dev-mobile] Starting Expo Dev Client on port $PORT${USE_TUNNEL:+ (tunnel=$USE_TUNNEL)}"
+
+flags=(--dev-client --port "$PORT")
+if [ "$USE_TUNNEL" != "0" ]; then
+  flags+=(--tunnel)
+fi
+
+exec npx expo start "${flags[@]}" "$@"

@@ -54,7 +54,7 @@
       ]
     ],
     "extra": {
-      "apiUrl": "http://192.168.0.151:8000",
+      "apiUrl": "https://api.bakureserve.az",
       "auth0Domain": "dev-qsgi082lyfxd6efi.eu.auth0.com",
       "auth0ClientId": "PBkuLbGBQ1inG03lnNfja1qhdTNPoFcy",
       "auth0Audience": "https://api.bakureserve.az",

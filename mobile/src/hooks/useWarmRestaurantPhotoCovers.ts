@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Asset } from 'expo-asset';
+import { InteractionManager, Platform } from 'react-native';
 
 import { restaurantPhotoManifest } from '../assets/restaurantPhotoManifest';
 
@@ -11,21 +12,28 @@ const coverModuleIds: number[] = Array.from(
   ),
 );
 
+// Keep warm-up lightweight for startup; loading every cover can stall low-memory devices.
+const WARM_LIMIT = 24;
+const warmSample = coverModuleIds.slice(0, WARM_LIMIT);
+
 let warmed = false;
 
 export function useWarmRestaurantPhotoCovers() {
   useEffect(() => {
-    if (warmed || coverModuleIds.length === 0) {
+    if (warmed || warmSample.length === 0 || Platform.OS === 'web') {
       return;
     }
     warmed = true;
-    (async () => {
-      try {
-        await Asset.loadAsync(coverModuleIds);
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.warn('[photos] Failed to warm restaurant covers', err);
-      }
-    })();
+    // Defer until after initial interactions so the home screen paints first.
+    InteractionManager.runAfterInteractions(() => {
+      setTimeout(async () => {
+        try {
+          await Asset.loadAsync(warmSample);
+        } catch (err) {
+          // eslint-disable-next-line no-console
+          console.warn('[photos] Failed to warm restaurant covers', err);
+        }
+      }, 10);
+    });
   }, []);
 }
