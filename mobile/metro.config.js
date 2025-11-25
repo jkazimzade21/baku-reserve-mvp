@@ -54,8 +54,8 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
 
   // react-native-gesture-handler GestureDetector on web
   // The path in the error is: .../node_modules/react-native-gesture-handler/lib/module/handlers/gestures/GestureDetector/index.js
-  const isRnghGestureDetector = origin.includes('react-native-gesture-handler') && 
-                                origin.includes('GestureDetector') && 
+  const isRnghGestureDetector = origin.includes('react-native-gesture-handler') &&
+                                origin.includes('GestureDetector') &&
                                 origin.endsWith('index.js');
 
   if (isRnghGestureDetector && moduleName === './useDetectorUpdater') {
