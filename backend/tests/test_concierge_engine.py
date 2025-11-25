@@ -1,4 +1,4 @@
-from backend.app.concierge import ConciergeEngine, extract_intent
+from app.concierge import ConciergeEngine, extract_intent
 
 
 def test_extract_intent_basic():

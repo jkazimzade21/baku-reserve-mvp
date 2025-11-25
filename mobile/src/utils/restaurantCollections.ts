@@ -3,8 +3,20 @@ import { filterByCategory } from '../constants/browseCategories';
 
 const FALLBACK_LIMIT = 6;
 
-const normalizedTags = (restaurant: RestaurantSummary) =>
-  (restaurant.tags ?? []).map((tag) => tag.toLowerCase());
+const normalizedTags = (restaurant: RestaurantSummary) => {
+  const tags = restaurant.tags;
+  if (!tags) return [];
+  if (Array.isArray(tags)) {
+    return tags.map((tag) => String(tag).toLowerCase());
+  }
+  if (typeof tags === 'object') {
+    return Object.values(tags)
+      .flat()
+      .filter((item): item is string => typeof item === 'string')
+      .map((tag) => tag.toLowerCase());
+  }
+  return [];
+};
 
 const priceRank = (price?: string | null) => {
   if (!price) return 0;

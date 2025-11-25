@@ -9,6 +9,7 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from sentry_sdk.integrations.fastapi import FastApiIntegration
 
+from .api.routes import concierge as concierge_routes
 from .api.routes import reservations as reservations_routes
 from .api.routes import restaurants as restaurants_routes
 from .api_v1 import v1_router
@@ -99,6 +100,7 @@ async def legacy_prefix_upgrade(request: Request, call_next):  # type: ignore[ov
 # Include v1 API router (versioned endpoints)
 app.include_router(restaurants_routes.router, prefix=API_PREFIX)
 app.include_router(reservations_routes.router, prefix=API_PREFIX)
+app.include_router(concierge_routes.router, prefix=API_PREFIX)
 app.include_router(v1_router)
 
 # Include UI router (admin/booking console)

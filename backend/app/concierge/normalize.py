@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import hashlib
 import re
-from typing import Any, Iterable
+from collections.abc import Iterable
+from typing import Any
 
 from .types import Intent, Venue
 
@@ -90,7 +91,9 @@ def _dedupe(seq: Iterable[str]) -> list[str]:
     return out
 
 
-def normalize_tags(raw: dict[str, Any], enriched_tags: dict[str, Any] | None = None) -> dict[str, list[str]]:
+def normalize_tags(
+    raw: dict[str, Any], enriched_tags: dict[str, Any] | None = None
+) -> dict[str, list[str]]:
     tags: dict[str, list[str]] = {}
     tag_groups: dict[str, Any] = raw.get("tag_groups") or raw.get("tags") or {}
     slug = str(raw.get("slug") or "").lower()

@@ -217,7 +217,7 @@ class Database:
             cover = r.get("cover_photo") or (r["photos"][0] if r.get("photos") else "")
             summary = {
                 "id": rid,
-                "name": r["name"],
+                "name": r.get("name") or r.get("name_en") or "Unknown",
                 "slug": r.get("slug"),
                 "cuisine": r.get("cuisine", []),
                 "city": r.get("city"),

@@ -56,13 +56,14 @@ const pickDisplayTag = (tags?: string[]) => {
 };
 
 export default function RestaurantCard({ item, onPress }: Props) {
-  const primaryCuisine = item.cuisine?.[0];
-  const extraCount = Math.max((item.cuisine?.length ?? 0) - 1, 0);
-  const displayTag = pickDisplayTag(item.tags);
+  const primaryCuisine = (Array.isArray(item.tags) ? item.tags?.[0] : item.tags?.cuisine?.[0]) ?? item.cuisine?.[0];
+  const extraCount = Math.max(((Array.isArray(item.tags) ? item.tags : item.tags?.cuisine) ?? item.cuisine ?? []).length - 1, 0);
+  const displayTag = pickDisplayTag((Array.isArray(item.tags) ? item.tags : (item.tags?.vibe ?? item.tags?.location)));
   const bundle = resolveRestaurantPhotos(item);
   const isPendingPhotos = bundle.pending;
   const hasCover = Boolean(bundle.cover);
   const coverSource = bundle.cover ?? defaultFallbackSource;
+  const displayName = item.name || 'Restaurant';
 
   return (
     <Pressable onPress={onPress} style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}>
@@ -75,11 +76,11 @@ export default function RestaurantCard({ item, onPress }: Props) {
         <Image source={coverSource} style={styles.cover} resizeMode="cover" />
       ) : (
         <View style={styles.coverFallback}>
-          <Text style={styles.coverFallbackText}>{item.name.slice(0, 1).toUpperCase()}</Text>
+          <Text style={styles.coverFallbackText}>{displayName.slice(0, 1).toUpperCase()}</Text>
         </View>
       )}
       <View style={styles.cardBody}>
-        <Text style={styles.title}>{item.name}</Text>
+        <Text style={styles.title}>{displayName}</Text>
         <View style={styles.metaRow}>
           {primaryCuisine ? <Text style={styles.meta}>{primaryCuisine}</Text> : null}
           {extraCount > 0 && <Text style={styles.badge}>+{extraCount}</Text>}

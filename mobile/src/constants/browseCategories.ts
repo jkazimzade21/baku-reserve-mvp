@@ -7,8 +7,19 @@ export type BrowseCategory = {
   helperText: string;
 };
 
-const normalize = (value?: string[] | null) =>
-  (value ?? []).map((entry) => entry.toLowerCase());
+const normalize = (value?: any) => {
+  if (!value) return [];
+  if (Array.isArray(value)) {
+    return value.map((entry) => String(entry).toLowerCase());
+  }
+  if (typeof value === 'object') {
+    return Object.values(value)
+      .flat()
+      .filter((item): item is string => typeof item === 'string')
+      .map((entry) => entry.toLowerCase());
+  }
+  return [];
+};
 
 const hasTag = (restaurant: RestaurantSummary, tags: string[]) => {
   const haystack = normalize(restaurant.tags);

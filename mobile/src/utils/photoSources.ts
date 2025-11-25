@@ -46,9 +46,14 @@ const dedupeSources = (sources: PhotoLike[]): ImageSourcePropType[] => {
   return output;
 };
 
-export const resolveRestaurantPhotos = (restaurant: WithPhotoFields): PhotoBundle => {
+export const resolveRestaurantPhotos = (restaurant: WithPhotoFields & { id?: string }): PhotoBundle => {
   const slug = restaurant.slug?.trim() ?? '';
-  const manifestEntry = slug ? restaurantPhotoManifest[slug] : undefined;
+  let manifestEntry = slug ? restaurantPhotoManifest[slug] : undefined;
+
+  if (!manifestEntry && restaurant.id) {
+    manifestEntry = restaurantPhotoManifest[restaurant.id];
+  }
+
   const isPending = Boolean(manifestEntry?.pending);
   const manifestCover = !isPending ? manifestEntry?.cover ?? null : null;
   const manifestGallery = !isPending ? manifestEntry?.gallery ?? [] : [];

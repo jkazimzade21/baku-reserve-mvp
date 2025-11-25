@@ -66,7 +66,7 @@ export default function HorizontalRestaurantRow({
             <Pressable
               key={item.id}
               style={styles.card}
-              onPress={() => onPressRestaurant(item.id, item.name)}
+              onPress={() => onPressRestaurant(item.id, item.name || 'Restaurant')}
             >
               <Image source={coverSource} style={styles.image} />
               <LinearGradient
@@ -76,7 +76,8 @@ export default function HorizontalRestaurantRow({
               <View style={styles.cardContent}>
                 <Text style={styles.name} numberOfLines={1}>{item.name}</Text>
                 <Text style={styles.meta} numberOfLines={1}>
-                  {(item.cuisine ?? []).slice(0, 2).join(' • ') || item.city || 'Baku'}
+                  {/* Handle both array tags and object tags */}
+                  {(Array.isArray(item.tags) ? item.tags : item.tags?.cuisine ?? item.cuisine ?? []).slice(0, 2).join(' • ') || item.city || 'Baku'}
                 </Text>
               </View>
             </Pressable>

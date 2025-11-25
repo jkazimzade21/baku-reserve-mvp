@@ -85,36 +85,38 @@ def build_corpus(force: bool = False) -> list[Venue]:
     venues: list[Venue] = []
     for item in raw_restaurants:
         tags = normalize_tags(item, enriched)
-        
+
         # Handle nested contact/links if present (starter111.txt format)
         contact = item.get("contact") or {}
         links = item.get("links") or {}
-        
+
         # Extract fields, falling back to top-level if not in nested dict
         address = contact.get("address") or item.get("address")
         phone_raw = contact.get("phone") or item.get("phone")
         website = contact.get("website") or item.get("website") or item.get("menu_url")
-        
+
         menu_url = links.get("menu") or item.get("menu_url")
         tripadvisor = links.get("tripadvisor") or item.get("tripadvisor")
-        
+
         venue = Venue(
             id=str(item.get("id") or item.get("slug") or len(venues)),
             name=item.get("name") or item.get("name_en") or "Unknown",
-            slug=item.get("slug") ,
-            name_az=item.get("name_az") ,
+            slug=item.get("slug"),
+            name_az=item.get("name_az"),
             address=address,
             phones=normalize_phone(phone_raw),
-            instagram=item.get("instagram") ,
+            instagram=item.get("instagram"),
             website=website,
             links={
                 "menu": menu_url,
                 "tripadvisor": tripadvisor,
-                "whatsapp": item.get("whatsapp") ,
+                "whatsapp": item.get("whatsapp"),
             },
             tags=tags,
-            price_level=item.get("price_level") ,
-            price_band=price_to_band(item.get("price_level") or item.get("tags", {}).get("price", ["$$"])[0]), # parsing price tag
+            price_level=item.get("price_level"),
+            price_band=price_to_band(
+                item.get("price_level") or item.get("tags", {}).get("price", ["$$"])[0]
+            ),  # parsing price tag
             raw=item,
         )
         venue.summary = build_summary(venue)
@@ -133,7 +135,9 @@ def build_corpus(force: bool = False) -> list[Venue]:
     return venues
 
 
-def load_index(embedder: EmbeddingBackend | None = None, allow_rebuild: bool = True) -> ConciergeIndex:
+def load_index(
+    embedder: EmbeddingBackend | None = None, allow_rebuild: bool = True
+) -> ConciergeIndex:
     embedder = embedder or get_default_embedder()
     if DEFAULT_INDEX_PATH.exists():
         try:
@@ -258,12 +262,12 @@ def extract_intent(query: str) -> Intent:
         if label in lowered:
             intent.time_of_day = label
             break
-            
+
     # Identify Hard Constraints (Heuristic)
     # In a real AI system, the LLM would extract these, but for the "Retrieval" phase we use heuristics.
     if "no alcohol" in lowered or "halal" in lowered:
         intent.hard_constraints.append("no_alcohol")
-    
+
     if "kid" in lowered or "children" in lowered or "family" in lowered:
         # If explicitly asked for family stuff, treat as important preference, maybe not HARD hard unless "only" is used
         intent.soft_constraints.append("family_friendly")
@@ -285,7 +289,7 @@ def _tag_matches(venue: Venue, keywords: list[str], tag_group: str) -> int:
         # Normalize tag values to human readable or key format for comparison
         # The venue tags are already normalized in build_corpus but let's be safe
         if any(kw in str(v).lower() for v in values):
-             matches += 1
+            matches += 1
     return matches
 
 
@@ -300,7 +304,7 @@ def calculate_weighted_score(result: SearchResult, intent: Intent) -> SearchResu
           + w_occasion * occasion_match
           + w_amenities * amenity_score
     """
-    
+
     # Weights
     W_SIM = 0.4
     W_CUISINE = 0.15
@@ -309,10 +313,10 @@ def calculate_weighted_score(result: SearchResult, intent: Intent) -> SearchResu
     W_VIBE = 0.1
     W_OCCASION = 0.05
     W_AMENITIES = 0.05
-    
+
     # Base similarity score (already cosine 0-1)
     sim_score = max(0, result.score)
-    
+
     # 1. Cuisine Match
     cuisine_score = 0.0
     if intent.cuisines:
@@ -320,7 +324,7 @@ def calculate_weighted_score(result: SearchResult, intent: Intent) -> SearchResu
         if matches > 0:
             cuisine_score = 1.0
         # We could implement partial matching here if we had a hierarchy
-    
+
     # 2. Area Match
     area_score = 0.0
     if intent.locations:
@@ -328,27 +332,33 @@ def calculate_weighted_score(result: SearchResult, intent: Intent) -> SearchResu
         if matches > 0:
             area_score = 1.0
         # Note: Proximity logic would go here if we had lat/lon and distance calc
-        
+
     # 3. Price Match
     price_score = 0.0
-    v_band = result.venue.price_band or 2 # Default to mid if unknown
-    if intent.price_range_label == "budget": # max 2
-        if v_band <= 2: price_score = 1.0
-        else: price_score = -0.5 # Penalty for expensive
-    elif intent.price_range_label == "high": # min 3
-        if v_band >= 3: price_score = 1.0
-        else: price_score = 0.2 # Cheaper is okay-ish but not requested
-    else: # mid or unspecified
-        if 1 <= v_band <= 4: price_score = 1.0 # Generally everything is okay if not specified
-        if intent.price_max and v_band > intent.price_max: price_score = -0.2
+    v_band = result.venue.price_band or 2  # Default to mid if unknown
+    if intent.price_range_label == "budget":  # max 2
+        if v_band <= 2:
+            price_score = 1.0
+        else:
+            price_score = -0.5  # Penalty for expensive
+    elif intent.price_range_label == "high":  # min 3
+        if v_band >= 3:
+            price_score = 1.0
+        else:
+            price_score = 0.2  # Cheaper is okay-ish but not requested
+    else:  # mid or unspecified
+        if 1 <= v_band <= 4:
+            price_score = 1.0  # Generally everything is okay if not specified
+        if intent.price_max and v_band > intent.price_max:
+            price_score = -0.2
 
     # 4. Vibe Match
     vibe_score = 0.0
     if intent.vibe:
         matches = _tag_matches(result.venue, intent.vibe, "vibe")
         if matches > 0:
-            vibe_score = min(1.0, matches * 0.5) # 2 matches = 1.0
-            
+            vibe_score = min(1.0, matches * 0.5)  # 2 matches = 1.0
+
     # 5. Occasion Match
     occasion_score = 0.0
     if intent.occasions:
@@ -362,7 +372,7 @@ def calculate_weighted_score(result: SearchResult, intent: Intent) -> SearchResu
         matches = _tag_matches(result.venue, intent.amenities, "amenities")
         if matches > 0:
             amenity_score = min(1.0, matches * 0.3)
-            
+
     # Hard Constraint Penalties
     penalty = 0.0
     if "no_alcohol" in intent.hard_constraints:
@@ -370,18 +380,18 @@ def calculate_weighted_score(result: SearchResult, intent: Intent) -> SearchResu
         alcohol_indicators = ["full-bar", "cocktails", "wine", "beer", "serves-alcohol"]
         venue_amenities = [str(a).lower() for a in result.venue.tags.get("amenities", [])]
         if any(ind in " ".join(venue_amenities) for ind in alcohol_indicators):
-            penalty += 0.5 # Big penalty
-            
+            penalty += 0.5  # Big penalty
+
     final_score = (
-        (W_SIM * sim_score) +
-        (W_CUISINE * cuisine_score) +
-        (W_AREA * area_score) +
-        (W_PRICE * price_score) +
-        (W_VIBE * vibe_score) +
-        (W_OCCASION * occasion_score) +
-        (W_AMENITIES * amenity_score)
+        (W_SIM * sim_score)
+        + (W_CUISINE * cuisine_score)
+        + (W_AREA * area_score)
+        + (W_PRICE * price_score)
+        + (W_VIBE * vibe_score)
+        + (W_OCCASION * occasion_score)
+        + (W_AMENITIES * amenity_score)
     ) - penalty
-    
+
     result.score = final_score
     result.debug_scores = {
         "sim": sim_score,
@@ -391,7 +401,7 @@ def calculate_weighted_score(result: SearchResult, intent: Intent) -> SearchResu
         "vibe": vibe_score,
         "occ": occasion_score,
         "amen": amenity_score,
-        "penalty": penalty
+        "penalty": penalty,
     }
     return result
 
@@ -410,12 +420,20 @@ def format_recommendations(intent: Intent, results: list[SearchResult], limit: i
         intro_bits.append(", ".join(intent.vibe))
     if intent.price_max:
         intro_bits.append(f"<= ${intent.price_max}")
-    intro = "Here are options" if not intro_bits else f"Here are options matching {' / '.join(intro_bits)}"
+    intro = (
+        "Here are options"
+        if not intro_bits
+        else f"Here are options matching {' / '.join(intro_bits)}"
+    )
     lines.append(intro + ":")
 
     for idx, res in enumerate(results[:limit], start=1):
         v = res.venue
-        area = (v.raw.get("neighborhood") if v.raw else None) or pick_primary_location(v.tags) or "Baku"
+        area = (
+            (v.raw.get("neighborhood") if v.raw else None)
+            or pick_primary_location(v.tags)
+            or "Baku"
+        )
         cuisine = ", ".join(v.tags.get("cuisine", [])[:3]) or "Mixed"
         vibe = ", ".join(v.tags.get("vibe", [])[:2]) or "General"
         price = summarize_price(v.price_band, v.price_level)
@@ -446,48 +464,55 @@ class ConciergeEngine:
                 logger.warning("OpenAI API key not found; falling back to rule-based response.")
 
     @classmethod
-    def default(cls, prefer_openai: bool = False) -> "ConciergeEngine":
+    def default(cls, prefer_openai: bool = False) -> ConciergeEngine:
         embedder = get_default_embedder(prefer_openai=prefer_openai)
         index = load_index(embedder=embedder, allow_rebuild=True)
         return cls(index, prefer_openai=prefer_openai)
-    
-    def generate_llm_response(self, query: str, intent: Intent, results: list[SearchResult], top_k: int) -> str:
+
+    def generate_llm_response(
+        self, query: str, intent: Intent, results: list[SearchResult], top_k: int
+    ) -> str:
         if not self.openai_client:
             return format_recommendations(intent, results, limit=top_k)
 
         candidates_json = []
         for r in results[:top_k]:
             v = r.venue
-            candidates_json.append({
-                "id": v.id,
-                "name_en": v.name,
-                "name_az": v.name_az,
-                "instagram": v.instagram,
-                "contact": {
-                    "address": v.address,
-                    "phone": v.phones,
-                    "website": v.website,
-                },
-                "links": v.links,
-                "tags": v.tags,
-                "summary": v.summary,
-                "relevance_debug": r.debug_scores # Pass debug scores to help understand why it was picked
-            })
-        
+            candidates_json.append(
+                {
+                    "id": v.id,
+                    "name_en": v.name,
+                    "name_az": v.name_az,
+                    "instagram": v.instagram,
+                    "contact": {
+                        "address": v.address,
+                        "phone": v.phones,
+                        "website": v.website,
+                    },
+                    "links": v.links,
+                    "tags": v.tags,
+                    "summary": v.summary,
+                    "relevance_debug": r.debug_scores,  # Pass debug scores to help understand why it was picked
+                }
+            )
+
         # Pass the updated intent structure
         intent_summary = asdict(intent)
-        
+
         messages = [
             {"role": "system", "content": CONCIERGE_SYSTEM_PROMPT},
-            {"role": "user", "content": f"User Query: {query}\n\nIntent Summary: {json.dumps(intent_summary, ensure_ascii=False)}\n\nCANDIDATE_VENUES: {json.dumps(candidates_json, ensure_ascii=False)}"}
+            {
+                "role": "user",
+                "content": f"User Query: {query}\n\nIntent Summary: {json.dumps(intent_summary, ensure_ascii=False)}\n\nCANDIDATE_VENUES: {json.dumps(candidates_json, ensure_ascii=False)}",
+            },
         ]
 
         try:
             response = self.openai_client.chat.completions.create(
-                model="gpt-4o", # Or gpt-4-turbo, or gpt-3.5-turbo if budget is tight
+                model="gpt-4o",  # Or gpt-4-turbo, or gpt-3.5-turbo if budget is tight
                 messages=messages,
                 temperature=0.7,
-                max_tokens=1000
+                max_tokens=1000,
             )
             return response.choices[0].message.content
         except Exception as e:
@@ -496,11 +521,13 @@ class ConciergeEngine:
 
     def recommend(self, query: str, top_k: int = 5) -> tuple[Intent, list[SearchResult], str]:
         intent = extract_intent(query)
-        raw_results = self.index.search(query, intent, top_k=top_k * 4) # Fetch more to allow re-ranking
+        raw_results = self.index.search(
+            query, intent, top_k=top_k * 4
+        )  # Fetch more to allow re-ranking
         adjusted = [calculate_weighted_score(r, intent) for r in raw_results]
         adjusted.sort(key=lambda r: r.score, reverse=True)
-        
+
         # If we have an LLM, we delegate the final response generation
         message = self.generate_llm_response(query, intent, adjusted, top_k)
-        
+
         return intent, adjusted[:top_k], message

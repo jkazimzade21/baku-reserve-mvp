@@ -22,7 +22,19 @@ export type ConciergePrompt = {
   responseHint?: string;
 };
 
-const normalizeList = (list?: string[] | null) => (list ?? []).map((entry) => entry.toLowerCase());
+const normalizeList = (list?: any) => {
+  if (!list) return [];
+  if (Array.isArray(list)) {
+    return list.map((entry) => String(entry).toLowerCase());
+  }
+  if (typeof list === 'object') {
+    return Object.values(list)
+      .flat()
+      .filter((item): item is string => typeof item === 'string')
+      .map((entry) => entry.toLowerCase());
+  }
+  return [];
+};
 
 const priceRank = (price?: string | null) => {
   if (!price) return null;

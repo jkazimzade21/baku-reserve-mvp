@@ -57,6 +57,52 @@ MAX_PHOTOS_PER_SLUG = 5
 SHORTCODE_PATTERN = re.compile(r"/p/([^/?#]+)/")
 PROFILE_PATTERN = re.compile(r"instagram\.com/([^/?#]+)")
 
+def resolve_slug_dir(slug: str, root: Path) -> Path | None:
+    # 1. Exact match
+    if (root / slug).exists():
+        return root / slug
+
+    # 2. Normalize separators (., _, __) to hyphens
+    normalized = slug.replace(".", "-").replace("_", "-")
+    normalized = re.sub(r'-+', '-', normalized)
+    
+    if (root / normalized).exists():
+        return root / normalized
+        
+    # 3. Try stripping common suffixes from normalized slug
+    # Order matters: longest first to avoid partial matches
+    suffixes = ["-baku", "-restaurant", "-restoran", "-az", "-dining", "-cafe", "-lounge", "-steak-house"]
+    for suffix in suffixes:
+        if normalized.endswith(suffix):
+            stem = normalized[:-len(suffix)]
+            if (root / stem).exists():
+                return root / stem
+                
+    # 4. Specific overrides for tricky cases
+    overrides = {
+        "bakucafe": "baku-cafe",
+        "movidabaku": "movida-lounge-and-dining",
+        "mangal-steak-house": "mangal",
+        "firuzerestoran": "firuze",
+        "chinardining": "chinar",
+        "novikovcafe-baku": "novikov",
+        "rivierabaku": "riviera",
+        "fisincanrestoran": "fisincan-cafe",
+        "malacannes145": "malacannes-145",
+        "metropol145": "metropol-145",
+        "parkhouse-restaurant-": "parkhouse-restaurant",
+        "prive-steak-gallery": "prive-steak-gallery-baku",
+        "hacibey-restoran-": "hacibey-restoran",
+        "des-baku": "bestplacebaku", # wild guess or just ignore? des_baku might be different.
+    }
+    
+    if slug in overrides and (root / overrides[slug]).exists():
+        return root / overrides[slug]
+    if normalized in overrides and (root / overrides[normalized]).exists():
+        return root / overrides[normalized]
+
+    return None
+
 _INSTALOADER = instaloader.Instaloader(
     download_comments=False,
     download_videos=False,
@@ -399,10 +445,10 @@ def convert_existing(slug: str) -> None:
 
 
 def load_restaurant_slugs() -> List[str]:
-    data = json.loads(RESTAURANT_DATA_PATH.read_text())
+    data = json.loads(RESTAURANT_DATA_PATH.read_text(encoding='utf-8-sig'))
     slugs = []
     for entry in data:
-        slug = entry.get("slug")
+        slug = entry.get("slug") or entry.get("id")
         if slug:
             slugs.append(str(slug).strip().lower())
     return sorted(set(slugs))
@@ -413,10 +459,14 @@ def generate_manifest(slugs: Iterable[str]) -> None:
     pending_slugs: List[str] = []
 
     for slug in sorted(set(slugs)):
-        slug_dir = ASSETS_ROOT / slug
-        if not slug_dir.exists():
+        slug_dir = resolve_slug_dir(slug, ASSETS_ROOT)
+        if not slug_dir:
             pending_slugs.append(slug)
             continue
+        
+        # Use the actual folder name for the require path
+        folder_name = slug_dir.name
+        
         images = sorted(
             (p for p in slug_dir.glob("*.webp") if p.is_file()), key=map_sort_key
         )[:MAX_PHOTOS_PER_SLUG]
@@ -424,10 +474,10 @@ def generate_manifest(slugs: Iterable[str]) -> None:
             pending_slugs.append(slug)
             continue
         requires = ",\n    ".join(
-            f"require('./restaurants/{slug}/{img.name}')" for img in images
+            f"require('./restaurants/{folder_name}/{img.name}')" for img in images
         )
         entry_lines = [
-            f"  '{slug}': bundle(require('./restaurants/{slug}/{images[0].name}'), [",
+            f"  '{slug}': bundle(require('./restaurants/{folder_name}/{images[0].name}'), [",
             f"    {requires},",
             "  ]),",
         ]
@@ -479,17 +529,17 @@ def update_restaurant_data_image_refs() -> None:
     if not RESTAURANT_DATA_PATH.exists():
         return
     try:
-        data = json.loads(RESTAURANT_DATA_PATH.read_text())
+        data = json.loads(RESTAURANT_DATA_PATH.read_text(encoding='utf-8-sig'))
     except json.JSONDecodeError as exc:  # pragma: no cover - defensive
         raise RuntimeError(f"Failed to parse {RESTAURANT_DATA_PATH}: {exc}") from exc
 
     changed = False
     for entry in data:
-        slug = str(entry.get("slug") or "").strip().lower()
+        slug = str(entry.get("slug") or entry.get("id") or "").strip().lower()
         if not slug:
             continue
-        slug_dir = IGPICS_ROOT / slug
-        if not slug_dir.exists():
+        slug_dir = resolve_slug_dir(slug, IGPICS_ROOT)
+        if not slug_dir:
             continue
         images = sorted(
             (
@@ -503,7 +553,9 @@ def update_restaurant_data_image_refs() -> None:
         )[:MAX_PHOTOS_PER_SLUG]
         if not images:
             continue
-        rel_paths = [f"{PUBLIC_PHOTO_PREFIX}/{slug}/{img.name}" for img in images]
+        
+        folder_name = slug_dir.name
+        rel_paths = [f"{PUBLIC_PHOTO_PREFIX}/{folder_name}/{img.name}" for img in images]
         if entry.get("photos") != rel_paths:
             entry["photos"] = rel_paths
             changed = True
@@ -513,7 +565,8 @@ def update_restaurant_data_image_refs() -> None:
 
     if changed:
         RESTAURANT_DATA_PATH.write_text(
-            json.dumps(data, indent=2, ensure_ascii=False) + "\n"
+            json.dumps(data, indent=2, ensure_ascii=False) + "\n",
+            encoding='utf-8'
         )
         print(
             f"[ok] Updated photo references in {RESTAURANT_DATA_PATH.relative_to(REPO_ROOT)}"
@@ -568,13 +621,16 @@ def main() -> None:
     # UPDATE: Read additional sources from restaurants.json
     # If a slug has an 'instagram' field, add it to sources if not present
     try:
-        data = json.loads(RESTAURANT_DATA_PATH.read_text())
+        data = json.loads(RESTAURANT_DATA_PATH.read_text(encoding='utf-8-sig'))
         for entry in data:
-            slug = entry.get("slug")
+            slug = entry.get("slug") or entry.get("id")
             instagram = entry.get("instagram")
             if slug and instagram and slug not in PHOTO_SOURCES:
                 # Add as a single-item list for profile fetch
-                if "instagram.com/" in instagram:
+                if instagram.startswith("@"):
+                     url = f"https://www.instagram.com/{instagram[1:]}/"
+                     PHOTO_SOURCES[slug] = [url]
+                elif "instagram.com/" in instagram:
                     PHOTO_SOURCES[slug] = [instagram]
     except Exception:
         pass

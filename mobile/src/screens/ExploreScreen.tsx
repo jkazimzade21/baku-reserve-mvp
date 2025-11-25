@@ -97,7 +97,7 @@ export default function ExploreScreen({ navigation }: Props) {
           <ConciergeEntryCard
             prompts={CONCIERGE_PROMPTS}
             onOpen={() => handleOpenConcierge()}
-            onSelectPrompt={(prompt) => handleOpenConcierge(prompt.id)}
+            onSelectPrompt={(prompt) => handleOpenConcierge(typeof prompt === 'string' ? undefined : prompt.id)}
           />
         </View>
 

@@ -5,7 +5,7 @@ import logging
 import math
 import os
 import re
-from typing import Sequence
+from collections.abc import Sequence
 
 logger = logging.getLogger(__name__)
 

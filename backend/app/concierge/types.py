@@ -35,7 +35,7 @@ class Intent:
     price_max: int | None = None
     party_size: int | None = None
     time_of_day: str | None = None
-    
+
     # New accuracy-focused fields
     price_range_label: str | None = None  # 'budget', 'mid', 'high'
     hard_constraints: list[str] = field(default_factory=list)
