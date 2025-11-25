@@ -29,6 +29,12 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_CORPUS_PATH = settings.data_dir / "concierge_corpus.json"
 DEFAULT_INDEX_PATH = settings.data_dir / "concierge_index.json"
 
+# Environment-driven knobs
+CONCIERGE_MODE = os.getenv("CONCIERGE_MODE", "local").lower()
+CONCIERGE_GPT_MODEL = os.getenv("CONCIERGE_GPT_MODEL", "gpt-4o")
+CONCIERGE_SUMMARY_TEMPERATURE = float(os.getenv("CONCIERGE_SUMMARY_TEMPERATURE", "0.7"))
+CONCIERGE_SUMMARY_MAX_TOKENS = int(os.getenv("CONCIERGE_SUMMARY_MAX_TOKENS", "900"))
+
 # Try to import OpenAI for LLM generation
 try:
     from openai import OpenAI
@@ -142,9 +148,15 @@ def load_index(
     embedder = embedder or get_default_embedder()
     if DEFAULT_INDEX_PATH.exists():
         try:
-            return ConciergeIndex.load(DEFAULT_INDEX_PATH, embedder=embedder)
+            index = ConciergeIndex.load(DEFAULT_INDEX_PATH, embedder=embedder)
+            saved_backend = (index.meta or {}).get("embedding_backend")
+            if saved_backend and saved_backend != embedder.name:
+                raise ValueError(
+                    f"Index embedder mismatch (saved={saved_backend}, expected={embedder.name}); rebuilding."
+                )
+            return index
         except Exception:
-            logger.warning("Concierge index was unreadable, rebuilding.")
+            logger.warning("Concierge index was unreadable or mismatched, rebuilding.")
     if not allow_rebuild:
         raise RuntimeError("Concierge index missing and rebuild disabled")
     venues = build_corpus(force=False)
@@ -457,6 +469,9 @@ class ConciergeEngine:
         self.index = index
         self.prefer_openai = prefer_openai
         self.openai_client = None
+        self.chat_model = CONCIERGE_GPT_MODEL
+        self.temperature = CONCIERGE_SUMMARY_TEMPERATURE
+        self.max_tokens = CONCIERGE_SUMMARY_MAX_TOKENS
         if prefer_openai and OpenAI:
             api_key = os.getenv("OPENAI_API_KEY")
             if api_key:
@@ -466,9 +481,11 @@ class ConciergeEngine:
 
     @classmethod
     def default(cls, prefer_openai: bool = False) -> ConciergeEngine:
-        embedder = get_default_embedder(prefer_openai=prefer_openai)
+        env_prefers_openai = CONCIERGE_MODE not in {"local", "off", "disabled"}
+        prefer_llm = prefer_openai or env_prefers_openai
+        embedder = get_default_embedder(prefer_openai=prefer_llm)
         index = load_index(embedder=embedder, allow_rebuild=True)
-        return cls(index, prefer_openai=prefer_openai)
+        return cls(index, prefer_openai=prefer_llm)
 
     def generate_llm_response(
         self, query: str, intent: Intent, results: list[SearchResult], top_k: int
@@ -510,10 +527,10 @@ class ConciergeEngine:
 
         try:
             response = self.openai_client.chat.completions.create(
-                model="gpt-4o",  # Or gpt-4-turbo, or gpt-3.5-turbo if budget is tight
+                model=self.chat_model,
                 messages=messages,
-                temperature=0.7,
-                max_tokens=1000,
+                temperature=self.temperature,
+                max_tokens=self.max_tokens,
             )
             return response.choices[0].message.content
         except Exception as e:

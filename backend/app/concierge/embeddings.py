@@ -48,17 +48,17 @@ class HashingEmbedder(EmbeddingBackend):
 class OpenAIEmbedder(EmbeddingBackend):
     """Uses OpenAI embeddings if available and configured."""
 
-    def __init__(self, model: str = "text-embedding-3-small", api_key: str | None = None) -> None:
+    def __init__(self, model: str | None = None, api_key: str | None = None) -> None:
         if OpenAI is None:
             raise RuntimeError("openai package not installed; cannot use OpenAIEmbedder")
         key = api_key or os.getenv("OPENAI_API_KEY")
         if not key:
             raise RuntimeError("OPENAI_API_KEY not set; cannot use OpenAIEmbedder")
         self.client = OpenAI(api_key=key)
-        self.model = model
+        self.model = model or os.getenv("CONCIERGE_EMBED_MODEL") or "text-embedding-3-small"
         # dimension is model dependent; leave as 0 to avoid stale numbers
         self.dimension = 0
-        self.name = model
+        self.name = self.model
 
     def embed_batch(self, texts: Sequence[str]) -> list[list[float]]:
         # OpenAI client handles batching internally.
@@ -68,9 +68,10 @@ class OpenAIEmbedder(EmbeddingBackend):
 
 
 def get_default_embedder(prefer_openai: bool = False) -> EmbeddingBackend:
+    target_model = os.getenv("CONCIERGE_EMBED_MODEL")
     if prefer_openai:
         try:
-            return OpenAIEmbedder()
+            return OpenAIEmbedder(model=target_model)
         except Exception as exc:  # pragma: no cover - runtime fallback
             logger.warning("OpenAI embedder unavailable, falling back to hashing: %s", exc)
     return HashingEmbedder()

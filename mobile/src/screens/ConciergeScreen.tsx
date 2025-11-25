@@ -20,8 +20,9 @@ import {
   recommendForPrompt,
   recommendForText,
   filtersSummary,
+  getConciergeMode,
 } from '../utils/concierge';
-import type { RestaurantSummary } from '../api';
+import { fetchConcierge, type ConciergeResult, type RestaurantSummary } from '../api';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../types/navigation';
 import { track } from '../utils/analytics';
@@ -36,6 +37,22 @@ type Message = {
   bookingCandidate?: BookingIntent;
 };
 
+const mapConciergeResultToRestaurant = (entry: ConciergeResult): RestaurantSummary => ({
+  id: entry.id,
+  name: entry.name,
+  neighborhood: entry.area ?? undefined,
+  address: entry.address ?? undefined,
+  price_level: entry.price_label ?? undefined,
+  tags: entry.tags ?? undefined,
+  instagram: entry.instagram ?? undefined,
+  short_description: entry.summary ?? undefined,
+  contact: {
+    address: entry.address ?? undefined,
+    phone: undefined,
+    website: entry.website ?? undefined,
+  },
+});
+
 const initialMessage: Message = {
   id: 'intro',
   role: 'assistant',
@@ -44,6 +61,8 @@ const initialMessage: Message = {
 
 export default function ConciergeScreen({ navigation, route }: Props) {
   const { restaurants } = useRestaurantDirectory();
+  const conciergeMode = useMemo(() => getConciergeMode(), []);
+  const conciergeIsRemote = conciergeMode !== 'local';
   const [input, setInput] = useState(route.params?.initialText ?? '');
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
   const [thinking, setThinking] = useState(false);
@@ -79,20 +98,36 @@ export default function ConciergeScreen({ navigation, route }: Props) {
     [],
   );
 
+  const buildLocalPromptSuggestions = useCallback(
+    (prompt: ConciergePrompt) => {
+      const suggestions = recommendForPrompt(prompt, restaurants, 4);
+      const text = buildAssistantReply(prompt, suggestions);
+      return { suggestions, text };
+    },
+    [buildAssistantReply, restaurants],
+  );
+
+  const buildLocalDiscoverySuggestions = useCallback(
+    (text: string) => {
+      const filters = deriveFiltersFromText(text, restaurants);
+      const result = recommendForText(text, restaurants, 4);
+      const suggestions = result.items;
+      const summary = result.summary ?? filtersSummary(filters);
+      const reply = result.needsMoreInfo
+        ? 'Tell me a vibe, cuisine, budget, or neighborhood and I’ll shortlist options.'
+        : buildAssistantReply(DEFAULT_PROMPT, suggestions, summary || undefined, result.relaxed);
+      return { suggestions, text: reply, needsMoreInfo: result.needsMoreInfo };
+    },
+    [buildAssistantReply, restaurants],
+  );
+
   const respondPrompt = useCallback(
-    (prompt: ConciergePrompt, userCopy?: string, trackEvent = true) => {
+    async (prompt: ConciergePrompt, userCopy?: string, trackEvent = true) => {
+      const userText = userCopy ?? prompt.title;
       const userMessage: Message = {
         id: `user-${Date.now()}`,
         role: 'user',
-        text: userCopy ?? prompt.title,
-      };
-
-      const suggestions = recommendForPrompt(prompt, restaurants, 4);
-      const assistantMessage: Message = {
-        id: `assistant-${Date.now()}`,
-        role: 'assistant',
-        text: buildAssistantReply(prompt, suggestions),
-        suggestions,
+        text: userText,
       };
 
       pushMessages([userMessage]);
@@ -102,53 +137,88 @@ export default function ConciergeScreen({ navigation, route }: Props) {
         track('concierge_open', {
           source: userCopy ? 'freeform' : 'prompt',
           prompt: prompt.id,
+          mode: conciergeMode,
         });
       }
 
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
 
-      setTimeout(() => {
-        pushMessages([assistantMessage]);
-        setThinking(false);
-      }, 120);
+      if (conciergeIsRemote) {
+        try {
+          const res = await fetchConcierge(userText, 4);
+          const suggestions = res.results.map(mapConciergeResultToRestaurant);
+          const assistantMessage: Message = {
+            id: `assistant-${Date.now()}`,
+            role: 'assistant',
+            text: res.message || buildAssistantReply(prompt, suggestions),
+            suggestions,
+          };
+          pushMessages([assistantMessage]);
+          setThinking(false);
+          return;
+        } catch (err) {
+          console.warn('Concierge remote prompt failed, falling back to local', err);
+        }
+      }
+
+      const local = buildLocalPromptSuggestions(prompt);
+      const assistantMessage: Message = {
+        id: `assistant-${Date.now()}`,
+        role: 'assistant',
+        text: local.text,
+        suggestions: local.suggestions,
+      };
+      pushMessages([assistantMessage]);
+      setThinking(false);
     },
-    [buildAssistantReply, pushMessages, restaurants],
+    [buildAssistantReply, buildLocalPromptSuggestions, conciergeIsRemote, conciergeMode, pushMessages],
   );
 
   const respondDiscovery = useCallback(
-    (text: string, trackEvent = true) => {
+    async (text: string, trackEvent = true) => {
       const userMessage: Message = {
         id: `user-${Date.now()}`,
         role: 'user',
         text,
-      };
-      const filters = deriveFiltersFromText(text, restaurants);
-      const result = recommendForText(text, restaurants, 4);
-      const suggestions = result.items;
-      const summary = result.summary ?? filtersSummary(filters);
-      const assistantMessage: Message = {
-        id: `assistant-${Date.now()}`,
-        role: 'assistant',
-        text: result.needsMoreInfo
-          ? 'Tell me a vibe, cuisine, budget, or neighborhood and I’ll shortlist options.'
-          : buildAssistantReply(DEFAULT_PROMPT, suggestions, summary || undefined, result.relaxed),
-        suggestions: result.needsMoreInfo ? undefined : suggestions,
       };
 
       pushMessages([userMessage]);
       setThinking(true);
 
       if (trackEvent) {
-        track('concierge_suggest', { source: 'freeform', filters: summary });
+        track('concierge_suggest', { source: 'freeform', mode: conciergeMode });
       }
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
 
-      setTimeout(() => {
-        pushMessages([assistantMessage]);
-        setThinking(false);
-      }, 120);
+      if (conciergeIsRemote) {
+        try {
+          const res = await fetchConcierge(text, 4);
+          const suggestions = res.results.map(mapConciergeResultToRestaurant);
+          const assistantMessage: Message = {
+            id: `assistant-${Date.now()}`,
+            role: 'assistant',
+            text: res.message || buildAssistantReply(DEFAULT_PROMPT, suggestions),
+            suggestions,
+          };
+          pushMessages([assistantMessage]);
+          setThinking(false);
+          return;
+        } catch (err) {
+          console.warn('Concierge remote discovery failed, falling back to local', err);
+        }
+      }
+
+      const local = buildLocalDiscoverySuggestions(text);
+      const assistantMessage: Message = {
+        id: `assistant-${Date.now()}`,
+        role: 'assistant',
+        text: local.text,
+        suggestions: local.needsMoreInfo ? undefined : local.suggestions,
+      };
+      pushMessages([assistantMessage]);
+      setThinking(false);
     },
-    [buildAssistantReply, pushMessages, restaurants],
+    [buildAssistantReply, buildLocalDiscoverySuggestions, conciergeIsRemote, conciergeMode, pushMessages],
   );
 
   const respondBooking = useCallback(

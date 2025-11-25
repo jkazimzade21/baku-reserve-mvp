@@ -192,6 +192,13 @@ export const restaurantPhotoManifest: Record<string, RestaurantAssetBundle> = {
     require('./restaurants/deryafishhouse/4.webp'),
     require('./restaurants/deryafishhouse/5.webp'),
   ]),
+  'des-baku': bundle(require('./restaurants/bestplacebaku/1.webp'), [
+    require('./restaurants/bestplacebaku/1.webp'),
+    require('./restaurants/bestplacebaku/2.webp'),
+    require('./restaurants/bestplacebaku/3.webp'),
+    require('./restaurants/bestplacebaku/4.webp'),
+    require('./restaurants/bestplacebaku/5.webp'),
+  ]),
   'des_baku': bundle(require('./restaurants/bestplacebaku/1.webp'), [
     require('./restaurants/bestplacebaku/1.webp'),
     require('./restaurants/bestplacebaku/2.webp'),

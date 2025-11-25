@@ -16,15 +16,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import * as WebBrowser from 'expo-web-browser';
 import * as Haptics from 'expo-haptics';
 
-import { fetchRestaurant, RestaurantDetail, type RestaurantSummary } from '../api';
+import { fetchRestaurant, fetchFeatureFlags, RestaurantDetail, FeatureFlags, fetchAvailability, type RestaurantSummary } from '../api';
 import PhotoCarousel from '../components/PhotoCarousel';
 import Surface from '../components/Surface';
 import { colors, radius, shadow, spacing } from '../config/theme';
 import { resolveRestaurantPhotos } from '../utils/photoSources';
-import { normalizeRestaurantDetail, normalizeRestaurantSummary } from '../utils/normalizeRestaurant';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../types/navigation';
 import { Feather } from '@expo/vector-icons';
+import { trackAvailabilitySignal } from '../utils/analytics';
 import { useRestaurantDirectory } from '../contexts/RestaurantDirectoryContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Restaurant'>;
@@ -33,30 +33,34 @@ type ActionItem = { key: string; label: string; onPress: () => void };
 const FALLBACK_PHONE = '+994 (12) 555 2025';
 
 const buildMockDetail = (summary: RestaurantSummary): RestaurantDetail => {
-  const normalized = normalizeRestaurantSummary(summary);
-  const instagramHandle =
-    normalized.instagram ??
-    (normalized.slug ? `https://instagram.com/${normalized.slug}` : null);
-  const menuUrl =
-    (summary as any).menu_url ??
-    (summary as any).links?.menu ??
-    (normalized.slug ? `https://bakureserve.com/menus/${normalized.slug}` : null);
-  return normalizeRestaurantDetail({
-    ...normalized,
-    phone: (summary as any).phone ?? FALLBACK_PHONE,
+  const instagramHandle = summary.slug ? `https://instagram.com/${summary.slug}` : null;
+  const menuUrl = summary.slug ? `https://bakureserve.com/menus/${summary.slug}` : null;
+  return {
+    ...summary,
+    city: summary.city ?? 'Baku',
+    cuisine: summary.cuisine ?? [],
+    timezone: summary.timezone ?? 'Asia/Baku',
+    phone: FALLBACK_PHONE,
     whatsapp: null,
     instagram: instagramHandle,
     menu_url: menuUrl,
-    address: (summary as any).address ?? (summary as any).contact?.address ?? '',
-    photos: normalized.photos?.length ? normalized.photos : normalized.cover_photo ? [normalized.cover_photo] : [],
-    cover_photo: normalized.cover_photo,
-  });
+    photos: summary.cover_photo ? [summary.cover_photo] : [],
+    cover_photo: summary.cover_photo,
+    areas: [],
+    address: summary.address,
+    tags: summary.tags,
+    neighborhood: summary.neighborhood,
+    short_description: summary.short_description,
+  };
 };
 
 export default function RestaurantScreen({ route, navigation }: Props) {
   const { id } = route.params;
   const [data, setData] = useState<RestaurantDetail | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [features, setFeatures] = useState<FeatureFlags | null>(null);
+  const [availabilitySignal, setAvailabilitySignal] = useState<{ ratio: number; slotStart: string } | null>(null);
+  const availabilityTracked = useRef<string | null>(null);
   const { restaurants } = useRestaurantDirectory();
   const fallbackSummary = useMemo(() => restaurants.find((restaurant) => restaurant.id === id), [restaurants, id]);
   const fallbackRef = useRef<RestaurantSummary | null>(null);
@@ -81,11 +85,14 @@ export default function RestaurantScreen({ route, navigation }: Props) {
     setLoading(true);
     (async () => {
       try {
-        const r = await fetchRestaurant(id);
+        const [r, f] = await Promise.all([
+          fetchRestaurant(id),
+          fetchFeatureFlags().catch(() => null),
+        ]);
         if (!mounted) return;
-        const normalized = normalizeRestaurantDetail(r);
-        setData(normalized);
-        navigation.setOptions({ title: normalized.name || 'Restaurant' });
+        setData(r);
+        setFeatures(f);
+        navigation.setOptions({ title: r.name || 'Restaurant' });
       } catch (err: any) {
         if (!mounted) return;
         const fallback = fallbackRef.current;
@@ -109,27 +116,73 @@ export default function RestaurantScreen({ route, navigation }: Props) {
   const isPendingPhotos = Boolean(photoBundle?.pending);
 
   const formattedTags = useMemo(() => {
-    if (!data?.tags) return [];
-    // If it's an object with categories, flatten them
-    if (typeof data.tags === 'object' && !Array.isArray(data.tags)) {
-      const allTags: string[] = [];
-      Object.values(data.tags).forEach((categoryTags) => {
-        if (Array.isArray(categoryTags)) {
-          allTags.push(...categoryTags);
+    const rawTags = Array.isArray(data?.tags) ? data?.tags : [];
+    return rawTags.slice(0, 12).map((tag) => formatTag(tag));
+  }, [data?.tags]);
+
+  const cuisineLine = useMemo(() => {
+    const directCuisine = data?.cuisine?.length ? data.cuisine : [];
+    const groupedCuisine = (data?.tag_groups as any)?.cuisine ?? [];
+    const merged = directCuisine.length ? directCuisine : groupedCuisine;
+    return Array.isArray(merged) ? merged.map(formatTag).join(' • ') : '';
+  }, [data?.cuisine, data?.tag_groups]);
+
+  const totalTables = useMemo(() => {
+    if (!data?.areas) return 0;
+    return data.areas.reduce((acc, area) => acc + (area.tables?.length ?? 0), 0);
+  }, [data?.areas]);
+
+  useEffect(() => {
+    if (!data || totalTables === 0) {
+      setAvailabilitySignal(null);
+      return;
+    }
+    const flagEnabled = Boolean(features?.availabilitySignals ?? features?.ui?.availabilitySignals);
+    if (!flagEnabled) {
+      setAvailabilitySignal(null);
+      return;
+    }
+    let cancelled = false;
+    const dateFormatter = new Intl.DateTimeFormat('en-CA', {
+      timeZone: data.timezone || 'Asia/Baku',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+    const dateStr = dateFormatter.format(new Date());
+    fetchAvailability(data.id, dateStr, 2)
+      .then((response) => {
+        if (cancelled) return;
+        const now = Date.now();
+        const slot = response.slots.find((entry) => new Date(entry.start).getTime() >= now) || response.slots[0];
+        if (!slot || !slot.count) {
+          setAvailabilitySignal(null);
+          return;
+        }
+        const ratio = slot.count / totalTables;
+        if (ratio > 0 && ratio <= 0.2) {
+          setAvailabilitySignal({ ratio, slotStart: slot.start });
+          if (availabilityTracked.current !== slot.start) {
+            trackAvailabilitySignal('restaurant_detail', ratio, slot.start, features);
+            availabilityTracked.current = slot.start;
+          }
+        } else {
+          setAvailabilitySignal(null);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setAvailabilitySignal(null);
         }
       });
-      return allTags.map(formatTag);
-    }
-    // If it's already an array (old schema fallback), just map it
-    if (Array.isArray(data.tags)) {
-        return data.tags.map(formatTag);
-    }
-    return [];
-  }, [data]);
+    return () => {
+      cancelled = true;
+    };
+  }, [data, features, totalTables]);
 
   const handleBook = () => {
     if (!data) return;
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => { });
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
     navigation.navigate('Book', { id: data.id, name: data.name });
   };
 
@@ -184,6 +237,26 @@ export default function RestaurantScreen({ route, navigation }: Props) {
     }
   };
 
+  const handleDirections = () => {
+    if (data?.latitude && data?.longitude) {
+      const { latitude, longitude } = data;
+      const encodedLabel = encodeURIComponent(data.name);
+      const url = Platform.select({
+        ios: `maps://?q=${encodedLabel}&ll=${latitude},${longitude}`,
+        android: `geo:${latitude},${longitude}?q=${latitude},${longitude}(${encodedLabel})`,
+        default: `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=16/${latitude}/${longitude}`,
+      });
+      Linking.openURL(url ?? '').catch(() => Alert.alert('Unable to open maps.'));
+      return;
+    }
+    if (data?.address) {
+      const url = `https://www.openstreetmap.org/search?query=${encodeURIComponent(data.address)}`;
+      Linking.openURL(url).catch(() => Alert.alert('Unable to open maps.'));
+      return;
+    }
+    Alert.alert('No address provided', 'This venue has not shared a map location yet.');
+  };
+
   if (loading && !data) {
     return (
       <SafeAreaView style={styles.center}>
@@ -209,31 +282,6 @@ export default function RestaurantScreen({ route, navigation }: Props) {
         ? [photoBundle.cover]
         : [];
 
-  const secondaryActionItems = [
-    { key: 'share', label: 'Share', onPress: handleShare },
-    data.menu_url ? { key: 'menu', label: 'Menu', onPress: handleMenu } : null,
-  ].filter(Boolean) as ActionItem[];
-
-  const handleDirections = () => {
-    if (data?.latitude && data?.longitude) {
-      const { latitude, longitude } = data;
-      const encodedLabel = encodeURIComponent(data.name);
-      const url = Platform.select({
-        ios: `maps://?q=${encodedLabel}&ll=${latitude},${longitude}`,
-        android: `geo:${latitude},${longitude}?q=${latitude},${longitude}(${encodedLabel})`,
-        default: `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=16/${latitude}/${longitude}`,
-      });
-      Linking.openURL(url ?? '').catch(() => Alert.alert('Unable to open maps.'));
-      return;
-    }
-    if (data?.address) {
-      const url = `https://www.openstreetmap.org/search?query=${encodeURIComponent(data.address)}`;
-      Linking.openURL(url).catch(() => Alert.alert('Unable to open maps.'));
-      return;
-    }
-    Alert.alert('No address provided', 'This venue has not shared a map location yet.');
-  };
-
   const quickActionItems = [
     (data.latitude && data.longitude) || data.address
       ? { key: 'directions', label: 'Directions', onPress: handleDirections }
@@ -241,6 +289,11 @@ export default function RestaurantScreen({ route, navigation }: Props) {
     data.phone ? { key: 'call', label: 'Call', onPress: handleCall } : null,
     data.whatsapp ? { key: 'whatsapp', label: 'WhatsApp', onPress: handleWhatsapp } : null,
     data.instagram ? { key: 'instagram', label: 'Instagram', onPress: handleInstagram } : null,
+  ].filter(Boolean) as ActionItem[];
+
+  const secondaryActionItems = [
+    { key: 'share', label: 'Share', onPress: handleShare },
+    data.menu_url ? { key: 'menu', label: 'Menu', onPress: handleMenu } : null,
   ].filter(Boolean) as ActionItem[];
 
   return (
@@ -259,17 +312,25 @@ export default function RestaurantScreen({ route, navigation }: Props) {
           )}
           <View style={styles.heroBody}>
             <Text style={styles.heroTitle}>{data.name}</Text>
-            <Text style={styles.heroSubtitle}>{(data.cuisine?.length ? data.cuisine : (data.tags as any)?.cuisine)?.join(' • ')}</Text>
+
+          {availabilitySignal && (
+            <View style={styles.scarcityBadge}>
+              <Feather name="clock" size={12} color={colors.primaryStrong} />
+              <Text style={styles.scarcityText}>Almost full</Text>
+            </View>
+          )}
+
+          {cuisineLine ? <Text style={styles.heroSubtitle}>{cuisineLine}</Text> : null}
             {data.short_description ? (
               <Text style={styles.heroDescription}>{data.short_description}</Text>
             ) : null}
             <View style={styles.heroMetaRow}>
-              {data.neighborhood ? <Text style={styles.heroMetaItem}>{data.neighborhood}</Text> : null}
+              {data.neighborhood ? <Text style={styles.heroMeta}>{data.neighborhood}</Text> : null}
               {data.price_level ? (
-                <Text style={[styles.heroMetaItem, styles.heroMetaDivider]}>• {data.price_level}</Text>
+                <Text style={[styles.heroMeta, styles.heroMetaDivider]}>• {data.price_level}</Text>
               ) : null}
               {data.average_spend ? (
-                <Text style={[styles.heroMetaItem, styles.heroMetaDivider]}>• {data.average_spend}</Text>
+                <Text style={[styles.heroMeta, styles.heroMetaDivider]}>• {data.average_spend}</Text>
               ) : null}
             </View>
             {data.address ? <Text style={styles.heroMeta}>{data.address}</Text> : null}
@@ -399,6 +460,25 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: colors.text,
   },
+  scarcityBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    backgroundColor: colors.overlay,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 4,
+    borderRadius: radius.md,
+    gap: 4,
+    marginTop: spacing.xs,
+    borderWidth: 1,
+    borderColor: `${colors.primaryStrong}33`,
+  },
+  scarcityText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: colors.primaryStrong,
+    textTransform: 'uppercase',
+  },
   heroSubtitle: {
     color: colors.muted,
     fontWeight: '500',
@@ -415,15 +495,12 @@ const styles = StyleSheet.create({
     gap: spacing.xs,
     marginTop: spacing.sm,
   },
-  heroMetaItem: {
-    color: colors.muted,
-  },
   heroMeta: {
     color: colors.muted,
     marginTop: spacing.xs,
   },
   heroMetaDivider: {
-    color: colors.muted,
+    marginTop: spacing.xs,
   },
   tagToggleContainer: {
     marginTop: spacing.sm,

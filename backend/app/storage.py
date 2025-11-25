@@ -215,17 +215,48 @@ class Database:
         for r in normalised:
             rid = r["id"]
             cover = r.get("cover_photo") or (r["photos"][0] if r.get("photos") else "")
+            tags_raw = r.get("tag_groups") or r.get("tags") or {}
+            if isinstance(tags_raw, dict):
+                tag_groups = tags_raw
+                flattened_tags = [
+                    str(tag)
+                    for values in tags_raw.values()
+                    if isinstance(values, list | tuple)
+                    for tag in values
+                    if isinstance(tag, str)
+                ]
+            elif isinstance(tags_raw, list):
+                tag_groups = {}
+                flattened_tags = [str(tag) for tag in tags_raw if isinstance(tag, str)]
+            else:
+                tag_groups = {}
+                flattened_tags = []
+            cuisine = r.get("cuisine") or (
+                tag_groups.get("cuisine") if isinstance(tag_groups, dict) else []
+            )
+            if cuisine is None:
+                cuisine = []
+            r["cuisine"] = cuisine
+            address = r.get("address") or (r.get("contact") or {}).get("address") or None
+            phone = r.get("phone") or (r.get("contact") or {}).get("phone") or None
+            if phone and isinstance(phone, list):
+                phone = phone[0]
+            neighborhood = r.get("neighborhood") or (tag_groups.get("location") or [None])[0]
             summary = {
                 "id": rid,
                 "name": r.get("name") or r.get("name_en") or "Unknown",
                 "slug": r.get("slug"),
-                "cuisine": r.get("cuisine", []),
+                "cuisine": cuisine,
                 "city": r.get("city"),
                 "timezone": r.get("timezone") or "Asia/Baku",
                 "cover_photo": cover,
                 "short_description": r.get("short_description"),
                 "price_level": r.get("price_level"),
-                "tags": r.get("tags", []),
+                "address": address,
+                "phone": phone,
+                "neighborhood": neighborhood,
+                "tags": flattened_tags,
+                "tag_groups": tag_groups,
                 "average_spend": r.get("average_spend"),
                 "rating": float(r.get("rating") or 0.0),
                 "reviews_count": int(r.get("reviews_count") or 0),
@@ -237,6 +268,7 @@ class Database:
                     r.get("city", ""),
                     r.get("slug", ""),
                     " ".join(r.get("cuisine", []) or []),
+                    " ".join(flattened_tags),
                 ]
             ).lower()
             self._summary_index.append((summary, search_text))
@@ -289,12 +321,15 @@ class Database:
         """Persist restaurant metadata to SQL so reservations can join across workers."""
         if not entries:
             return []
+        seed_ids: list[str] = []
         async with get_session() as session:
             for entry in entries:
                 rid = entry.get("id")
                 if not rid:
                     continue
-                record = await session.get(RestaurantRecord, str(rid))
+                rid = str(rid)
+                seed_ids.append(rid)
+                record = await session.get(RestaurantRecord, rid)
                 payload = dict(entry)
                 if record:
                     record.slug = payload.get("slug")
@@ -317,9 +352,16 @@ class Database:
                     )
                     session.add(record)
             await session.commit()
-            result = await session.execute(select(RestaurantRecord))
+            # Only surface restaurants that exist in the current seed, and preserve seed order
+            result = await session.execute(
+                select(RestaurantRecord).where(RestaurantRecord.id.in_(seed_ids))
+            )
             rows = result.scalars().all()
-            return [row.payload for row in rows if row.payload]
+            payload_by_id = {row.id: row.payload for row in rows if row.payload}
+            missing = set(seed_ids) - set(payload_by_id.keys())
+            if missing:
+                logger.info("Omitting %d restaurants absent from the current seed", len(missing))
+            return [payload_by_id[rid] for rid in seed_ids if rid in payload_by_id]
 
     async def _load_review_stats(self) -> dict[str, dict[str, Any]]:
         async with get_session() as session:

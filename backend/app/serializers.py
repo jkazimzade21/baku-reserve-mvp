@@ -30,13 +30,35 @@ def absolute_media_list(request: Request | None, values: list[str]) -> list[str]
     return [absolute_media_url(request, value) or value for value in values]
 
 
+def _coerce_tags(value: Any) -> tuple[list[str], dict[str, list[str]]]:
+    """Flatten tag group mappings while preserving category grouping."""
+
+    if isinstance(value, dict):
+        flattened: list[str] = []
+        for entries in value.values():
+            if isinstance(entries, list | tuple):
+                flattened.extend([str(tag) for tag in entries if isinstance(tag, str)])
+        return flattened, value
+    if isinstance(value, list | tuple):
+        flattened = [str(tag) for tag in value if isinstance(tag, str)]
+        return flattened, {}
+    return [], {}
+
+
 def restaurant_to_list_item(r: Any, request: Request | None = None) -> dict[str, Any]:
     slug_value = get_attr(r, "slug")
+    tags, tag_groups = _coerce_tags(get_attr(r, "tag_groups", {}) or get_attr(r, "tags", []))
+    cuisine = list(get_attr(r, "cuisine", []) or [])
+    if not cuisine and isinstance(tag_groups, dict):
+        cuisine = list(tag_groups.get("cuisine", []) or [])
     return {
         "id": str(get_attr(r, "id")),
-        "name": get_attr(r, "name"),
+        "name": get_attr(r, "name")
+        or get_attr(r, "name_en")
+        or get_attr(r, "name_az")
+        or "Unknown",
         "slug": str(slug_value) if slug_value else None,
-        "cuisine": list(get_attr(r, "cuisine", []) or []),
+        "cuisine": cuisine,
         "city": get_attr(r, "city"),
         "timezone": get_attr(r, "timezone") or "Asia/Baku",
         "neighborhood": get_attr(r, "neighborhood"),
@@ -47,8 +69,8 @@ def restaurant_to_list_item(r: Any, request: Request | None = None) -> dict[str,
         ),
         "short_description": get_attr(r, "short_description"),
         "price_level": get_attr(r, "price_level"),
-        "tags": list(get_attr(r, "tags", []) or []),
-        "tag_groups": get_attr(r, "tag_groups") or {},
+        "tags": tags,
+        "tag_groups": tag_groups or None,
         "average_spend": get_attr(r, "average_spend"),
         "rating": float(get_attr(r, "rating", 0.0) or 0.0),
         "reviews_count": int(get_attr(r, "reviews_count", 0) or 0),
@@ -108,11 +130,18 @@ def restaurant_to_detail(r: Any, request: Request | None = None) -> dict[str, An
         if landmarks:
             area_payload["landmarks"] = landmarks
         areas.append(area_payload)
+    tags, tag_groups = _coerce_tags(get_attr(r, "tag_groups", {}) or get_attr(r, "tags", []))
+    cuisine = list(get_attr(r, "cuisine", []) or [])
+    if not cuisine and isinstance(tag_groups, dict):
+        cuisine = list(tag_groups.get("cuisine", []) or [])
     payload = {
         "id": str(get_attr(r, "id")),
-        "name": get_attr(r, "name"),
+        "name": get_attr(r, "name")
+        or get_attr(r, "name_en")
+        or get_attr(r, "name_az")
+        or "Unknown",
         "slug": str(slug_value) if slug_value else None,
-        "cuisine": list(get_attr(r, "cuisine", []) or []),
+        "cuisine": cuisine,
         "city": get_attr(r, "city"),
         "timezone": get_attr(r, "timezone") or "Asia/Baku",
         "address": get_attr(r, "address") or "",
@@ -122,8 +151,8 @@ def restaurant_to_detail(r: Any, request: Request | None = None) -> dict[str, An
         "short_description": get_attr(r, "short_description") or "",
         "neighborhood": get_attr(r, "neighborhood"),
         "price_level": get_attr(r, "price_level"),
-        "tags": list(get_attr(r, "tags", []) or []),
-        "tag_groups": get_attr(r, "tag_groups") or {},
+        "tags": tags,
+        "tag_groups": tag_groups or {},
         "highlights": list(get_attr(r, "highlights", []) or []),
         "map_images": list(get_attr(r, "map_images", []) or []),
         "latitude": get_attr(r, "latitude"),

@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from uuid import UUID
-
 from fastapi import APIRouter, HTTPException, Request
 
 from ...availability import availability_for_day
@@ -20,24 +18,24 @@ def list_restaurants(request: Request, q: RestaurantSearch = None):
 
 
 @router.get("/restaurants/{rid}", response_model=Restaurant)
-def get_restaurant(rid: UUID, request: Request):
-    record = DB.get_restaurant(str(rid))
+def get_restaurant(rid: str, request: Request):
+    record = DB.get_restaurant(rid)
     if not record:
         raise HTTPException(404, "Restaurant not found")
     return restaurant_to_detail(record, request)
 
 
 @router.get("/restaurants/{rid}/availability")
-async def restaurant_availability(rid: UUID, date_: DateQuery, party_size: int = 2):
-    record = DB.get_restaurant(str(rid))
+async def restaurant_availability(rid: str, date_: DateQuery, party_size: int = 2):
+    record = DB.get_restaurant(rid)
     if not record:
         raise HTTPException(404, "Restaurant not found")
     return await availability_for_day(record, party_size, date_, DB)
 
 
 @router.get("/restaurants/{rid}/reviews", response_model=list[Review])
-async def list_reviews(rid: UUID, limit: int = 20, offset: int = 0):
-    record = DB.get_restaurant(str(rid))
+async def list_reviews(rid: str, limit: int = 20, offset: int = 0):
+    record = DB.get_restaurant(rid)
     if not record:
         raise HTTPException(404, "Restaurant not found")
-    return await DB.list_reviews(str(rid), limit=limit, offset=offset)
+    return await DB.list_reviews(rid, limit=limit, offset=offset)

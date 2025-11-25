@@ -1,3 +1,4 @@
+import Constants from 'expo-constants';
 import type { RestaurantSummary } from '../api';
 import { filterByCategory, matchesCategory } from '../constants/browseCategories';
 
@@ -114,6 +115,14 @@ export const DEFAULT_PROMPT: ConciergePrompt = {
   keywords: [],
   responseHint: 'Here are versatile crowd-pleasers to get you started.',
 };
+
+export function getConciergeMode() {
+  const envMode = (typeof process !== 'undefined' && process.env?.EXPO_PUBLIC_CONCIERGE_MODE) || '';
+  const configMode = (Constants.expoConfig?.extra as any)?.conciergeMode;
+  const normalized = (envMode || configMode || 'local').toString().trim().toLowerCase();
+  if (['ai', 'remote', 'backend', 'server'].includes(normalized)) return 'ai';
+  return 'local';
+}
 
 export function findPromptById(id?: string | null) {
   if (!id) return null;
@@ -285,6 +294,14 @@ const NEIGHBORHOOD_KEYWORDS: Record<string, string[]> = {
   boulevard: ['boulevard', 'seaside', 'waterfront'],
   nizami: ['nizami', 'torgovy'],
   old_city: ['icheri', 'old city', 'walled'],
+  port_baku: ['port baku', 'portbaku', 'port-baku'],
+  sea_breeze: ['sea breeze', 'seabreeze', 'nardaran'],
+  white_city: ['white city', 'agh seher', 'ag seher'],
+  ganjlik: ['ganjlik', 'gənclik', 'ganclik'],
+  narimanov: ['narimanov', 'narminov'],
+  bayil: ['bayil', 'flag square'],
+  shikhov: ['shikhov', 'bibiheybat', 'bibi heybat'],
+  bilgah: ['bilgah', 'bilgeh'],
 };
 
 const GROUP_TAGS = ['group_dining', 'family', 'birthday', 'private_room', 'celebration'];

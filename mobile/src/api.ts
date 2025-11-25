@@ -19,12 +19,14 @@ export type RestaurantSummary = {
   name_az?: string;
   slug?: string;
   cuisine?: string[];
-  tags?: {
-    cuisine?: string[];
-    location?: string[];
-    vibe?: string[];
-    [key: string]: string[] | undefined;
-  };
+  tags?:
+    | string[]
+    | {
+        cuisine?: string[];
+        location?: string[];
+        vibe?: string[];
+        [key: string]: string[] | undefined;
+      };
   neighborhood?: string;
   city?: string;
   address?: string;
@@ -129,6 +131,26 @@ export type AccountProfile = {
   verified_phone: boolean;
   created_at: string;
   updated_at: string;
+};
+
+export type ConciergeResult = {
+  id: string;
+  name: string;
+  area?: string | null;
+  address?: string | null;
+  price_band?: number | null;
+  price_label?: string | null;
+  summary?: string | null;
+  instagram?: string | null;
+  website?: string | null;
+  score: number;
+  tags?: Record<string, string[]> | null;
+};
+
+export type ConciergeResponse = {
+  intent: Record<string, any>;
+  results: ConciergeResult[];
+  message: string;
 };
 
 
@@ -251,6 +273,7 @@ const buildApiUrl = (path: string) => {
 };
 
 export const API_URL = resolveApiBaseUrl();
+console.log('[api] using API_URL:', API_URL);
 
 let authToken: string | null = null;
 
@@ -351,8 +374,49 @@ export async function submitReview(reservationId: string, payload: { rating: num
   return handleResponse<Review>(res, 'Unable to submit review');
 }
 
+export type FeatureFlags = {
+  prep_notify_enabled: boolean;
+  availabilitySignals?: boolean;
+  concierge_home_link?: boolean;
+  payments_mode: 'mock' | 'live' | string;
+  payment_provider: 'mock' | 'paymentwall' | 'azericard' | string;
+  currency: string;
+  ui?: {
+    homeConciergeLink?: boolean;
+    availabilitySignals?: boolean;
+  };
+  experiments?: {
+    homeHeroSwap?: boolean;
+  };
+};
+
+export async function fetchFeatureFlags() {
+  // Mocked for MVP to enable UI features from Reference
+  return Promise.resolve({
+    prep_notify_enabled: false,
+    availabilitySignals: true,
+    concierge_home_link: false,
+    payments_mode: 'mock',
+    payment_provider: 'mock',
+    currency: 'AZN',
+    ui: {
+      availabilitySignals: true,
+    },
+  } as FeatureFlags);
+}
+
 export async function fetchReviews(restaurantId: string, limit = 20) {
   const url = `${buildApiUrl(`/restaurants/${restaurantId}/reviews`)}?limit=${limit}`;
   const res = await fetch(url, { headers: withAuth() });
   return handleResponse<Review[]>(res, 'Failed to load reviews');
+}
+
+export async function fetchConcierge(query: string, topK = 4) {
+  const payload = { query, top_k: topK };
+  const res = await fetch(buildApiUrl('/concierge'), {
+    method: 'POST',
+    headers: withAuth({ 'Content-Type': 'application/json' }),
+    body: JSON.stringify(payload),
+  });
+  return handleResponse<ConciergeResponse>(res, 'Failed to fetch concierge results');
 }

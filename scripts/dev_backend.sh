@@ -31,5 +31,8 @@ if [[ "$PY_VERSION" != "$REQUIRED_PYTHON_VERSION" ]]; then
   exit 1
 fi
 
+export CORS_ALLOW_ORIGINS="${CORS_ALLOW_ORIGINS:-*}"
+export CONCIERGE_MODE="${CONCIERGE_MODE:-ai}"
+
 echo "[dev-backend] Starting FastAPI on ${HOST}:${PORT} (reload enabled)"
 exec "$PYTHON_BIN" -m uvicorn app.main:app --app-dir backend --host "$HOST" --port "$PORT" --reload
