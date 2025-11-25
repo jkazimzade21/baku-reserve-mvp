@@ -34,6 +34,7 @@ CONCIERGE_MODE = os.getenv("CONCIERGE_MODE", "local").lower()
 CONCIERGE_GPT_MODEL = os.getenv("CONCIERGE_GPT_MODEL", "gpt-4o")
 CONCIERGE_SUMMARY_TEMPERATURE = float(os.getenv("CONCIERGE_SUMMARY_TEMPERATURE", "0.7"))
 CONCIERGE_SUMMARY_MAX_TOKENS = int(os.getenv("CONCIERGE_SUMMARY_MAX_TOKENS", "900"))
+CONCIERGE_CANDIDATE_MULTIPLIER = int(os.getenv("CONCIERGE_CANDIDATE_MULTIPLIER", "8"))
 
 # Try to import OpenAI for LLM generation
 try:
@@ -170,6 +171,39 @@ def load_index(
 
 # ---------- intent parsing ----------
 
+
+STOP_LOC_TOKENS = {
+    "city",
+    "district",
+    "street",
+    "avenue",
+    "road",
+    "area",
+    "park",
+    "mall",
+    "center",
+    "centre",
+    "downtown",
+    "metro",
+    "station",
+}
+
+
+def _normalize_tokens(text: str) -> set[str]:
+    tokens = re.split(r"[^a-z0-9]+", text.lower())
+    out: set[str] = set()
+    for tok in tokens:
+        if not tok or tok in STOP_LOC_TOKENS:
+            continue
+        # crude singularization to align "fountains" vs "fountain"
+        if tok.endswith("s") and len(tok) > 4:
+            tok = tok[:-1]
+        if tok in STOP_LOC_TOKENS:
+            continue
+        out.add(tok)
+    return out
+
+
 CUISINE_KEYWORDS = {
     "azerbaijani": ["azerbaijani", "local", "national"],
     "georgian": ["georgian", "khinkali", "khachapuri"],
@@ -208,6 +242,13 @@ VIBE_KEYWORDS = {
     "beach-club": ["beach", "beach club", "pool", "day club"],
 }
 
+DIETARY_KEYWORDS = {
+    "vegetarian-friendly": ["vegetarian", "veg-friendly", "ovo-lacto"],
+    "vegan-options": ["vegan"],
+    "halal": ["halal", "no alcohol", "alcohol-free"],
+    "gluten-free-options": ["gluten free"],
+}
+
 AMENITY_KEYWORDS = {
     "live_music": ["live music", "mugham", "jazz band"],
     "dj": ["dj", "club"],
@@ -218,6 +259,7 @@ AMENITY_KEYWORDS = {
     "sea_view": ["sea view", "caspian view", "waterfront"],
     "rooftop_view": ["rooftop", "skyline"],
     "outdoor_seating": ["terrace", "outdoor", "patio"],
+    "board_games": ["board game", "boardgame", "backgammon", "domino", "okey", "okey101", "nardi"],
 }
 
 OCCASION_KEYWORDS = {
@@ -248,6 +290,7 @@ def extract_intent(query: str) -> Intent:
     intent.vibe = _match_keywords(lowered, VIBE_KEYWORDS)
     intent.amenities = _match_keywords(lowered, AMENITY_KEYWORDS)
     intent.occasions = _match_keywords(lowered, OCCASION_KEYWORDS)
+    intent.dietary = _match_keywords(lowered, DIETARY_KEYWORDS)
 
     # Price parsing
     if any(word in lowered for word in ["cheap", "budget", "affordable", "$"]):
@@ -295,13 +338,31 @@ def extract_intent(query: str) -> Intent:
 # ---------- ranking & formatting ----------
 
 
+def _loc_tokens(value: str) -> set[str]:
+    return _normalize_tokens(value)
+
+
 def _tag_matches(venue: Venue, keywords: list[str], tag_group: str) -> int:
     matches = 0
     values = venue.tags.get(tag_group, [])
+    if not values or not keywords:
+        return 0
+
+    if tag_group == "location":
+        value_tokens = [_loc_tokens(str(v)) for v in values]
+        for kw in keywords:
+            kw_tokens = _loc_tokens(kw)
+            if not kw_tokens:
+                continue
+            # Require ALL tokens in the keyword to be present in the location tag
+            # e.g. "sea breeze" {sea, breeze} must be a subset of "Sea-Breeze-Resort" {sea, breeze, resort}
+            if any(kw_tokens.issubset(vt) for vt in value_tokens):
+                matches += 1
+        return matches
+
     for kw in keywords:
-        # Normalize tag values to human readable or key format for comparison
-        # The venue tags are already normalized in build_corpus but let's be safe
-        if any(kw in str(v).lower() for v in values):
+        kw_norm = kw.lower()
+        if any(kw_norm in str(v).lower() for v in values):
             matches += 1
     return matches
 
@@ -318,14 +379,15 @@ def calculate_weighted_score(result: SearchResult, intent: Intent) -> SearchResu
           + w_amenities * amenity_score
     """
 
-    # Weights
-    W_SIM = 0.4
+    # Weights (tilt toward area/constraints to boost accuracy)
+    W_SIM = 0.35
     W_CUISINE = 0.15
-    W_AREA = 0.15
+    W_AREA = 0.2
     W_PRICE = 0.1
     W_VIBE = 0.1
-    W_OCCASION = 0.05
+    W_OCCASION = 0.04
     W_AMENITIES = 0.05
+    W_DIETARY = 0.05
 
     # Base similarity score (already cosine 0-1)
     sim_score = max(0, result.score)
@@ -386,6 +448,15 @@ def calculate_weighted_score(result: SearchResult, intent: Intent) -> SearchResu
         if matches > 0:
             amenity_score = min(1.0, matches * 0.3)
 
+    # 7. Dietary Match
+    dietary_score = 0.0
+    if intent.dietary:
+        matches = _tag_matches(result.venue, intent.dietary, "dietary")
+        if matches > 0:
+            dietary_score = 1.0
+        else:
+            dietary_score = -0.2  # requested dietary need not met
+
     # Hard Constraint Penalties
     penalty = 0.0
     if "no_alcohol" in intent.hard_constraints:
@@ -395,6 +466,25 @@ def calculate_weighted_score(result: SearchResult, intent: Intent) -> SearchResu
         if any(ind in " ".join(venue_amenities) for ind in alcohol_indicators):
             penalty += 0.5  # Big penalty
 
+    # Board Games / Dominoes Hard Constraint
+    if "board_games" in intent.amenities:
+        venue_amenities = [str(a).lower() for a in result.venue.tags.get("amenities", [])]
+        has_games = any("board" in a or "game" in a for a in venue_amenities)
+
+        # Also check the dedicated 'entertainment' tag group if present
+        if not has_games:
+            entertainment = [str(e).lower() for e in result.venue.tags.get("entertainment", [])]
+            has_games = any(
+                "board" in e or "game" in e or "domino" in e or "nardi" in e for e in entertainment
+            )
+
+        if not has_games:
+            penalty += 10.0  # Strict penalty for missing board games
+
+    # Penalize location miss when user specified an area
+    if intent.locations and area_score == 0:
+        penalty += 10.0  # Strict penalty for wrong location
+
     final_score = (
         (W_SIM * sim_score)
         + (W_CUISINE * cuisine_score)
@@ -403,6 +493,7 @@ def calculate_weighted_score(result: SearchResult, intent: Intent) -> SearchResu
         + (W_VIBE * vibe_score)
         + (W_OCCASION * occasion_score)
         + (W_AMENITIES * amenity_score)
+        + (W_DIETARY * dietary_score)
     ) - penalty
 
     result.score = final_score
@@ -414,6 +505,7 @@ def calculate_weighted_score(result: SearchResult, intent: Intent) -> SearchResu
         "vibe": vibe_score,
         "occ": occasion_score,
         "amen": amenity_score,
+        "diet": dietary_score,
         "penalty": penalty,
     }
     return result
@@ -488,7 +580,12 @@ class ConciergeEngine:
         return cls(index, prefer_openai=prefer_llm)
 
     def generate_llm_response(
-        self, query: str, intent: Intent, results: list[SearchResult], top_k: int
+        self,
+        query: str,
+        intent: Intent,
+        results: list[SearchResult],
+        top_k: int,
+        location_warning: str | None = None,
     ) -> str:
         if not self.openai_client:
             return format_recommendations(intent, results, limit=top_k)
@@ -517,8 +614,12 @@ class ConciergeEngine:
         # Pass the updated intent structure
         intent_summary = asdict(intent)
 
+        system_prompt = CONCIERGE_SYSTEM_PROMPT
+        if location_warning:
+            system_prompt += f"\n\nCRITICAL INSTRUCTION: {location_warning}"
+
         messages = [
-            {"role": "system", "content": CONCIERGE_SYSTEM_PROMPT},
+            {"role": "system", "content": system_prompt},
             {
                 "role": "user",
                 "content": f"User Query: {query}\n\nIntent Summary: {json.dumps(intent_summary, ensure_ascii=False)}\n\nCANDIDATE_VENUES: {json.dumps(candidates_json, ensure_ascii=False)}",
@@ -539,13 +640,62 @@ class ConciergeEngine:
 
     def recommend(self, query: str, top_k: int = 5) -> tuple[Intent, list[SearchResult], str]:
         intent = extract_intent(query)
-        raw_results = self.index.search(
-            query, intent, top_k=top_k * 4
-        )  # Fetch more to allow re-ranking
+
+        # Check for trivial/conversational query
+        is_trivial = (
+            not intent.cuisines
+            and not intent.locations
+            and not intent.vibe
+            and not intent.amenities
+            and not intent.occasions
+            and not intent.dietary
+            and not intent.price_max
+            and not intent.price_min
+            and len(query.split()) < 3
+        )
+
+        if is_trivial:
+            # Return empty results and a polite prompt
+            return (
+                intent,
+                [],
+                "Hello! I can help you find the perfect table. Tell me what you're in the mood for (e.g., 'romantic dinner in Old City' or 'seafood with a view').",
+            )
+
+        fetch_k = max(top_k * CONCIERGE_CANDIDATE_MULTIPLIER, top_k)
+        raw_results = self.index.search(query, intent, top_k=fetch_k)
         adjusted = [calculate_weighted_score(r, intent) for r in raw_results]
         adjusted.sort(key=lambda r: r.score, reverse=True)
 
-        # If we have an LLM, we delegate the final response generation
-        message = self.generate_llm_response(query, intent, adjusted, top_k)
+        # Strategy:
+        # 1. Strict matches (positive score)
+        # 2. Fallback matches (negative score due to penalty, but high quality otherwise)
 
-        return intent, adjusted[:top_k], message
+        strict_matches = [r for r in adjusted if r.score > 0]
+        final_results = strict_matches
+        location_warning = None
+
+        if not strict_matches and intent.locations:
+            # Try to find high-quality fallbacks that failed ONLY due to location
+            # We reconstruct the base score (score + penalty)
+            # Threshold 0.6 ensures it's a very good match otherwise
+            fallbacks = []
+            for r in adjusted:
+                base_score = r.score + r.debug_scores.get("penalty", 0.0)
+                if base_score > 0.6:
+                    fallbacks.append(r)
+
+            if fallbacks:
+                final_results = fallbacks
+                location_warning = (
+                    f"NO venues found in the requested location(s) {intent.locations}. "
+                    f"The provided candidates are in DIFFERENT locations. "
+                    f"You MUST explicitly clarify to the user that these are alternatives outside their requested area."
+                )
+
+        # If we have an LLM, we delegate the final response generation
+        message = self.generate_llm_response(
+            query, intent, final_results, top_k, location_warning=location_warning
+        )
+
+        return intent, final_results[:top_k], message

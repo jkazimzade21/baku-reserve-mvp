@@ -1,5 +1,4 @@
 import React from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -34,15 +33,19 @@ export default function ConciergeEntryCard({
   prompts,
   onOpen,
   onSelectPrompt,
-  title = 'Not sure where to go?',
-  subtitle = 'Ask Concierge and we’ll shortlist a few tables.',
+  title = 'Plan your night',
+  subtitle = 'Share the mood and I’ll stage a table that feels special.',
   buttonLabel = 'Open Concierge',
 }: Props) {
   const heroPrompts = prompts.slice(0, 6);
 
   return (
     <View style={styles.container}>
-      <LinearGradient colors={['#1F1B16', '#111014']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }} style={styles.gradient}>
+      <View style={styles.backplate} pointerEvents="none" />
+      <View style={styles.panel}>
+        <View style={styles.pillow} pointerEvents="none" />
+        <View style={styles.ridge} pointerEvents="none" />
+
         <View style={styles.content}>
           <View style={styles.iconRow}>
             <View style={styles.iconBadge}>
@@ -62,7 +65,7 @@ export default function ConciergeEntryCard({
             }}
           >
             <Text style={styles.primaryButtonText}>{buttonLabel}</Text>
-            <Feather name="arrow-up-right" size={14} color={colors.text} />
+            <Feather name="arrow-up-right" size={14} color={colors.royalDeep} />
           </Pressable>
 
           <View style={styles.chipRow}>
@@ -84,7 +87,7 @@ export default function ConciergeEntryCard({
             ))}
           </View>
         </View>
-      </LinearGradient>
+      </View>
     </View>
   );
 }
@@ -93,14 +96,46 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: radius.lg,
     overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOpacity: 0.18,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 8 },
-    elevation: 8,
+    marginHorizontal: spacing.lg,
+    borderWidth: 1.5,
+    borderColor: colors.primaryStrong,
+    shadowColor: colors.primaryStrong,
+    shadowOpacity: 0.26,
+    shadowRadius: 24,
+    shadowOffset: { width: 0, height: 14 },
+    elevation: 14,
   },
-  gradient: {
+  backplate: {
+    position: 'absolute',
+    top: 12,
+    left: 10,
+    right: -6,
+    bottom: -10,
+    backgroundColor: colors.primaryStrong,
+    borderRadius: radius.lg + 6,
+    shadowColor: colors.primaryStrong,
+    shadowOpacity: 0.18,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 9 },
+    elevation: 9,
+  },
+  panel: {
+    position: 'relative',
     padding: spacing.lg,
+    backgroundColor: colors.accent,
+    borderRadius: radius.lg,
+    overflow: 'hidden',
+  },
+  pillow: {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: radius.lg,
+    backgroundColor: 'rgba(255,255,255,0.06)',
+  },
+  ridge: {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: radius.lg,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.08)',
   },
   content: {
     gap: spacing.md,
@@ -114,12 +149,16 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.15)',
+    backgroundColor: colors.primary,
+    shadowColor: colors.royalDeep,
+    shadowOpacity: 0.22,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
     alignItems: 'center',
     justifyContent: 'center',
   },
   badgeText: {
-    color: 'rgba(255,255,255,0.8)',
+    color: colors.royalDeep,
     fontSize: 12,
     fontWeight: '600',
     textTransform: 'uppercase',
@@ -128,12 +167,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 22,
     fontWeight: '700',
-    color: '#FFF',
+    color: colors.royalDeep,
     lineHeight: 28,
   },
   subtitle: {
     fontSize: 14,
-    color: 'rgba(255,255,255,0.85)',
+    color: 'rgba(42,21,15,0.82)',
   },
   primaryButton: {
     flexDirection: 'row',
@@ -142,7 +181,7 @@ const styles = StyleSheet.create({
     gap: spacing.xs,
     paddingVertical: spacing.sm,
     borderRadius: radius.pill,
-    backgroundColor: colors.background,
+    backgroundColor: colors.primary,
     alignSelf: 'flex-start',
     paddingHorizontal: spacing.lg,
   },
@@ -151,7 +190,7 @@ const styles = StyleSheet.create({
     transform: [{ scale: 0.99 }],
   },
   primaryButtonText: {
-    color: colors.text,
+    color: colors.royalDeep,
     fontWeight: '700',
     fontSize: 14,
   },
@@ -162,22 +201,24 @@ const styles = StyleSheet.create({
     marginTop: spacing.xs,
   },
   chip: {
-    backgroundColor: 'rgba(255,255,255,0.12)',
+    backgroundColor: 'rgba(42,21,15,0.07)',
     paddingHorizontal: spacing.md,
     paddingVertical: 6,
     borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: colors.royalHighlight,
   },
   chipPressed: {
     opacity: 0.9,
     transform: [{ scale: 0.99 }],
   },
   chipText: {
-    color: '#FFF',
+    color: colors.royalDeep,
     fontSize: 12,
     fontWeight: '600',
   },
   chipHelper: {
-    color: 'rgba(255,255,255,0.8)',
+    color: colors.muted,
     fontSize: 11,
     marginTop: 2,
   },

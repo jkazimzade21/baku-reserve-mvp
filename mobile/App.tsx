@@ -125,7 +125,7 @@ function RootNavigator() {
         <Stack.Screen name="Restaurant" component={RestaurantScreen} options={{ title: 'Restaurant' }} />
         <Stack.Screen name="RestaurantCollection" component={RestaurantCollectionScreen} options={{ title: 'Collections' }} />
         <Stack.Screen name="Book" component={BookScreen} options={{ title: 'Book a Table' }} />
-        <Stack.Screen name="Concierge" component={ConciergeScreen} options={{ title: 'Concierge' }} />
+        <Stack.Screen name="Concierge" component={ConciergeScreen} options={{ headerShown: false }} />
         <Stack.Screen
           name="Auth"
           component={AuthScreen}

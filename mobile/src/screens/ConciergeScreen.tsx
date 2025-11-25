@@ -8,6 +8,7 @@ import * as Haptics from 'expo-haptics';
 import { colors, radius, spacing } from '../config/theme';
 import ConciergePromptChip from '../components/ConciergePromptChip';
 import RestaurantCard from '../components/RestaurantCard';
+import { filterHiddenRestaurants, isHiddenRestaurant } from '../constants/hiddenRestaurants';
 import { useRestaurantDirectory } from '../contexts/RestaurantDirectoryContext';
 import {
   CONCIERGE_PROMPTS,
@@ -61,6 +62,10 @@ const initialMessage: Message = {
 
 export default function ConciergeScreen({ navigation, route }: Props) {
   const { restaurants } = useRestaurantDirectory();
+  const discoverableRestaurants = useMemo(
+    () => filterHiddenRestaurants(restaurants),
+    [restaurants],
+  );
   const conciergeMode = useMemo(() => getConciergeMode(), []);
   const conciergeIsRemote = conciergeMode !== 'local';
   const [input, setInput] = useState(route.params?.initialText ?? '');
@@ -73,7 +78,10 @@ export default function ConciergeScreen({ navigation, route }: Props) {
   // Ensure we only auto-run the initial prompt once when opening via shortcut.
   const hydratedRef = useRef(false);
 
-  const curatedPrompts = useMemo(() => CONCIERGE_PROMPTS.slice(0, 6), []);
+  const curatedPrompts = useMemo(
+    () => CONCIERGE_PROMPTS.filter((p) => !['chef_table', 'seaside'].includes(p.id)).slice(0, 4),
+    [],
+  );
 
   useEffect(() => {
     scrollRef.current?.scrollToEnd({ animated: true });
@@ -100,17 +108,17 @@ export default function ConciergeScreen({ navigation, route }: Props) {
 
   const buildLocalPromptSuggestions = useCallback(
     (prompt: ConciergePrompt) => {
-      const suggestions = recommendForPrompt(prompt, restaurants, 4);
+      const suggestions = recommendForPrompt(prompt, discoverableRestaurants, 4);
       const text = buildAssistantReply(prompt, suggestions);
       return { suggestions, text };
     },
-    [buildAssistantReply, restaurants],
+    [buildAssistantReply, discoverableRestaurants],
   );
 
   const buildLocalDiscoverySuggestions = useCallback(
     (text: string) => {
-      const filters = deriveFiltersFromText(text, restaurants);
-      const result = recommendForText(text, restaurants, 4);
+      const filters = deriveFiltersFromText(text, discoverableRestaurants);
+      const result = recommendForText(text, discoverableRestaurants, 4);
       const suggestions = result.items;
       const summary = result.summary ?? filtersSummary(filters);
       const reply = result.needsMoreInfo
@@ -118,7 +126,7 @@ export default function ConciergeScreen({ navigation, route }: Props) {
         : buildAssistantReply(DEFAULT_PROMPT, suggestions, summary || undefined, result.relaxed);
       return { suggestions, text: reply, needsMoreInfo: result.needsMoreInfo };
     },
-    [buildAssistantReply, restaurants],
+    [buildAssistantReply, discoverableRestaurants],
   );
 
   const respondPrompt = useCallback(
@@ -146,7 +154,9 @@ export default function ConciergeScreen({ navigation, route }: Props) {
       if (conciergeIsRemote) {
         try {
           const res = await fetchConcierge(userText, 4);
-          const suggestions = res.results.map(mapConciergeResultToRestaurant);
+          const suggestions = res.results
+            .map(mapConciergeResultToRestaurant)
+            .filter((restaurant) => !isHiddenRestaurant(restaurant));
           const assistantMessage: Message = {
             id: `assistant-${Date.now()}`,
             role: 'assistant',
@@ -193,7 +203,9 @@ export default function ConciergeScreen({ navigation, route }: Props) {
       if (conciergeIsRemote) {
         try {
           const res = await fetchConcierge(text, 4);
-          const suggestions = res.results.map(mapConciergeResultToRestaurant);
+          const suggestions = res.results
+            .map(mapConciergeResultToRestaurant)
+            .filter((restaurant) => !isHiddenRestaurant(restaurant));
           const assistantMessage: Message = {
             id: `assistant-${Date.now()}`,
             role: 'assistant',
@@ -326,21 +338,29 @@ export default function ConciergeScreen({ navigation, route }: Props) {
           contentContainerStyle={styles.content}
           keyboardShouldPersistTaps="handled"
         >
+          <View style={styles.topBar}>
+            <Pressable style={styles.backRow} onPress={() => navigation.goBack()} hitSlop={8}>
+              <Feather name="arrow-left" size={18} color={colors.royalDeep} />
+              <Text style={styles.backLabel}>Explore</Text>
+            </Pressable>
+          </View>
+
           <View style={styles.hero}>
-            <Text style={styles.eyebrow}>Concierge</Text>
-            <Text style={styles.heroTitle}>Consider me your table fixer.</Text>
+            <Text style={styles.heroTitle}>Plan your night.</Text>
             <Text style={styles.heroSubtitle}>
-              Describe the mood, party size, or cuisine. I’ll shortlist matching restaurants and let you jump into details.
+              Tell me the mood, guests, and time. I’ll line up the kind of table that feels like a treat.
             </Text>
 
             <View style={styles.promptGrid}>
               {curatedPrompts.map((prompt) => (
-                <ConciergePromptChip
-                  key={prompt.id}
-                  label={prompt.title}
-                  helper={prompt.subtitle}
-                  onPress={() => handlePrompt(prompt)}
-                />
+                <View key={prompt.id} style={styles.promptTile}>
+                  <ConciergePromptChip
+                    label={prompt.title}
+                    helper={prompt.subtitle}
+                    onPress={() => handlePrompt(prompt)}
+                    compact
+                  />
+                </View>
               ))}
             </View>
           </View>
@@ -395,7 +415,7 @@ export default function ConciergeScreen({ navigation, route }: Props) {
             onSubmitEditing={() => handleFreeform(input)}
           />
           <Pressable style={({ pressed }) => [styles.sendButton, pressed && styles.sendButtonPressed]} onPress={() => handleFreeform(input)}>
-            <Feather name="arrow-up-right" size={20} color={colors.text} />
+            <Feather name="arrow-up-right" size={20} color={colors.royalDeep} />
           </Pressable>
         </View>
       </KeyboardAvoidingView>
@@ -412,39 +432,52 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    paddingHorizontal: spacing.lg,
+    paddingHorizontal: spacing.md,
     paddingBottom: spacing.xxl,
     gap: spacing.md,
+    paddingTop: spacing.md,
+  },
+  topBar: {
+    paddingHorizontal: spacing.xs,
+    paddingBottom: spacing.sm,
+  },
+  backRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+  },
+  backLabel: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: colors.royalDeep,
   },
   hero: {
-    backgroundColor: colors.card,
-    borderRadius: radius.xl,
-    padding: spacing.lg,
+    marginBottom: spacing.md,
+    paddingHorizontal: spacing.xs,
     gap: spacing.sm,
-    borderWidth: 1,
-    borderColor: colors.border,
-    marginTop: spacing.sm,
-  },
-  eyebrow: {
-    textTransform: 'uppercase',
-    letterSpacing: 0.6,
-    fontWeight: '700',
-    color: colors.primaryStrong,
-    fontSize: 12,
   },
   heroTitle: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: '800',
-    color: colors.text,
-    lineHeight: 30,
+    color: colors.royalDeep,
+    lineHeight: 32,
+    letterSpacing: -0.5,
   },
   heroSubtitle: {
-    fontSize: 14,
-    color: colors.muted,
+    fontSize: 15,
+    color: colors.mutedStrong,
+    lineHeight: 22,
+    marginBottom: spacing.sm,
   },
   promptGrid: {
     marginTop: spacing.sm,
-    gap: spacing.xs,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+    justifyContent: 'space-between',
+  },
+  promptTile: {
+    width: '48%',
   },
   bubble: {
     padding: spacing.md,
@@ -457,7 +490,7 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
   },
   userBubble: {
-    backgroundColor: colors.primaryStrong,
+    backgroundColor: colors.primary,
     borderColor: colors.primaryStrong,
   },
   bubbleText: {
@@ -468,7 +501,7 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   userText: {
-    color: '#fff',
+    color: colors.royalDeep,
     fontWeight: '600',
   },
   suggestionBlock: {
@@ -514,7 +547,7 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     borderTopWidth: 1,
     borderTopColor: colors.border,
-    backgroundColor: colors.background,
+    backgroundColor: colors.surface,
   },
   textInput: {
     flex: 1,
@@ -531,11 +564,11 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     borderRadius: radius.lg,
-    backgroundColor: colors.card,
+    backgroundColor: colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: colors.primaryStrong,
   },
   sendButtonPressed: {
     opacity: 0.9,

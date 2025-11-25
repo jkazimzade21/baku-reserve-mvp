@@ -76,43 +76,11 @@ class ConciergeIndex:
         qvec = self.embedder.embed_batch([doc])[0]
         scored: list[SearchResult] = []
 
-        # Normalize intent locations for checking
-        target_locations = [loc.lower() for loc in intent.locations] if intent.locations else []
-
         for venue, vec in zip(self.venues, self.vectors, strict=False):
-            # Hard Filter: Location (if specified)
-            # If user explicitly asks for an area, penalize or exclude venues not in that area/tag group
-            if target_locations:
-                venue_locs = [str(loc).lower() for loc in venue.tags.get("location", [])]
-                # Check if any venue location tag matches any target location (partial match allowed)
-                # E.g. target="narimanov", venue has "narimanov-metro"
-
-                has_location_match = False
-                for t_loc in target_locations:
-                    if any(t_loc in v_loc for v_loc in venue_locs):
-                        has_location_match = True
-                        break
-
-                # If location is totally wrong, skip semantic search for this venue OR give it 0 score
-                # Skipping is cleaner for "Top-K"
-                if not has_location_match:
-                    continue
-
             score = _cosine(qvec, vec)
             scored.append(SearchResult(venue=venue, score=score))
 
         scored.sort(key=lambda r: r.score, reverse=True)
-
-        # Fallback: if strict filtering killed everything (e.g. bad tag mapping), try again without filter?
-        # For now, let's return what we found. If empty, maybe we should have relaxed.
-        # A robust system would retry with relaxed constraints.
-        if not scored and target_locations:
-            # Retry without filter
-            for venue, vec in zip(self.venues, self.vectors, strict=False):
-                score = _cosine(qvec, vec)
-                scored.append(SearchResult(venue=venue, score=score))
-            scored.sort(key=lambda r: r.score, reverse=True)
-
         return scored[: max(1, top_k)]
 
     def save(self, path: Path) -> None:
