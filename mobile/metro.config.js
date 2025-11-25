@@ -27,7 +27,10 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
   // Work around Metro missing relative imports inside some deps -----------------
 
   // color-convert (dependency of chalk/ansi-styles)
-  if (/node_modules[\\/]+color-convert[\\/]+route\.js$/.test(origin) && moduleName === './conversions') {
+  if (
+    /node_modules[\\/]+color-convert[\\/]+route\.js$/.test(origin) &&
+    moduleName === './conversions'
+  ) {
     return {
       type: 'sourceFile',
       filePath: path.join(path.dirname(origin), 'conversions.js'),
@@ -36,15 +39,16 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
 
   // Force color-convert to local shim to avoid resolution/SHA-1 errors
   if (moduleName === 'color-convert') {
-     const shim = path.join(projectRoot, 'metro-shims', 'color-convert.js');
-     if (fs.existsSync(shim)) {
-       return { type: 'sourceFile', filePath: shim };
-     }
+    const shim = path.join(projectRoot, 'metro-shims', 'color-convert.js');
+    if (fs.existsSync(shim)) {
+      return { type: 'sourceFile', filePath: shim };
+    }
   }
 
   // Force es-object-atoms to local shim to avoid resolution/SHA-1 errors
   if (moduleName === 'es-object-atoms' || moduleName.startsWith('es-object-atoms/')) {
-    const subpath = moduleName === 'es-object-atoms' ? 'index.js' : moduleName.slice('es-object-atoms/'.length);
+    const subpath =
+      moduleName === 'es-object-atoms' ? 'index.js' : moduleName.slice('es-object-atoms/'.length);
     const filename = path.extname(subpath) ? subpath : `${subpath}.js`;
     const shim = path.join(projectRoot, 'metro-shims', 'es-object-atoms', filename);
     if (fs.existsSync(shim)) {
@@ -54,9 +58,10 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
 
   // react-native-gesture-handler GestureDetector on web
   // The path in the error is: .../node_modules/react-native-gesture-handler/lib/module/handlers/gestures/GestureDetector/index.js
-  const isRnghGestureDetector = origin.includes('react-native-gesture-handler') &&
-                                origin.includes('GestureDetector') &&
-                                origin.endsWith('index.js');
+  const isRnghGestureDetector =
+    origin.includes('react-native-gesture-handler') &&
+    origin.includes('GestureDetector') &&
+    origin.endsWith('index.js');
 
   if (isRnghGestureDetector && moduleName === './useDetectorUpdater') {
     const shim = path.join(projectRoot, 'metro-shims', 'rngh-useDetectorUpdater.js');

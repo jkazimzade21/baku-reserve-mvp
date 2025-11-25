@@ -9,17 +9,26 @@ import { attachHandlers } from 'react-native-gesture-handler/lib/module/handlers
 import { updateHandlers } from 'react-native-gesture-handler/lib/module/handlers/gestures/GestureDetector/updateHandlers';
 import { needsToReattach } from 'react-native-gesture-handler/lib/module/handlers/gestures/GestureDetector/needsToReattach';
 import { dropHandlers } from 'react-native-gesture-handler/lib/module/handlers/gestures/GestureDetector/dropHandlers';
-import { useForceRender, validateDetectorChildren } from 'react-native-gesture-handler/lib/module/handlers/gestures/GestureDetector/utils';
+import {
+  useForceRender,
+  validateDetectorChildren,
+} from 'react-native-gesture-handler/lib/module/handlers/gestures/GestureDetector/utils';
 
 // Returns a function that's responsible for updating the attached gestures.
 // If the view has changed, it will reattach the handlers to the new view.
 // If the view remains the same, it will update the handlers with the new config.
-export function useDetectorUpdater(state, preparedGesture, gesturesToAttach, gestureConfig, webEventHandlersRef) {
+export function useDetectorUpdater(
+  state,
+  preparedGesture,
+  gesturesToAttach,
+  gestureConfig,
+  webEventHandlersRef,
+) {
   const forceRender = useForceRender();
 
   const updateAttachedGestures = useCallback(
     // skipConfigUpdate is used to prevent unnecessary updates when only checking if the view has changed
-    skipConfigUpdate => {
+    (skipConfigUpdate) => {
       // If the underlying view has changed we need to reattach handlers to the new view
       const viewTag = findNodeHandle(state.viewRef);
       const didUnderlyingViewChange = viewTag !== state.previousViewTag;
