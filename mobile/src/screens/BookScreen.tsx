@@ -24,6 +24,7 @@ import {
 import { colors, radius, shadow, spacing } from '../config/theme';
 import { formatDateInput, parseDateInput } from '../utils/dateInput';
 import { formatDateLabel, formatTimeLabel } from '../utils/availability';
+import { normalizeRestaurantDetail } from '../utils/normalizeRestaurant';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../types/navigation';
 import { useAuth } from '../contexts/AuthContext';
@@ -73,7 +74,7 @@ export default function BookScreen({ route, navigation }: Props) {
     let mounted = true;
     (async () => {
       try {
-        const detail = await fetchRestaurant(id);
+        const detail = normalizeRestaurantDetail(await fetchRestaurant(id));
         if (!mounted) return;
         setRestaurantDetail(detail);
         if (detail.timezone) setTimezone(detail.timezone);

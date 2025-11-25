@@ -21,6 +21,7 @@ import PhotoCarousel from '../components/PhotoCarousel';
 import Surface from '../components/Surface';
 import { colors, radius, shadow, spacing } from '../config/theme';
 import { resolveRestaurantPhotos } from '../utils/photoSources';
+import { normalizeRestaurantDetail, normalizeRestaurantSummary } from '../utils/normalizeRestaurant';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../types/navigation';
 import { Feather } from '@expo/vector-icons';
@@ -32,29 +33,24 @@ type ActionItem = { key: string; label: string; onPress: () => void };
 const FALLBACK_PHONE = '+994 (12) 555 2025';
 
 const buildMockDetail = (summary: RestaurantSummary): RestaurantDetail => {
-  const instagramHandle = summary.instagram ?? (summary.slug ? `https://instagram.com/${summary.slug}` : null);
+  const normalized = normalizeRestaurantSummary(summary);
+  const instagramHandle =
+    normalized.instagram ??
+    (normalized.slug ? `https://instagram.com/${normalized.slug}` : null);
   const menuUrl =
-    // Prefer a menu URL if present on the summary (available in bundled seed)
     (summary as any).menu_url ??
-    // fallback to slug-based placeholder (may 404, but keeps type stable)
-    (summary.slug ? `https://bakureserve.com/menus/${summary.slug}` : null);
-  return {
-    ...summary,
-    city: summary.city ?? 'Baku',
-    cuisine: summary.cuisine ?? [],
-    timezone: summary.timezone ?? 'Asia/Baku',
-    phone: FALLBACK_PHONE,
+    (summary as any).links?.menu ??
+    (normalized.slug ? `https://bakureserve.com/menus/${normalized.slug}` : null);
+  return normalizeRestaurantDetail({
+    ...normalized,
+    phone: (summary as any).phone ?? FALLBACK_PHONE,
     whatsapp: null,
     instagram: instagramHandle,
     menu_url: menuUrl,
-    photos: summary.cover_photo ? [summary.cover_photo] : [],
-    cover_photo: summary.cover_photo,
-    areas: [],
-    address: summary.address,
-    tags: summary.tags,
-    neighborhood: summary.neighborhood,
-    short_description: summary.short_description,
-  };
+    address: (summary as any).address ?? (summary as any).contact?.address ?? '',
+    photos: normalized.photos?.length ? normalized.photos : normalized.cover_photo ? [normalized.cover_photo] : [],
+    cover_photo: normalized.cover_photo,
+  });
 };
 
 export default function RestaurantScreen({ route, navigation }: Props) {
@@ -87,8 +83,9 @@ export default function RestaurantScreen({ route, navigation }: Props) {
       try {
         const r = await fetchRestaurant(id);
         if (!mounted) return;
-        setData(r);
-        navigation.setOptions({ title: r.name || 'Restaurant' });
+        const normalized = normalizeRestaurantDetail(r);
+        setData(normalized);
+        navigation.setOptions({ title: normalized.name || 'Restaurant' });
       } catch (err: any) {
         if (!mounted) return;
         const fallback = fallbackRef.current;
@@ -112,7 +109,22 @@ export default function RestaurantScreen({ route, navigation }: Props) {
   const isPendingPhotos = Boolean(photoBundle?.pending);
 
   const formattedTags = useMemo(() => {
-    return data?.tags?.map((tag) => formatTag(tag)) ?? [];
+    if (!data?.tags) return [];
+    // If it's an object with categories, flatten them
+    if (typeof data.tags === 'object' && !Array.isArray(data.tags)) {
+      const allTags: string[] = [];
+      Object.values(data.tags).forEach((categoryTags) => {
+        if (Array.isArray(categoryTags)) {
+          allTags.push(...categoryTags);
+        }
+      });
+      return allTags.map(formatTag);
+    }
+    // If it's already an array (old schema fallback), just map it
+    if (Array.isArray(data.tags)) {
+        return data.tags.map(formatTag);
+    }
+    return [];
   }, [data]);
 
   const handleBook = () => {
@@ -197,15 +209,38 @@ export default function RestaurantScreen({ route, navigation }: Props) {
         ? [photoBundle.cover]
         : [];
 
-  const quickActionItems = [
-    data.phone ? { key: 'call', label: 'Call', onPress: handleCall } : null,
-    data.whatsapp ? { key: 'whatsapp', label: 'WhatsApp', onPress: handleWhatsapp } : null,
-    data.instagram ? { key: 'instagram', label: 'Instagram', onPress: handleInstagram } : null,
-  ].filter(Boolean) as ActionItem[];
-
   const secondaryActionItems = [
     { key: 'share', label: 'Share', onPress: handleShare },
     data.menu_url ? { key: 'menu', label: 'Menu', onPress: handleMenu } : null,
+  ].filter(Boolean) as ActionItem[];
+
+  const handleDirections = () => {
+    if (data?.latitude && data?.longitude) {
+      const { latitude, longitude } = data;
+      const encodedLabel = encodeURIComponent(data.name);
+      const url = Platform.select({
+        ios: `maps://?q=${encodedLabel}&ll=${latitude},${longitude}`,
+        android: `geo:${latitude},${longitude}?q=${latitude},${longitude}(${encodedLabel})`,
+        default: `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=16/${latitude}/${longitude}`,
+      });
+      Linking.openURL(url ?? '').catch(() => Alert.alert('Unable to open maps.'));
+      return;
+    }
+    if (data?.address) {
+      const url = `https://www.openstreetmap.org/search?query=${encodeURIComponent(data.address)}`;
+      Linking.openURL(url).catch(() => Alert.alert('Unable to open maps.'));
+      return;
+    }
+    Alert.alert('No address provided', 'This venue has not shared a map location yet.');
+  };
+
+  const quickActionItems = [
+    (data.latitude && data.longitude) || data.address
+      ? { key: 'directions', label: 'Directions', onPress: handleDirections }
+      : null,
+    data.phone ? { key: 'call', label: 'Call', onPress: handleCall } : null,
+    data.whatsapp ? { key: 'whatsapp', label: 'WhatsApp', onPress: handleWhatsapp } : null,
+    data.instagram ? { key: 'instagram', label: 'Instagram', onPress: handleInstagram } : null,
   ].filter(Boolean) as ActionItem[];
 
   return (
@@ -224,17 +259,17 @@ export default function RestaurantScreen({ route, navigation }: Props) {
           )}
           <View style={styles.heroBody}>
             <Text style={styles.heroTitle}>{data.name}</Text>
-            <Text style={styles.heroSubtitle}>{data.cuisine?.join(' • ')}</Text>
+            <Text style={styles.heroSubtitle}>{(data.cuisine?.length ? data.cuisine : (data.tags as any)?.cuisine)?.join(' • ')}</Text>
             {data.short_description ? (
               <Text style={styles.heroDescription}>{data.short_description}</Text>
             ) : null}
             <View style={styles.heroMetaRow}>
-              {data.neighborhood ? <Text style={styles.heroMeta}>{data.neighborhood}</Text> : null}
+              {data.neighborhood ? <Text style={styles.heroMetaItem}>{data.neighborhood}</Text> : null}
               {data.price_level ? (
-                <Text style={[styles.heroMeta, styles.heroMetaDivider]}>• {data.price_level}</Text>
+                <Text style={[styles.heroMetaItem, styles.heroMetaDivider]}>• {data.price_level}</Text>
               ) : null}
               {data.average_spend ? (
-                <Text style={[styles.heroMeta, styles.heroMetaDivider]}>• {data.average_spend}</Text>
+                <Text style={[styles.heroMetaItem, styles.heroMetaDivider]}>• {data.average_spend}</Text>
               ) : null}
             </View>
             {data.address ? <Text style={styles.heroMeta}>{data.address}</Text> : null}
@@ -380,12 +415,15 @@ const styles = StyleSheet.create({
     gap: spacing.xs,
     marginTop: spacing.sm,
   },
+  heroMetaItem: {
+    color: colors.muted,
+  },
   heroMeta: {
     color: colors.muted,
     marginTop: spacing.xs,
   },
   heroMetaDivider: {
-    marginTop: spacing.xs,
+    color: colors.muted,
   },
   tagToggleContainer: {
     marginTop: spacing.sm,

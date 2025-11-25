@@ -12,7 +12,42 @@ type ExtraConfig = {
   API_URL?: string;
 };
 
-export type RestaurantSummary = ApiRestaurantSummary;
+export type RestaurantSummary = {
+  id: string;
+  name?: string;
+  name_en?: string;
+  name_az?: string;
+  slug?: string;
+  cuisine?: string[];
+  tags?: {
+    cuisine?: string[];
+    location?: string[];
+    vibe?: string[];
+    [key: string]: string[] | undefined;
+  };
+  neighborhood?: string;
+  city?: string;
+  address?: string;
+  phone?: string | string[];
+  menu_url?: string;
+  contact?: {
+    address?: string;
+    phone?: string | string[] | null;
+    website?: string | null;
+  };
+  links?: {
+    menu?: string | null;
+    [key: string]: any;
+  };
+  tag_groups?: Record<string, string[]>;
+  price_level?: string;
+  cover_photo?: string;
+  photos?: string[];
+  short_description?: string;
+  rating?: number;
+  reviews_count?: number;
+  instagram?: string;
+};
 
 export type TableGeometry = {
   position?: [number, number];
@@ -54,8 +89,9 @@ export type AreaDetail = {
   }>;
 };
 
-export type RestaurantDetail = Omit<ApiRestaurantDetail, 'areas'> & {
+export type RestaurantDetail = Omit<ApiRestaurantDetail, 'areas' | 'tags'> & {
   areas?: AreaDetail[];
+  tags?: string[] | { [key: string]: string[] };
 };
 
 export type AvailabilitySlot = {

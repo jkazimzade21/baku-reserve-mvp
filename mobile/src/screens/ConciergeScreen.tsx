@@ -57,19 +57,6 @@ export default function ConciergeScreen({ navigation, route }: Props) {
   const curatedPrompts = useMemo(() => CONCIERGE_PROMPTS.slice(0, 6), []);
 
   useEffect(() => {
-    if (hydratedRef.current) return;
-    hydratedRef.current = true;
-    const promptFromRoute = findPromptById(route.params?.promptId ?? null);
-    if (promptFromRoute) {
-      handlePrompt(promptFromRoute, false);
-      return;
-    }
-    if (route.params?.initialText) {
-      handleFreeform(route.params.initialText, false);
-    }
-  }, [handleFreeform, handlePrompt, route.params]);
-
-  useEffect(() => {
     scrollRef.current?.scrollToEnd({ animated: true });
   }, [messages]);
 
@@ -243,6 +230,19 @@ export default function ConciergeScreen({ navigation, route }: Props) {
     },
     [navigation],
   );
+
+  useEffect(() => {
+    if (hydratedRef.current) return;
+    hydratedRef.current = true;
+    const promptFromRoute = findPromptById(route.params?.promptId ?? null);
+    if (promptFromRoute) {
+      handlePrompt(promptFromRoute, false);
+      return;
+    }
+    if (route.params?.initialText) {
+      handleFreeform(route.params.initialText, false);
+    }
+  }, [handleFreeform, handlePrompt, route.params]);
 
   return (
     <SafeAreaView style={styles.safe} edges={["top", "left", "right"]}>

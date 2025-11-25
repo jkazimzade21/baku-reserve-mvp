@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { fetchRestaurants, type RestaurantSummary } from '../api';
-import { RESTAURANT_SEED } from '../data/restaurantsSeed';
+import { NORMALIZED_RESTAURANT_SEED } from '../data/restaurantsSeedNormalized';
+import { normalizeRestaurantSummary } from '../utils/normalizeRestaurant';
 
 type LoadOptions = {
   refreshing?: boolean;
 };
 
 export function useRestaurants(initialQuery = '') {
-  const [restaurants, setRestaurants] = useState<RestaurantSummary[]>(RESTAURANT_SEED);
+  const [restaurants, setRestaurants] = useState<RestaurantSummary[]>(NORMALIZED_RESTAURANT_SEED);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -34,14 +35,15 @@ export function useRestaurants(initialQuery = '') {
         const results = await fetchRestaurants(
           effectiveQuery.length ? effectiveQuery : undefined,
         );
-        if (results.length === 0 && !effectiveQuery.length) {
-          setRestaurants(RESTAURANT_SEED);
+        const normalized = results.map((entry) => normalizeRestaurantSummary(entry));
+        if (normalized.length === 0 && !effectiveQuery.length) {
+          setRestaurants(NORMALIZED_RESTAURANT_SEED);
         } else {
-          setRestaurants(results);
+          setRestaurants(normalized);
         }
       } catch (err: any) {
         setError(err.message || 'Failed to load restaurants');
-        setRestaurants((prev) => (prev.length ? prev : RESTAURANT_SEED));
+        setRestaurants((prev) => (prev.length ? prev : NORMALIZED_RESTAURANT_SEED));
       } finally {
         setLoading(false);
         setRefreshing(false);

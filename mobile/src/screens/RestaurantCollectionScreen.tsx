@@ -12,6 +12,21 @@ import { useRestaurantDirectory } from '../contexts/RestaurantDirectoryContext';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'RestaurantCollection'>;
 
+const flattenTags = (tags: any): string[] => {
+  if (!tags) return [];
+  if (Array.isArray(tags)) {
+    return tags
+      .map((entry) => (typeof entry === 'string' ? entry : null))
+      .filter((entry): entry is string => Boolean(entry));
+  }
+  if (typeof tags === 'object') {
+    return Object.values(tags)
+      .flat()
+      .filter((entry): entry is string => typeof entry === 'string');
+  }
+  return [];
+};
+
 export default function RestaurantCollectionScreen({ route, navigation }: Props) {
   const { title, subtitle, source, categoryId, query = '', restaurantIds } = route.params;
   const { restaurants, loading, refreshing, reload } = useRestaurantDirectory();
@@ -24,16 +39,17 @@ export default function RestaurantCollectionScreen({ route, navigation }: Props)
       return restaurants;
     }
     return restaurants.filter((restaurant) => {
-      const haystack = [
-        restaurant.name,
-        restaurant.neighborhood,
-        restaurant.address,
-        ...(restaurant.cuisine ?? []),
-        ...(restaurant.tags ?? []),
-      ]
-        .filter((value): value is string => Boolean(value))
+      const haystack: string[] = [];
+      if (restaurant.name) haystack.push(restaurant.name);
+      if (restaurant.neighborhood) haystack.push(restaurant.neighborhood);
+      if (restaurant.city) haystack.push(restaurant.city);
+      if (restaurant.address) haystack.push(restaurant.address);
+      haystack.push(...(restaurant.cuisine ?? []));
+      haystack.push(...flattenTags(restaurant.tags));
+      const normalized = haystack
+        .filter((value) => typeof value === 'string' && value.trim())
         .map((value) => value.toLowerCase());
-      return haystack.some((entry) => entry.includes(normalizedSearch));
+      return normalized.some((entry) => entry.includes(normalizedSearch));
     });
   }, [normalizedSearch, restaurants]);
 
