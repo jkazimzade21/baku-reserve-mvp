@@ -1,64 +1,22 @@
 import React from 'react';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+
 import { colors, radius, shadow, spacing } from '../config/theme';
 import type { RestaurantSummary } from '../api';
 import { resolveRestaurantPhotos, defaultFallbackSource } from '../utils/photoSources';
+import { formatPriceLabel, formatReviews, getPrimaryCuisine, hashRating } from '../utils/restaurantMeta';
 
 type Props = {
   item: RestaurantSummary;
   onPress: () => void;
 };
 
-const tagPriority = [
-  'book_early',
-  'skyline',
-  'late_night',
-  'family_brunch',
-  'waterfront',
-  'seafood',
-  'cocktails',
-  'garden',
-];
-
-const canonicalTag = (tag: string) => {
-  switch (tag) {
-    case 'must_book':
-      return 'book_early';
-    case 'sunset':
-    case 'seaside':
-      return 'waterfront';
-    case 'dj':
-    case 'dj_nights':
-    case 'cocktail_lab':
-    case 'nikkei':
-      return 'late_night';
-    case 'family_style':
-    case 'breakfast':
-      return 'family_brunch';
-    case 'rooftop':
-    case 'panorama':
-    case 'hotel_partner':
-      return 'skyline';
-    default:
-      return tag;
-  }
-};
-
-const pickDisplayTag = (tags?: string[]) => {
-  if (!tags || tags.length === 0) return null;
-  const normalized = tags.map((tag) => canonicalTag(tag));
-  for (const candidate of tagPriority) {
-    if (normalized.includes(candidate)) {
-      return candidate;
-    }
-  }
-  return normalized[0];
-};
-
 export default function RestaurantCard({ item, onPress }: Props) {
-  const primaryCuisine = (Array.isArray(item.tags) ? item.tags?.[0] : item.tags?.cuisine?.[0]) ?? item.cuisine?.[0];
-  const extraCount = Math.max(((Array.isArray(item.tags) ? item.tags : item.tags?.cuisine) ?? item.cuisine ?? []).length - 1, 0);
-  const displayTag = pickDisplayTag((Array.isArray(item.tags) ? item.tags : (item.tags?.vibe ?? item.tags?.location)));
+  const displayCuisine = getPrimaryCuisine(item);
+  const priceLabel = formatPriceLabel(item.price_level);
+  const location = item.neighborhood || item.city || 'Baku';
+  const { rating, reviews } = hashRating(item.id || item.slug || 'restaurant');
   const bundle = resolveRestaurantPhotos(item);
   const isPendingPhotos = bundle.pending;
   const hasCover = Boolean(bundle.cover);
@@ -81,30 +39,24 @@ export default function RestaurantCard({ item, onPress }: Props) {
       )}
       <View style={styles.cardBody}>
         <Text style={styles.title}>{displayName}</Text>
+        <View style={styles.ratingRow}>
+          <Feather name="star" size={14} color={colors.primaryStrong} />
+          <Text style={styles.ratingValue}>{rating.toFixed(1)}</Text>
+          <Text style={styles.ratingReviews}>({formatReviews(reviews)}) reviews</Text>
+        </View>
         <View style={styles.metaRow}>
-          {primaryCuisine ? <Text style={styles.meta}>{primaryCuisine}</Text> : null}
-          {extraCount > 0 && <Text style={styles.badge}>+{extraCount}</Text>}
-          {item.price_level ? <Text style={styles.metaDivider}>• {item.price_level}</Text> : null}
+          {displayCuisine ? <Text style={styles.meta}>{displayCuisine}</Text> : null}
+          {priceLabel ? <Text style={styles.metaDivider}>• {priceLabel}</Text> : null}
+          {location ? <Text style={styles.metaDivider}>• {location}</Text> : null}
         </View>
         {item.short_description ? (
           <Text style={styles.description} numberOfLines={2}>
             {item.short_description}
           </Text>
         ) : null}
-        {item.city ? <Text style={styles.city}>{item.city}</Text> : null}
-        <View style={styles.footerRow}>
-          {displayTag ? <Text style={styles.tag}>{formatTag(displayTag)}</Text> : null}
-        </View>
       </View>
     </Pressable>
   );
-}
-
-function formatTag(tag: string) {
-  return tag
-    .split('_')
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(' ');
 }
 
 const styles = StyleSheet.create({
@@ -175,6 +127,19 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: colors.text,
   },
+  ratingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+  },
+  ratingValue: {
+    fontWeight: '700',
+    color: colors.text,
+  },
+  ratingReviews: {
+    color: colors.muted,
+    fontSize: 12,
+  },
   metaRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -189,34 +154,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginLeft: spacing.xs,
   },
-  badge: {
-    paddingHorizontal: spacing.xs + 2,
-    paddingVertical: 2,
-    borderRadius: radius.sm,
-    fontSize: 12,
-    backgroundColor: colors.overlay,
-    color: colors.primaryStrong,
-    fontWeight: '600',
-    textTransform: 'uppercase',
-  },
   description: {
     color: colors.muted,
     fontSize: 13,
-  },
-  city: {
-    color: colors.muted,
-    fontSize: 13,
-  },
-  tag: {
-    fontSize: 12,
-    fontWeight: '600',
-    textTransform: 'uppercase',
-    color: colors.primaryStrong,
-  },
-  footerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
-    marginTop: spacing.xs,
   },
 });

@@ -1,17 +1,23 @@
 export const colors = {
-  background: '#FFFDF9', // royal white / luxury white
-  surface: '#FFF9F3',
-  card: '#FFF4EB',
-  accent: '#FDE3D2',
-  primary: '#E5A27A', // cream/peach accent
-  primaryStrong: '#C97845',
-  primaryFaint: 'rgba(229, 162, 122, 0.16)',
-  secondary: '#F6D7C3',
-  text: '#2C1F16',
-  muted: '#7A5F4E',
-  mutedStrong: '#4D3428',
-  border: '#F1DCCD',
-  overlay: 'rgba(201, 151, 118, 0.15)',
+  background: '#FFF3E6', // creamy peach base
+  surface: '#FFEAD9',
+  card: '#FFE1CC',
+  accent: '#FAD5BD',
+  primary: '#E49A6A', // cream/peach accent
+  primaryStrong: '#C46C3D',
+  primaryFaint: 'rgba(228, 154, 106, 0.18)',
+  secondary: '#F5C8A6',
+  text: '#2A1A13',
+  muted: '#7B5A47',
+  mutedStrong: '#4C342A',
+  border: '#F0D3BE',
+  overlay: 'rgba(196, 108, 61, 0.14)',
+  rose: '#FF9BBF',
+  roseStrong: '#FF6FA8',
+  roseGlow: '#FFD2E4',
+  royalDeep: '#2A150F',
+  royalMid: '#3A1D14',
+  royalHighlight: '#F6C99E',
   success: '#2D8A6E',
   info: '#4D7EA8',
   danger: '#C1493C',
@@ -43,7 +49,7 @@ export const shadow = {
     shadowRadius: 12,
     elevation: 4,
     // Ensure Android can compute shadow without complaining about transparent backgrounds
-    backgroundColor: '#FFFDF9',
+    backgroundColor: '#FFF3E6',
   },
   subtle: {
     shadowColor: '#000',
@@ -51,6 +57,20 @@ export const shadow = {
     shadowOpacity: 0.04,
     shadowRadius: 8,
     elevation: 2,
-    backgroundColor: '#FFFDF9',
+    backgroundColor: '#FFF3E6',
   },
+  deep3d: {
+    shadowColor: '#C46C3D',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
+    elevation: 10,
+    backgroundColor: '#FFEAD9',
+  },
+};
+
+export const gradients = {
+  royal3D: ['#FFF0E0', '#FFE0CC'] as const,
+  glass: ['rgba(255,255,255,0.8)', 'rgba(255,243,230,0.6)'] as const,
+  primary3D: ['#E49A6A', '#C46C3D'] as const,
 };

@@ -117,7 +117,8 @@ export default function RestaurantScreen({ route, navigation }: Props) {
 
   const formattedTags = useMemo(() => {
     const rawTags = Array.isArray(data?.tags) ? data?.tags : [];
-    return rawTags.slice(0, 12).map((tag) => formatTag(tag));
+    const unique = Array.from(new Set(rawTags));
+    return unique.map((tag) => formatTag(tag));
   }, [data?.tags]);
 
   const cuisineLine = useMemo(() => {

@@ -18,7 +18,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import HorizontalRestaurantRow from '../components/HorizontalRestaurantRow';
 import FeaturedEventCard from '../components/FeaturedEventCard';
-import ConciergeEntryCard, { type PromptLike } from '../components/ConciergeEntryCard';
+import type { PromptLike } from '../components/ConciergeEntryCard';
 import { colors, radius, shadow, spacing } from '../config/theme';
 import { useRestaurantDirectory } from '../contexts/RestaurantDirectoryContext';
 import { defaultFallbackSource, resolveRestaurantPhotos } from '../utils/photoSources';
@@ -28,7 +28,6 @@ import {
   getMockNewOnBakuReserve,
   getMockFeaturedExperiences,
   getShowcaseVenues,
-  getMockConciergePrompts,
   type MockEvent,
 } from '../data/mockShowcaseData';
 import type { MainTabParamList, RootStackParamList } from '../types/navigation';
@@ -59,7 +58,6 @@ export default function HomeScreen({ navigation }: Props) {
   const continueExploring = useMemo(() => getMockContinueExploring(), []);
   const newOnReserve = useMemo(() => getMockNewOnBakuReserve(), []);
   const experiences = useMemo(() => getMockFeaturedExperiences(), []);
-  const conciergePrompts = useMemo(() => getMockConciergePrompts(), []);
 
   const showcaseLookup = useMemo(() => {
     const map = new Map<string, RestaurantSummary>();
@@ -210,14 +208,6 @@ export default function HomeScreen({ navigation }: Props) {
           </Text>
           <Feather name="chevron-right" size={16} color={colors.primaryStrong} />
         </Pressable>
-
-        <View style={styles.section}>
-          <ConciergeEntryCard
-            prompts={conciergePrompts}
-            onOpen={() => handleConcierge()}
-            onSelectPrompt={(prompt) => handleConcierge(prompt)}
-          />
-        </View>
 
         <View style={styles.section}>
           <HorizontalRestaurantRow

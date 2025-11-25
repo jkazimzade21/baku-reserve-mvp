@@ -9,6 +9,7 @@ import CategoryGrid from '../components/CategoryGrid';
 import ConciergeEntryCard from '../components/ConciergeEntryCard';
 import { colors, spacing } from '../config/theme';
 import { useRestaurantDirectory } from '../contexts/RestaurantDirectoryContext';
+import { filterHiddenRestaurants } from '../constants/hiddenRestaurants';
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { CompositeScreenProps } from '@react-navigation/native';
@@ -35,6 +36,10 @@ export default function ExploreScreen({ navigation }: Props) {
   const scrollRef = useRef<ScrollView>(null);
   useScrollToTop(scrollRef);
   const { restaurants, refreshing, reload } = useRestaurantDirectory();
+  const discoverableRestaurants = useMemo(
+    () => filterHiddenRestaurants(restaurants),
+    [restaurants],
+  );
 
   const handleOpenConcierge = useCallback(
     (promptId?: string) => {
@@ -45,16 +50,19 @@ export default function ExploreScreen({ navigation }: Props) {
     [navigation],
   );
 
-  const shuffled = useMemo<RestaurantSummary[]>(() => shuffleRestaurants(restaurants), [restaurants]);
+  const shuffled = useMemo<RestaurantSummary[]>(
+    () => shuffleRestaurants(discoverableRestaurants),
+    [discoverableRestaurants],
+  );
 
   const rated = useMemo<RestaurantSummary[]>(() => {
-    return restaurants
+    return discoverableRestaurants
       .filter((r) => typeof r.rating === 'number')
       .sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
-  }, [restaurants]);
+  }, [discoverableRestaurants]);
 
   const topRated = useMemo<RestaurantSummary[]>(() => {
-    if (!restaurants.length) return [];
+    if (!discoverableRestaurants.length) return [];
     const ratedTop = rated.slice(0, 10);
     if (ratedTop.length >= 10) {
       return ratedTop;
@@ -64,15 +72,18 @@ export default function ExploreScreen({ navigation }: Props) {
       .filter((r) => !exclude.has(r.id))
       .slice(0, Math.max(0, 10 - ratedTop.length));
     return [...ratedTop, ...fillers];
-  }, [rated, restaurants.length, shuffled]);
+  }, [rated, discoverableRestaurants.length, shuffled]);
 
   const newest = useMemo<RestaurantSummary[]>(() => {
-    if (!restaurants.length) return [];
+    if (!discoverableRestaurants.length) return [];
     const exclude = new Set(topRated.map((r) => r.id));
     return shuffled
       .filter((r) => !exclude.has(r.id))
-      .slice(0, Math.min(10, Math.max(0, restaurants.length - exclude.size)));
-  }, [restaurants.length, shuffled, topRated]);
+      .slice(
+        0,
+        Math.min(10, Math.max(0, discoverableRestaurants.length - exclude.size)),
+      );
+  }, [discoverableRestaurants.length, shuffled, topRated]);
 
   const handleRestaurantPress = (id: string, name: string) => {
     navigation.navigate('Restaurant', { id, name });
@@ -103,7 +114,6 @@ export default function ExploreScreen({ navigation }: Props) {
 
         <View style={styles.section}>
           <Text style={styles.pageTitle}>Explore Baku</Text>
-          <Text style={styles.pageSubtitle}>Find the right place by vibe, cuisine, or rating.</Text>
         </View>
 
         <View style={styles.section}>
@@ -155,7 +165,7 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: spacing.lg,
     paddingBottom: spacing.xxl,
-    gap: spacing.xl,
+    gap: spacing.lg,
   },
   section: {
     gap: spacing.md,
@@ -164,11 +174,6 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: '700',
     color: colors.text,
-    paddingHorizontal: spacing.lg,
-  },
-  pageSubtitle: {
-    fontSize: 14,
-    color: colors.muted,
     paddingHorizontal: spacing.lg,
   },
   sectionHeading: {

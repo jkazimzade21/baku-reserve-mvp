@@ -60,14 +60,23 @@ def normalize_phone(value: Any) -> list[str]:
 def price_to_band(price_level: str | None) -> int | None:
     if not price_level:
         return None
-    text = price_level.strip().replace(" ", "")
+    import math
+    import re
+
+    text = price_level.strip()
     if not text:
         return None
-    dollar_count = text.count("$")
+
+    # If we have mixed ranges like "$ - $$" or "$$-$$$", average the lengths
+    dollar_groups = re.findall(r"\$+", text)
+    if dollar_groups:
+        avg = sum(len(s) for s in dollar_groups) / len(dollar_groups)
+        band = int(math.ceil(avg))
+        return min(4, max(1, band))
+
+    compact = text.replace(" ", "")
+    dollar_count = compact.count("$")
     if dollar_count:
-        # Map 1-4 dollar signs to 1-4; "$$-$$$" becomes 3 but we treat as 3.
-        if "$$-$$$" in text or "$$-$$$$" in text or "$$- $$$" in price_level:
-            return 3
         return min(4, max(1, dollar_count))
     lowered = text.lower()
     if "budget" in lowered or "cheap" in lowered:
@@ -117,6 +126,21 @@ def normalize_tags(
         locs = tags.get("location", [])
         locs.append(str(neighborhood))
         tags["location"] = _dedupe(locs)
+
+    # Promote board games / games flags into amenities for searchability
+    board_games = tag_groups.get("board_games") if isinstance(tag_groups, dict) else None
+    games_field = raw.get("games") if isinstance(raw, dict) else None
+    board_flags: list[str] = []
+    if isinstance(board_games, list):
+        board_flags.extend(str(v) for v in board_games if v)
+    if isinstance(games_field, dict):
+        board_flags.extend(f"{k}:{v}" for k, v in games_field.items() if v)
+    if board_flags:
+        amenities = tags.get("amenities", [])
+        amenities.append("Board-Games")
+        tags["amenities"] = _dedupe(amenities)
+        tags.setdefault("entertainment", [])
+        tags["entertainment"] = _dedupe(tags["entertainment"] + board_flags)
 
     # Normalize price into tag bucket
     price_level = raw.get("price_level")

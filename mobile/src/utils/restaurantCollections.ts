@@ -1,5 +1,6 @@
 import type { RestaurantSummary } from '../api';
 import { filterByCategory } from '../constants/browseCategories';
+import { filterHiddenRestaurants } from '../constants/hiddenRestaurants';
 
 const FALLBACK_LIMIT = 6;
 
@@ -49,35 +50,35 @@ const ensureLimit = (items: RestaurantSummary[], limit = FALLBACK_LIMIT) =>
   items.slice(0, Math.max(1, limit));
 
 export function sampleRestaurants(list: RestaurantSummary[], min = FALLBACK_LIMIT, max = FALLBACK_LIMIT) {
-  if (list.length === 0) {
+  const pool = filterHiddenRestaurants(list);
+  if (pool.length === 0) {
     return [];
   }
-  const pool = list.slice();
   for (let i = pool.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
     [pool[i], pool[j]] = [pool[j], pool[i]];
   }
-  const minCount = Math.max(1, Math.min(min, list.length));
-  const maxCount = Math.max(minCount, Math.min(max, list.length));
+  const minCount = Math.max(1, Math.min(min, pool.length));
+  const maxCount = Math.max(minCount, Math.min(max, pool.length));
   const take = Math.min(pool.length, Math.floor(Math.random() * (maxCount - minCount + 1)) + minCount);
   return pool.slice(0, Math.max(minCount, take));
 }
 
 export function selectMostBooked(restaurants: RestaurantSummary[], limit = FALLBACK_LIMIT) {
-  const base = restaurants
+  const base = filterHiddenRestaurants(restaurants)
     .filter((restaurant) => Boolean(restaurant.cover_photo))
     .sort((a, b) => heroScore(b) - heroScore(a));
   return ensureLimit(base, limit);
 }
 
 export function selectTrending(restaurants: RestaurantSummary[], limit = 8) {
-  const base = restaurants
+  const base = filterHiddenRestaurants(restaurants)
     .filter((restaurant) => Boolean(restaurant.cover_photo))
     .sort((a, b) => trendingScore(b) - trendingScore(a));
   return ensureLimit(base, limit);
 }
 
 export function selectCategory(restaurants: RestaurantSummary[], categoryId: string, limit = 20) {
-  const base = filterByCategory(restaurants, categoryId);
+  const base = filterByCategory(filterHiddenRestaurants(restaurants), categoryId);
   return ensureLimit(base, limit);
 }

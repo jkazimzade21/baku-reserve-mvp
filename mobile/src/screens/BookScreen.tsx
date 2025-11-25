@@ -23,7 +23,7 @@ import {
 } from '../api';
 import { colors, radius, shadow, spacing } from '../config/theme';
 import { formatDateInput, parseDateInput } from '../utils/dateInput';
-import { formatDateLabel, formatTimeLabel } from '../utils/availability';
+import { formatDateLabel, formatTimeLabel, getDateString, getTimeString } from '../utils/availability';
 import { normalizeRestaurantDetail } from '../utils/normalizeRestaurant';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../types/navigation';
@@ -52,7 +52,7 @@ export default function BookScreen({ route, navigation }: Props) {
   const { id, name, guestName: initialGuestName, guestPhone: initialGuestPhone } = route.params;
   const [restaurantDetail, setRestaurantDetail] = useState<RestaurantDetail | null>(null);
   const [timezone, setTimezone] = useState<string>('Asia/Baku');
-  const [dateStr, setDateStr] = useState<string>(formatDateInput(new Date()));
+  const [dateStr, setDateStr] = useState<string>(() => getDateString(new Date(), 'Asia/Baku'));
   const [timeStr, setTimeStr] = useState<string | null>(null);
   const [partySize, setPartySize] = useState<number>(2);
   const [guestName, setGuestName] = useState<string>(initialGuestName ?? profile?.name ?? '');
@@ -111,6 +111,18 @@ export default function BookScreen({ route, navigation }: Props) {
   useEffect(() => {
     void loadAvailability();
   }, [loadAvailability]);
+
+  useEffect(() => {
+    // Keep "today" aligned to the restaurant timezone unless the user already picked a custom date.
+    const tzToday = getDateString(new Date(), timezone);
+    setDateStr((prev) => {
+      const localToday = formatDateInput(new Date());
+      if (!prev || prev === localToday || prev === tzToday) {
+        return tzToday;
+      }
+      return prev;
+    });
+  }, [timezone]);
 
   const selectedSlot = useMemo(() => {
     if (!timeStr) return null;
@@ -244,7 +256,14 @@ export default function BookScreen({ route, navigation }: Props) {
           <View style={styles.fieldGroup}>
             <Text style={styles.label}>Date</Text>
             <View style={styles.row}>
-              <Pressable style={styles.chipButton} onPress={() => handleDateConfirm(new Date())}>
+              <Pressable
+                style={styles.chipButton}
+                onPress={() => {
+                  const todayTz = getDateString(new Date(), timezone);
+                  setDateStr(todayTz);
+                  void loadAvailability(todayTz);
+                }}
+              >
                 <Text style={styles.chipText}>Today</Text>
               </Pressable>
               <Pressable style={styles.dateButton} onPress={openDatePicker}>
@@ -327,29 +346,30 @@ export default function BookScreen({ route, navigation }: Props) {
           )}
         </View>
 
-        <View style={styles.suggestionCard}>
-          <Text style={styles.sectionLabel}>Available times</Text>
-          <View style={styles.slotGrid}>
-            {suggestionSlots.map((slot) => {
-              const slotDate = new Date(slot.start);
-              const timeLabel = slotDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-              const selected = selectedSlot?.start === slot.start;
-              const openTables = slot.available_table_ids?.length ?? 0;
-              return (
-                <Pressable
-                  key={slot.start}
-                  style={[styles.slotChip, selected && styles.slotChipActive]}
-                  onPress={() => setTimeStr(slotDate.toISOString().slice(11, 16))}
-                >
-                  <Text style={[styles.slotText, selected && styles.slotTextActive]}>{timeLabel}</Text>
-                  <Text style={[styles.slotMeta, selected && styles.slotMetaActive]}>
-                    {openTables ? `${openTables} tables` : 'Waitlist'}
-                  </Text>
-                </Pressable>
-              );
-            })}
+          <View style={styles.suggestionCard}>
+            <Text style={styles.sectionLabel}>Available times</Text>
+            <View style={styles.slotGrid}>
+              {suggestionSlots.map((slot) => {
+                const slotDate = new Date(slot.start);
+                const timeLabel = formatTimeLabel(slotDate, timezone);
+                const slotTimeStr = getTimeString(slotDate, timezone);
+                const selected = selectedSlot?.start === slot.start || timeStr === slotTimeStr;
+                const openTables = slot.available_table_ids?.length ?? 0;
+                return (
+                  <Pressable
+                    key={slot.start}
+                    style={[styles.slotChip, selected && styles.slotChipActive]}
+                    onPress={() => setTimeStr(slotTimeStr)}
+                  >
+                    <Text style={[styles.slotText, selected && styles.slotTextActive]}>{timeLabel}</Text>
+                    <Text style={[styles.slotMeta, selected && styles.slotMetaActive]}>
+                      {openTables ? `${openTables} tables` : 'Waitlist'}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </View>
           </View>
-        </View>
       </ScrollView>
 
       {Platform.OS === 'ios' && showDatePicker ? (

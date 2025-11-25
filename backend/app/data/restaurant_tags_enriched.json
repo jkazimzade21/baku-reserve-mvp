@@ -6613,6 +6613,7 @@
         "rooftop"
       ],
       "amenities": [
+        "board_games",
         "card_payment",
         "hookah",
         "reservations",

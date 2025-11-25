@@ -1,0 +1,98 @@
+[
+  {
+    "query": "romantic seafood restaurant with sea view near Bayil or the Boulevard, mid price for a date night",
+    "good_ids": ["rivierabaku", "sahil_baku", "chayki_restaurant"],
+    "areas": ["Bayil", "Boulevard"],
+    "max_price_band": 3,
+    "notes": "date-night, sea view, not ultra premium"
+  },
+  {
+    "query": "beach club with DJ at Sea Breeze resort, party vibe, money no object",
+    "good_ids": ["nikkibeach.baku", "shorehousebaku"],
+    "areas": ["Sea-Breeze-Resort", "Nardaran"],
+    "notes": "party beach club with DJ"
+  },
+  {
+    "query": "family friendly Azerbaijani restaurant in Old City, affordable",
+    "good_ids": ["dolma.restaurant", "qaynana_restaurant", "natavan_restaurant"],
+    "areas": ["Old-City", "Icherisheher", "Fountain-Square"],
+    "max_price_band": 2,
+    "notes": "budgetish Old City local food"
+  },
+  {
+    "query": "traditional banquet hall in Narimanov for a big family dinner or small wedding",
+    "good_ids": ["chanaqqala"],
+    "areas": ["Narimanov"],
+    "notes": "banquet / live music acceptable"
+  },
+  {
+    "query": "casual brunch or coffee spot near Narimanov / Ganjlik, not expensive",
+    "good_ids": ["themoodbaku", "manifesto.az"],
+    "areas": ["Narimanov", "Ganjlik"],
+    "max_price_band": 2,
+    "notes": "casual mid or below"
+  },
+  {
+    "query": "Shikhov seaside seafood place with kids area, relaxed not clubby",
+    "good_ids": ["shefa_fish_garden", "adarestaurantbaku"],
+    "areas": ["Shikhov", "Bibiheybat"],
+    "notes": "family seaside Shikhov"
+  },
+  {
+    "query": "Port Baku fine dining Italian for business dinner",
+    "good_ids": ["scalini_baku"],
+    "areas": ["Port-Baku"],
+    "notes": "upscale Italian"
+  },
+  {
+    "query": "White City or Khatai Turkish meyhane with live music, mid price",
+    "good_ids": ["bahce_restoran"],
+    "areas": ["White-City", "Khatai", "Targovi"],
+    "max_price_band": 3,
+    "notes": "meyhane / live music"
+  },
+  {
+    "query": "dessert cafe in Targovi / Fountain Square for sweets and coffee",
+    "good_ids": ["lviv.chocolate.baku"],
+    "areas": ["Fountain-Square", "Targovi"],
+    "max_price_band": 2,
+    "notes": "dessert cafe"
+  },
+  {
+    "query": "vegetarian friendly spot around Fountain Square or Targovi",
+    "good_ids": ["dolma.restaurant", "fisincanrestoran", "merci_baku"],
+    "areas": ["Fountain-Square", "Targovi", "Old-City"],
+    "notes": "veg friendly center"
+  },
+  {
+    "query": "Old City rooftop for sunset cocktails and view, stylish",
+    "good_ids": ["terrace.145"],
+    "areas": ["Old-City", "Icherisheher"],
+    "notes": "rooftop/view"
+  },
+  {
+    "query": "quiet upscale business dinner with sea view near the Boulevard",
+    "good_ids": ["sahil_baku", "chayki_restaurant", "rivierabaku"],
+    "areas": ["Boulevard", "Seaside", "Bayil"],
+    "notes": "no loud club vibe"
+  },
+  {
+    "query": "Sea Breeze romantic dinner with sea view but not a loud party",
+    "good_ids": ["shorehousebaku", "fishboxbaku"],
+    "areas": ["Sea-Breeze-Resort", "Nardaran"],
+    "notes": "romantic / scenic at Sea Breeze"
+  },
+  {
+    "query": "out of town rustic Azerbaijani for tour group near Yanardag reserve",
+    "good_ids": ["yanardag_restaurant"],
+    "areas": ["Yanardag", "Absheron"],
+    "notes": "tourist rustic"
+  },
+  {
+    "query": "Georgian khinkali place near Narimanov or Ganjlik, affordable",
+    "good_ids": ["tbilisirestoran_baku"],
+    "areas": ["Narimanov", "Ganjlik"],
+    "max_price_band": 2,
+    "notes": "georgian budgetish"
+  }
+]

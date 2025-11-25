@@ -309,6 +309,16 @@ async function handleResponse<T>(res: Response, fallbackMessage: string): Promis
   throw new Error(detail);
 }
 
+async function fetchWithTimeout(resource: string, init?: RequestInit, timeoutMs = 10000) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(resource, { ...(init || {}), signal: controller.signal });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 export async function fetchRestaurants(q?: string) {
   const base = buildApiUrl('/restaurants');
   const url = q ? `${base}?q=${encodeURIComponent(q)}` : base;
@@ -413,10 +423,10 @@ export async function fetchReviews(restaurantId: string, limit = 20) {
 
 export async function fetchConcierge(query: string, topK = 4) {
   const payload = { query, top_k: topK };
-  const res = await fetch(buildApiUrl('/concierge'), {
+  const res = await fetchWithTimeout(buildApiUrl('/concierge'), {
     method: 'POST',
     headers: withAuth({ 'Content-Type': 'application/json' }),
     body: JSON.stringify(payload),
-  });
+  }, 10000);
   return handleResponse<ConciergeResponse>(res, 'Failed to fetch concierge results');
 }

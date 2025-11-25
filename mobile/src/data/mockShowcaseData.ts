@@ -1,4 +1,5 @@
 import type { RestaurantSummary } from '../api';
+import { filterHiddenRestaurants } from '../constants/hiddenRestaurants';
 import { NORMALIZED_RESTAURANT_SEED } from './restaurantsSeedNormalized';
 
 const SHOWCASE_COUNT = 14;
@@ -13,7 +14,7 @@ const hashString = (value: string) => {
 
 type WeightedRestaurant = { weight: number; restaurant: RestaurantSummary };
 
-const showcasePool: RestaurantSummary[] = NORMALIZED_RESTAURANT_SEED
+const showcasePool: RestaurantSummary[] = filterHiddenRestaurants(NORMALIZED_RESTAURANT_SEED)
   .map<WeightedRestaurant>((restaurant) => ({ restaurant, weight: hashString(restaurant.id) }))
   .sort((a, b) => a.weight - b.weight)
   .slice(0, SHOWCASE_COUNT)

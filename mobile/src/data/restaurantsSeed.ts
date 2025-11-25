@@ -4169,7 +4169,7 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
   },
   {
     "id": "dukkan.khatai",
-    "name_en": "Dukkan Khatai",
+    "name_en": "Dükkan Khatai",
     "name_az": "Dükkan Xətai",
     "instagram": "@dukkan.khatai",
     "contact": {
@@ -12828,9 +12828,14 @@ export const RESTAURANT_SEED: RestaurantSummary[] =
       "dietary": [
         "Vegetarian-Options"
       ],
+      "board_games": [
+        "Dominoes",
+        "Backgammon",
+        "Games-Lounge"
+      ],
       "games": [
         "Backgammon",
-        "Domino",
+        "Dominoes",
         "Card-Games"
       ]
     },

@@ -371,7 +371,7 @@ def format_result(doc: VenueDoc, rank: float) -> str:
 # ---------- CLI ----------
 def parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="CLI concierge over restaurants.json")
-    parser.add_argument("-q", "--query", required=True, help="User request to search for")
+    parser.add_argument("-q", "--query", help="User request to search for (optional, interactive mode if omitted)")
     parser.add_argument("-k", "--top-k", type=int, default=4, help="Number of results to show")
     parser.add_argument(
         "-p",
@@ -388,20 +388,37 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
-def main(argv: list[str]) -> int:
-    args = parse_args(argv)
+def log_interaction(query: str, matches: list[tuple[VenueDoc, float, str]]):
+    log_path = ROOT / "artifacts" / "concierge" / "user_interactions.jsonl"
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    
+    entry = {
+        "timestamp": __import__("time").time(),
+        "user_query": query,
+        "results": [
+            {
+                "name": doc.name,
+                "id": doc.id,
+                "score": score,
+                "why": why
+            } for doc, score, why in matches
+        ]
+    }
+    
+    with log_path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
-    if args.print_prompt:
-        prompt_path = ROOT / "tools" / "concierge" / "system_prompt.txt"
-        sys.stdout.write(prompt_path.read_text(encoding="utf-8"))
-        return 0
 
-    docs = load_docs(args.data_path)
-    matches = filter_and_rank(docs, args.query, top_k=args.top_k)
+def process_query(docs: list[VenueDoc], query: str, top_k: int) -> list[tuple[VenueDoc, float, str]]:
+    matches = filter_and_rank(docs, query, top_k=top_k)
+    log_interaction(query, matches)
+    return matches
 
+
+def print_matches(matches: list[tuple[VenueDoc, float, str]]):
     if not matches:
         print("No suitable venue in the database for those filters. Try relaxing price/area.")
-        return 0
+        return
 
     print(f"Top {len(matches)} picks:")
     for idx, (doc, score, why) in enumerate(matches, start=1):
@@ -412,6 +429,37 @@ def main(argv: list[str]) -> int:
         print(f"   Price: {price_bucket(doc.price_rank)} ({doc.price_level_raw or 'n/a'})")
         print(f"   Why it fits: {why}")
         print(f"   Address: {doc.address}")
+
+
+def main(argv: list[str]) -> int:
+    args = parse_args(argv)
+
+    if args.print_prompt:
+        prompt_path = ROOT / "tools" / "concierge" / "system_prompt.txt"
+        sys.stdout.write(prompt_path.read_text(encoding="utf-8"))
+        return 0
+
+    docs = load_docs(args.data_path)
+
+    if args.query:
+        matches = process_query(docs, args.query, args.top_k)
+        print_matches(matches)
+    else:
+        print("Welcome to the Concierge CLI. Type your request (or 'q' to quit).")
+        print(f"Logging conversations to artifacts/concierge/user_interactions.jsonl")
+        while True:
+            try:
+                query = input("\nUser: ").strip()
+                if not query:
+                    continue
+                if query.lower() in ("q", "quit", "exit"):
+                    break
+                
+                matches = process_query(docs, query, args.top_k)
+                print_matches(matches)
+            except (KeyboardInterrupt, EOFError):
+                break
+        print("\nGoodbye.")
 
     return 0
 

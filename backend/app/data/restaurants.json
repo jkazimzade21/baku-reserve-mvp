@@ -4164,7 +4164,7 @@
   },
   {
     "id": "dukkan.khatai",
-    "name_en": "Dukkan Khatai",
+    "name_en": "Dükkan Khatai",
     "name_az": "Dükkan Xətai",
     "instagram": "@dukkan.khatai",
     "contact": {
@@ -12823,9 +12823,14 @@
       "dietary": [
         "Vegetarian-Options"
       ],
+      "board_games": [
+        "Dominoes",
+        "Backgammon",
+        "Games-Lounge"
+      ],
       "games": [
         "Backgammon",
-        "Domino",
+        "Dominoes",
         "Card-Games"
       ]
     },

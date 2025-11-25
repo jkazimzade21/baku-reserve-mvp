@@ -286,6 +286,9 @@ PHOTO_SOURCES: Dict[str, Sequence[str]] = {
         "https://www.instagram.com/p/DQgnvW0CCP0/",
         "https://www.instagram.com/p/CQNmBJtpZzF/",
     ],
+    "yanardag_restaurant": [
+        "https://www.instagram.com/yanardag_restaurant/",
+    ],
     "zafferano": [
         "https://www.instagram.com/p/Cm1NjUeDpDW/",
         "https://www.instagram.com/p/CutI5nYNAoH/",
@@ -295,6 +298,16 @@ PHOTO_SOURCES: Dict[str, Sequence[str]] = {
     ],
 }
 
+BAD_KEYWORDS = {
+    "text",
+    "poster",
+    "menu",
+    "flyer",
+    "graphic",
+    "font",
+    "drawing",
+    "logo",
+}
 
 def fetch_instagram_image(url: str) -> bytes:
     match = SHORTCODE_PATTERN.search(url)
@@ -332,9 +345,17 @@ def fetch_from_profile(url: str, limit: int = MAX_PHOTOS_PER_SLUG) -> List[bytes
 
     results = []
     count = 0
+    
+    # Try to fetch enough qualified posts, scanning up to 3x the limit
     for post in posts:
         if count >= limit:
             break
+
+        # Alt-Text Filtering
+        alt_text = (post.accessibility_caption or "").lower()
+        if any(bad in alt_text for bad in BAD_KEYWORDS):
+            print(f"[skip] {post.shortcode}: Rejected due to bad keywords in alt text: {alt_text}")
+            continue
 
         try:
             with TemporaryDirectory() as tmpdir:

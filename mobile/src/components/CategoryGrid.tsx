@@ -9,12 +9,12 @@ import { BROWSE_CATEGORIES } from '../constants/browseCategories';
 type Props = {
   onSelectCategory: (id: string) => void;
   maxItems?: number;
-  columns?: 2 | 3;
+  columns?: 2 | 3 | 4 | 5;
 };
 
 export default function CategoryGrid({ onSelectCategory, maxItems = 9, columns = 3 }: Props) {
-  const categories = useMemo(() => BROWSE_CATEGORIES.slice(0, Math.min(maxItems, 9)), [maxItems]);
-  const cardWidth = columns === 2 ? '47%' : '30%';
+  const categories = useMemo(() => BROWSE_CATEGORIES.slice(0, Math.min(maxItems, 25)), [maxItems]);
+  const cardWidth = columns === 2 ? '47%' : columns === 3 ? '30%' : columns === 4 ? '23%' : '18%';
 
   return (
     <View style={styles.grid}>
@@ -30,7 +30,7 @@ export default function CategoryGrid({ onSelectCategory, maxItems = 9, columns =
           accessibilityLabel={cat.label}
         >
           <View style={styles.iconContainer}>
-            <Feather name={cat.icon as any} size={18} color={colors.text} />
+            <Feather name={cat.icon as any} size={20} color={colors.royalHighlight} />
           </View>
           <Text style={styles.label}>{cat.label}</Text>
         </Pressable>
@@ -47,11 +47,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   card: {
-    minHeight: 108,
+    minHeight: 90,
     marginBottom: spacing.sm,
-    padding: spacing.sm,
+    padding: spacing.xs,
     backgroundColor: colors.card,
-    borderRadius: radius.lg,
+    borderRadius: radius.md,
     borderWidth: 1,
     borderColor: colors.border,
     alignItems: 'flex-start',
@@ -66,12 +66,19 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: colors.accent,
+    backgroundColor: colors.primaryStrong,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1.2,
+    borderColor: colors.royalHighlight,
+    shadowColor: colors.primaryStrong,
+    shadowOpacity: 0.24,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 4,
   },
   label: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: '600',
     color: colors.text,
     marginTop: spacing.xs,

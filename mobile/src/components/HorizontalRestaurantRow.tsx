@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable, Image } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+
 import { colors, radius, spacing, shadow } from '../config/theme';
 import { RestaurantSummary } from '../api';
 import { resolveRestaurantPhotos, defaultFallbackSource } from '../utils/photoSources';
-import { LinearGradient } from 'expo-linear-gradient';
+import { formatPriceLabel, formatReviews, getPrimaryCuisine, hashRating } from '../utils/restaurantMeta';
 import SectionHeading from './SectionHeading';
 
 type Props = {
@@ -61,24 +63,45 @@ export default function HorizontalRestaurantRow({
         {restaurants.map((item) => {
           const bundle = resolveRestaurantPhotos(item);
           const coverSource = bundle.cover ?? defaultFallbackSource;
+          const { rating, reviews } = hashRating(item.id || item.slug || 'restaurant');
+          const priceLabel = formatPriceLabel(item.price_level) || '$$';
+          const displayCuisine = getPrimaryCuisine(item);
+          const location = item.neighborhood || item.city || 'Baku';
 
           return (
             <Pressable
               key={item.id}
-              style={styles.card}
+              style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
               onPress={() => onPressRestaurant(item.id, item.name || 'Restaurant')}
             >
-              <Image source={coverSource} style={styles.image} />
-              <LinearGradient
-                colors={['transparent', 'rgba(0,0,0,0.8)']}
-                style={styles.gradient}
-              />
-              <View style={styles.cardContent}>
+              <View style={styles.imageWrapper}>
+                <Image source={coverSource} style={styles.image} />
+              </View>
+              <View style={styles.cardBody}>
                 <Text style={styles.name} numberOfLines={1}>{item.name}</Text>
-                <Text style={styles.meta} numberOfLines={1}>
-                  {/* Handle both array tags and object tags */}
-                  {(Array.isArray(item.tags) ? item.tags : item.tags?.cuisine ?? item.cuisine ?? []).slice(0, 2).join(' • ') || item.city || 'Baku'}
-                </Text>
+                <View style={styles.metaRow}>
+                  <Feather name="star" size={14} color={colors.primaryStrong} />
+                  <Text style={styles.ratingValue}>{rating.toFixed(1)}</Text>
+                  <Text style={styles.ratingReviews}>({formatReviews(reviews)})</Text>
+                  {priceLabel ? (
+                    <>
+                      <Text style={styles.metaDot}>•</Text>
+                      <Text style={styles.metaText}>{priceLabel}</Text>
+                    </>
+                  ) : null}
+                  {displayCuisine ? (
+                    <>
+                      <Text style={styles.metaDot}>•</Text>
+                      <Text style={styles.metaText}>{displayCuisine}</Text>
+                    </>
+                  ) : null}
+                  {location ? (
+                    <>
+                      <Text style={styles.metaDot}>•</Text>
+                      <Text style={styles.metaText}>{location}</Text>
+                    </>
+                  ) : null}
+                </View>
               </View>
             </Pressable>
           );
@@ -107,36 +130,59 @@ const styles = StyleSheet.create({
   },
   card: {
     width: 280,
-    height: 180,
     borderRadius: radius.lg,
     backgroundColor: colors.card,
     overflow: 'hidden',
     ...shadow.subtle,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  cardPressed: {
+    opacity: 0.95,
+    transform: [{ scale: 0.99 }],
+  },
+  imageWrapper: {
+    width: '100%',
+    height: 150,
+    backgroundColor: colors.overlay,
   },
   image: {
     width: '100%',
     height: '100%',
   },
-  gradient: {
-    ...StyleSheet.absoluteFillObject,
-    top: '40%',
-  },
-  cardContent: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    padding: spacing.md,
+  cardBody: {
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    gap: spacing.xs,
   },
   name: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '700',
-    color: '#FFF',
-    marginBottom: 4,
+    color: colors.text,
   },
-  meta: {
+  metaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: spacing.xs,
+  },
+  ratingValue: {
+    color: colors.text,
+    fontWeight: '700',
     fontSize: 13,
-    color: 'rgba(255,255,255,0.9)',
+  },
+  ratingReviews: {
+    color: colors.muted,
+    fontSize: 11,
+  },
+  metaDot: {
+    color: colors.muted,
+    marginHorizontal: 2,
+  },
+  metaText: {
+    color: colors.text,
+    fontWeight: '600',
+    fontSize: 12,
   },
   emptyContainer: {
     paddingHorizontal: spacing.lg,
