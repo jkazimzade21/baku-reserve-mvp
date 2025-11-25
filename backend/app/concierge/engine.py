@@ -24,7 +24,8 @@ from .types import Intent, SearchResult, Venue
 
 logger = logging.getLogger(__name__)
 
-REPO_ROOT = Path(__file__).resolve().parents[2]
+# Repository root (three levels up from this file: backend/app/concierge)
+REPO_ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_CORPUS_PATH = settings.data_dir / "concierge_corpus.json"
 DEFAULT_INDEX_PATH = settings.data_dir / "concierge_index.json"
 
