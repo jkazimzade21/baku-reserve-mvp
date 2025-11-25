@@ -21,6 +21,7 @@ import PhotoCarousel from '../components/PhotoCarousel';
 import Surface from '../components/Surface';
 import { colors, radius, shadow, spacing } from '../config/theme';
 import { resolveRestaurantPhotos } from '../utils/photoSources';
+import { formatLocation } from '../utils/restaurantMeta';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../types/navigation';
 import { Feather } from '@expo/vector-icons';
@@ -326,7 +327,9 @@ export default function RestaurantScreen({ route, navigation }: Props) {
               <Text style={styles.heroDescription}>{data.short_description}</Text>
             ) : null}
             <View style={styles.heroMetaRow}>
-              {data.neighborhood ? <Text style={styles.heroMeta}>{data.neighborhood}</Text> : null}
+              {data.neighborhood ? (
+                <Text style={styles.heroMeta}>{formatLocation(data.neighborhood)}</Text>
+              ) : null}
               {data.price_level ? (
                 <Text style={[styles.heroMeta, styles.heroMetaDivider]}>• {data.price_level}</Text>
               ) : null}
@@ -594,7 +597,8 @@ const styles = StyleSheet.create({
 
 function formatTag(tag: string) {
   return tag
-    .split('_')
+    .split(/[_\\s-]+/)
+    .filter(Boolean)
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(' ');
 }

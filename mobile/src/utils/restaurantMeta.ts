@@ -32,13 +32,15 @@ export const formatPriceLabel = (price?: string | null) => {
 export const formatLocation = (value?: string | null) => {
   if (!value) return null;
   const cleaned = value
-    .replace(/[-–—]+/g, ' ') // replace dashes with spaces
+    .replace(/[_-]+/g, ' ')
+    .replace(/[–—]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
   if (!cleaned) return null;
   return cleaned
     .split(' ')
-    .map((part) => (part ? part.charAt(0).toUpperCase() + part.slice(1) : ''))
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(' ');
 };
 
