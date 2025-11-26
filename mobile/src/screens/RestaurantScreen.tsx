@@ -1285,7 +1285,6 @@ const styles = StyleSheet.create({
 const SLOT_INTERVAL_MINUTES = 30;
 const OPEN_MINUTES = 8 * 60; // 08:00 opening window (temp default)
 const CLOSE_MINUTES = 23 * 60; // 23:00 closing window (temp default)
-const DEFAULT_FUTURE_START_MINUTES = OPEN_MINUTES;
 const BAKU_UTC_OFFSET = '+04:00'; // Azerbaijan has no DST; keep slots anchored here
 
 function buildDateOptions(timezone: string, days = 10) {
@@ -1311,21 +1310,8 @@ function buildDateOptions(timezone: string, days = 10) {
 }
 
 function buildTimeOptions(dateStr: string, timezone: string) {
-  const now = new Date();
-  const todayKey = getDateString(now, timezone);
-  const isToday = dateStr === todayKey;
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: timezone,
-    hour12: false,
-    hour: '2-digit',
-    minute: '2-digit',
-  }).formatToParts(now);
-  const hour = Number(parts.find((p) => p.type === 'hour')?.value ?? '0');
-  const minute = Number(parts.find((p) => p.type === 'minute')?.value ?? '0');
-
-  const currentMinutes = hour * 60 + minute;
-  const nextHalfHour = Math.ceil((currentMinutes + 1) / SLOT_INTERVAL_MINUTES) * SLOT_INTERVAL_MINUTES;
-  const startMinutes = isToday ? Math.max(nextHalfHour, OPEN_MINUTES) : DEFAULT_FUTURE_START_MINUTES;
+  // Always seed the picker from the opening window, regardless of the viewer's current time/timezone.
+  const startMinutes = OPEN_MINUTES;
 
   const first = Math.min(Math.max(startMinutes, OPEN_MINUTES), CLOSE_MINUTES);
   const options: string[] = [];

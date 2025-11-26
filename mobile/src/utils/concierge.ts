@@ -72,23 +72,6 @@ export const CONCIERGE_PROMPTS: ConciergePrompt[] = [
     responseHint: 'High-energy rooms with strong bar programs.',
   },
   {
-    id: 'chef_table',
-    title: 'Chef’s tasting menus',
-    subtitle: 'Open kitchens, limited seats.',
-    keywords: ['chef', 'tasting', 'omakase', 'degustation', 'course', 'fine dining'],
-    categoryId: 'chef_table',
-    tags: ['chef_table', 'tasting_menu', 'open_kitchen', 'chef_counter'],
-    responseHint: 'Intimate kitchens and tasting menus worth dressing up for.',
-  },
-  {
-    id: 'seaside',
-    title: 'Seafood on the water',
-    subtitle: 'Caspian views, grilled fish, chilled whites.',
-    keywords: ['seafood', 'fish', 'caviar', 'oyster', 'sea', 'waterfront', 'boulevard'],
-    tags: ['seafood', 'waterfront', 'sea_view', 'seaside', 'sunset'],
-    responseHint: 'Waterfront picks with reliable seafood programs.',
-  },
-  {
     id: 'brunch',
     title: 'Sunny brunch & coffee',
     subtitle: 'Patios, pour-overs, pastries.',
@@ -96,15 +79,6 @@ export const CONCIERGE_PROMPTS: ConciergePrompt[] = [
     categoryId: 'cafes_breakfast',
     tags: ['brunch', 'breakfast', 'cafe', 'coffee'],
     responseHint: 'Bright daytime spots with good coffee and airy seating.',
-  },
-  {
-    id: 'cocktails',
-    title: 'Designer cocktails',
-    subtitle: 'Mixology bars, dim lights, late hours.',
-    keywords: ['cocktail', 'bar', 'negroni', 'mezcal', 'martini', 'speakeasy'],
-    categoryId: 'bars_lounges',
-    tags: ['cocktails', 'bar', 'mixology', 'late_night'],
-    responseHint: 'Bartender-driven rooms for an elevated nightcap.',
   },
 ];
 

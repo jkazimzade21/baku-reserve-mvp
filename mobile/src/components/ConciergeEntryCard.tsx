@@ -125,6 +125,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.accent,
     borderRadius: radius.lg,
     overflow: 'hidden',
+    shadowColor: colors.primaryStrong,
+    shadowOpacity: 0.16,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 8,
   },
   pillow: {
     ...StyleSheet.absoluteFillObject,

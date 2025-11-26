@@ -4,7 +4,7 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 RES_DURATION = timedelta(minutes=90)
 INTERVAL = timedelta(minutes=30)
-OPEN = time(10, 0)
+OPEN = time(8, 0)
 CLOSE = time(23, 0)
 DEFAULT_TIMEZONE = "Asia/Baku"
 DAY_KEYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
