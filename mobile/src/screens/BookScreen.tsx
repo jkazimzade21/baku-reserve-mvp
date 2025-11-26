@@ -269,8 +269,6 @@ export default function BookScreen({ route, navigation }: Props) {
     setShowTimePicker(false);
   }, [pendingTime]);
 
-  const suggestionSlots = useMemo(() => slots.slice(0, 8), [slots]);
-
   const handleBook = async () => {
     if (!selectedSlot) {
       Alert.alert('Choose a time', 'Select an available time first.');
@@ -420,34 +418,6 @@ export default function BookScreen({ route, navigation }: Props) {
             </Text>
           )}
         </View>
-
-          <View style={styles.suggestionCard}>
-            <Text style={styles.sectionLabel}>Available times</Text>
-            <View style={styles.slotGrid}>
-              {suggestionSlots.map((slot) => {
-                const slotDate = new Date(slot.start);
-                const timeLabel = formatTimeLabel(slotDate, timezone);
-                const slotTimeStr = getTimeString(slotDate, timezone);
-                const selected = selectedSlot?.start === slot.start || timeStr === slotTimeStr;
-                const openTables = slot.available_table_ids?.length ?? 0;
-                return (
-                  <Pressable
-                    key={slot.start}
-                    style={[styles.slotChip, selected && styles.slotChipActive]}
-                    onPress={() => {
-                      setTimeStr(slotTimeStr);
-                      setPendingTime(buildLocalDateFromTimeString(slotTimeStr));
-                    }}
-                  >
-                    <Text style={[styles.slotText, selected && styles.slotTextActive]}>{timeLabel}</Text>
-                    <Text style={[styles.slotMeta, selected && styles.slotMetaActive]}>
-                      {openTables ? `${openTables} tables` : 'Waitlist'}
-                    </Text>
-                  </Pressable>
-                );
-              })}
-            </View>
-          </View>
       </ScrollView>
 
       {Platform.OS === 'ios' && showDatePicker ? (
@@ -656,48 +626,6 @@ const styles = StyleSheet.create({
   statusText: {
     color: colors.muted,
     fontWeight: '500',
-  },
-  suggestionCard: {
-    backgroundColor: colors.card,
-    borderRadius: radius.lg,
-    borderWidth: 1,
-    borderColor: colors.border,
-    padding: spacing.lg,
-    gap: spacing.sm,
-    ...shadow.card,
-  },
-  sectionLabel: {
-    fontWeight: '600',
-    color: colors.text,
-  },
-  slotGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: spacing.sm,
-  },
-  slotChip: {
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    borderRadius: radius.md,
-    backgroundColor: colors.overlay,
-    minWidth: 110,
-  },
-  slotChipActive: {
-    backgroundColor: colors.primaryStrong,
-  },
-  slotText: {
-    fontWeight: '700',
-    color: colors.text,
-  },
-  slotTextActive: {
-    color: '#fff',
-  },
-  slotMeta: {
-    fontSize: 12,
-    color: colors.muted,
-  },
-  slotMetaActive: {
-    color: 'rgba(255,255,255,0.85)',
   },
   modalPicker: {
     alignSelf: 'stretch',
