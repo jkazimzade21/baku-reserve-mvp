@@ -241,6 +241,7 @@ export default function RestaurantScreen({ route, navigation }: Props) {
   }, []);
 
   const handleTimeSelect = useCallback((time: string) => {
+    setSelectedTime(time);
     setPendingTime(time);
     Haptics.selectionAsync().catch(() => {});
   }, []);
