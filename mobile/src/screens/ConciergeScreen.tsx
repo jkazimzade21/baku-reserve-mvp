@@ -367,8 +367,16 @@ export default function ConciergeScreen({ navigation, route }: Props) {
 
           {messages.map((message) => {
             const isAssistant = message.role === 'assistant';
+            const needsFullWidth = isAssistant && Boolean(message.suggestions?.length || message.bookingCandidate);
             return (
-              <View key={message.id} style={[styles.bubble, isAssistant ? styles.assistantBubble : styles.userBubble]}>
+              <View
+                key={message.id}
+                style={[
+                  styles.bubble,
+                  isAssistant ? styles.assistantBubble : styles.userBubble,
+                  needsFullWidth && styles.wideBubble,
+                ]}
+              >
                 <Text style={[styles.bubbleText, isAssistant ? styles.assistantText : styles.userText]}>{message.text}</Text>
                 {isAssistant && message.bookingCandidate?.restaurant ? (
                   <Pressable
@@ -484,14 +492,23 @@ const styles = StyleSheet.create({
     borderRadius: radius.lg,
     borderWidth: 1,
     gap: spacing.sm,
+    maxWidth: '75%',
   },
   assistantBubble: {
     backgroundColor: colors.card,
     borderColor: colors.border,
+    alignSelf: 'flex-start',
+    borderBottomLeftRadius: radius.sm,
   },
   userBubble: {
     backgroundColor: colors.primary,
     borderColor: colors.primaryStrong,
+    alignSelf: 'flex-end',
+    borderBottomRightRadius: radius.sm,
+  },
+  wideBubble: {
+    maxWidth: '100%',
+    alignSelf: 'stretch',
   },
   bubbleText: {
     fontSize: 15,

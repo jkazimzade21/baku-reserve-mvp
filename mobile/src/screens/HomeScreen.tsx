@@ -122,14 +122,14 @@ export default function HomeScreen({ navigation }: Props) {
   }, [contextState]);
 
   const renderCompactRail = (title: string, data: RestaurantSummary[]) => (
-    <View style={styles.section}>
+    <View style={[styles.section, styles.fullBleed]}>
       <View style={styles.sectionHeaderRow}>
         <Text style={styles.sectionTitle}>{title}</Text>
       </View>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.compactScroll}
+        contentContainerStyle={[styles.compactScroll, styles.fullBleedContent]}
       >
         {data.map((restaurant) => {
           const photoBundle = resolveRestaurantPhotos(restaurant);
@@ -213,7 +213,7 @@ export default function HomeScreen({ navigation }: Props) {
           <Feather name="chevron-right" size={16} color={colors.primaryStrong} />
         </Pressable>
 
-        <View style={styles.section}>
+        <View style={[styles.section, styles.fullBleed]}>
           <HorizontalRestaurantRow
             title="Most booked tonight"
             subtitle="Popular right now in Baku"
@@ -234,7 +234,7 @@ export default function HomeScreen({ navigation }: Props) {
         {renderCompactRail('Continue exploring', continueExploring)}
         {renderCompactRail('New on Baku Reserve', newOnReserve)}
 
-        <View style={styles.section}>
+        <View style={[styles.section, styles.fullBleed]}>
           <View style={styles.sectionHeaderRow}>
             <Text style={styles.sectionTitle}>Featured experiences</Text>
             <Text style={styles.sectionSubtitle}>Events & tasting menus</Text>
@@ -242,8 +242,8 @@ export default function HomeScreen({ navigation }: Props) {
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.eventsScroll}
-          >
+        contentContainerStyle={[styles.eventsScroll, styles.fullBleedContent]}
+      >
             {experienceCards.map((experience: MockEvent & { imageSource: any; venueName: string }) => (
               <FeaturedEventCard
                 key={experience.id}
@@ -480,6 +480,12 @@ const styles = StyleSheet.create({
   },
   compactScroll: {
     gap: spacing.md,
+  },
+  fullBleed: {
+    marginHorizontal: -spacing.lg,
+  },
+  fullBleedContent: {
+    paddingHorizontal: spacing.lg,
   },
   compactCard: {
     width: 160,
