@@ -6,12 +6,13 @@ import { asImageSource, type PhotoLike } from '../utils/photoSources';
 type Props = {
   photos: PhotoLike[];
   height?: number;
+  edgeToEdge?: boolean;
 };
 
 const { width: screenWidth } = Dimensions.get('window');
 const DEFAULT_SLIDE_WIDTH = screenWidth - spacing.lg * 2;
 
-export default function PhotoCarousel({ photos, height = 240 }: Props) {
+export default function PhotoCarousel({ photos, height = 240, edgeToEdge = false }: Props) {
   const [index, setIndex] = useState(0);
   const [containerWidth, setContainerWidth] = useState(DEFAULT_SLIDE_WIDTH);
 
@@ -21,7 +22,7 @@ export default function PhotoCarousel({ photos, height = 240 }: Props) {
 
   return (
     <View
-      style={[styles.wrapper, { height }]}
+      style={[styles.wrapper, edgeToEdge && styles.edgeToEdge, { height }]}
       onLayout={useCallback(
         (event: LayoutChangeEvent) => {
           const nextWidth = event.nativeEvent.layout.width;
@@ -72,6 +73,10 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: colors.card,
     width: '100%',
+  },
+  edgeToEdge: {
+    borderRadius: 0,
+    backgroundColor: colors.background,
   },
   image: {
     resizeMode: 'cover',

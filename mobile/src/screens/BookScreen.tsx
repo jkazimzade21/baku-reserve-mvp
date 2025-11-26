@@ -23,7 +23,13 @@ import {
 } from '../api';
 import { colors, radius, shadow, spacing } from '../config/theme';
 import { formatDateInput, parseDateInput } from '../utils/dateInput';
-import { formatDateLabel, formatTimeLabel, getDateString, getTimeString } from '../utils/availability';
+import {
+  DEFAULT_TIMEZONE,
+  formatDateLabel,
+  formatTimeLabel,
+  getDateString,
+  getTimeString,
+} from '../utils/availability';
 import { normalizeRestaurantDetail } from '../utils/normalizeRestaurant';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../types/navigation';
@@ -31,7 +37,52 @@ import { useAuth } from '../contexts/AuthContext';
 
  type Props = NativeStackScreenProps<RootStackParamList, 'Book'>;
 
-const TIME_OPTIONS = ['18:00', '19:00', '20:00', '21:00'];
+const BAKU_TIMEZONE = DEFAULT_TIMEZONE;
+const HALF_HOUR_MINUTES = 30;
+const BAKU_UTC_OFFSET = '+04:00'; // Azerbaijan no DST; keep bookings anchored to Baku time
+const OPEN_MINUTES = 8 * 60; // 08:00
+const CLOSE_MINUTES = 23 * 60; // 23:00
+const LAST_SLOT_BUFFER_MINUTES = 0; // allow 23:00 inclusive
+
+function timeStringToMinutes(time: string) {
+  const [hourStr, minuteStr] = time.split(':');
+  return (Number(hourStr) || 0) * 60 + (Number(minuteStr) || 0);
+}
+
+function buildDateFromTimeString(time: string) {
+  return new Date(`2000-01-01T${time}:00${BAKU_UTC_OFFSET}`);
+}
+
+function buildLocalDateFromTimeString(time: string) {
+  const [hourStr, minuteStr] = time.split(':');
+  const base = new Date();
+  base.setHours(Number(hourStr) || 0, Number(minuteStr) || 0, 0, 0);
+  return base;
+}
+
+function generateRollingTimeOptions() {
+  const now = new Date();
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: BAKU_TIMEZONE,
+    hour12: false,
+    hour: '2-digit',
+    minute: '2-digit',
+  }).formatToParts(now);
+  const hour = Number(parts.find((p) => p.type === 'hour')?.value ?? '0');
+  const minute = Number(parts.find((p) => p.type === 'minute')?.value ?? '0');
+
+  let startMinutes = hour * 60 + minute + 60; // one hour after "now" in Baku
+  startMinutes = Math.ceil(startMinutes / HALF_HOUR_MINUTES) * HALF_HOUR_MINUTES; // snap to 30-minute blocks
+  startMinutes = Math.max(startMinutes, OPEN_MINUTES);
+
+  const options: string[] = [];
+  for (let mins = startMinutes; mins <= CLOSE_MINUTES; mins += HALF_HOUR_MINUTES) {
+    const h = Math.floor(mins / 60) % 24;
+    const m = mins % 60;
+    options.push(`${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`);
+  }
+  return options;
+}
 
 function formatHumanDate(value: string, timezone: string) {
   const parsed = parseDateInput(value);
@@ -41,20 +92,40 @@ function formatHumanDate(value: string, timezone: string) {
 
 function formatHumanTime(value: string | null, timezone: string) {
   if (!value) return 'Select time';
-  const [hourStr, minuteStr] = value.split(':');
-  const base = new Date();
-  base.setHours(Number(hourStr) || 0, Number(minuteStr) || 0, 0, 0);
-  return formatTimeLabel(base, timezone);
+  return formatTimeLabel(buildDateFromTimeString(value), timezone);
 }
 
 export default function BookScreen({ route, navigation }: Props) {
   const { profile } = useAuth();
-  const { id, name, guestName: initialGuestName, guestPhone: initialGuestPhone } = route.params;
+  const {
+    id,
+    name,
+    guestName: initialGuestName,
+    guestPhone: initialGuestPhone,
+    preselectedDate,
+    preselectedTime,
+    partySize: initialPartySize,
+  } = route.params;
   const [restaurantDetail, setRestaurantDetail] = useState<RestaurantDetail | null>(null);
-  const [timezone, setTimezone] = useState<string>('Asia/Baku');
-  const [dateStr, setDateStr] = useState<string>(() => getDateString(new Date(), 'Asia/Baku'));
-  const [timeStr, setTimeStr] = useState<string | null>(null);
-  const [partySize, setPartySize] = useState<number>(2);
+  const timezone = BAKU_TIMEZONE;
+
+  const buildBookingTimeOptions = useCallback(() => {
+    const base = generateRollingTimeOptions();
+    if (preselectedTime) {
+      const set = new Set(base);
+      set.add(preselectedTime);
+      return Array.from(set).sort((a, b) => timeStringToMinutes(a) - timeStringToMinutes(b));
+    }
+    return base;
+  }, [preselectedTime]);
+
+  const timeOptions = useMemo(buildBookingTimeOptions, [buildBookingTimeOptions]);
+
+  const [dateStr, setDateStr] = useState<string>(
+    () => preselectedDate ?? getDateString(new Date(), timezone),
+  );
+  const [timeStr, setTimeStr] = useState<string | null>(() => preselectedTime ?? null);
+  const [partySize, setPartySize] = useState<number>(() => initialPartySize ?? 2);
   const [guestName, setGuestName] = useState<string>(initialGuestName ?? profile?.name ?? '');
   const [guestPhone, setGuestPhone] = useState<string>(initialGuestPhone ?? '');
   const [slots, setSlots] = useState<AvailabilitySlot[]>([]);
@@ -62,9 +133,17 @@ export default function BookScreen({ route, navigation }: Props) {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
-  const [pendingDate, setPendingDate] = useState<Date>(() => parseDateInput(formatDateInput(new Date())) ?? new Date());
+  const [pendingDate, setPendingDate] = useState<Date>(
+    () => parseDateInput(preselectedDate ?? getDateString(new Date(), timezone)) ?? new Date(),
+  );
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
-  const [pendingTime, setPendingTime] = useState<Date>(new Date());
+  const [pendingTime, setPendingTime] = useState<Date>(() => {
+    const seed = preselectedTime ?? timeOptions[0];
+    if (seed) {
+      return buildLocalDateFromTimeString(seed);
+    }
+    return new Date();
+  });
 
   useEffect(() => {
     navigation.setOptions({ title: `Book · ${name}` });
@@ -77,7 +156,6 @@ export default function BookScreen({ route, navigation }: Props) {
         const detail = normalizeRestaurantDetail(await fetchRestaurant(id));
         if (!mounted) return;
         setRestaurantDetail(detail);
-        if (detail.timezone) setTimezone(detail.timezone);
       } catch {
         // best-effort
       }
@@ -96,7 +174,6 @@ export default function BookScreen({ route, navigation }: Props) {
       try {
         const data = await fetchAvailability(id, normalized, partySize);
         setSlots(data.slots ?? []);
-        if (data.restaurant_timezone) setTimezone(data.restaurant_timezone);
       } catch (err: any) {
         setSlots([]);
         setError(err?.message || 'Failed to load availability');
@@ -126,14 +203,9 @@ export default function BookScreen({ route, navigation }: Props) {
 
   const selectedSlot = useMemo(() => {
     if (!timeStr) return null;
-    const match = slots.find((slot) => {
-      const slotDate = new Date(slot.start);
-      const hours = slotDate.getHours().toString().padStart(2, '0');
-      const minutes = slotDate.getMinutes().toString().padStart(2, '0');
-      return `${hours}:${minutes}` === timeStr;
-    });
+    const match = slots.find((slot) => getTimeString(new Date(slot.start), timezone) === timeStr);
     return match ?? null;
-  }, [slots, timeStr]);
+  }, [slots, timeStr, timezone]);
 
   const handleDateConfirm = useCallback(
     (selectedDate: Date) => {
@@ -174,14 +246,14 @@ export default function BookScreen({ route, navigation }: Props) {
         mode: 'time',
         is24Hour: false,
         value: base,
-        minuteInterval: 15,
+        minuteInterval: 30,
         onChange: (event: DateTimePickerEvent, selected) => {
           if (event.type === 'set' && selected) {
             const hours = selected.getHours().toString().padStart(2, '0');
             const minutes = selected.getMinutes().toString().padStart(2, '0');
             const next = `${hours}:${minutes}`;
             setTimeStr(next);
-            setPendingTime(selected);
+            setPendingTime(buildLocalDateFromTimeString(next));
           }
         },
       });
@@ -282,11 +354,14 @@ export default function BookScreen({ route, navigation }: Props) {
               </Pressable>
             </View>
             <View style={styles.suggestionRow}>
-              {TIME_OPTIONS.map((time) => (
+              {timeOptions.map((time) => (
                 <Pressable
                   key={time}
                   style={[styles.suggestionChip, timeStr === time && styles.suggestionChipActive]}
-                  onPress={() => setTimeStr(time)}
+                  onPress={() => {
+                    setTimeStr(time);
+                    setPendingTime(buildLocalDateFromTimeString(time));
+                  }}
                 >
                   <Text style={[styles.suggestionText, timeStr === time && styles.suggestionTextActive]}>{time}</Text>
                 </Pressable>
@@ -359,7 +434,10 @@ export default function BookScreen({ route, navigation }: Props) {
                   <Pressable
                     key={slot.start}
                     style={[styles.slotChip, selected && styles.slotChipActive]}
-                    onPress={() => setTimeStr(slotTimeStr)}
+                    onPress={() => {
+                      setTimeStr(slotTimeStr);
+                      setPendingTime(buildLocalDateFromTimeString(slotTimeStr));
+                    }}
                   >
                     <Text style={[styles.slotText, selected && styles.slotTextActive]}>{timeLabel}</Text>
                     <Text style={[styles.slotMeta, selected && styles.slotMetaActive]}>
@@ -386,8 +464,14 @@ export default function BookScreen({ route, navigation }: Props) {
           value={pendingTime}
           mode="time"
           display="spinner"
-          minuteInterval={15}
-          onChange={(_event, selected) => selected && setPendingTime(selected)}
+          minuteInterval={30}
+          onChange={(_event, selected) => {
+            if (!selected) return;
+            const hours = selected.getHours().toString().padStart(2, '0');
+            const minutes = selected.getMinutes().toString().padStart(2, '0');
+            const next = `${hours}:${minutes}`;
+            setPendingTime(buildLocalDateFromTimeString(next));
+          }}
           style={styles.modalPicker}
         />
       ) : null}

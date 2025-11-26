@@ -11,7 +11,15 @@ export type RootStackParamList = {
   Auth: undefined;
   Tabs: NavigatorScreenParams<MainTabParamList>;
   Restaurant: { id: string; name?: string };
-  Book: { id: string; name: string; guestName?: string; guestPhone?: string };
+  Book: {
+    id: string;
+    name: string;
+    guestName?: string;
+    guestPhone?: string;
+    preselectedDate?: string;
+    preselectedTime?: string;
+    partySize?: number;
+  };
   RestaurantCollection: {
     title: string;
     subtitle?: string;
