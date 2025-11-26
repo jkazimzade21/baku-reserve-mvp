@@ -54,6 +54,7 @@ const getFormatters = (timezone?: string): FormatterBundle => {
         timeZone: tz,
         hour: 'numeric',
         minute: '2-digit',
+        hour12: false,
       }),
     });
   }

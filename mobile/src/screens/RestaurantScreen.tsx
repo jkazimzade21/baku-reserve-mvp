@@ -214,7 +214,6 @@ export default function RestaurantScreen({ route, navigation }: Props) {
 
   useEffect(() => {
     if (!slots.length) {
-      setSelectedTime(null);
       return;
     }
     const firstAvailable = displayedTimes.find((time) => slotByTime.has(time));
@@ -465,11 +464,9 @@ export default function RestaurantScreen({ route, navigation }: Props) {
         : [];
 
   const parsedDate = parseDateInput(dateStr) ?? new Date();
-  const selectedTimeLabel = selectedSlot
-    ? formatTimeLabel(new Date(selectedSlot.start), timezone)
-    : selectedTime
-      ? formatTimeLabel(buildBakuDateFromTimeString(selectedTime), timezone)
-      : 'Pick a time';
+  const selectedTimeLabel = selectedTime
+    ? formatChipTime(selectedTime, timezone)
+    : 'Pick a time';
 
   const quickActionItems = [
     (data.latitude && data.longitude) || data.address
@@ -1366,6 +1363,7 @@ function formatChipTime(time: string, timezone: string) {
     timeZone: timezone,
     hour: 'numeric',
     minute: '2-digit',
+    hour12: false,
   });
   return formatter.format(buildBakuDateFromTimeString(time));
 }
