@@ -9,7 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
 import type { CompositeScreenProps } from '@react-navigation/native';
@@ -33,27 +33,45 @@ import {
 } from '../data/mockShowcaseData';
 import type { MainTabParamList, RootStackParamList } from '../types/navigation';
 import type { RestaurantSummary } from '../api';
+import { DEFAULT_TIMEZONE, getDateString } from '../utils/availability';
+import { parseDateInput } from '../utils/dateInput';
 
 type Props = CompositeScreenProps<
   BottomTabScreenProps<MainTabParamList, 'Discover'>,
   NativeStackScreenProps<RootStackParamList>
 >;
 
-type ContextState = {
-  partySize?: number;
-  date?: string;
-  time?: string;
-};
-
-const partyOptions = [2, 3, 4, 6, 8];
-const dateOptions = ['Tonight', 'Tomorrow', 'Weekend'];
-const timeOptions = ['19:00', '20:00', '21:30'];
 const quickLinkPrompt = 'Date night on a rooftop';
 
 export default function HomeScreen({ navigation }: Props) {
+  const insets = useSafeAreaInsets();
+  const timezone = DEFAULT_TIMEZONE;
   const { restaurants, refreshing, reload } = useRestaurantDirectory();
-  const [contextState, setContextState] = useState<ContextState>({});
-  const [contextModalVisible, setContextModalVisible] = useState(false);
+  const [partySize, setPartySize] = useState<number>(2);
+  const [dateStr, setDateStr] = useState<string>(() => getDateString(new Date(), timezone));
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [plannerOpen, setPlannerOpen] = useState(false);
+  const [pendingDateStr, setPendingDateStr] = useState<string>(dateStr);
+  const [pendingParty, setPendingParty] = useState<number>(partySize);
+  const [pendingTime, setPendingTime] = useState<string | null>(null);
+
+  const plannerDateOptions = useMemo(() => buildDateOptions(timezone, 14), [timezone]);
+  const timeOptions = useMemo(() => buildTimeOptions(dateStr, timezone), [dateStr, timezone]);
+  const plannerTimeOptions = useMemo(() => buildTimeOptions(pendingDateStr, timezone), [pendingDateStr, timezone]);
+  const summaryDate = parseDateInput(dateStr) ?? new Date();
+  const selectedTimeLabel = selectedTime ? formatChipTime(selectedTime, timezone) : 'Pick a time';
+
+  useEffect(() => {
+    if (!selectedTime && timeOptions.length) {
+      setSelectedTime(timeOptions[0]);
+    }
+  }, [selectedTime, timeOptions]);
+
+  useEffect(() => {
+    if (!pendingTime && plannerTimeOptions.length) {
+      setPendingTime(plannerTimeOptions[0]);
+    }
+  }, [pendingTime, plannerTimeOptions]);
 
   const mostBooked = useMemo(() => getMockMostBooked(), []);
   const continueExploring = useMemo(() => getMockContinueExploring(), []);
@@ -104,22 +122,24 @@ export default function HomeScreen({ navigation }: Props) {
     navigation.navigate('Concierge', params);
   };
 
-  const openContextModal = () => {
+  const openPlanner = () => {
     Haptics.selectionAsync().catch(() => {});
-    setContextModalVisible(true);
+    setPendingParty(partySize);
+    setPendingDateStr(dateStr);
+    setPendingTime(selectedTime);
+    setPlannerOpen(true);
   };
 
-  const applyContextSelection = (values: ContextState) => {
-    setContextState(values);
-    setContextModalVisible(false);
-  };
+  const closePlanner = () => setPlannerOpen(false);
 
-  const contextLabel = useMemo(() => {
-    const party = contextState.partySize ? `${contextState.partySize} guests` : 'Party –';
-    const date = contextState.date ?? 'Date –';
-    const time = contextState.time ?? 'Time –';
-    return `${party}  •  ${date}  •  ${time}`;
-  }, [contextState]);
+  const applyPlanner = () => {
+    const appliedTime = pendingTime ?? plannerTimeOptions[0] ?? null;
+    setPartySize(pendingParty);
+    setDateStr(pendingDateStr);
+    setSelectedTime(appliedTime);
+    setPendingTime(appliedTime);
+    setPlannerOpen(false);
+  };
 
   const renderCompactRail = (title: string, data: RestaurantSummary[]) => (
     <View style={[styles.section, styles.sectionFullBleed]}>
@@ -205,12 +225,22 @@ export default function HomeScreen({ navigation }: Props) {
           <Feather name="arrow-up-right" size={16} color={colors.text} />
         </Pressable>
 
-        <Pressable style={styles.contextPill} onPress={openContextModal} accessibilityRole="button">
-          <Feather name="sliders" size={16} color={colors.primaryStrong} />
-          <Text style={styles.contextLabel} numberOfLines={1}>
-            {contextLabel}
-          </Text>
-          <Feather name="chevron-right" size={16} color={colors.primaryStrong} />
+        <Pressable style={styles.plannerPill} onPress={openPlanner} accessibilityRole="button">
+          <View style={styles.plannerSummaryRow}>
+            <View style={styles.summaryItem}>
+              <Feather name="user" size={16} color={colors.primaryStrong} />
+              <Text style={styles.summaryText}>{partySize}</Text>
+            </View>
+            <View style={styles.summaryItem}>
+              <Feather name="calendar" size={16} color={colors.primaryStrong} />
+              <Text style={styles.summaryText}>{formatDateCompact(summaryDate, timezone)}</Text>
+            </View>
+            <View style={styles.summaryItem}>
+              <Feather name="clock" size={16} color={colors.primaryStrong} />
+              <Text style={styles.summaryText}>{selectedTimeLabel}</Text>
+            </View>
+          </View>
+          <Feather name="chevron-down" size={16} color={colors.primaryStrong} />
         </Pressable>
 
         <View style={[styles.section, styles.sectionFullBleed]}>
@@ -263,41 +293,56 @@ export default function HomeScreen({ navigation }: Props) {
         </View>
       </ScrollView>
 
-      <ContextModal
-        visible={contextModalVisible}
-        initialState={contextState}
-        onClose={() => setContextModalVisible(false)}
-        onApply={applyContextSelection}
+      <PlannerModal
+        visible={plannerOpen}
+        onClose={closePlanner}
+        onApply={applyPlanner}
+        pendingDate={pendingDateStr}
+        pendingParty={pendingParty}
+        pendingTime={pendingTime}
+        onSelectDate={setPendingDateStr}
+        onSelectParty={setPendingParty}
+        onSelectTime={setPendingTime}
+        timeOptions={plannerTimeOptions}
+        dateOptions={plannerDateOptions}
+        bottomInset={insets.bottom}
+        timezone={timezone}
       />
     </SafeAreaView>
   );
 }
 
-type ContextModalProps = {
+type PlannerModalProps = {
   visible: boolean;
-  initialState: ContextState;
   onClose: () => void;
-  onApply: (values: ContextState) => void;
+  onApply: () => void;
+  pendingParty: number;
+  pendingDate: string;
+  pendingTime: string | null;
+  onSelectParty: (value: number) => void;
+  onSelectDate: (value: string) => void;
+  onSelectTime: (value: string) => void;
+  timeOptions: string[];
+  dateOptions: { value: string; label: string }[];
+  bottomInset: number;
+  timezone: string;
 };
 
-function ContextModal({ visible, initialState, onApply, onClose }: ContextModalProps) {
-  const [partySize, setPartySize] = useState<number | undefined>(initialState.partySize);
-  const [date, setDate] = useState<string | undefined>(initialState.date);
-  const [time, setTime] = useState<string | undefined>(initialState.time);
-
-  useEffect(() => {
-    if (visible) {
-      setPartySize(initialState.partySize);
-      setDate(initialState.date);
-      setTime(initialState.time);
-    }
-  }, [initialState, visible]);
-
-  const reset = () => {
-    setPartySize(undefined);
-    setDate(undefined);
-    setTime(undefined);
-  };
+function PlannerModal({
+  visible,
+  onClose,
+  onApply,
+  pendingParty,
+  pendingDate,
+  pendingTime,
+  onSelectParty,
+  onSelectDate,
+  onSelectTime,
+  timeOptions,
+  dateOptions,
+  bottomInset,
+  timezone,
+}: PlannerModalProps) {
 
   return (
     <Modal
@@ -307,67 +352,81 @@ function ContextModal({ visible, initialState, onApply, onClose }: ContextModalP
       onRequestClose={onClose}
       presentationStyle="overFullScreen"
     >
-      <View style={styles.modalBackdrop}>
+      <View style={styles.sheetBackdrop}>
         <Pressable style={StyleSheet.absoluteFill} onPress={onClose} />
-        <View style={styles.modalCard}>
-          <Text style={styles.modalTitle}>Plan your night</Text>
-
-          <Text style={styles.modalLabel}>Party size</Text>
-          <View style={styles.modalChipRow}>
-            {partyOptions.map((option) => (
-              <Pressable
-                key={option}
-                style={[styles.modalChip, partySize === option && styles.modalChipActive]}
-                onPress={() => setPartySize(option)}
-              >
-                <Text style={[styles.modalChipText, partySize === option && styles.modalChipTextActive]}>
-                  {option}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-
-          <Text style={styles.modalLabel}>Date</Text>
-          <View style={styles.modalChipRow}>
-            {dateOptions.map((option) => (
-              <Pressable
-                key={option}
-                style={[styles.modalChip, date === option && styles.modalChipActive]}
-                onPress={() => setDate(option)}
-              >
-                <Text style={[styles.modalChipText, date === option && styles.modalChipTextActive]}>
-                  {option}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-
-          <Text style={styles.modalLabel}>Time</Text>
-          <View style={styles.modalChipRow}>
-            {timeOptions.map((option) => (
-              <Pressable
-                key={option}
-                style={[styles.modalChip, time === option && styles.modalChipActive]}
-                onPress={() => setTime(option)}
-              >
-                <Text style={[styles.modalChipText, time === option && styles.modalChipTextActive]}>
-                  {option}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
-
-          <View style={styles.modalActions}>
-            <Pressable style={styles.modalSecondary} onPress={reset}>
-              <Text style={styles.modalSecondaryText}>Clear</Text>
-            </Pressable>
-            <Pressable
-              style={styles.modalPrimary}
-              onPress={() => onApply({ partySize, date, time })}
-            >
-              <Text style={styles.modalPrimaryText}>Apply</Text>
+        <View style={[styles.sheetCard, { paddingBottom: bottomInset + spacing.lg }]}
+        >
+          <View style={styles.sheetHeader}>
+            <Text style={styles.sheetTitle}>Plan your night</Text>
+            <Pressable onPress={onClose} accessibilityRole="button">
+              <Feather name="x" size={20} color={colors.mutedStrong} />
             </Pressable>
           </View>
+
+          <Text style={styles.sheetLabel}>Party size</Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.sheetRail}
+          >
+            {Array.from({ length: 20 }, (_, idx) => idx + 1).map((size) => {
+              const selected = size === pendingParty;
+              return (
+                <Pressable
+                  key={size}
+                  style={[styles.railChip, selected && styles.railChipActive]}
+                  onPress={() => onSelectParty(size)}
+                  accessibilityRole="button"
+                >
+                  <Text style={[styles.railChipText, selected && styles.railChipTextActive]}>{size}</Text>
+                </Pressable>
+              );
+            })}
+          </ScrollView>
+
+          <View style={styles.sheetGrid}>
+            <View style={styles.sheetColumnWrapper}>
+              <Text style={styles.sheetLabel}>Date</Text>
+              <ScrollView style={styles.sheetColumn} contentContainerStyle={styles.sheetColumnContent}>
+                {dateOptions.map((opt) => {
+                  const selected = opt.value === pendingDate;
+                  return (
+                    <Pressable
+                      key={opt.value}
+                      style={[styles.listRow, selected && styles.listRowActive]}
+                      onPress={() => onSelectDate(opt.value)}
+                      accessibilityRole="button"
+                    >
+                      <Text style={[styles.listRowText, selected && styles.listRowTextActive]}>{opt.label}</Text>
+                    </Pressable>
+                  );
+                })}
+              </ScrollView>
+            </View>
+
+            <View style={styles.sheetColumnWrapper}>
+              <Text style={styles.sheetLabel}>Time</Text>
+              <ScrollView style={styles.sheetColumn} contentContainerStyle={styles.sheetColumnContent}>
+                {timeOptions.map((time) => {
+                  const selected = time === pendingTime;
+                  return (
+                    <Pressable
+                      key={time}
+                      style={[styles.listRow, selected && styles.listRowActive]}
+                      onPress={() => onSelectTime(time)}
+                      accessibilityRole="button"
+                    >
+                      <Text style={[styles.listRowText, selected && styles.listRowTextActive]}>{formatChipTime(time, timezone)}</Text>
+                    </Pressable>
+                  );
+                })}
+              </ScrollView>
+            </View>
+          </View>
+
+          <Pressable style={styles.sheetPrimary} onPress={onApply} accessibilityRole="button">
+            <Text style={styles.sheetPrimaryText}>Done</Text>
+          </Pressable>
         </View>
       </View>
     </Modal>
@@ -428,21 +487,33 @@ const styles = StyleSheet.create({
     color: colors.muted,
     flex: 1,
   },
-  contextPill: {
+  plannerPill: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: spacing.sm,
+    gap: spacing.md,
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.sm,
-    borderRadius: radius.pill,
+    borderRadius: radius.lg,
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.border,
+    ...shadow.subtle,
   },
-  contextLabel: {
+  plannerSummaryRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
     flex: 1,
+  },
+  summaryItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+  },
+  summaryText: {
     color: colors.text,
+    fontWeight: '600',
     fontSize: 14,
   },
   quickLink: {
@@ -519,78 +590,168 @@ const styles = StyleSheet.create({
     paddingRight: spacing.md,
     gap: spacing.md,
   },
-  modalBackdrop: {
+  sheetBackdrop: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: 'rgba(0,0,0,0.35)',
     justifyContent: 'flex-end',
   },
-  modalCard: {
+  sheetCard: {
     backgroundColor: colors.card,
     borderTopLeftRadius: radius.xl,
     borderTopRightRadius: radius.xl,
     padding: spacing.lg,
     gap: spacing.md,
+    shadowColor: '#000',
+    shadowOpacity: 0.15,
+    shadowRadius: 20,
+    shadowOffset: { width: 0, height: -2 },
+    elevation: 10,
   },
-  modalTitle: {
+  sheetHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  sheetTitle: {
     fontSize: 20,
     fontWeight: '700',
     color: colors.text,
   },
-  modalLabel: {
+  sheetLabel: {
     fontSize: 13,
     fontWeight: '600',
     color: colors.muted,
   },
-  modalChipRow: {
+  sheetRail: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
     gap: spacing.sm,
   },
-  modalChip: {
+  railChip: {
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.xs,
     borderRadius: radius.pill,
     borderWidth: 1,
     borderColor: colors.border,
   },
-  modalChipActive: {
+  railChipActive: {
     backgroundColor: colors.primaryFaint,
     borderColor: colors.primaryStrong,
   },
-  modalChipText: {
+  railChipText: {
     fontSize: 14,
     color: colors.text,
   },
-  modalChipTextActive: {
+  railChipTextActive: {
     color: colors.primaryStrong,
     fontWeight: '700',
   },
-  modalActions: {
+  sheetGrid: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: spacing.sm,
+    gap: spacing.md,
   },
-  modalSecondary: {
+  sheetColumnWrapper: {
     flex: 1,
+    gap: spacing.xs,
+  },
+  sheetColumn: {
+    maxHeight: 260,
+  },
+  sheetColumnContent: {
+    gap: spacing.xs / 2,
+    paddingBottom: spacing.sm,
+  },
+  listRow: {
     paddingVertical: spacing.sm,
-    borderRadius: radius.lg,
+    paddingHorizontal: spacing.md,
+    borderRadius: radius.md,
     borderWidth: 1,
     borderColor: colors.border,
-    alignItems: 'center',
   },
-  modalSecondaryText: {
-    fontWeight: '600',
+  listRowActive: {
+    backgroundColor: colors.primaryFaint,
+    borderColor: colors.primaryStrong,
+  },
+  listRowText: {
     color: colors.text,
+    fontSize: 14,
   },
-  modalPrimary: {
-    flex: 1,
-    paddingVertical: spacing.sm,
+  listRowTextActive: {
+    color: colors.primaryStrong,
+    fontWeight: '700',
+  },
+  sheetPrimary: {
+    paddingVertical: spacing.md,
     borderRadius: radius.lg,
     backgroundColor: colors.text,
     alignItems: 'center',
   },
-  modalPrimaryText: {
+  sheetPrimaryText: {
     color: colors.background,
     fontWeight: '700',
   },
 });
+
+const SLOT_INTERVAL_MINUTES = 30;
+const OPEN_MINUTES = 8 * 60;
+const CLOSE_MINUTES = 23 * 60;
+const BAKU_UTC_OFFSET = '+04:00';
+
+function buildDateOptions(timezone: string, days = 14) {
+  const results: { value: string; label: string }[] = [];
+  const base = new Date();
+  for (let i = 0; i < days; i += 1) {
+    const date = new Date(base);
+    date.setDate(base.getDate() + i);
+    const value = getDateString(date, timezone);
+    let label: string;
+    if (i === 0) label = 'Today';
+    else if (i === 1) label = 'Tomorrow';
+    else {
+      label = new Intl.DateTimeFormat('en-US', {
+        weekday: 'short',
+        day: 'numeric',
+        month: 'short',
+      }).format(date);
+    }
+    results.push({ value, label });
+  }
+  return results;
+}
+
+function buildTimeOptions(dateStr: string, timezone: string) {
+  const startMinutes = OPEN_MINUTES;
+  const options: string[] = [];
+  for (let mins = startMinutes; mins <= CLOSE_MINUTES; mins += SLOT_INTERVAL_MINUTES) {
+    options.push(minutesToTime(mins));
+  }
+  return options;
+}
+
+function minutesToTime(totalMinutes: number) {
+  const hours = Math.floor(totalMinutes / 60) % 24;
+  const minutes = totalMinutes % 60;
+  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+}
+
+function buildBakuDateFromTimeString(time: string) {
+  return new Date(`2000-01-01T${time}:00${BAKU_UTC_OFFSET}`);
+}
+
+function formatChipTime(time: string, timezone: string) {
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: timezone,
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: false,
+  });
+  return formatter.format(buildBakuDateFromTimeString(time));
+}
+
+function formatDateCompact(date: Date, timezone: string) {
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: timezone,
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+  }).format(date);
+}
