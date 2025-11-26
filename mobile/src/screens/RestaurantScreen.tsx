@@ -252,8 +252,6 @@ export default function RestaurantScreen({ route, navigation }: Props) {
 
   const handleDateSelect = useCallback((value: string) => {
     setPendingDateStr(value);
-    const parsed = parseDateInput(value);
-    if (parsed) setPendingDate(parsed);
     Haptics.selectionAsync().catch(() => {});
   }, []);
 
