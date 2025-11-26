@@ -123,7 +123,7 @@ export default function HomeScreen({ navigation }: Props) {
 
   const renderCompactRail = (title: string, data: RestaurantSummary[]) => (
     <View style={[styles.section, styles.sectionFullBleed]}>
-      <View style={styles.sectionHeaderRow}>
+      <View style={[styles.sectionHeaderRow, styles.sectionPad]}>
         <Text style={styles.sectionTitle}>{title}</Text>
       </View>
       <ScrollView
@@ -227,6 +227,7 @@ export default function HomeScreen({ navigation }: Props) {
               })
             }
             onPressRestaurant={handleRestaurantPress}
+            paddingHorizontal={spacing.lg}
           />
         </View>
 
@@ -234,7 +235,7 @@ export default function HomeScreen({ navigation }: Props) {
         {renderCompactRail('New on Baku Reserve', newOnReserve)}
 
         <View style={[styles.section, styles.sectionFullBleed]}>
-          <View style={styles.sectionHeaderRow}>
+          <View style={[styles.sectionHeaderRow, styles.sectionPad]}>
             <Text style={styles.sectionTitle}>Featured experiences</Text>
             <Text style={styles.sectionSubtitle}>Events & tasting menus</Text>
           </View>
