@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "baku-reserve-mvp",
+    "slug": "baku-reserve-mvp",
+    "extra": {
+      "eas": {
+        "projectId": "0795e859-7529-4b25-940f-b12fea5a4531"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.jkazimzade.bakureserve",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    }
+  }
+}

@@ -16,6 +16,7 @@
   "dependencies": {
     "dayjs": "^1.11.13",
     "expo": "^54.0.25",
+    "expo-dev-client": "~6.0.18",
     "puppeteer": "^24.29.1",
     "react-dom": "19.1.0",
     "react-native-web": "^0.21.0",

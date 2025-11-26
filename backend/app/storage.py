@@ -262,13 +262,22 @@ class Database:
                 "reviews_count": int(r.get("reviews_count") or 0),
             }
             self._restaurant_summaries.append(summary)
+            grouped_tags = []
+            if isinstance(tag_groups, dict):
+                for values in tag_groups.values():
+                    if isinstance(values, (list, tuple)):
+                        grouped_tags.extend(str(tag) for tag in values if isinstance(tag, str))
+
             search_text = " ".join(
                 [
                     r.get("name", ""),
                     r.get("city", ""),
+                    neighborhood or "",
+                    address or "",
                     r.get("slug", ""),
                     " ".join(r.get("cuisine", []) or []),
                     " ".join(flattened_tags),
+                    " ".join(grouped_tags),
                 ]
             ).lower()
             self._summary_index.append((summary, search_text))

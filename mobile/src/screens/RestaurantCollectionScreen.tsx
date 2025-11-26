@@ -6,7 +6,6 @@ import { Feather } from '@expo/vector-icons';
 
 import RestaurantCard from '../components/RestaurantCard';
 import { colors, spacing } from '../config/theme';
-import { filterHiddenRestaurants } from '../constants/hiddenRestaurants';
 import { selectCategory, selectMostBooked, selectTrending } from '../utils/restaurantCollections';
 import type { RootStackParamList } from '../types/navigation';
 import { useRestaurantDirectory } from '../contexts/RestaurantDirectoryContext';
@@ -31,17 +30,13 @@ const flattenTags = (tags: any): string[] => {
 export default function RestaurantCollectionScreen({ route, navigation }: Props) {
   const { title, subtitle, source, categoryId, query = '', restaurantIds } = route.params;
   const { restaurants, loading, refreshing, reload } = useRestaurantDirectory();
-  const discoverableRestaurants = useMemo(
-    () => filterHiddenRestaurants(restaurants),
-    [restaurants],
-  );
   const [searchValue, setSearchValue] = useState(query);
 
   const normalizedSearch = searchValue.trim().toLowerCase();
 
   const searchMatches = useMemo(() => {
     if (!normalizedSearch) {
-      return discoverableRestaurants;
+      return restaurants;
     }
     return restaurants.filter((restaurant) => {
       const haystack: string[] = [];
@@ -56,39 +51,66 @@ export default function RestaurantCollectionScreen({ route, navigation }: Props)
         .map((value) => value.toLowerCase());
       return normalized.some((entry) => entry.includes(normalizedSearch));
     });
-  }, [discoverableRestaurants, normalizedSearch, restaurants]);
+  }, [normalizedSearch, restaurants]);
 
   const data = useMemo(() => {
-    if (source === 'search') {
-      return searchMatches.slice(0, 40);
-    }
-
-    if (!discoverableRestaurants.length) {
+    if (!restaurants.length) {
       return [];
     }
     if (source === 'most_booked') {
-      return selectMostBooked(discoverableRestaurants, 20);
+      return selectMostBooked(restaurants, 20);
     }
     if (source === 'trending') {
-      return selectTrending(discoverableRestaurants, 20);
+      return selectTrending(restaurants, 20);
     }
     if (source === 'category' && categoryId) {
-      const results = selectCategory(discoverableRestaurants, categoryId, 24);
-      return results.length ? results : discoverableRestaurants;
+      const results = selectCategory(restaurants, categoryId, 24);
+      return results.length ? results : restaurants;
     }
     if (source === 'collection' && restaurantIds?.length) {
-      const lookup = new Map(
-        discoverableRestaurants.map((restaurant) => [restaurant.id, restaurant]),
-      );
+      const lookup = new Map(restaurants.map((restaurant) => [restaurant.id, restaurant]));
       const ordered = restaurantIds
         .map((id) => lookup.get(id))
         .filter(Boolean);
-      return ordered.length ? ordered : discoverableRestaurants;
+      return ordered.length ? ordered : restaurants;
     }
-    return discoverableRestaurants;
-  }, [categoryId, restaurantIds, discoverableRestaurants, restaurants, searchMatches, source]);
+    if (source === 'search') {
+      return searchMatches.slice(0, 40);
+    }
+    return restaurants;
+  }, [categoryId, restaurantIds, restaurants, searchMatches, source]);
 
   const isSearchMode = source === 'search';
+
+  const header = (
+    <View style={styles.header}>
+      <Text style={styles.title}>{title}</Text>
+      {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
+      {isSearchMode ? (
+        <View style={styles.searchBar}>
+          <Feather name="search" size={16} color={colors.muted} />
+          <TextInput
+            value={searchValue}
+            onChangeText={setSearchValue}
+            placeholder="Search restaurants, cuisines, tags…"
+            placeholderTextColor={colors.muted}
+            style={styles.searchInput}
+            autoFocus
+            autoCorrect={false}
+            autoCapitalize="none"
+            returnKeyType="search"
+            accessibilityLabel="Search restaurants"
+          />
+        </View>
+      ) : null}
+      {source === 'category' && data.length === restaurants.length ? (
+        <Text style={styles.subtitle}>Showing all venues for now — filters syncing soon.</Text>
+      ) : null}
+      {source === 'collection' && (!restaurantIds || restaurantIds.length === 0) ? (
+        <Text style={styles.subtitle}>Collection syncing soon — showing full list.</Text>
+      ) : null}
+    </View>
+  );
 
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
@@ -98,10 +120,12 @@ export default function RestaurantCollectionScreen({ route, navigation }: Props)
           <Text style={styles.loadingCopy}>Gathering venues…</Text>
         </View>
       ) : (
-          <FlatList
-            data={data}
-            keyExtractor={(item) => item.id}
-            contentContainerStyle={styles.listContent}
+        <FlatList
+          data={data}
+          keyExtractor={(item) => item.id}
+          contentContainerStyle={styles.listContent}
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="on-drag"
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -116,31 +140,7 @@ export default function RestaurantCollectionScreen({ route, navigation }: Props)
             />
           )}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
-          ListHeaderComponent={
-            <View style={styles.header}>
-              <Text style={styles.title}>{title}</Text>
-              {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
-              {isSearchMode ? (
-                <View style={styles.searchBar}>
-                  <Feather name="search" size={16} color={colors.muted} />
-                  <TextInput
-                    value={searchValue}
-                    onChangeText={setSearchValue}
-                    placeholder="Search restaurants, cuisines, tags…"
-                    placeholderTextColor={colors.muted}
-                    style={styles.searchInput}
-                    autoFocus
-                  />
-                </View>
-              ) : null}
-              {source === 'category' && data.length === discoverableRestaurants.length ? (
-                <Text style={styles.subtitle}>Showing all venues for now — filters syncing soon.</Text>
-              ) : null}
-              {source === 'collection' && (!restaurantIds || restaurantIds.length === 0) ? (
-                <Text style={styles.subtitle}>Collection syncing soon — showing full list.</Text>
-              ) : null}
-            </View>
-          }
+          ListHeaderComponent={header}
           ListEmptyComponent={
             !loading ? (
               <View style={styles.emptyState}>
