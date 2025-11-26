@@ -43,7 +43,7 @@ export default function HorizontalRestaurantRow({
   return (
     <View style={styles.container}>
       {title ? (
-        <View style={[styles.header, { paddingHorizontal }]}> 
+        <View style={[styles.header, { paddingHorizontal }]}>
           <SectionHeading
             title={title}
             subtitle={subtitle}
