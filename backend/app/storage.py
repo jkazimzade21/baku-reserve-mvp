@@ -265,7 +265,7 @@ class Database:
             grouped_tags = []
             if isinstance(tag_groups, dict):
                 for values in tag_groups.values():
-                    if isinstance(values, (list, tuple)):
+                    if isinstance(values, list | tuple):
                         grouped_tags.extend(str(tag) for tag in values if isinstance(tag, str))
 
             search_text = " ".join(
