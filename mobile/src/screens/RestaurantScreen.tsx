@@ -1283,8 +1283,8 @@ const styles = StyleSheet.create({
 });
 
 const SLOT_INTERVAL_MINUTES = 30;
-const OPEN_MINUTES = 6 * 60; // 06:00 opening window
-const CLOSE_MINUTES = 23 * 60 + 30; // 23:30 closing window
+const OPEN_MINUTES = 8 * 60; // 08:00 opening window (temp default)
+const CLOSE_MINUTES = 23 * 60; // 23:00 closing window (temp default)
 const DEFAULT_FUTURE_START_MINUTES = OPEN_MINUTES;
 const BAKU_UTC_OFFSET = '+04:00'; // Azerbaijan has no DST; keep slots anchored here
 
