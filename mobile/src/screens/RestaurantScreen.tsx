@@ -11,6 +11,7 @@ import {
   StyleSheet,
   Text,
   View,
+  type LayoutChangeEvent,
 } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as WebBrowser from 'expo-web-browser';
@@ -80,6 +81,9 @@ export default function RestaurantScreen({ route, navigation }: Props) {
   const [pendingDateStr, setPendingDateStr] = useState<string>(dateStr);
   const [pendingParty, setPendingParty] = useState<number>(partySize);
   const [pendingTime, setPendingTime] = useState<string | null>(null);
+  const slotScrollRef = useRef<ScrollView | null>(null);
+  const slotScrollWidth = useRef<number>(0);
+  const slotLayouts = useRef<Map<string, { x: number; width: number }>>(new Map());
 
   useEffect(() => {
     setTagsExpanded(false);
@@ -265,6 +269,24 @@ export default function RestaurantScreen({ route, navigation }: Props) {
     Haptics.selectionAsync().catch(() => {});
     void loadAvailability();
   }, [loadAvailability]);
+
+  useEffect(() => {
+    slotLayouts.current.clear();
+  }, [displayedTimes]);
+
+  const centerSelectedTime = useCallback(() => {
+    if (!selectedTime) return;
+    const layout = slotLayouts.current.get(selectedTime);
+    if (!layout) return;
+    const containerWidth = slotScrollWidth.current;
+    if (!containerWidth) return;
+    const target = Math.max(layout.x - (containerWidth - layout.width) / 2, 0);
+    slotScrollRef.current?.scrollTo({ x: target, animated: true });
+  }, [selectedTime]);
+
+  useEffect(() => {
+    centerSelectedTime();
+  }, [centerSelectedTime, selectedTime, displayedTimes.length]);
 
   useEffect(() => {
     if (!data || totalTables === 0) {
@@ -547,6 +569,11 @@ export default function RestaurantScreen({ route, navigation }: Props) {
             showsHorizontalScrollIndicator={false}
             style={styles.slotScroller}
             contentContainerStyle={[styles.slotRow, styles.slotRowWide]}
+            ref={slotScrollRef}
+            onLayout={(event) => {
+              slotScrollWidth.current = event.nativeEvent.layout.width;
+              centerSelectedTime();
+            }}
           >
             {displayedTimes.map((time) => {
               const slot = slotByTime.get(time);
@@ -559,6 +586,13 @@ export default function RestaurantScreen({ route, navigation }: Props) {
                   onPress={() => handleTimeSelect(time)}
                   disabled={loadingSlots}
                   accessibilityRole="button"
+                  onLayout={(event: LayoutChangeEvent) => {
+                    slotLayouts.current.set(time, {
+                      x: event.nativeEvent.layout.x,
+                      width: event.nativeEvent.layout.width,
+                    });
+                    if (selected) centerSelectedTime();
+                  }}
                 >
                   <Text style={[styles.timeChipText, selected && styles.timeChipTextActive]}>{label}</Text>
                 </Pressable>
