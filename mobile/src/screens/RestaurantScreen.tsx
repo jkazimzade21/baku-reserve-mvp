@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
   Linking,
+  Modal,
   Platform,
   Pressable,
   ScrollView,
@@ -11,15 +12,14 @@ import {
   Text,
   View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as WebBrowser from 'expo-web-browser';
 import * as Haptics from 'expo-haptics';
-import DateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { fetchRestaurant, fetchFeatureFlags, RestaurantDetail, FeatureFlags, fetchAvailability, type RestaurantSummary, type AvailabilitySlot } from '../api';
 import PhotoCarousel from '../components/PhotoCarousel';
-import { colors, radius, shadow, spacing } from '../config/theme';
+import { colors, radius, spacing } from '../config/theme';
 import { resolveRestaurantPhotos } from '../utils/photoSources';
 import { formatLocation } from '../utils/restaurantMeta';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -28,7 +28,7 @@ import { Feather } from '@expo/vector-icons';
 import { trackAvailabilitySignal } from '../utils/analytics';
 import { useRestaurantDirectory } from '../contexts/RestaurantDirectoryContext';
 import { DEFAULT_TIMEZONE, formatDateLabel, formatTimeLabel, getDateString, getTimeString } from '../utils/availability';
-import { formatDateInput, parseDateInput } from '../utils/dateInput';
+import { parseDateInput } from '../utils/dateInput';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Restaurant'>;
 type ActionItem = { key: string; label: string; onPress: () => void };
@@ -58,6 +58,7 @@ const buildMockDetail = (summary: RestaurantSummary): RestaurantDetail => {
 };
 
 export default function RestaurantScreen({ route, navigation }: Props) {
+  const insets = useSafeAreaInsets();
   const { id } = route.params;
   const [data, setData] = useState<RestaurantDetail | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -70,17 +71,23 @@ export default function RestaurantScreen({ route, navigation }: Props) {
   const [tagsExpanded, setTagsExpanded] = useState(false);
   const timezone = data?.timezone || DEFAULT_TIMEZONE;
   const [dateStr, setDateStr] = useState<string>(() => getDateString(new Date(), timezone));
-  const [pendingDate, setPendingDate] = useState<Date>(() => parseDateInput(getDateString(new Date(), timezone)) ?? new Date());
   const [partySize, setPartySize] = useState<number>(2);
   const [slots, setSlots] = useState<AvailabilitySlot[]>([]);
   const [loadingSlots, setLoadingSlots] = useState<boolean>(false);
   const [slotsError, setSlotsError] = useState<string | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
-  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
+  const [plannerOpen, setPlannerOpen] = useState(false);
+  const [pendingDateStr, setPendingDateStr] = useState<string>(dateStr);
+  const [pendingParty, setPendingParty] = useState<number>(partySize);
+  const [pendingTime, setPendingTime] = useState<string | null>(null);
 
   useEffect(() => {
     setTagsExpanded(false);
   }, [id]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({ headerShown: false });
+  }, [navigation]);
 
   useEffect(() => {
     fallbackRef.current = fallbackSummary ?? null;
@@ -134,7 +141,7 @@ export default function RestaurantScreen({ route, navigation }: Props) {
       if (prev === todayTz) return todayTz;
       return prev;
     });
-    setPendingDate(parseDateInput(today) ?? new Date());
+    setPendingDateStr(today);
   }, [timezone]);
 
   const photoBundle = useMemo(() => (data ? resolveRestaurantPhotos(data) : null), [data]);
@@ -184,6 +191,8 @@ export default function RestaurantScreen({ route, navigation }: Props) {
   }, [loadAvailability]);
 
   const timeOptions = useMemo(() => buildTimeOptions(dateStr, timezone), [dateStr, timezone]);
+  const plannerTimeOptions = useMemo(() => buildTimeOptions(pendingDateStr, timezone), [pendingDateStr, timezone]);
+  const plannerDateOptions = useMemo(() => buildDateOptions(timezone, 14), [timezone]);
 
   const slotByTime = useMemo(() => {
     const map = new Map<string, AvailabilitySlot>();
@@ -216,48 +225,41 @@ export default function RestaurantScreen({ route, navigation }: Props) {
 
   const selectedSlot = selectedTime ? slotByTime.get(selectedTime) ?? null : null;
 
-  const openDatePicker = useCallback(() => {
-    const base = parseDateInput(dateStr) ?? new Date();
-    if (Platform.OS === 'android') {
-      DateTimePickerAndroid.open({
-        mode: 'date',
-        value: base,
-        onChange: (event, selectedDate) => {
-          if (event.type === 'set' && selectedDate) {
-            const normalized = formatDateInput(selectedDate);
-            setDateStr(normalized);
-            setPendingDate(selectedDate);
-            void loadAvailability(normalized, partySize);
-          }
-        },
-      });
-      return;
-    }
-    setPendingDate(base);
-    setShowDatePicker((prev) => !prev);
-  }, [dateStr, loadAvailability, partySize]);
+  const openPlanner = useCallback(() => {
+    setPendingParty(partySize);
+    setPendingDateStr(dateStr);
+    setPendingTime(selectedTime);
+    setPlannerOpen(true);
+  }, [dateStr, partySize, selectedTime]);
 
-  const confirmIOSDate = useCallback(() => {
-    const normalized = formatDateInput(pendingDate);
-    setDateStr(normalized);
-    setShowDatePicker(false);
-    void loadAvailability(normalized, partySize);
-  }, [pendingDate, loadAvailability, partySize]);
+  const closePlanner = useCallback(() => {
+    setPlannerOpen(false);
+  }, []);
 
-  const handleTimeSelect = useCallback(
-    (time: string) => {
-      setSelectedTime(time);
-      Haptics.selectionAsync().catch(() => {});
-    },
-    [],
-  );
+  const handleTimeSelect = useCallback((time: string) => {
+    setPendingTime(time);
+    Haptics.selectionAsync().catch(() => {});
+  }, []);
 
-  const handlePartyChange = useCallback(
-    (delta: number) => {
-      setPartySize((prev) => Math.max(1, prev + delta));
-    },
-    [],
-  );
+  const handlePartySelect = useCallback((size: number) => {
+    setPendingParty(size);
+    Haptics.selectionAsync().catch(() => {});
+  }, []);
+
+  const handleDateSelect = useCallback((value: string) => {
+    setPendingDateStr(value);
+    const parsed = parseDateInput(value);
+    if (parsed) setPendingDate(parsed);
+    Haptics.selectionAsync().catch(() => {});
+  }, []);
+
+  const applyPlanner = useCallback(() => {
+    setPartySize(pendingParty);
+    setDateStr(pendingDateStr);
+    setSelectedTime(pendingTime);
+    setPlannerOpen(false);
+    void loadAvailability(pendingDateStr, pendingParty);
+  }, [pendingParty, pendingDateStr, pendingTime, loadAvailability]);
 
   const handleRefreshSlots = useCallback(() => {
     Haptics.selectionAsync().catch(() => {});
@@ -355,7 +357,8 @@ export default function RestaurantScreen({ route, navigation }: Props) {
       Alert.alert('Instagram unavailable', 'This venue has not shared an Instagram profile yet.');
       return;
     }
-    Linking.openURL(data.instagram).catch(() => Alert.alert('Unable to open Instagram link.'));
+    const target = ensureHttpsUrl(data.instagram);
+    Linking.openURL(target).catch(() => Alert.alert('Unable to open Instagram link.'));
   };
 
   const handleMenu = async () => {
@@ -364,16 +367,23 @@ export default function RestaurantScreen({ route, navigation }: Props) {
       Alert.alert('Menu unavailable', 'This venue has not published its menu yet.');
       return;
     }
+    const target = ensureHttpsUrl(menuUrl);
     try {
-      await WebBrowser.openBrowserAsync(menuUrl);
+      await WebBrowser.openBrowserAsync(target);
     } catch (err) {
       try {
-        await Linking.openURL(menuUrl);
+        await Linking.openURL(target);
       } catch {
         Alert.alert('Unable to open menu link.');
       }
     }
   };
+
+  const handleGoBack = useCallback(() => {
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    }
+  }, [navigation]);
 
   const handleDirections = () => {
     if (data?.latitude && data?.longitude) {
@@ -382,18 +392,31 @@ export default function RestaurantScreen({ route, navigation }: Props) {
       const url = Platform.select({
         ios: `maps://?q=${encodedLabel}&ll=${latitude},${longitude}`,
         android: `geo:${latitude},${longitude}?q=${latitude},${longitude}(${encodedLabel})`,
-        default: `https://www.openstreetmap.org/?mlat=${latitude}&mlon=${longitude}#map=16/${latitude}/${longitude}`,
+        default: `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`,
       });
       Linking.openURL(url ?? '').catch(() => Alert.alert('Unable to open maps.'));
       return;
     }
     if (data?.address) {
-      const url = `https://www.openstreetmap.org/search?query=${encodeURIComponent(data.address)}`;
+      const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(data.address)}`;
       Linking.openURL(url).catch(() => Alert.alert('Unable to open maps.'));
       return;
     }
     Alert.alert('No address provided', 'This venue has not shared a map location yet.');
   };
+
+  function ensureHttpsUrl(raw: string) {
+    if (!raw) return '';
+    if (/^https?:\/\//i.test(raw)) return raw;
+    if (raw.startsWith('@')) {
+      return `https://instagram.com/${raw.slice(1)}`;
+    }
+    // Handle plain handles without scheme or domain
+    if (/^[A-Za-z0-9_.]+$/.test(raw)) {
+      return `https://instagram.com/${raw}`;
+    }
+    return `https://${raw.replace(/^\/+/, '')}`;
+  }
 
   if (loading && !data) {
     return (
@@ -444,7 +467,7 @@ export default function RestaurantScreen({ route, navigation }: Props) {
   return (
     <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.mediaWrapper}>
+        <View style={[styles.mediaWrapper, { marginTop: -insets.top }]}>
           {isPendingPhotos ? (
             <View style={styles.pendingPhotos}>
               <Text style={styles.pendingTitle}>Photos coming soon</Text>
@@ -460,6 +483,14 @@ export default function RestaurantScreen({ route, navigation }: Props) {
               <Text style={styles.pendingSubtitle}>Photos coming soon</Text>
             </View>
           )}
+          <View style={[styles.mediaTopBar, { top: insets.top + spacing.sm }]}>
+            <Pressable style={styles.mediaIconButton} onPress={handleGoBack} accessibilityRole="button">
+              <Feather name="arrow-left" size={18} color="#0f172a" />
+            </Pressable>
+            <Pressable style={styles.mediaIconButton} onPress={handleShare} accessibilityRole="button">
+              <Feather name="share-2" size={18} color="#0f172a" />
+            </Pressable>
+          </View>
           <LinearGradient
             colors={['rgba(0,0,0,0.05)', 'rgba(0,0,0,0.6)']}
             style={styles.mediaGradient}
@@ -482,33 +513,25 @@ export default function RestaurantScreen({ route, navigation }: Props) {
           </View>
         </View>
 
-        <View style={styles.sectionPlain}>
-          <View style={styles.quickPlannerRow}>
-            <Pressable style={styles.quickPill} onPress={openDatePicker} accessibilityRole="button">
-              <Feather name="calendar" size={16} color={colors.primaryStrong} />
-              <View style={styles.quickPillTextGroup}>
-                <Text style={styles.quickPillLabel}>Day</Text>
-                <Text style={styles.quickPillValue}>{formatDateLabel(parsedDate, timezone)}</Text>
+        <View style={styles.sectionPlain} testID="restaurant-availability-card">
+          <Pressable style={styles.plannerPill} onPress={openPlanner} accessibilityRole="button">
+            <View style={styles.plannerSummaryRow}>
+              <View style={styles.summaryItem}>
+                <Feather name="user" size={16} color={colors.primaryStrong} />
+                <Text style={styles.summaryText}>{partySize}</Text>
               </View>
-            </Pressable>
-            <View style={styles.quickDivider} />
-            <View style={styles.partyPill}>
-              <Text style={styles.quickPillLabel}>Party</Text>
-              <View style={styles.partyStepper}>
-                <Pressable style={styles.partyStepperButton} onPress={() => handlePartyChange(-1)} accessibilityRole="button">
-                  <Text style={styles.stepperIcon}>−</Text>
-                </Pressable>
-                <Text style={styles.partyValue}>{partySize}</Text>
-                <Pressable style={styles.partyStepperButton} onPress={() => handlePartyChange(1)} accessibilityRole="button">
-                  <Text style={styles.stepperIcon}>＋</Text>
-                </Pressable>
+              <View style={styles.summaryItem}>
+                <Feather name="calendar" size={16} color={colors.primaryStrong} />
+                <Text style={styles.summaryText}>{formatDateCompact(parsedDate, timezone)}</Text>
+              </View>
+              <View style={styles.summaryItem}>
+                <Feather name="clock" size={16} color={colors.primaryStrong} />
+                <Text style={styles.summaryText}>{selectedTimeLabel}</Text>
               </View>
             </View>
-          </View>
-          <Text style={styles.quickFootnote}>Times shown in Baku (UTC+4)</Text>
-        </View>
+            <Feather name="chevron-down" size={16} color={colors.primaryStrong} />
+          </Pressable>
 
-        <View style={styles.sectionPlain} testID="restaurant-availability-card">
           <View style={styles.availabilityHeader}>
             <View style={styles.availabilityTitles}>
               <Text style={styles.sectionLabel}>Availability</Text>
@@ -522,26 +545,22 @@ export default function RestaurantScreen({ route, navigation }: Props) {
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.slotRow}
+            style={styles.slotScroller}
+            contentContainerStyle={[styles.slotRow, styles.slotRowWide]}
           >
             {displayedTimes.map((time) => {
               const slot = slotByTime.get(time);
               const selected = selectedTime === time;
-              const disabled = !slot || loadingSlots;
               const label = formatChipTime(time, timezone);
-              const openTables = slot?.available_table_ids?.length ?? 0;
               return (
                 <Pressable
                   key={time}
-                  style={[styles.timeChip, selected && styles.timeChipActive, disabled && styles.timeChipDisabled]}
+                  style={[styles.timeChip, selected && styles.timeChipActive, !slot && styles.timeChipGhost]}
                   onPress={() => handleTimeSelect(time)}
-                  disabled={disabled}
+                  disabled={loadingSlots}
                   accessibilityRole="button"
                 >
                   <Text style={[styles.timeChipText, selected && styles.timeChipTextActive]}>{label}</Text>
-                  <Text style={[styles.timeChipMeta, selected && styles.timeChipMetaActive]}>
-                    {slot ? `${openTables} ${openTables === 1 ? 'table' : 'tables'}` : 'Unavailable'}
-                  </Text>
                 </Pressable>
               );
             })}
@@ -655,21 +674,84 @@ export default function RestaurantScreen({ route, navigation }: Props) {
         </View>
       </ScrollView>
 
-      {Platform.OS === 'ios' && showDatePicker ? (
-        <DateTimePicker
-          value={pendingDate}
-          mode="date"
-          display="inline"
-          onChange={(_event, selected) => {
-            if (!selected) return;
-            setPendingDate(selected);
-            const normalized = formatDateInput(selected);
-            setDateStr(normalized);
-            void loadAvailability(normalized, partySize);
-          }}
-          style={styles.modalPicker}
-        />
-      ) : null}
+      <Modal transparent visible={plannerOpen} animationType="slide" onRequestClose={closePlanner}>
+        <View style={styles.sheetBackdrop}>
+          <Pressable style={StyleSheet.absoluteFill} onPress={closePlanner} />
+          <View style={[styles.sheetCard, { paddingBottom: insets.bottom + spacing.lg }]}>
+            <View style={styles.sheetHeader}>
+              <Text style={styles.sheetTitle}>Plan your table</Text>
+              <Pressable onPress={closePlanner} accessibilityRole="button">
+                <Feather name="x" size={20} color={colors.mutedStrong} />
+              </Pressable>
+            </View>
+
+            <Text style={styles.sheetLabel}>Party size</Text>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.sheetRail}
+            >
+              {Array.from({ length: 20 }, (_, idx) => idx + 1).map((size) => {
+                const selected = size === pendingParty;
+                return (
+                  <Pressable
+                    key={size}
+                    style={[styles.railChip, selected && styles.railChipActive]}
+                    onPress={() => handlePartySelect(size)}
+                    accessibilityRole="button"
+                  >
+                    <Text style={[styles.railChipText, selected && styles.railChipTextActive]}>{size}</Text>
+                  </Pressable>
+                );
+              })}
+            </ScrollView>
+
+            <View style={styles.sheetGrid}>
+              <View style={styles.sheetColumnWrapper}>
+                <Text style={styles.sheetLabel}>Date</Text>
+                <ScrollView style={styles.sheetColumn} contentContainerStyle={styles.sheetColumnContent}>
+                  {plannerDateOptions.map((opt) => {
+                    const selected = opt.value === pendingDateStr;
+                    return (
+                      <Pressable
+                        key={opt.value}
+                        style={[styles.listRow, selected && styles.listRowActive]}
+                        onPress={() => handleDateSelect(opt.value)}
+                        accessibilityRole="button"
+                      >
+                        <Text style={[styles.listRowText, selected && styles.listRowTextActive]}>{opt.label}</Text>
+                      </Pressable>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+
+              <View style={styles.sheetColumnWrapper}>
+                <Text style={styles.sheetLabel}>Time</Text>
+                <ScrollView style={styles.sheetColumn} contentContainerStyle={styles.sheetColumnContent}>
+                  {plannerTimeOptions.map((time) => {
+                    const selected = time === pendingTime;
+                    return (
+                      <Pressable
+                        key={time}
+                        style={[styles.listRow, selected && styles.listRowActive]}
+                        onPress={() => handleTimeSelect(time)}
+                        accessibilityRole="button"
+                      >
+                        <Text style={[styles.listRowText, selected && styles.listRowTextActive]}>{formatChipTime(time, timezone)}</Text>
+                      </Pressable>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+            </View>
+
+            <Pressable style={styles.sheetPrimary} onPress={applyPlanner} accessibilityRole="button">
+              <Text style={styles.sheetPrimaryText}>Done</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -698,14 +780,36 @@ const styles = StyleSheet.create({
     color: colors.muted,
   },
   scrollContent: {
-    paddingHorizontal: spacing.lg,
+    paddingHorizontal: 0,
     paddingBottom: spacing.xl,
     gap: spacing.lg,
   },
   mediaWrapper: {
     position: 'relative',
-    marginHorizontal: -spacing.lg,
+    marginHorizontal: 0,
     backgroundColor: colors.surface,
+  },
+  mediaTopBar: {
+    position: 'absolute',
+    top: spacing.lg,
+    left: spacing.md,
+    right: spacing.md,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    zIndex: 2,
+  },
+  mediaIconButton: {
+    width: 40,
+    height: 40,
+    borderRadius: radius.lg,
+    backgroundColor: 'rgba(255,255,255,0.92)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#0f172a',
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 3,
   },
   mediaGradient: {
     position: 'absolute',
@@ -716,8 +820,8 @@ const styles = StyleSheet.create({
   },
   mediaHeader: {
     position: 'absolute',
-    left: spacing.lg,
-    right: spacing.lg,
+    left: spacing.md,
+    right: spacing.md,
     bottom: spacing.lg,
     gap: spacing.xs,
   },
@@ -786,79 +890,142 @@ const styles = StyleSheet.create({
   },
   sectionPlain: {
     gap: spacing.md,
-    paddingHorizontal: spacing.lg,
+    paddingHorizontal: spacing.md,
   },
-  quickPlannerRow: {
+  plannerPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    gap: spacing.xs,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs + 2,
+    borderRadius: radius.lg,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+    minWidth: '70%',
+    maxWidth: 520,
+  },
+  plannerSummaryRow: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  summaryItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+  },
+  summaryText: {
+    color: colors.text,
+    fontWeight: '700',
+  },
+  sheetBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.25)',
+    justifyContent: 'flex-end',
+  },
+  sheetCard: {
+    backgroundColor: colors.card,
+    borderTopLeftRadius: radius.xl,
+    borderTopRightRadius: radius.xl,
+    padding: spacing.lg,
+    gap: spacing.md,
+    shadowColor: '#0f172a',
+    shadowOpacity: 0.12,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: -4 },
+  },
+  sheetHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: spacing.md,
   },
-  quickPill: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.sm,
+  sheetTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: colors.text,
   },
-  quickPillTextGroup: {
-    flexShrink: 1,
-  },
-  quickPillLabel: {
+  sheetLabel: {
     textTransform: 'uppercase',
-    letterSpacing: 0.5,
-    fontSize: 12,
+    letterSpacing: 0.6,
+    fontSize: 11,
     color: colors.muted,
     fontWeight: '700',
   },
-  quickPillValue: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: colors.text,
-  },
-  quickDivider: {
-    width: 1,
-    height: 48,
-    backgroundColor: colors.border,
-  },
-  partyPill: {
-    gap: spacing.xs,
-    alignItems: 'flex-start',
-  },
-  partyStepper: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  sheetRail: {
     gap: spacing.sm,
-    backgroundColor: colors.surface,
+    paddingVertical: spacing.sm,
+  },
+  railChip: {
+    minWidth: 40,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: spacing.sm,
     borderRadius: radius.md,
     borderWidth: 1,
     borderColor: colors.border,
-    paddingHorizontal: spacing.sm,
-    paddingVertical: 6,
-  },
-  partyStepperButton: {
-    width: 34,
-    height: 34,
-    borderRadius: radius.sm,
+    backgroundColor: colors.surface,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.overlay,
   },
-  stepperIcon: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: colors.primaryStrong,
+  railChipActive: {
+    backgroundColor: colors.primaryStrong,
+    borderColor: colors.primaryStrong,
   },
-  partyValue: {
-    fontSize: 18,
+  railChipText: {
     fontWeight: '700',
     color: colors.text,
-    minWidth: 28,
-    textAlign: 'center',
   },
-  quickFootnote: {
-    marginTop: spacing.xs,
-    color: colors.muted,
-    fontSize: 12,
+  railChipTextActive: {
+    color: '#fff',
+  },
+  sheetGrid: {
+    flexDirection: 'row',
+    gap: spacing.md,
+  },
+  sheetColumnWrapper: {
+    flex: 1,
+    gap: spacing.xs,
+  },
+  sheetColumn: {
+    maxHeight: 260,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.lg,
+    backgroundColor: colors.surface,
+  },
+  sheetColumnContent: {
+    paddingVertical: spacing.xs,
+  },
+  listRow: {
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+  },
+  listRowActive: {
+    backgroundColor: colors.primary,
+  },
+  listRowText: {
+    color: colors.text,
+    fontWeight: '600',
+  },
+  listRowTextActive: {
+    color: colors.royalDeep,
+    fontWeight: '800',
+  },
+  sheetPrimary: {
+    backgroundColor: colors.primaryStrong,
+    borderRadius: radius.lg,
+    paddingVertical: spacing.md,
+    alignItems: 'center',
+  },
+  sheetPrimaryText: {
+    color: '#fff',
+    fontWeight: '800',
+    fontSize: 16,
   },
   availabilityCard: {
     gap: spacing.sm,
@@ -894,21 +1061,30 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     paddingVertical: spacing.sm,
   },
-  timeChip: {
+  slotRowWide: {
     paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
+  },
+  slotScroller: {
+    marginHorizontal: -spacing.md,
+  },
+  timeChip: {
+    paddingHorizontal: spacing.sm + 2,
+    paddingVertical: spacing.xs,
     borderRadius: radius.md,
     backgroundColor: colors.overlay,
-    minWidth: 110,
+    minWidth: 86,
     borderWidth: 1,
     borderColor: colors.border,
+    alignItems: 'center',
   },
   timeChipActive: {
     backgroundColor: colors.primaryStrong,
     borderColor: colors.primaryStrong,
   },
-  timeChipDisabled: {
-    opacity: 0.55,
+  timeChipGhost: {
+    opacity: 0.72,
+    borderColor: colors.border,
+    backgroundColor: colors.surface,
   },
   timeChipText: {
     fontWeight: '700',
@@ -916,13 +1092,6 @@ const styles = StyleSheet.create({
   },
   timeChipTextActive: {
     color: '#fff',
-  },
-  timeChipMeta: {
-    fontSize: 12,
-    color: colors.muted,
-  },
-  timeChipMetaActive: {
-    color: 'rgba(255,255,255,0.85)',
   },
   slotSkeleton: {
     justifyContent: 'center',
@@ -1083,11 +1252,33 @@ const styles = StyleSheet.create({
   },
 });
 
-const SLOT_INTERVAL_MINUTES = 15;
-const OPEN_MINUTES = 8 * 60; // 08:00 default opening
-const CLOSE_MINUTES = 23 * 60; // 23:00 default closing
-const DEFAULT_FUTURE_START_MINUTES = OPEN_MINUTES; // 08:00 fallback for future dates
+const SLOT_INTERVAL_MINUTES = 30;
+const OPEN_MINUTES = 6 * 60; // 06:00 opening window
+const CLOSE_MINUTES = 23 * 60 + 30; // 23:30 closing window
+const DEFAULT_FUTURE_START_MINUTES = OPEN_MINUTES;
 const BAKU_UTC_OFFSET = '+04:00'; // Azerbaijan has no DST; keep slots anchored here
+
+function buildDateOptions(timezone: string, days = 10) {
+  const results: { value: string; label: string }[] = [];
+  const base = new Date();
+  for (let i = 0; i < days; i += 1) {
+    const date = new Date(base);
+    date.setDate(base.getDate() + i);
+    const value = getDateString(date, timezone);
+    let label: string;
+    if (i === 0) label = 'Today';
+    else if (i === 1) label = 'Tomorrow';
+    else {
+      label = new Intl.DateTimeFormat('en-US', {
+        weekday: 'short',
+        day: 'numeric',
+        month: 'short',
+      }).format(date);
+    }
+    results.push({ value, label });
+  }
+  return results;
+}
 
 function buildTimeOptions(dateStr: string, timezone: string) {
   const now = new Date();
@@ -1102,9 +1293,9 @@ function buildTimeOptions(dateStr: string, timezone: string) {
   const hour = Number(parts.find((p) => p.type === 'hour')?.value ?? '0');
   const minute = Number(parts.find((p) => p.type === 'minute')?.value ?? '0');
 
-  const startMinutes = isToday
-    ? Math.max((hour + 1) * 60 + (minute < 30 ? 0 : 30), OPEN_MINUTES)
-    : DEFAULT_FUTURE_START_MINUTES;
+  const currentMinutes = hour * 60 + minute;
+  const nextHalfHour = Math.ceil((currentMinutes + 1) / SLOT_INTERVAL_MINUTES) * SLOT_INTERVAL_MINUTES;
+  const startMinutes = isToday ? Math.max(nextHalfHour, OPEN_MINUTES) : DEFAULT_FUTURE_START_MINUTES;
 
   const first = Math.min(Math.max(startMinutes, OPEN_MINUTES), CLOSE_MINUTES);
   const options: string[] = [];
@@ -1144,6 +1335,15 @@ function formatChipTime(time: string, timezone: string) {
     minute: '2-digit',
   });
   return formatter.format(buildBakuDateFromTimeString(time));
+}
+
+function formatDateCompact(date: Date, timezone: string) {
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: timezone,
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+  }).format(date);
 }
 
 function formatTag(tag: string) {

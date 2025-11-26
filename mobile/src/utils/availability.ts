@@ -17,7 +17,6 @@ type FormatterBundle = {
   date: Intl.DateTimeFormat;
   displayDate: Intl.DateTimeFormat;
   displayTime: Intl.DateTimeFormat;
-  displayTimeWithZone: Intl.DateTimeFormat;
 };
 
 const formatterCache = new Map<string, FormatterBundle>();
@@ -55,12 +54,6 @@ const getFormatters = (timezone?: string): FormatterBundle => {
         timeZone: tz,
         hour: 'numeric',
         minute: '2-digit',
-      }),
-      displayTimeWithZone: new Intl.DateTimeFormat('en-US', {
-        timeZone: tz,
-        hour: 'numeric',
-        minute: '2-digit',
-        timeZoneName: 'short',
       }),
     });
   }
@@ -169,17 +162,5 @@ export const formatDateLabel = (date: Date, timezone?: string) =>
   getFormatters(timezone).displayDate.format(date);
 
 export const formatTimeLabel = (date: Date, timezone?: string) => {
-  const formatter = getFormatters(timezone).displayTimeWithZone;
-  const parts = formatter.formatToParts(date);
-  let timeText = '';
-  let zoneText = '';
-  parts.forEach((part) => {
-    if (part.type === 'timeZoneName') {
-      zoneText = part.value.trim();
-    } else {
-      timeText += part.value;
-    }
-  });
-  const trimmedTime = timeText.trim();
-  return zoneText ? `${trimmedTime} ${zoneText}` : trimmedTime;
+  return getFormatters(timezone).displayTime.format(date);
 };
